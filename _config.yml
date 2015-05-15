@@ -1,0 +1,18 @@
+# Site settings
+title: OData - the Best Way to REST
+email: odata-discussion@googlegroups.com
+description: > # this means to ignore newlines until "baseurl:"
+  OData, the short for Open Data Protocol, is an open protocol 
+  to allow the creation and consumption of queryable and interoperable RESTful APIs 
+  in a simple and standard way.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://odataorg.github.io/" # the base hostname & protocol for your site
+twitter_username: odataorg
+github_username:  odataorg
+
+permalink: /blog/:title
+
+highlighter: pygments
+
+# Build settings
+markdown: kramdown
