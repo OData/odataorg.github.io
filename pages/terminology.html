@@ -1,0 +1,65 @@
+---
+layout: page
+title: Terminology
+date: 2014-02-28 03:28:21.000000000 +08:00
+permalink: /documentation/odata-version-2-0/terminology/
+---
+<h2>Summary of References:</h2>
+<div>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th valign="top" width="151">Reference</th>
+<th valign="top" width="487">Description</th>
+</tr>
+<tr>
+<td valign="top" width="151">[<a href="http://tools.ietf.org/html/rfc2616">RFC 2616</a>]</td>
+<td valign="top" width="487">The HTTP protocol</td>
+</tr>
+<tr>
+<td valign="top" width="151">[<a href="http://tools.ietf.org/html/rfc5023">RFC 5023</a>]</td>
+<td valign="top" width="487">The Atom Publishing Protocol</td>
+</tr>
+<tr>
+<td valign="top" width="151">[<a href="../overview">OData: Core</a>]</td>
+<td valign="top" width="487">The core specification for OData</td>
+</tr>
+<tr>
+<td valign="top" width="151">[<a href="../atom-format">OData: Atom</a>]</td>
+<td valign="top" width="487">Atom format conventions for OData services</td>
+</tr>
+<tr>
+<td valign="top" width="151">[<a href="../JSON-format">OData: JSON</a>]</td>
+<td valign="top" width="487">JSON format conventions for OData services</td>
+</tr>
+<tr>
+<td valign="top" width="151">[<a href="../uri-conventions">OData: URI</a>]</td>
+<td valign="top" width="487">URI conventions for OData services</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Glossary:</h2>
+<p><a id="BinaryLargeObject" name="BinaryLargeObject"></a><strong> Binary Large Object (BLOB)</strong>: binary data stored as a single entity. Blobs are often videos, images, documents, etc.</p>
+<p><a id="Collection" name="Collection"></a><strong>Collection</strong>: A Resource that contains a set of Member Resources as defined in [<a href="http://tools.ietf.org/html/rfc5023">RFC 5023</a>]. In OData, a Collection is represented as an Atom Feed or an array of JSON objects.</p>
+<p><a id="CSDL" name="CSDL"></a><strong>CSDL</strong>: An XML language for describing Entity Data Models. See [<a href="http://www.odata.org/media/6652/[mc-csdl][1].htm">CDSL</a>] for additional information.</p>
+<p><a id="DeclaredProperty" name="DeclaredProperty"></a><strong>Declared Property</strong>: A statically declared Property on an Entity or Complex Type. The value of a declared property is a primitive or complex type.</p>
+<p><a id="DynamicProperty" name="DynamicProperty"></a><strong>Dynamic Property</strong>: An Entry may include additional (nullable) properties beyond its Declared Properties. The set of additional properties, and the type of each, may vary between Entry instances. Such additional properties are referred to as Dynamic Properties and do not have a representation in a Service Metadata Document. If an Entry does not include a value for a Dynamic Property named <em>N</em>, then the Entry must be treated as if it included <em>N</em> with a value of null. A Dynamic Property must not have the same name as a declared property on the same Entry.</p>
+<p><a id="EntityDataModel" name="EntityDataModel"></a><strong>Entity Data Model</strong>: The abstract data model used by OData services. See the Abstract Data Model section of [<a href="../overview">OData: Core</a>] additional information.</p>
+<p><a id="Entry" name="Entry"></a><strong>Entry (Entry Resource)</strong>: Members of a Collection, as defined by [<a href="http://tools.ietf.org/html/rfc5023">RFC 5023</a>]. In OData, Entries are represented as Atom Entry Documents, as described in [<a href="../atom-format">OData: Atom</a>] or JSON objects, as described in [<a href="../JSON-format">OData: JSON</a>]. An Entry may represent an instance of an Open Entity Type if, in addition to Declared Properties, the entry includes Dynamic Properties.</p>
+<p><a id="Feed" name="Feed"></a><strong>Feed</strong>: The representation of a Collection in Atom (see [<a href="../atom-format">OData: Atom</a>]) or JSON (see [<a href="../JSON-format">OData: JSON</a>])</p>
+<p><a id="IRI" name="IRI"></a><strong>IRI:</strong> An Internationalized Resource Identifier as defined in [<a href="http://tools.ietf.org/html/rfc3987">RFC3987</a>]. Before an IRI found in a document used by HTTP, the IRI is first converted to a URI</p>
+<p><a id="Link" name="Link"></a><strong>Link</strong>: Describes an association between two Entries. More specifically, the term refers to a unidirectional association or to one direction of a bidirectional association.</p>
+<p><a id="MediaLinkEntry" name="MediaLinkEntry"></a><strong>Media Link Entry</strong>: A special kind of Entry Resource that contains metadata about a Media Resource, as defined in [<a href="http://tools.ietf.org/html/rfc5023">RFC 5023</a>].</p>
+<p><a id="MediaResource" name="MediaResource"></a><strong>Media Resource</strong>: Members of a Collection that have representations other than Atom Entry Documents or JSON objects.</p>
+<p><a id="MemberResource" name="MemberResource"></a><strong>Member Resource</strong>: A Resource whose IRI is listed in a Collection, as defined in [<a href="http://tools.ietf.org/html/rfc5023">RFC 5023</a>]</p>
+<p><a id="NavigationProperty" name="NavigationProperty"></a><strong> Navigation Property</strong>: A property of an Entry that represents a Link from the Entry to one or more related Entries. A Navigation Property is not a structural part of the Entry it belongs to.</p>
+<p><a id="ODataDataNamespace" name="ODataDataNamespace"></a><strong> OData Data Namespace</strong>: The namespace used by OData services when representing data in XML-based formats. The URI identifying the namespace is <a href="http://schemas.microsoft.com/ado/2007/08/dataservices"> http://schemas.microsoft.com/ado/2007/08/dataservices</a> . Note: The next version of OData will likely support a more general odata.org-based namespace.</p>
+<p><a id="ODataMetadataNamespace" name="ODataMetadataNamespace"></a> <strong>OData Metadata Namespace</strong>: The namespace used by OData services when representing metadata in XML-based formats. The URI identifying the namespace is <a href="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">http://schemas.microsoft.com/ado/2007/08/dataservices/metadata</a> . Note: The next version of OData will likely support a more general odata.org-based namespace.</p>
+<p><a id="ODataService" name="ODataService"></a><strong>OData Service</strong>: A service which implements the Open Data Protocol (OData).</p>
+<p><a id="Property" name="Property"></a><strong>Property</strong>: A generic term to represent a declared or dynamic property of an Entry.</p>
+<p><a id="REST" name="REST"></a><strong>Representational state transfer (REST)</strong>: REST is a set of principles or style of software architecture for distributed hypermedia systems such as the World Wide Web. OData applies the principles of REST whenever possible.</p>
+<p><a id="Resource" name="Resource"></a><strong>Resource</strong>: A network-accessible data object or service identified by an IRI, as defined in [<a href="http://tools.ietf.org/html/rfc2616">RFC 2616</a>]</p>
+<p><a id="ServiceDocument" name="ServiceDocument"></a><strong>Service Document</strong>: A document that describes the location and capabilities of one or more Collections, as described by [<a href="http://tools.ietf.org/html/rfc5023">RFC 5023</a>]. See [<a href="../overview">OData: Core</a>] for additional information on using Service Documents with OData services.</p>
+<p><a id="ServiceMetadataDocument" name="ServiceMetadataDocument"></a> <strong>Service Metadata Document (Metadata Document)</strong>: A CSDL that describes the data model (i.e. structure and organization of all the resources) exposed as HTTP endpoints by an OData service. See [<a href="../overview">OData: Core</a>] for additional information.</p>
+<p><a id="URI" name="URI"></a><strong>URI</strong>: A Uniform Resource Identifier as defined in <a href="http://tools.ietf.org/html/rfc3986">[RFC3986]</a></p>

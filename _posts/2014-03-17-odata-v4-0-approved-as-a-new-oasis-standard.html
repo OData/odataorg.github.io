@@ -1,0 +1,37 @@
+---
+layout: post
+title: OData V4.0 Approved as a New OASIS Standard
+date: 2014-03-17 15:56:15.000000000 +08:00
+categories:
+- OData protocol
+- OData standardization
+- OData V4
+- Site announcement
+tags: []
+status: publish
+type: post
+published: true
+author: Mike Pizzo
+---
+<p>I am thrilled to announce that OData V4.0 has officially been approved as a new <a title="OASIS Standard" href="https://www.oasis-open.org/news/pr/oasis-approves-odata-4-0-standards-for-an-open-programmable-web">OASIS standard</a>.</p>
+<p>OData V4 is the result of a year and a half of hard work from the OASIS Technical Committee, addressing over 500 issues/requests through two committee specifications and three public reviews. Below are a few of the key new features added to address common user requests. A more complete set of changes from OData V3.0 can be found <a href="http://docs.oasis-open.org/odata/new-in-odata/v4.0/new-in-odata-v4.0.html">here</a>.</p>
+<ul>
+<li><span style="text-decoration: underline;">Entity Data Model Enhancements.</span> OData defines a consumer-oriented Entity Data Model that helps general purpose clients understand how to interact with an OData service. OData V4 enhances the entity model, adding support for containment, singletons, enums and type definitions. Date/Time data types have been reworked to include separate Date, TimeOfDay, Duration, and DateTimeOffset data types. Complex types now support inheritance and navigation properties. Relationships, a key part of the entity model, are significantly simplified.</li>
+<li><span style="text-decoration: underline;">Improved Support for Distributed Services.</span> In a web of data, not all data comes from a single service. OData V4 breaks down silos between endpoints by supporting distributed services. Services can now reference models, vocabularies, and data in other services.</li>
+<li><span style="text-decoration: underline;">Dynamic Schema</span>. While metadata helps generic clients anticipate how to interact with a service, not all of the world fits into a pre-defined schema. OData V4 services are allowed greater flexibility in exposing dynamic properties, relationships, and operations.</li>
+<li><span style="text-decoration: underline;">Improved Queryability.</span> In today's device-centric world, bringing back the right subset of data is key to reducing round-trips, payload, and footprint. OData V4 includes syntax for applying filters, sorts, and selects against expanded properties, allowing clients to push processing to the service and more precisely specify the interesting set of data to be retrieved. Full text search functionality, recursive queries, and the use of user defined functions in predicates all help clients control the data returned from the service.</li>
+<li><span style="text-decoration: underline;">Delta Support.</span> Delta support allows clients to query services and receive just the set of deltas –changes—from a previous state. Designed for scalability, this hypermedia-driven model gives the service ultimate control over how changes are identified while providing a simple, well-defined model to the client.</li>
+<li><span style="text-decoration: underline;">Annotation/Vocabulary Improvements.</span> Annotations allow services to mark up both data and metadata with additional semantics. Annotation terms can be defined and shared as common semantic vocabularies across services, organizations, and industries. OData V4 considerably simplifies annotations while enhancing their expressivity and applicability.</li>
+<li><span style="text-decoration: underline;">Asynchronous Support.</span> Sometimes things take a while to process. Building on common HTTP headers and conventions, OData V4 defines an asynchronous pattern for long-running requests.</li>
+</ul>
+<p>The OASIS Standard includes the <a href="http://docs.oasis-open.org/odata/odata/v4.0/os/part1-protocol/odata-v4.0-os-part1-protocol.html">OData V4.0 Protocol</a> and <a href="http://docs.oasis-open.org/odata/odata-json-format/v4.0/os/odata-json-format-v4.0-os.html">OData V4.0 JSON Format</a>. The <a href="http://docs.oasis-open.org/odata/odata-atom-format/v4.0/cs02/odata-atom-format-v4.0-cs02.html">OData V4.0 ATOM format</a> is currently in Committee Specification stage until it receives at least two more official <a href="https://www.oasis-open.org/policies-guidelines/tc-process#definitions">Statements of Use</a> necessary to progress it to the final stage of OASIS standardization.</p>
+<p>This important milestone does not conclude the work of the Technical Committee. The committee is already working on two extensions for OData.</p>
+<ul>
+<li><span style="text-decoration: underline;">Aggregation Support.</span> In a world where analytics plays an increasingly important role, we want to leverage OData's strengths in modeling, server-side processing, and simplified client payloads to support aggregation and analytic scenarios. The <a href="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs01/odata-data-aggregation-ext-v4.0-cs01.html">OData Extension for Data Aggregation Version 4.0</a>, already in Committee Specification, defines annotations and compatible extensions to the OData query language for modeling and querying aggregate data.</li>
+<li><span style="text-decoration: underline;">Temporal Support</span>. The OData Technical Committee is working on an early draft of extensions for Temporal support, allowing (for example) clients to query data as-of a certain point in time or time range.</li>
+</ul>
+<p>This is an incredibly exciting time for Open Data, as products and libraries are quickly rev'ing to support OData v4.0. Support for building OData V4 compliant clients and servers in Java, as well as consuming OData V4 from JavaScript clients, is already underway in the open source <a href="http://olingo.incubator.apache.org/">Apache Olingo</a> incubator project. Microsoft has recently released versions of core OData V4 <a href="http://www.nuget.org/packages/Microsoft.OData.Core/">libraries</a> for .NET, an <a href="http://www.nuget.org/packages/Microsoft.OData.Client/">OData Client</a> for consuming OData V4 services, and support for building OData V4 services using a pre-release library in <a href="http://blogs.msdn.com/b/webdev/archive/2014/03/13/getting-started-with-asp-net-web-api-2-2-for-odata-v4-0.aspx">WebAPI</a>.</p>
+<p>Stay tuned for more information about upcoming support for the new OASIS OData v4.0 Standard!</p>
+<p>Michael Pizzo<br />
+Principal Software Architect, Microsoft<br />
+Editor, OData Specification</p>

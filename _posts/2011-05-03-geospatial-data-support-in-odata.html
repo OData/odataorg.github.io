@@ -1,0 +1,283 @@
+---
+layout: post
+title: Geospatial data support in OData
+date: 2011-05-03 17:27:22.000000000 +08:00
+categories:
+- OData protocol
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<p>&nbsp;</p>
+<h2>Geospatial data support in OData</h2>
+<div>
+<p>This is a strawman proposal. Please challenge it in the <a href="http://www.odata.org/mailing-list">OData mailing list</a>.</p>
+<p>OData supports geospatial data types as a new set of primitives. They can be used just like any other primitives - passed in URLs as literals, as types and values for properties, projected in $select, and so on. Like other primitives, there is a set of canonical functions that can be used with them.</p>
+<div>
+<h3>Why are we leaning towards this design?</h3>
+<p>Boxes like these question the design and provide the reasoning behind the choices so far.</p>
+<p>This is currently a living document. As we continue to make decisions, we will adjust this document. We will also record our new reasons for our new decisions.</p>
+</div>
+<p>The only restriction, as compared to other primitives, is that geospatial types may not be used as entity keys (see below).</p>
+<p>The rest of this spec goes into more detail about the geospatial type system that we support, how geospatial types are represented in $metadata, how their values are represented in Atom and JSON payloads, how they are represented in URLs, and what canonical functions are defined for them.</p>
+<h3>Modeling</h3>
+<h4>Primitive Types</h4>
+<p>Our type system is firmly rooted in the OGC Simple Features geometry type system. We diverge from their type system in only four ways.</p>
+<p><a href="{{site.url}}assets/geom_hierarchy.jpg" rel="attachment wp-att-9941"><img src="{{site.url}}assets/geom_hierarchy.jpg" alt="geom_hierarchy" width="500" height="218" class="wp-image-9941" /></a><br />
+<em>Figure 1: The OGC Simple Features Type Hierarchy</em></p>
+<div>
+<h3>Why a subset?</h3>
+<p>Our primary goal with OData is to get everyone into the ecosystem. Thus, we want to make it easy for people to start. Reducing the number of types and operations makes it easier for people to get started. There are extensibility points for those with more complex needs.</p>
+</div>
+<p>First, we expose a subset of the type system and a subset of the operations. For details, see the sections below.</p>
+<p>Second, the OGC type system is defined for only 2-dimensional geospatial data. We extend the definition of a position to be able to handle a larger number of dimensions. In particular, we handle 2d, 3dz, 3dm, and 4d geospatial data. See the section on Coordinate Reference Systems (CRS) for more information.</p>
+<div>
+<h3>Why separate Geometrical and Geographical types?</h3>
+<p>They actually behave differently. Assume that you are writing an application to track airplanes and identify when their flight paths intersect, to make sure planes don't crash into each other.</p>
+<p>Assume you have two flight plans. One flies North, from (0, 0) to (0, 60). The other flies East, from (-50, 58) to (50, 58). Do they intersect?</p>
+<p>In geometric coordinates they clearly do. In geographic coordinates, assuming these are latitude and longitude, they do not.</p>
+<p>That's because geographic coordinates are on a sphere. Airplanes actually travel in arcs. The eastward-flying plane actually takes a path that bends up above the flight path of the northward plane. These planes miss each other by hundreds of miles.</p>
+<p>Obviously, we want our crash detector to know that these planes are safe.</p>
+<p>The two types may have the same functions, but they can have very different implementations. Splitting these into two types makes it easier for function implementers. They don't need to check the CRS in order to pick their algorithm.</p>
+</div>
+<p>Third, the OGC type system ised for flat-earth geospatial data (termed geometrical data hereafter). OGC does not define a system that handles round-earth geospatial data (termed geographical data). Thus, we duplicate the OGC type system to make a parallel set of types for geographic data.</p>
+<p>We refer to the geographical vs geometrical distinction as the <em>topology</em> of the type. It describes the shape of the space that includes that value.</p>
+<p>Some minor changes in representation are necessary because geographic data is in a bounded surface (the spheroid), while geometric data is in an infinite surface (the plane). This shows up, for example, in the definition of a Polygon. We make as few changes as possible; see below for details. Even when we make changes, we follow prior art wherever possible.</p>
+<p>Finally, like other primitives in OData, the geospatial primitives do not use inheritance and are immutable. The lack of inheritance, and the subsetting of the OGC type system, give us a difficulty with representing some data. We resolve this with a union type that behaves much like the OGC's base class. See the Union types section below for more details.</p>
+<h4>Coordinate Reference Systems</h4>
+<p>Although we support many Coordinate Reference Systems (CRS), there are several limitations (as compared to the OGC standard):</p>
+<ul>
+<li>We only support named CRSated by an SRID. This should be an official SRID. In particular, we don't support custom CRS defined in the metadata, as does GML.
+<ul>
+<li>Thus, some data will be inexpressible. For example, there are hydrodynamics readings data represented in a coordinate system where each point has coordinates [lat, long, depth, time, pressure, temperature]. This lets them do all sorts of cool analysis (eg, spatial queries across a surface defined in terms of the temperature and time axes), but is beyond the scope of OData.</li>
+<li>There are also some standard coordinate systems that don't have codes. So we couldn't represent those. Ex: some common systems in New Zealand &amp; northern Europe.</li>
+</ul>
+</li>
+<li>The CRS is part of the static type of a property. Even if that property is of the base type, that property is always in the same CRS for all instances.
+<ul>
+<li>The CRS is static under projection. The above holds even between results of a projection.</li>
+<li>There is a single "undefined" SRID value. This allows a service to explicitly state that the CRS varies on a per-instance basis.</li>
+</ul>
+</li>
+<li>Geometric primitives with different CRS are not type-compatible under filter, group, sort, any action, or in any other way. If you want to filter an entity by a point defined in Stateplane, you have to send us literals in Stateplane. We will not transform WGS84 to Stateplane for you.
+<ul>
+<li>There are client-side libraries that can do some coordinate transforms for you.</li>
+<li>Servers could expose coordinate transform functions as non-OGC canonical function extensions. See below for details.</li>
+</ul>
+</li>
+</ul>
+<p>Nominally, the Geometry/Geography type distinction is redundant with the CRS. Each CRS is inherently either round-earth or flat-earth. However, we are not going to automatically resolve this. Our implementation will not know which CRS match which model type. The modeler will have to specify both the type &amp; the CRS.</p>
+<p>There is a useful default CRS for Geography (round earth) data: WGS84. We will use that default if none is provided.</p>
+<p>The default CRS for Geometry (flat earth) data is SRID 0. This represents an arbitrary flat plane with unit-less dimensions.</p>
+<h4>The Point types - Edm.Point and Edm.GeometricPoint</h4>
+<div>
+<h3>Why the bias towards the geographic types?</h3>
+<p>Mobile devices are happening now. A tremendous amount of new data and new applications will be based on the prevalence of these devices. They all use WGS84 for their spatial data.</p>
+<p>Mobile devide developers also tend to be more likely to try to copy some code from a blog or just follow intellisense until something works. Hard-core developers are more likely to read the docs and think things through. So we want to make the obvious path match the mobile developers.</p>
+</div>
+<p>"Point" is defined as per the OGC. Roughly, it consists of a single position in the underlying topology and CRS. Edm.Point is used for points in the round-earth (geographic) topology. Edm.GeometricPoint is a point in a flat-earth (geometric) topology.</p>
+<p>These primitives are used for properties with a static point type. All entities of this type will have a point value for this property.</p>
+<p>Example properties that would be of type point or geometric point include a user's current location or the location of a bus stop.</p>
+<h4>The LineString types - Edm.LineString and Edm.GeometricLineString</h4>
+<p>"LineString" is defined as per the OGC. Roughly, it consists of a set of positions with linear interpolation between those positions, all in the same topology and CRS, and represents a path. Edm.LineString is used for geographic LineStrings; Edm.GeometricLineString is used for geometric ones.</p>
+<p>These primitives are used for properties with a static path type. Example properties would be the path for a bus route entity, or the path that I followed on my jog this morning (stored in a Run entity).</p>
+<h4>The Polygon types - Edm.Polygon and Edm.GeometricPolygon</h4>
+<p>"Polygon" is defined as per the OGC. Roughly, it consists of a single bounded area which may contain holes. It is represented using a set of LineStrings that follow specific rules. These rules differ for geometric and geographic topologies.</p>
+<p>These primitives are used for properties with a static single-polygon type. Examples include the area enclosed in a single census tract, or the area reachable by driving for a given amount of time from a given initial point.</p>
+<p>Some things that people think of as polygons, such as the boundaries of states, are not actually polygons. For example, the state of Hawaii includes several islands, each of which is a full bounded polygon. Thus, the state as a whole cannot be represented as a single polygon. It is a Multipolygon, and can be represented in OData only with the base types.</p>
+<h4>The base types - Edm.Geography and Edm.Geometry</h4>
+<p>The base type represents geospatial data of an undefined type. It might vary per entity. For example, one entity might hold a point, while another holds a multi-linestring. It can hold any of the types in the OGC hierarchy that have the correct topology and CRS.</p>
+<p>Although core OData does not support any functions on the base type, a particular implementation can support operations via extensions (see below). In core OData, you can read &amp; write properties that have the base types, though you cannot usefully filter or order by them.</p>
+<p>The base type is also used for dynamic properties on open types. Because these properties lack metadata, the server cannot state a more specific type. The representation for a dynamic property MUST contain the CRS and topology for that instance, so that the client knows how to use it.</p>
+<p>Therefore, spatial dynamic properties cannot be used in $filter, $orderby, and the like without extensions. The base type does not expose any canonical functions, and spatial dynamic properties are always the base type.</p>
+<p>Edm.Geography represents any value in a geographic topology and given CRS. Edm.Geometry represents any value in a geometric topology and given CRS.</p>
+<p>Each instance of the base type has a specific type that matches an instantiable type from the OGC hierarchy. The representation for an instance makes clear the actual type of that instance.</p>
+<p>Thus, there are no instances of the base type. It is simply a way for the $metadata to state that the actual data can vary per entity, and the client should look there.</p>
+<h4>Spatial Properties on Entities</h4>
+<p>Zero or more properties in an entity can have a spatial type. The spatial types are regular primitives. All the standard rules apply. In particular, they cannot be shredded under projection. This means that you cannot, for example, use $select to try to pull out the first control position of a LineString as a Point.</p>
+<p>For open types, the dynamic properties will all effectively be of the union type. You can tell the specific type for any given instance, just as for the union type. However, there is no static type info available. This means that dynamic properties need to include the CRS &amp; topology.</p>
+<h4>Spatial-Primary Entities (Features)</h4>
+<p>This is a non-goal. We do not think we need these as an intrinsic. We believe that we can model this with a pass-through service using vocabularies.</p>
+<h3>Communicating</h3>
+<h4>Metadata</h4>
+<p>We define new types: Edm.Geography, Edm.Geometry, Edm.Point, Edm.GeometricPoint, Edm.Polygon, Edm.GeometricPolygon. Each of them has a facet that is the CRS, called "coordinate_system".</p>
+<h4>Entities in Atom</h4>
+<div>
+<h3>What should we use?</h3>
+</div>
+<p>Unknown.</p>
+<p>To spark discussion, and because it is perhaps the best of a bad lot, the strawman proposal is to use the same GML profile as Sql Server uses. This is an admittedly hacked-down simplification of full GML, but seems to match the domain reasonably well.</p>
+<p>Here are several other options, and some of the problems with each:</p>
+<p>GeoRSS only supports some of the types.</p>
+<p>Full GML supports way too much - and is complex because of it.</p>
+<p>KML ised for spatial data that may contain embedded non-spatial data. This allows creating data that you can't then use OData to easily query. We would prefer that people use full OData entities to express this metadata, so that it can be used by clients that do not support geospatial data.</p>
+<p>Another option would be an extended WKT. This isn't XML. This isn't a problem for us, but may annoy other implementers(?). More critically, WKT doesn't support 3d or 4d positions. We need those in order to support full save &amp; load for existing data. The various extensions all disagree on how to extend for additional dimensions. I'd prefer not to bet on any one WKT implementation, so that we can wait for another standards body to pick the right one.</p>
+<p>PostGIS does not seem to have a native XML format. They use their EWKT.</p>
+<p>Finally, there's the SqlServer GML profile. It is a valid GML profile, and isn't quite as much more than we need as is full GML. I resist it mostly because it is a Microsoft format. Of course, if there is no universal format, then perhaps a Microsoft one is as good as we can get.</p>
+<h4>Entities in JSON</h4>
+<div>
+<h3>Why GeoJSON?</h3>
+<p>It flows well in a JSON entity, and is reasonably parsimonious. It is also capable of supporting all of our types and coordinate systems.</p>
+<p>It is, however, not an official standard. Thus, we may have to include it by copy, rather than by reference, in our official standard.</p>
+<p>Another option is to use ESRI's standard for geospatial data in JSON. Both are open standards with existing ecosystems. Both seem sufficient to our needs. Anyone have a good reason to choose one over the other?</p>
+</div>
+<p>We will use GeoJSON. Technically, since GeoJSON ised to support entire geometry trees, we are only using a subset of GeoJSON. We do not allow the use of types "Feature" or "FeatureCollection." Use entities to correlate a geospatial type with metadata.</p>
+<div>
+<h3>Why the ordering constraint?</h3>
+<p>This lets us distinguish a GeoJSON primitive from a complex type without using metadata. That allows clients to parse a JSON entity even if they do not have access to the metadata.</p>
+<p>This is still not completely unambiguous. Another option would be to recommend an "__type" member as well as a "type" member. The primitive would still be valid GeoJSON, but could be uniquely distinguished during parsing.</p>
+<p>We believe the ordering constraint is lower impact.</p>
+</div>
+<p>Furthermore, "type" SHOULD be ordered first in the GeoJSON object, followed by coordinates, then the optional properties.</p>
+<p>This looks like:</p>
+<pre><code>{ "d" : {
+    "results": [
+      {
+        "__metadata": {  
+            "uri": "http://services.odata.org/Foursquare.svc/Users('Neco447')",  
+          "type": "Foursquare.User"
+        },
+        "ID": "Neco447",
+        "Name": "Neco Fogworthy",
+        "FavoriteLocation": {
+            "type": "Point",
+          "coordinates": [-127.892345987345, 45.598345897]
+        },
+        "LastKnownLocation": {
+          "type": "Point",
+          "coordinates": [-127.892345987345, 45.598345897],
+          "crs": {
+              "type": "name",
+              "properties": {
+                  "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+              }
+          },
+          "bbox": [-180.0, -90.0, 180.0, 90.0]
+        }
+      },  
+      { /* another User Entry */ }
+  ],
+  "__count": "2",
+} }
+</code></pre>
+<h4>Dynamic Properties</h4>
+<p>Geospatial values in dynamic properties are represented exactly as they would be for static properties, with one exception: the CRS is required. The client will not be able to examine metadata to find this value, so the value must specify it.</p>
+<h3>Querying</h3>
+<h4>Geospatial Literals in URIs</h4>
+<div>
+<h3>Why only 2d?</h3>
+<p>Because OGC only standardized 2d, different implementations differ on how they extended to support 3dz, 3dm, and 4d. We may add support for higher dimensions when they stabilize. As an example, here are three different representations for the same 3dm point:</p>
+<ul>
+<li><strong>PostGIS:</strong> POINTM(1, 2, 3)</li>
+<li><strong>Sql Server:</strong> POINT(1, 2, NULL, 3)</li>
+<li><strong>ESRI:</strong> POINT M (1, 2, 3)</li>
+</ul>
+<p>The standard will probably eventually settle near the PostGIS or ESRI version, but it makes sense to wait and see. The cost of choosing the wrong one is very high: we would split our ecosystem in two, or be non-standard.</p>
+</div>
+<p>There are at least 3 common extensions to WKT (PostGIS, ESRI, and Sql Server), but all use the same extension to include an SRID. As such, they all use the same representation for values with 2d coordinates. Here are some examples:</p>
+<pre><code>/Stores$filter=Category/Name eq "coffee" and distanceto(Location, POINT(-127.89734578345 45.234534534)) lt 900.0</code></pre>
+<pre><code>/Stores$filter=Category/Name eq "coffee" and intersects(Location, SRID=12345;POLYGON((-127.89734578345 45.234534534,-127.89734578345 45.234534534,-127.89734578345 45.234534534,-127.89734578345 45.234534534)))</code></pre>
+<pre><code>/Me/Friends$filter=distance_to(PlannedLocations, SRID=12345;POINT(-127.89734578345 45.234534534) lt 900.0 and PlannedTime eq datetime'2011-12-12T13:36:00'</code></pre>
+<p>If OData were to support 3dm, then that last one could be exposed and used something like one of (depending on which standard we go with):</p>
+<pre>PostGIS: <code>/Me/Friends$filter=distance_to(PlannedLocations, SRID=12345;POINTM(-127.89734578345 45.234534534 2011.98453) lt 900.0</code></pre>
+<pre>ESRI: <code>/Me/Friends$filter=distance_to(PlannedLocations, SRID=12345;POINT M (-127.89734578345 45.234534534 2011.98453) lt 900.0</code></pre>
+<pre>Sql Server: <code>/Me/Friends$filter=distance_to(PlannedLocations, SRID=12345;POINT(-127.89734578345 45.234534534 NULL 2011.98453) lt 900.0</code></pre>
+<div>
+<h3>Why not GeoJSON?</h3>
+<p>GeoJSON actually makes a lot of sense. It would reduce the number of formats used in the standard by 1, making it easier for people to add geospatial support to service endpoints. We are also considering using JSON to represent entity literals used with Functions. Finally, it would enable support for more than 2 dimensions.</p>
+<p>However, JSON has a lot of nesting brackets, and they are prominent in GeoJSON. This is fine in document bodies, where you can use linebreaks to make them readable. However, it is a problem in URLs. Observe the following example (EWKT representation is above, for comparison):</p>
+<pre><code>/Stores$filter=Category/Name eq "coffee" and intersects(Location, {"type":"polygon", "coordinates":[[[-127.892345987345, 45.598345897], -127.892345987345, 45.598345897], [-127.892345987345, 45.598345897], [-127.892345987345, 45.598345897]]]})</code></pre>
+</div>
+<h4>Not usable everywhere</h4>
+<div>
+<h3>Why not?</h3>
+<p>Geospatial values are neither equality comparable nor partially-ordered. Therefore, the results of these operations would be undefined.</p>
+<p>Furthermore, geospatial types have very long literal representations. This would make it difficult to read a simple URL that navigates along a series of entities with geospatial keys.</p>
+<p>If your entity concurrency control needs to incorporate changes to geospatial properties, then you should probably use some sort of Entity-level version tracking.</p>
+</div>
+<p>Geospatial primitives MAY NOT be compared using <code>lt</code>, <code>eq</code>, or similar comparison operators.</p>
+<p>Geospatial primitives MAY NOT be used as keys.</p>
+<p>Geospatial primitives MAY NOT be used as part of an entity's ETag.</p>
+<h4>Distance Literals in URLs</h4>
+<p>Some queries, such as the coffee shop search above, need to represent a distance.</p>
+<p>Distance is represented the same in the two topologies, but interpreted differently. In each case, it is represented as a float scalar. The units are interpreted by the topology and coordinate system for the property with which it is compared or calculated.</p>
+<p>Because a plane is uniform, we can simply define distances in geometric coordinates to be in terms of that coordinate system's units. This works as long as each axis uses the same unit for its coordinates, which is the general case.</p>
+<p>Geographic topologies are not necessarily uniform. The distance between longitude -125 and -124 is not the same at all points on the globe. It goes to 0 at the poles. Similarly, the distance between 30 and 31 degrees of latitude is not the same as the distance between 30 and 31 degrees of longitude (at least, not everywhere). Thus, the underlying coordinate system measures position well, but does not work for describing a distance.</p>
+<p>For this reason, each geographic CRS also defines a unit that will be used for distances. For most CRSs, this is meters. However, some use US feet, Indian feet, German meters, or other units. In order to determine the meaning of a distance scalar, the developer must read the reference for the CRS involved.</p>
+<h4>New Canonical Functions</h4>
+<p>Each of these canonical functions is defined on certain geospatial types. Thus, each geospatial primitive type has a set of corresponding canonical functions. An OData implementation that supports a given geospatial primitive type SHOULD support using the corresponding canonical functions in $filter. It MAY support using the corresponding canonical functions in $orderby.</p>
+<div>
+<h3>Are these the right names?</h3>
+<p>We might consider defining these canonical functions as Geo.distance, etc. That way, individual server extensions for standard OGC functions would feel like core OData. This works as long as we explicitly state (or reference) the set of functions allowed in Geo.</p>
+</div>
+<h5>distance</h5>
+<p>Distance is a canonical function defined between points. It returns a distance, as defined above. The two arguments must use the same topology &amp; CRS. The distance is measured in that topology. Distance is one of the corresponding functions for points. Distance is defined as equivalent to the OGC ST_Distance method for their overlapping domain, with equivalent semantics for geographical points.</p>
+<h5>intersects</h5>
+<p>Intersects identifies whether a point is contained within the enclosed space of a polygon. Both arguments must be of the same topology &amp; CRS. It returns a Boolean value. Intersects is a corresponding function for any implementation that includes both points and polygons. Intersects is equivalent to OGC's ST_Intersects in their area of overlap, extended with the same semantics for geographic data.</p>
+<h5>length</h5>
+<p>Length returns the total path length of a linestring. It returns a distance, as defined above. Length is a corresponding function for linestrings. Length is equivalent to the OGC ST_Length operation for geometric linestrings, and is extended with equivalent semantics to geographic data.</p>
+<div>
+<h3>Why this subset?</h3>
+<p>It matches the two most common scenarios: find all the interesting entities near me, and find all the interesting entities within a particular region (such as a viewport or an area a use draws on a map).</p>
+<p>Technically, linestrings and length are not needed for these scenarios. We kept them because the spec felt jagged without them.</p>
+</div>
+<h5>All other OGC functions</h5>
+<p>We don't support these, because we want to make it easier to stand up a server that is not backed by a database. Some are very hard to implement, especially in geographic coordinates.</p>
+<p>A provider that is capable of handling OGC Simple Features functions MAY expose those as Functions on the appropriate geospatial primitives (using the new Function support).</p>
+<p>We are reserving a namespace, "<code>Geo</code>," for these standard functions. If the function matches a function specified in Simple Features, you SHOULD place it in this namespace. If the function does not meet the OGC spec, you MUST NOT place it in this namespace. Future versions of the OData spec may define more canonical functions in this namespace. The namespace is reserved to allow exactly these types of extensions without breaking existing implementations.</p>
+<p>In the SQL version of the Simple Features standard, the function names all start with ST_ as a way to provide namespacing. Because OData has real namespaces, it does not need this pseudo-namespace. Thus, the name SHOULD NOT include the ST_ when placed in the <code>Geo</code> namespace. Similarly, the name SHOULD be translated to lowercase, to match other canonical functions in OData. For example, OGC's <code>ST_Buffer</code> would be exposed in OData as <code>Geo.buffer</code>. This is similar to the Simple Features implementation on CORBA.</p>
+<h5>All other geospatial functions</h5>
+<p>Any other geospatial operations MAY be exposed by using Functions. These functions are not defined in any way by this portion of the spec. See the section on Functions for more information, including namespacing issues.</p>
+<h3>Examples</h3>
+<h4>Find coffee shops near me</h4>
+<pre><code>/Stores$filter=/Category/Name eq "coffee" and distanceto(/Location, POINT(-127.89734578345 45.234534534)) lt 0.5&amp;$orderby=distanceto(/Location, POINT-127.89734578345 45.234534534)&amp;$top=3</code></pre>
+<h4>Find the nearest 3 coffee shops, by drive time</h4>
+<p>This is not directly supported by OData. However, it can be handled by an extension. For example:</p>
+<pre><code>/Stores$filter=/Category/Name eq "coffee"&amp;$orderby=MyNamespace.driving_time_to(POINT(-127.89734578345 45.234534534, Location)&amp;$top=3</code></pre>
+<p>Note that while <code>distanceto</code> is symmetric in its args, <code>MyNamespace.driving_time_to</code> might not be. For example, it might take one-way streets into account. This would be up to the data service that is defining the function.</p>
+<h4>Compute distance along routes</h4>
+<pre><code>/Me/Runs$orderby=length(Route) desc&amp;$top=15</code></pre>
+<h4>Find all houses close enough to work</h4>
+<p>For this example, let's assume that there's one OData service that can tell you the drive time polygons around a point (via a service operation). There's another OData service that can search for houses. You want to mash them up to find you houses in your price range from which you can get to work in 15 minutes.</p>
+<p>First,</p>
+<pre><code>/DriveTime(to=POINT(-127.89734578345 45.234534534), maximum_duration=time'0:15:00')</code></pre>
+<p>returns</p>
+<pre><code>{ "d" : {
+  "results": [
+    {
+      "__metadata": { 
+         "uri": "http://services.odata.org/DriveTime(to=POINT(-127.89734578345 45.234534534), maximum_duration=time'0:15:00')", 
+         "type": "Edm.Polygon"
+      },
+      "type": "Polygon",
+      "coordinates": [[[-127.0234534534, 45.089734578345], [-127.0234534534, 45.389734578345], [-127.3234534534, 45.389734578345], [-127.3234534534, 45.089734578345], [-127.0234534534, 45.089734578345]],
+[[-127.1234534534, 45.189734578345], [-127.1234534534, 45.289734578345], [-127.2234534534, 45.289734578345], [-127.2234534534, 45.189734578345], [-127.1234534534, 45.289734578345]]]
+    }
+  ],
+  "__count": "1",
+} }</code></pre>
+<p>Then, you'd send the actual search query to the second endpoint:</p>
+<pre><code>/Houses$filter=Price gt 50000 and Price lt 250000 and intersects(Location, POLYGON((-127.0234534534 45.089734578345,-127.0234534534 45.389734578345,-127.3234534534 45.389734578345,-127.3234534534 45.089734578345,-127.0234534534 45.089734578345),(-127.1234534534 45.189734578345,-127.1234534534 45.289734578345,-127.2234534534 45.289734578345,-127.2234534534 45.189734578345,-127.1234534534 45.289734578345)))</code></pre>
+<div>
+<h3>Is there any way to make that URL shorter? And perhaps do this in one query?</h3>
+<p>This is actually an overly-simple polygon for a case like this. This is just a square with a single hole in it. A real driving polygon would contain multiple holes and a lot more boundary points. So that polygon in the final query would realistically be 3-5 times as long in the URL.</p>
+<p>It would be really nice to support reference arguments in URLs (with cross-domain support). Then you could represent the entire example in a single query:</p>
+<pre><code>/Houses$filter=Price gt 50000 and Price lt 250000 and intersects(Location, Ref("http://drivetime.services.odata.org/DriveTime(to=POINT(-127.89734578345 45.234534534), maximum_duration=time'0:15:00')"))</code></pre>
+<p>However, this is not supported in OData today.</p>
+</div>
+<div>
+<h3>OK, but isn't there some other way to make the URL shorter? Some servers can't handle this length!</h3>
+<p>We are looking at options. The goal is to maintain GET-ability and cache-ability. A change in the parameters should be visible in the URI, so that caching works correctly.</p>
+<p>The current front-runner idea is to allow the client to place parameter values into a header. That header contains a JSON dictionary of name/value pairs. If it does so, then it must place the hashcode for that dictionary in the query string. The resulting request looks like:</p>
+<pre><code>GET /Houses?$filter=Price gt 50000 and Price lt 250000 and intersects(Location, @drive_time_polygon)&amp;orderby=distanceto(@microsoft)&amp;$hash=HASHCODE
+Host: www.example.com
+X-ODATA-QUERY: {
+  "microsoft": SRID=1234;POINT(-127.2034534534 45.209734578345),
+  "drive_time_polygon": POLYGON((-127.0234534534 45.089734578345,-127.0234534534 45.389734578345,-127.3234534534 45.389734578345,-127.3234534534 45.089734578345,-127.0234534534 45.089734578345),(-127.1234534534 45.189734578345,-127.1234534534 45.289734578345,-127.2234534534 45.289734578345,-127.2234534534 45.189734578345,-127.1234534534 45.289734578345)),
+}
+</code></pre>
+<p>Of course, nothing about this format is at all decided. For example, should that header value be fully in JSON (using the same formatting as in a JSON payload)? Should it be form encoded instead of JSON? Perhaps the entire query string should go in the header, with only a $query=HASHCODE in the URL? And there are a lot more options.</p>
+</div>
+</div>

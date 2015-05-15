@@ -1,0 +1,1026 @@
+---
+layout: scrollspy
+title: Basic Tutorial
+date: 2014-08-01 03:44:56.000000000 +08:00
+permalink: /getting-started/basic-tutorial/
+---
+<!--body data-spy="scroll" data-target="nav"-->
+<div class="row">
+<div class="col-md-8">
+<p>            The Open Data Protocol (OData) is a data access protocol built on core protocols like HTTP and commonly accepted methodologies like REST for the web. There are various kinds of <a href="http://www.odata.org/libraries/">libraries</a> and <a href="http://www.odata.org/ecosystem/">tools</a>  can be used to consume OData services. But for beginners and those who want to write their own libraries, the pure HTTP requests and responses are also very important. This documentation will not cover every feature details for OData V4 services but will try to cover various typical scenarios.  If you want to have a more detailed understanding, please refer to <a href="http://www.odata.org/documentation/odata-version-4-0/">OData Documentation</a>. </p>
+<p>        You can now use the <b><a href="http://www.odata.org/getting-started/learning-odata-on-postman">Postman collections</a></b> to learn OData in an interactive way.</p>
+<h4>Please be noted</h4>
+<ul>
+<li>This is the Basic section. For topics like Singleton, Inheritance, Open Type, Containment and Batch, please refer to <a href="http://www.odata.org/getting-started/advanced-tutorial/">Advanced Section</a>.</li>
+<li>All these are based on OData V4 sample service <a href="http://services.odata.org/V4/TripPinServiceRW">TripPin</a>, please just replace the <code>serviceRoot</code> below with the URL <code>http://services.odata.org/V4/TripPinServiceRW</code>. TripPin now supports ETag, so for data modification topics, you should first using GET on TripPin (eg. GET serviceRoot/People) to get the section information in the payload then use the URL with section for data modification examples. (something looks like http://services.odata.org/V4/(S(flat4rgegiueineatspfdku1))/TripPinServiceRW)</li>
+<li>You may use <a href="http://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
+<li>In TripPin service, ETag is currently enabled on entity <em>Person</em>. We omit the ETag related headers in request headers for short, please go to the <a href="http://www.odata.org/getting-started/basic-tutorial/#etag">ETag Section</a> for detailed information.</li>
+<li>We will keep improving this by adding contents and fixing bugs. You can provide your feedbacks and ask questions using <a href="http://www.odata.org/join-the-odata-discussion/">OData Mailling List</a>.</li>
+</ul>
+<div id="requestData">
+<h2 class="page-header">Requesting Data</h2>
+<p>            OData services support requests for data via HTTP <code>GET</code> requests.</p>
+<div id="entitySet">
+<h3>Requesting Entity Collections</h3>
+<p>                The request below returns the the collection of Person <em>People</em>.<br />
+                <code>GET serviceRoot/People </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "@odata.nextLink": "serviceRoot/People?%24skiptoken=8",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('russellwhyte')",
+            "@odata.etag": "W/"08D1694BD49A0F11"",
+            "@odata.editLink": "serviceRoot/People('russellwhyte')",
+            "UserName": "russellwhyte",
+            "FirstName": "Russell",
+            "LastName": "Whyte",
+            "Emails": [
+                "Russell@example.com",
+                "Russell@contoso.com"
+            ],
+            "AddressInfo": [
+                {
+                    "Address": "187 Suffolk Ln.",
+                    "City": {
+                        "CountryRegion": "United States",
+                        "Name": "Boise",
+                        "Region": "ID"
+                    }
+                }
+            ],
+            "Gender": "Male",
+            "Concurrency": 635404796846280400
+        },
+        ......
+        ,
+        {
+            "@odata.id": "serviceRoot/People('keithpinckney')",
+            "@odata.etag": "W/"08D1694BD49A0F11"",
+            "@odata.editLink": "serviceRoot/People('keithpinckney')",
+            "UserName": "keithpinckney",
+            "FirstName": "Keith",
+            "LastName": "Pinckney",
+            "Emails": [
+                "Keith@example.com",
+                "Keith@contoso.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Male",
+            "Concurrency": 635404796846280400
+        }
+    ]
+}
+                    </pre>
+</p></div>
+<div id="entityByID">
+<h3>Requesting an Individual Entity by ID</h3>
+<p>                The request below returns an individual entity of type <em>Person</em> by the given UserName "russellwhyte"<br />
+                <code>GET serviceRoot/People('russellwhyte') </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People/$entity",
+    "@odata.id": "serviceRoot/People('russellwhyte')",
+    "@odata.etag": "W/"08D1694BF26D2BC9"",
+    "@odata.editLink": "serviceRoot/People('russellwhyte')",
+    "UserName": "russellwhyte",
+    "FirstName": "Russell",
+    "LastName": "Whyte",
+    "Emails": [
+        "Russell@example.com",
+        "Russell@contoso.com"
+    ],
+    "AddressInfo": [
+        {
+            "Address": "187 Suffolk Ln.",
+            "City": {
+                "CountryRegion": "United States",
+                "Name": "Boise",
+                "Region": "ID"
+            }
+        }
+    ],
+    "Gender": "Male",
+    "Concurrency": 635404797346655200
+}
+            </pre>
+</p></div>
+<div id="property">
+<h3>Requesting an Individual Property</h3>
+<p>                To address an entity property clients append a path segment containing property name to the URL of the entity. If the property has a complex type, properties of that value can be addressed by further property name composition.<br />
+                First let's take a look at how to get a simple property. The request below returns the <em>Name</em> property of an <em>Airport</em>.</p>
+<p>                <code>GET serviceRoot/Airports('KSFO')/Name </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#Airports('KSFO')/Name",
+    "value": "San Francisco International Airport"
+}
+</pre>
+<p>                Then let's see how to get a property value of a complex type. The request below returns the <em>Address</em> of the complex type <em>Location</em> in an <em>Airport</em>.<br />
+                <code>GET serviceRoot/Airports('KSFO')/Location/Address </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+"@odata.context": "serviceRoot/$metadata#Airports('KSFO')/Location/Address",
+"value": "South McDonnell Road, San Francisco, CA 94128"
+}
+</pre>
+</p></div>
+<div id="propertyVal">
+<h3>Requesting an Individual Property Raw Value</h3>
+<p>                To address the raw value of a primitive property, clients append a path segment containing the string <code>$value</code> to the property URL. The request below returns the raw value of property <em>Name</em> of an <em>Airport</em>.<br />
+                <code>GET serviceRoot/Airports('KSFO')/Name/$value </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+San Francisco International Airport
+</pre>
+</p></div>
+</p></div>
+<div id="queryData">
+<h2 class="page-header">Querying Data</h2>
+<p>            OData supports various kinds of query options for querying data. This section will help you go through the common scenarios for these query options.</p>
+<div id="filter">
+<h3>System Query Option $filter</h3>
+<p>                The <code>$filter</code> system query option allows clients to filter a collection of resources that are addressed by a request URL. The expression specified with <code>$filter</code> is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response.</p>
+<div id="basic">
+<h4>Basic predicates, built-in functions</h4>
+<p>                    There are several kinds of basic predicates and built-in functions for <code>$filter</code>, including logical operators and arithmetic operators. For more detailed information, please refer to <a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">OData V4 URL Conventions Document</a>. The request below using <code>$filter</code> to get people with FirstName "Scott".<br />
+                    <code>GET serviceRoot/People?$filter=FirstName eq 'Scott'</code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('scottketchum')",
+        "@odata.etag": "W/"08D1694C7E510464"",
+            "@odata.editLink": "serviceRoot/People('scottketchum')",
+            "UserName": "scottketchum",
+            "FirstName": "Scott",
+            "LastName": "Ketchum",
+            "Emails": [
+                "Scott@example.com"
+            ],
+            "AddressInfo": [
+                {
+                    "Address": "2817 Milton Dr.",
+                    "City": {
+                        "CountryRegion": "United States",
+                        "Name": "Albuquerque",
+                        "Region": "NM"
+                    }
+                }
+            ],
+            "Gender": "Male",
+            "Concurrency": 635404799693620400
+        }
+    ]
+}
+</pre>
+</p></div>
+<div id="complexType">
+<h4>Filter on Complex Type</h4>
+<p>                    <code>$filter</code> can also work on complex type. The request below returns airports with "San Francisco" contained in its <em>Address</em>. And <em>Address</em> is property of complex type <em>Location</em>.</p>
+<p>                    <code>GET serviceRoot/Airports?$filter=contains(Location/Address, 'San Francisco')</code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#Airports",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/Airports('KSFO')",
+            "@odata.editLink": "serviceRoot/Airports('KSFO')",
+            "IcaoCode": "KSFO",
+            "Name": "San Francisco International Airport",
+            "IataCode": "SFO",
+            "Location": {
+                "Address": "South McDonnell Road, San Francisco, CA 94128",
+                "City": {
+                    "CountryRegion": "United States",
+                    "Name": "San Francisco",
+                    "Region": "California"
+                },
+                "Loc": {
+                    "type": "Point",
+                    "coordinates": [
+                        -122.374722222222,
+                        37.6188888888889
+                    ],
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:4326"
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
+</pre>
+</p></div>
+<div id="filterEnum">
+<h4>Filter on Enum Properties</h4>
+<p>                    The request below returns all female People of entity type <em>Person</em>. The <em>Gender</em> is a property of <code>Enum</code> type.<br />
+                    <code>GET serviceRoot/People?$filter=Gender eq Microsoft.OData.SampleService.Models.TripPin.PersonGender'Female' </code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "@odata.nextLink": "serviceRoot/People?%24filter=Gender+eq+Microsoft.OData.SampleService.Models.TripPin.PersonGender%27Female%27&%24skiptoken=8",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('elainestewart')",
+            "@odata.etag": "W/"08D1694CCFB34453"",
+            "@odata.editLink": "serviceRoot/People('elainestewart')",
+            "UserName": "elainestewart",
+            "FirstName": "Elaine",
+            "LastName": "Stewart",
+            "Emails": [
+                "Elaine@example.com",
+                "Elaine@contoso.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Female",
+            "Concurrency": 635404801059013800
+        },
+        ......
+        ,
+        {
+            "@odata.id": "serviceRoot/People('ursulabright')",
+            "@odata.etag": "W/"08D1694CCFB34453"",
+            "@odata.editLink": "serviceRoot/People('ursulabright')",
+            "UserName": "ursulabright",
+            "FirstName": "Ursula",
+            "LastName": "Bright",
+            "Emails": [
+                "Ursula@example.com",
+                "Ursula@contoso.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Female",
+            "Concurrency": 635404801059013800
+        }
+    ]
+}
+</pre>
+</p></div>
+<div id="nestedFilter">
+<h4>Nested Filter in Expand</h4>
+<p>                    OData V4 supports nested filters in <code>$expand</code>. The request below return <em>People</em> and all their trips with Name "Trip in US".<br />
+                    <code>GET serviceRoot/People?$expand=Trips($filter=Name eq 'Trip in US')</code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "@odata.nextLink": "serviceRoot/People?%24expand=Trips(%24filter%3dName+eq+%27Trip+in+US%27)&%24skiptoken=8",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('russellwhyte')",
+            "@odata.etag": "W/"08D1694D0DBBD9DB"",
+            "@odata.editLink": "serviceRoot/People('russellwhyte')",
+            "UserName": "russellwhyte",
+            "FirstName": "Russell",
+            "LastName": "Whyte",
+            "Emails": [
+                "Russell@example.com",
+                "Russell@contoso.com"
+            ],
+            "AddressInfo": [
+                {
+                    "Address": "187 Suffolk Ln.",
+                    "City": {
+                        "CountryRegion": "United States",
+                        "Name": "Boise",
+                        "Region": "ID"
+                    }
+                }
+            ],
+            "Gender": "Male",
+            "Concurrency": 635404802099763700,
+            "Trips@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips",
+            "Trips": [
+                {
+                    "TripId": 1001,
+                    "ShareId": "9d9b2fa0-efbf-490e-a5e3-bac8f7d47354",
+                    "Description": "Trip from San Francisco to New York City",
+                    "Name": "Trip in US",
+                    "Budget": 3000,
+                    "StartsAt": "2014-01-01T00:00:00Z",
+                    "EndsAt": "2014-01-04T00:00:00Z",
+                    "Tags": [
+                        "business",
+                        "New York meeting"
+                    ]
+                }
+            ]
+        },
+        ......
+        ,
+        {
+            "@odata.id": "serviceRoot/People('keithpinckney')",
+            "@odata.etag": "W/"08D1694D0DBBD9DB"",
+            "@odata.editLink": "serviceRoot/People('keithpinckney')",
+            "UserName": "keithpinckney",
+            "FirstName": "Keith",
+            "LastName": "Pinckney",
+            "Emails": [
+                "Keith@example.com",
+                "Keith@contoso.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Male",
+            "Concurrency": 635404802099763700,
+            "Trips@odata.context": "serviceRoot/$metadata#People('keithpinckney')/Trips",
+            "Trips": []
+        }
+    ]
+}
+</pre>
+</p></div>
+</p></div>
+<div id="orderby">
+<h3>System Query Option $orderby</h3>
+<p>                The <code>$orderby</code> system query option allows clients to request resources in either ascending order using <code>asc</code> or descending order using <code>desc</code>. If <code>asc</code> or <code>desc</code> not specified, then the resources will be ordered in ascending order. The request below orders <em>Trips</em> on property <em>EndsAt</em> in descending order.</p>
+<p>                <code>GET serviceRoot/People('scottketchum')/Trips?$orderby=EndsAt desc</code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People('scottketchum')/Trips",
+    "value": [
+        {
+            "TripId": 2004,
+            "ShareId": "f94e9116-8bdd-4dac-ab61-08438d0d9a71",
+            "Description": "Trip from Shanghai to Beijing",
+            "Name": "Trip in Beijing",
+            "Budget": 11000,
+            "StartsAt": "2014-02-01T00:00:00Z",
+            "EndsAt": "2014-02-04T00:00:00Z",
+            "Tags": [
+                "Travel",
+                "Beijing"
+            ]
+        },
+        {
+            "TripId": 2002,
+            "ShareId": "9d9b2fa0-efbf-490e-a5e3-bac8f7d47354",
+            "Description": "Trip from San Francisco to New York City",
+            "Name": "Trip in US",
+            "Budget": 5000,
+            "StartsAt": "2014-01-01T00:00:00Z",
+            "EndsAt": "2014-01-04T00:00:00Z",
+            "Tags": [
+                "business",
+                "New York meeting"
+            ]
+        }
+    ]
+}
+</pre>
+</p></div>
+<div id="topskip">
+<h3>System Query Option $top and $skip</h3>
+<p>                The <code>$top</code> system query option requests the number of items in the queried collection to be included in the result. The $skip query option requests the number of items in the queried collection that are to be skipped and not included in the result.<br />
+                The request below returns the first two people of the <em>People</em> entity set.</p>
+<p>                <code>GET serviceRoot/People?$top=2 </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('russellwhyte')",
+            "@odata.etag": "W/"08D1694D4AA4A8D1"",
+            "@odata.editLink": "serviceRoot/People('russellwhyte')",
+            "UserName": "russellwhyte",
+            "FirstName": "Russell",
+            "LastName": "Whyte",
+            "Emails": [
+                "Russell@example.com",
+                "Russell@contoso.com"
+            ],
+            "AddressInfo": [
+                {
+                    "Address": "187 Suffolk Ln.",
+                    "City": {
+                        "CountryRegion": "United States",
+                        "Name": "Boise",
+                        "Region": "ID"
+                    }
+                }
+            ],
+            "Gender": "Male",
+            "Concurrency": 635404803121654000
+        },
+        {
+            "@odata.id": "serviceRoot/People('scottketchum')",
+            "@odata.etag": "W/"08D1694D4AA4A8D1"",
+            "@odata.editLink": "serviceRoot/People('scottketchum')",
+            "UserName": "scottketchum",
+            "FirstName": "Scott",
+            "LastName": "Ketchum",
+            "Emails": [
+                "Scott@example.com"
+            ],
+            "AddressInfo": [
+                {
+                    "Address": "2817 Milton Dr.",
+                    "City": {
+                        "CountryRegion": "United States",
+                        "Name": "Albuquerque",
+                        "Region": "NM"
+                    }
+                }
+            ],
+            "Gender": "Male",
+            "Concurrency": 635404803121654000
+        }
+    ]
+}
+</pre>
+<p>                The request below returns people starting with the 19th people of the entity set <em>People</em></p>
+<p>                <code>GET serviceRoot/People?$skip=18 </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('genevievereeves')",
+            "@odata.etag": "W/"08D1694D8B408D60"",
+            "@odata.editLink": "serviceRoot/People('genevievereeves')",
+            "UserName": "genevievereeves",
+            "FirstName": "Genevieve",
+            "LastName": "Reeves",
+            "Emails": [
+                "Genevieve@example.com",
+                "Genevieve@contoso.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Female",
+            "Concurrency": 635404804205612400
+        },
+        {
+            "@odata.id": "serviceRoot/People('kristakemp')",
+            "@odata.etag": "W/"08D1694D8B408D60"",
+            "@odata.editLink": "serviceRoot/People('kristakemp')",
+            "UserName": "kristakemp",
+            "FirstName": "Krista",
+            "LastName": "Kemp",
+            "Emails": [
+                "Krista@example.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Female",
+            "Concurrency": 635404804205612400
+        }
+    ]
+}
+</pre>
+</p></div>
+<div id="count">
+<h3>System Query Option $count</h3>
+<p>                The <code>$count</code> system query option allows clients to request a count of the matching resources included with the resources in the response.<br />
+                The request below returns the total number of people in the collection.</p>
+<p>                <code>GET serviceRoot/People/$count </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+20
+</pre>
+</p></div>
+<div id="expand">
+<h3>System Query Option $expand</h3>
+<p>                The <code>$expand</code> system query option specifies the related resources to be included in line with retrieved resources. The request below returns people with navigation property <em>Friends</em> of a <em>Person</em></p>
+<p>                <code>GET serviceRoot/People('keithpinckney')?$expand=Friends </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People/$entity",
+    "@odata.id": "serviceRoot/People('keithpinckney')",
+    "@odata.etag": "W/"08D1694E2BB4317A"",
+    "@odata.editLink": "serviceRoot/People('keithpinckney')",
+    "UserName": "keithpinckney",
+    "FirstName": "Keith",
+    "LastName": "Pinckney",
+    "Emails": [
+        "Keith@example.com",
+        "Keith@contoso.com"
+    ],
+    "AddressInfo": [],
+    "Gender": "Male",
+    "Concurrency": 635404806897545600,
+    "Friends": [
+        {
+            "@odata.id": "serviceRoot/People('clydeguess')",
+            "@odata.etag": "W/"08D1694E2BB4317A"",
+            "@odata.editLink": "serviceRoot/People('clydeguess')",
+            "UserName": "clydeguess",
+            "FirstName": "Clyde",
+            "LastName": "Guess",
+            "Emails": [
+                "Clyde@example.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Male",
+            "Concurrency": 635404806897545600
+        },
+        {
+            "@odata.id": "serviceRoot/People('marshallgaray')",
+            "@odata.etag": "W/"08D1694E2BB4317A"",
+            "@odata.editLink": "serviceRoot/People('marshallgaray')",
+            "UserName": "marshallgaray",
+            "FirstName": "Marshall",
+            "LastName": "Garay",
+            "Emails": [
+                "Marshall@example.com",
+                "Marshall@contoso.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Male",
+            "Concurrency": 635404806897545600
+        }
+    ]
+}
+</pre>
+</p></div>
+<div id="select">
+<h3>System Query Option $select</h3>
+<p>                The <code>$select</code> system query option allows the clients to requests a limited set of properties for each entity <s>or complex type</s>. The request below returns <em>Name</em> and <em>IcaoCode</em> of all <em>Airports</em>.</p>
+<p>                <code>GET serviceRoot/Airports?$select=Name, IcaoCode</code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#Airports(Name,IcaoCode)",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/Airports('KSFO')",
+            "@odata.editLink": "serviceRoot/Airports('KSFO')",
+            "Name": "San Francisco International Airport",
+            "IcaoCode": "KSFO"
+        },
+        ......
+        ,
+        {
+            "@odata.id": "serviceRoot/Airports('KJFK')",
+            "@odata.editLink": "serviceRoot/Airports('KJFK')",
+            "Name": "John F. Kennedy International Airport",
+            "IcaoCode": "KJFK"
+        }
+    ]
+}
+</pre>
+</p></div>
+<div id="search">
+<h3>System Query Option $search</h3>
+<p>                The $search system query option restricts the result to include only those entities matching the specified search expression. The definition of what it means to match is dependent upon the implementation. The request below get all <em>People</em> who has 'Boise' in their contents.</p>
+<p>                <code>serviceRoot/People?$search=Boise</code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('russellwhyte')",
+            "@odata.etag": "W/"08D1694E90C0914C"",
+            "@odata.editLink": "serviceRoot/People('russellwhyte')",
+            "UserName": "russellwhyte",
+            "FirstName": "Russell",
+            "LastName": "Whyte",
+            "Emails": [
+                "Russell@example.com",
+                "Russell@contoso.com"
+            ],
+            "AddressInfo": [
+                {
+                    "Address": "187 Suffolk Ln.",
+                    "City": {
+                        "CountryRegion": "United States",
+                        "Name": "Boise",
+                        "Region": "ID"
+                    }
+                }
+            ],
+            "Gender": "Male",
+            "Concurrency": 635404808592855400
+        }
+    ]
+}
+</pre>
+</p></div>
+<div id="lambda">
+<h3>Lambda Operators</h3>
+<p>                OData defines two operators <code>any</code> and <code>all</code> that evaluate a Boolean expression on a collection. They can work on either collection properties or collection of entities.</p>
+<p>                The request below returns <em>People</em> with <em>Emails</em> containing "ll@contoso.com". The <em>Emails</em> is a collection of primitive type <em>string</em>.</p>
+<p>                <code>GET serviceRoot/People?$filter=Emails/any(s:endswith(s, 'contoso.com'))</code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('russellwhyte')",
+            "@odata.etag": "W/"08D1694ECB6F8E7D"",
+            "@odata.editLink": "serviceRoot/People('russellwhyte')",
+            "UserName": "russellwhyte",
+            "FirstName": "Russell",
+            "LastName": "Whyte",
+            "Emails": [
+                "Russell@example.com",
+                "Russell@contoso.com"
+            ],
+            "AddressInfo": [
+                {
+                    "Address": "187 Suffolk Ln.",
+                    "City": {
+                        "CountryRegion": "United States",
+                        "Name": "Boise",
+                        "Region": "ID"
+                    }
+                }
+            ],
+            "Gender": "Male",
+            "Concurrency": 635404809577402000
+        },
+        {
+            "@odata.id": "serviceRoot/People('marshallgaray')",
+            "@odata.etag": "W/"08D1694ECB6F8E7D"",
+            "@odata.editLink": "serviceRoot/People('marshallgaray')",
+            "UserName": "marshallgaray",
+            "FirstName": "Marshall",
+            "LastName": "Garay",
+            "Emails": [
+                "Marshall@example.com",
+                "Marshall@contoso.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Male",
+            "Concurrency": 635404809577402000
+        }
+    ]
+}
+</pre>
+<p>                The request below returns the friends of <em>Me</em> who have friends using "Scott" as their <em>FirstName</em>.</p>
+<p>                <code>GET serviceRoot/Me/Friends?$filter=Friends/any(f:f/FirstName eq 'Scott')</code><br />
+                <br />
+                Response Payload</p>
+<pre>
+{
+    "@odata.context": "serviceRoot/$metadata#People",
+    "value": [
+        {
+            "@odata.id": "serviceRoot/People('russellwhyte')",
+            "@odata.etag": "W/"08D1694EE92CB5C3"",
+            "@odata.editLink": "serviceRoot/People('russellwhyte')",
+            "UserName": "russellwhyte",
+            "FirstName": "Russell",
+            "LastName": "Whyte",
+            "Emails": [
+                "Russell@example.com",
+                "Russell@contoso.com"
+            ],
+            "AddressInfo": [
+                {
+                    "Address": "187 Suffolk Ln.",
+                    "City": {
+                        "CountryRegion": "United States",
+                        "Name": "Boise",
+                        "Region": "ID"
+                    }
+                }
+            ],
+            "Gender": "Male",
+            "Concurrency": 635404810076337700
+        },
+        {
+            "@odata.id": "serviceRoot/People('ronaldmundy')",
+            "@odata.etag": "W/"08D1694EE92CB5C3"",
+            "@odata.editLink": "serviceRoot/People('ronaldmundy')",
+            "UserName": "ronaldmundy",
+            "FirstName": "Ronald",
+            "LastName": "Mundy",
+            "Emails": [
+                "Ronald@example.com",
+                "Ronald@contoso.com"
+            ],
+            "AddressInfo": [],
+            "Gender": "Male",
+            "Concurrency": 635404810076337700
+        }
+    ]
+}
+</pre>
+</p></div>
+</p></div>
+<div id="modifyData">
+<h2 class="page-header">Data Modification</h2>
+<p>            Updatable OData services support Create, Update and Delete operation for some or all exposed entities.</p>
+<div id="create">
+<h3>Create an Entity</h3>
+<p>                To create an entity in a collection, the client sends a POST request to that collection's URL. The POST body MUST contain a single valid entity representation. The request below creates a <em>Person</em> which contains complex type and collection property. </p>
+<p>                <code><br />
+                    POST serviceRoot/People<br />
+                    OData-Version: 4.0<br />
+                    Content-Type: application/json;odata.metadata=minimal<br />
+                    Accept: application/json</p>
+<p>                    {<br />
+                    "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Person",<br />
+                    "UserName": "teresa",<br />
+                    "FirstName" : "Teresa",<br />
+                    "LastName" : "Gilbert",<br />
+                    "Gender" : "Female",<br />
+                    "Emails" : ["teresa@example.com", "teresa@contoso.com"],<br />
+                    "AddressInfo" : [<br />
+                    {<br />
+                    "Address" : "1 Suffolk Ln.",<br />
+                    "City" :<br />
+                    {<br />
+                    "CountryRegion" : "United States",<br />
+                    "Name" : "Boise",<br />
+                    "Region" : "ID"<br />
+                    }<br />
+                    }]<br />
+                    }<br />
+                </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+HTTP/1.1 201 Created
+Content-Length: 468
+Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
+Location: serviceRoot/People('teresa')
+OData-Version: 4.0
+{
+    "@odata.context":"serviceRoot/$metadata#People/$entity",
+    "@odata.id":"serviceRoot/People('teresa')",
+    "@odata.editLink":"serviceRoot/People('teresa')",
+    "UserName":"teresa",
+    "FirstName":"Teresa",
+    "LastName":"Gilbert",
+    "Emails":["teresa@example.com","teresa@contoso.com"],
+    "AddressInfo":[{"Address":"1 Suffolk Ln.","City":{"CountryRegion":"United States","Name":"Boise","Region":"ID"}}],
+    "Gender":"Female"
+}
+</pre>
+</p></div>
+<div id="delete">
+<h3>Remove an Entity</h3>
+<p>                The request below deletes the <em>Person</em> with <em>UserName</em> 'vincentcalabrese'.<br />
+                <code>DELETE serviceRoot/People('vincentcalabrese') </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+HTTP/1.1 204 No Content
+OData-Version: 4.0
+</pre>
+</p></div>
+<div id="update">
+<h3>Update an Entity</h3>
+<p>                The OData services SHOULD support PATCH as the preferred means of updating an entity. But also services MAY additionally support PUT. The request below update the <em>Emails</em> of a person using PATCH. </p>
+<p>                <code><br />
+                    PATCH serviceRoot/People('russellwhyte')<br />
+                    OData-Version: 4.0<br />
+                    Content-Type: application/json;odata.metadata=minimal<br />
+                    Accept: application/json</p>
+<p>                    {<br />
+                    "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Person",<br />
+                    "Emails" :  ["Russell@example.com", "Russell@contoso.com", "newRussell@contoso.com"]<br />
+                    }<br />
+                </code><br />
+                <br />
+                Response Payload</p>
+<pre>
+HTTP/1.1 204 No Content
+</pre>
+</p></div>
+<div id="relationship">
+<h3>Relationship Operations</h3>
+<p>                Relationships from one entity to another are represented as navigation properties.</p>
+<div id="linkRelatedEntities">
+<h4>Link to Related Entities</h4>
+<p>                    A successful POST request to a navigation property's references collection adds a relationship to an existing entity. The request below adds 'vincentcalabrese' to friends of 'scottketchum'.<br />
+                    <code><br />
+                        POST serviceRoot/People('scottketchum')/Friends/$ref<br />
+                        OData-Version: 4.0<br />
+                        Content-Type: application/json;odata.metadata=minimal<br />
+                        Accept: application/json</p>
+<p>                        {<br />
+                        "@odata.id": "serviceRoot/People('vincentcalabrese')"<br />
+                        }<br />
+                    </code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+HTTP/1.1 204 No Content
+</pre>
+</p></div>
+<div id="changeLink">
+<h4>Change a Link</h4>
+<p>                    A successful PUT request to a single-valued navigation property’s reference resource changes the related entity. The request below change the <em>Airline</em> of a <em>Flight</em>.<br />
+                    <code>PUT serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems(11)/Microsoft.OData.SampleService.Models.TripPin.Flight/Airline/$ref</code><br />
+                    <code><br />
+                        OData-Version: 4.0<br />
+                        Content-Type: application/json;odata.metadata=minimal<br />
+                        Accept: application/json</p>
+<p>                        {<br />
+                        "@odata.id": "serviceRoot/Airlines('FM')"<br />
+                        }<br />
+                    </code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+HTTP/1.1 200 OK
+{
+    "@odata.context":"serviceRoot/TripPinServiceRW/$metadata#$ref",
+    "@odata.id":"serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems(11)/Microsoft.OData.SampleService.Models.TripPin.Flight/Airline"
+}
+</pre>
+</p></div>
+</p></div>
+<div id="operation">
+<h3>Functions and Actions</h3>
+<p>                OData supports custom operations (Actions and Functions). Functions are operations exposed by an OData service the MUST return data and MUST have no observable side effects. Actions are operations exposed by an OData service that MAY have side effects when invoked. Functions and actions both MAY bound to an entity type, primitive type, complex type, or a collection.</p>
+<div id="unboundedFunction">
+<h4>Invoking Unbound Functions</h4>
+<p>                    The function below returns the nearest airport with the input geography point.<br />
+                    <code>GET serviceRoot/GetNearestAirport(lat = 33, lon = -118)</code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+Response 200 OK
+{
+    "@odata.context": "serviceRoot/$metadata#Airports/$entity", 
+    "IcaoCode": "KLAX", 
+    "Name": "Los Angeles International Airport", 
+    "IataCode": "LAX", 
+    "Location": {
+       "Address": "1 World Way, Los Angeles, CA, 90045", 
+        "City": {
+            "CountryRegion": "United States", 
+            "Name": "Los Angeles", 
+            "Region": "California"
+        }, 
+        "Loc": {
+            "type": "Point", 
+            "coordinates": [
+                -118.408055555556, 
+                33.9425
+            ], 
+            "crs": {
+                "type": "name", 
+                "properties": {
+                    "name": "EPSG:4326"
+                }
+            }
+        }
+    }
+}
+</pre>
+</p></div>
+<div id="boundedFunction">
+<h4>Invoking Bound Functions</h4>
+<p>                    The request below returns the favorite airline of a person, in TripPin service, "favorite airline" means airline which user choose most times. The function GetFavoriteAirline() is bound to <em>Person</em>.<br />
+                    <code>GET serviceRoot/People('russellwhyte')/Microsoft.OData.SampleService.Models.TripPin.GetFavoriteAirline()</code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+Response 200 OK
+{
+    "@odata.context": "serviceRoot/$metadata#Airlines/$entity", 
+    "@odata.id": "serviceRoot/Airlines('AA')", 
+    "@odata.editLink": "serviceRoot/Airlines('AA')", 
+    "AirlineCode": "AA", 
+    "Name": "American Airlines"
+}
+</pre>
+</p></div>
+<div id="unboundedAction">
+<h4>Invoking Unbound Actions</h4>
+<p>                    TripPin currently has no scenario supported for unbound actions.
+                </p></div>
+<div id="boundedAction">
+<h4>Invoking Bound Actions</h4>
+<p>                    The action below shares a trip to one of his friend. In TripPin service, by "share a trip" we mean that the owner and his friend now both have the trip and the trip share the same <em>ShareId</em> property.<br />
+                    <code>POST serviceRoot/People('russellwhyte')/Microsoft.OData.SampleService.Models.TripPin.ShareTrip</code><br />
+                    <code><br />
+                        OData-Version: 4.0<br />
+                        Content-Type: application/json;odata.metadata=minimal<br />
+                        Accept: application/json</p>
+<p>                        {<br />
+                        "userName": "scottketchum",<br />
+                        "tripId": 1001<br />
+                        }<br />
+                    </code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+HTTP/1.1 204 No Content
+</pre>
+</p></div>
+</p></div>
+<div id="etag">
+<h3>ETag</h3>
+<p>                OData V4 supports ETag for Data Modification Request and Action Request. This section demonstrates how to operate on entity with ETag enabled. Please be noted that the ETag value below may be out-of-date, so when you try these requests, please first use the <code>GET</code> request to get the ETag of specified entity.</p>
+<div id="updateEtag">
+<h4>Update Entity with ETag</h4>
+<p>                    The request below shows how to update <em>Person</em> which has ETag supported. Please be noted that the value for <code>If-Match</code> should be the same with the <code>ETag</code> value of the specified Person.<br />
+                    <code><br />
+                        PATCH  serviceRoot/People('clydeguess')<br />
+                        OData-Version: 4.0<br />
+                        Content-Type: application/json;odata.metadata=minimal<br />
+                        Accept: application/json<br />
+                        If-Match: W/"08D15F3DD9126D84"</p>
+<p>                        {<br />
+                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Person",<br />
+                        "FirstName" : "CLYDE"<br />
+                        }<br />
+                    </code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+HTTP/1.1 204 No Content
+</pre>
+</p></div>
+<div id="deleteEtag">
+<h4>Delete Entity with ETag</h4>
+<p>                    The request below shows how to delete <em>Person</em> which has ETag supported. Please be noted that the value for <code>If-Match</code> should be the same with the <code>ETag</code> value of the specified Person.<br />
+                    <code><br />
+                        DELETE serviceRoot/People('vincentcalabrese')<br />
+                        OData-Version: 4.0<br />
+                        Content-Type: application/json;odata.metadata=minimal<br />
+                        Accept: application/json<br />
+                        If-Match: W/"08D15F3DD9A61539"<br />
+                    </code><br />
+                    <br />
+                    Response Payload</p>
+<pre>
+HTTP/1.1 204 No Content
+</pre>
+</p></div>
+</p></div>
+</p></div>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-3">
+
+<nav class="tutorial-sidebar">
+<ul class="nav tutorial-sidenav" data-spy="affix">
+<li class="active">
+            <a href="#requestData">Requesting Data</a></p>
+<ul class="nav">
+<li><a href="#entitySet">Requesting Entity Collections</a></li>
+<li><a href="#entityByID">Requesting an Individual Entity by ID</a></li>
+<li><a href="#property">Requesting an Individual Property</a></li>
+<li><a href="#propertyVal">Requesting an Individual Property Raw Value</a></li>
+</ul>
+</li>
+<li>
+            <a href="#queryData">Querying Data</a></p>
+<ul class="nav">
+<li><a href="#filter">System Query Option $filter</a></li>
+<li><a href="#orderby">System Query Option $orderby</a></li>
+<li><a href="#topskip">System Query Option $top and $skip</a></li>
+<li><a href="#count">System Query Option $count</a></li>
+<li><a href="#expand">System Query Option $expand</a></li>
+<li><a href="#select">System Query Option $select</a></li>
+<li><a href="#search">System Query Option $search</a></li>
+<li><a href="#lambda">Lambda Operators</a></li>
+</ul>
+</li>
+<li>
+            <a href="#modifyData">Data Modification</a></p>
+<ul class="nav">
+<li><a href="#create">Create an Entity</a></li>
+<li><a href="#delete">Delete an Entity</a></li>
+<li><a href="#update">Update an Entity</a></li>
+<li><a href="#relationship">Relationship Operations</a></li>
+<li><a href="#operation">Functions and Actions</a></li>
+<li><a href="#etag">ETag</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+
+<!--/body-->

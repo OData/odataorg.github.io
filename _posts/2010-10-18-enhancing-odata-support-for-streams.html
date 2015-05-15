@@ -1,0 +1,86 @@
+---
+layout: post
+title: Enhancing OData support for streams
+date: 2010-10-18 17:45:53.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>OData has good support for streams via the ATOM concept of Media Link Entries (MLE) and Media Resources (MR).</p>
+<p>A Media Resource is a unstructured piece of data or stream, something like a Document, Image or Video. And the way that you access or learn about a Media Resource is via the associated Media Link Entry, which is just a special type of Entry which links to a Media Resource and includes additional metadata about it.</p>
+<p>For example if you wanted to use OData to share Videos, you could model the metadata for the Video as an MLE and create a feed for these MLEs, then the actual video itself would become a Media Resource linked to from the MLE.</p>
+<p>So using something like this to retrieve a particular MLE:</p>
+<p><strong>GET ~/Service/Videos(123123)</strong></p>
+<p>Might return something like this:</p>
+<p><em>&lt;entry m:etag="UVWXYZ"&gt;<br />
+&lt;id&gt;http://server/Service/Videos(123)&lt;/id&gt;<br />
+&lt;title&gt;OData Named Resource Streams&lt;/title&gt;<br />
+&lt;summary&gt;A short video about Named Resource Streams...&lt;summary&gt;<br />
+&lt;updated&gt;2010-08-21T08:27:16Z&lt;/updated&gt;<br />
+&lt;author&gt;<br />
+&lt;name /&gt;<br />
+&lt;/author&gt;<br />
+<strong>&lt;link m:etag="ABCDEF" rel="edit-media" title="Title" href="Videos(123)/$value" /&gt;<br />
+</strong> &lt;content src="... uri to a picture to represent the video ..." /&gt;</em> <em><br />
+&lt;m:properties xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;<br />
+&lt;d:Id&gt;123&lt;/d:Id&gt;<br />
+&lt;d:Synopsis&gt; A short video about Named Resource Streams...&lt;/d:Synopsis&gt;<br />
+&lt;d:Name&gt;OData Named Resource Streams &lt;/d:Name&gt;<br />
+&lt;/m:properties&gt;<br />
+&lt;/entry&gt;</em></p>
+<p>In this example the actual video (or Media Resource) can be found in the 'edit-media' link's href.</p>
+<p>So far OData is just using standard ATOM support for media-resource.</p>
+<h3>Named Resource Streams</h3>
+<p>But what happens though if you need multiple versions of that video?<br />
+For example High and Low bandwidth versions.</p>
+<p>Today you could model this with multiple MLEs, but doing so implies you have different metadata for each stream, if note you end up with copies of the same metadata for each version of the stream. Clearly this is not desirable when you have multiple versions of essentially the same video, image or document.</p>
+<p>It turns out that this is a very common scenario, common enough that we thought it needed to be supported without forcing people to use multiple MLEs.</p>
+<p>Ideally you should be able to have something like this:</p>
+<p><em>&lt;entry m:etag="UVWXYZ"&gt;<br />
+&lt;id&gt;http://server/Service/Videos(123)&lt;/id&gt;<br />
+&lt;title&gt;OData Named Resource Streams&lt;/title&gt;<br />
+&lt;summary&gt;A short video about Named Resource Streams...&lt;summary&gt;<br />
+&lt;updated&gt;2010-08-21T08:27:16Z&lt;/updated&gt;<br />
+&lt;author&gt;<br />
+&lt;name /&gt;<br />
+&lt;/author&gt;<br />
+&lt;link m:etag="ABCDEF" rel="edit-media" title="Title" href="Videos(123)/$value" /&gt;<br />
+<strong>&lt;link<br />
+rel=" http://schemas.microsoft.com/ado/2007/08/dataservices/edit-media/ HighBandwidth"<br />
+title="HighBandwidth"<br />
+href="Videos(123)/</strong></em> <em><strong>HighBandwidth/$value" /&gt;<br />
+</strong> <strong>&lt;link<br />
+rel=" http://schemas.microsoft.com/ado/2007/08/dataservices/edit-media/ LowBandwidth"<br />
+title="LowBandwidth"<br />
+href="Videos(123)/LowBandwidth/$value" /&gt;<br />
+</strong> &lt;content src="... uri to a picture to represent the video ..." /&gt;<br />
+&lt;m:properties xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;<br />
+&lt;d:Id&gt;123&lt;/d:Id&gt;<br />
+&lt;d:Synopsis&gt; A short video about Named Resource Streams...&lt;/d:Synopsis&gt;<br />
+&lt;d:Name&gt;OData Named Resource Streams &lt;/d:Name&gt;<br />
+&lt;/m:properties&gt;<br />
+&lt;/entry&gt;</em><br />
+This says there is some default representation of the video that can be downloaded from Videos(123)/$value (i.e. the standard Media Resource), and there are also High and LowBandwidth streams too.</p>
+<p>Note: In the above example the URI's for the Named Resource Streams simply use the URI conventions, i.e. the uri that identifies the Named Stream property with $value appended. However the clients should be payload driven here, so a server should be able to return any uri they want.</p>
+<p>To achieve this the metadata would need to look like this:</p>
+<p><em>&lt;EntityType Name="Video" m:HasStream="true"&gt;<br />
+&lt;Key&gt;<br />
+&lt;PropertyRef Name="ID" /&gt;<br />
+&lt;/Key&gt;<br />
+&lt;Property Name="ID" Type="Edm.Int32" Nullable="false" /&gt;<br />
+&lt;Property Name="Name" Type="Edm.String" Nullable="true" /&gt;<br />
+&lt;Property Name="Synopsis" Type="Edm.String" Nullable="true" /&gt;<br />
+<strong>&lt;Property Name="HighBandwidth" Type="Edm.Stream" /&gt;<br />
+</strong> <strong>&lt;Property Name="LowBandwidth" Type="Edm.Stream" /&gt;<br />
+</strong> &lt;/EntityType&gt;</em></p>
+<p>Notice the extra streams are just extra properties on the item of type Edm.Stream. Here Edm.Stream is simply a new built-in complex type, with some explicit structure (MimeType) and an implicit stream.</p>
+<p>I think this is a natural next step for OData's stream support.</p>
+<p>What do you think?</p>
+<p>Alex</p>
+</div>

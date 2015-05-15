@@ -1,0 +1,145 @@
+---
+layout: post
+title: Enhancing OData support for querying derived types - revisited
+date: 2010-08-06 17:50:15.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>About a week ago <a href="http://www.odata.org/blog/2010/7/30/enhancing-odata-support-for-querying-derived-types"> we outlined some options</a> for enhancing OData support for querying derived types.</p>
+<p>From there the discussion moved to the <a href="http://odata.org/mailing-list">OData Mailing list</a>, where the community gave us very valuable feedback:</p>
+<ul>
+<li>Everyone seemed to like the idea in general - evidenced by the fact that all debate focused on syntax.</li>
+<li>Most liked the idea of the short hand syntax for OfType.</li>
+<li>However Robert pointed out that using the !Employee syntax is weird because ! implies NOT to a lot of developers.</li>
+<li>Given this some suggested alternatives like using @ or [].</li>
+<li>Erik wondered if we could simply use the name of the type in a new segment, dealing with any ambiguity by picking properties and navigations first.</li>
+<li>Robert pointed out that it would be hard to know when to use IsOf and when to use OfType.</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Feedback Takeaways</h3>
+<p>Well we just sat down and discussed all this, so what follows is an updated proposal taking into account your feedback.</p>
+<p>Clearly the '! means NOT' issue is a show stopper, thanks for catching this early Robert.</p>
+<p>That option is out.</p>
+<p>Most seem to want a short-hand syntax - the complicating factor though is that we really don't like ambiguity - so whatever syntax we choose must be precise and unambiguous.</p>
+<p>&nbsp;</p>
+<h3>Using []'s:</h3>
+<p>We considered using '[]' instead of ! like this:</p>
+<p><strong>~/People[Employee]<br />
+~/People[Employee](2)/Manager<br />
+~/People(2)/[Employee]/Manager<br />
+</strong><strong>~/People(2)/Mother[Employee]/Manager<br />
+~/People(2)/Mother[Employee]/Manager/Father[Employee]/Reports</strong></p>
+<p>and something like this in query segments:</p>
+<p><strong>~/People/?$filter=[Employee]/Building eq 'Puget Sound Building 18'<br />
+~/People/?$expand=[Employee]/Manager<br />
+~/People/?$orderby=[Employee]/Manager/Firstname</strong></p>
+<p>This is okay but it does have at least three issues:</p>
+<ul>
+<li>It makes OData URIs a little harder to parse.</li>
+<li>It makes OData URIs harder to read.</li>
+<li>It makes []() combo segments reasonably common.</li>
+</ul>
+<p>Not to mention it is the return of [] which has a colorful history in the OData protocol: early versions of Astoria used [] for keys!</p>
+<p>&nbsp;</p>
+<h3>Using Namespace Qualified Type Names:</h3>
+<p>We think a better option is to use Namespace Qualified Names.</p>
+<p>The Namespace qualification removes any chance of ambiguity with property and navigation names. So each time an OfType or Null propagating cast is required, you simply create a new segment with the Namespace Qualified type name.</p>
+<p>If Employee is in the HR namespace the earlier queries would now look like this:</p>
+<p><strong>~/People/HR.Employee<br />
+~/People/HR.Employee(2)/Manager<br />
+~/People(2)/HR.Employee/Manager<br />
+</strong><strong>~/People(2)/Mother/HR.Employee/Manager<br />
+~/People(2)/Mother/HR.Employee/Manager/Father/HR.Employee/Reports</strong></p>
+<p>and something like this in query segments:</p>
+<p><strong>~/People/?$filter=HR.Employee/Building eq 'Puget Sound Building 18'<br />
+~/People/?$expand=HR.Employee/Manager<br />
+~/People/?$orderby=HR.Employee/Manager/Firstname</strong></p>
+<p>This does make the choice of your namespace more important than it is today, because it is more front and centre, but the final result is:</p>
+<ul>
+<li>URIs that are more readable.</li>
+<li>Casting is always done in a separate segment which makes it feel more like a function that operates on the previous segment.</li>
+<li>[] is preserved for later use.</li>
+</ul>
+<p>So this seems like a good option.</p>
+<p>&nbsp;</p>
+<h3>Impact on the protocol</h3>
+<p>How does it work across the rest of the protocol?</p>
+<p>&nbsp;</p>
+<h4>404's</h4>
+<p>If you try something like this:</p>
+<p><strong>~/People(11)/HR.Employee</strong></p>
+<p>And person 11 is not an employee, you will get a 404. Indeed if you try any other operations on this uri you will get a 404 too.</p>
+<p>&nbsp;</p>
+<h4>Composition</h4>
+<p>After using the Namespace Qualified Type name to filter and change segment type all normal OData uri composition rules should apply. So for example these queries should be valid:</p>
+<p><strong>~/People/HR.Employee/$count/?$filter=Firstname eq 'Bill'<br />
+~/People(6)/HR.Employee/Reports/$count<br />
+~/People(6)/HR.Employee/Reports(56)/Firstname/$value</strong></p>
+<p>Also you should be able to apply type filters to service operations that support composition:</p>
+<p><strong>~/GetPeopleOlderThanSixty/HR.Employee</strong></p>
+<p><strong> </strong></p>
+<h4>$filter</h4>
+<p>As explained in the earlier post this:</p>
+<p><strong>~/People/?$filter=HR.Employee/Manager/Firstname eq 'Bill'</strong></p>
+<p>Will include only employees managed by Bill.</p>
+<p>Whereas this:</p>
+<p><strong>~/People/?$filter=HR.Employee/Manager/Firstname eq 'Bill' OR Firstname eq 'Bill'</strong></p>
+<p>Will include anyone called Bill or any *employee* managed by Bill.</p>
+<p>&nbsp;</p>
+<h4>$expand</h4>
+<p>$expand will expand related results where possible. So this:</p>
+<p><strong>~/People/?$expand=HR.Employee/Manager</strong></p>
+<p>Would include managers for each employee using the standard OData <a href="http://www.odata.org/developers/protocols/atom-format#InlineRepresentationofAssociatedEntries"> &lt;link&gt;&lt;m:Inline&gt;</a> approach, and non employees would have no Manager &lt;link&gt;.</p>
+<p>&nbsp;</p>
+<h4>$orderby</h4>
+<p>This query:</p>
+<p><strong>~/People/?$orderby=HR.Employee/Manager/Firstname</strong></p>
+<p>Would order by people by Manager name. And because HR.Employee is a null propagating cast any entries which aren't Employees would be ordered as if their Manager's Firstname were null.</p>
+<p>&nbsp;</p>
+<h4>$select</h4>
+<p>Given this query:</p>
+<p><strong>~/People/?$select=Firstname, HR.Employee/Manager/Firstname</strong></p>
+<p>All Employee's will contain Firstname and Manager/Firstname. All non-employees will contain just Firstname.</p>
+<p>You might expect people to have a NULL Manager/Firstname, but there is a real difference between having a NULL property value and having no property!</p>
+<p>&nbsp;</p>
+<h4>Inserts - POST</h4>
+<p>Today when inserting into a Collection that allows derived types you must specify the type using the <a href="http://www.odata.org/developers/protocols/operations#CreatingnewEntries"> entry's category's term</a>.</p>
+<p>However if you post to a type specialized uri like this:</p>
+<p><strong>~/People/HR.Employee</strong></p>
+<p>The server may be able to infer the exact type being created.</p>
+<p>So if there are no types derived from HR.Employee, the server can unambiguously infer that you want to insert an employee, without the request specifying a category.</p>
+<p>On the other hand if there are types derived from HR.Employee the request must specify the type via the category.</p>
+<p>Finally if the type is specified via the category and it is not a HR.Employee (or derived from HR.Employee) the request will fail.</p>
+<p>&nbsp;</p>
+<h4>Deep Inserts</h4>
+<p>OData already supports 'deep inserts'. A 'deep insert' creates an entity and builds a link to an existing entity. So posting here:</p>
+<p><strong>~/People(6)/Friends</strong></p>
+<p>Inserts a new person and creates a 'friends' link with Person 6.</p>
+<p>The same type specification rules apply for deep inserts too, so posting here:</p>
+<p><strong>~/People(6)/Friends/HR.Employee</strong></p>
+<p>Will succeed only if the type is unambiguous and allowed (i.e. it is an Employee or derived from Employee).</p>
+<p>&nbsp;</p>
+<h4>Updates - PUT / MERGE / PATCH</h4>
+<p>You can't change type during an update. So putting here:</p>
+<p><strong>~/People(6)/HR.Employee</strong></p>
+<p>Will only succeed if Person 6 is an Employee.</p>
+<p>The same applies for MERGE and will apply to PATCH when supported.</p>
+<p>&nbsp;</p>
+<h4>Deletes - DELETE</h4>
+<p>Delete is as you would expect, and will work unless the URI 404's.</p>
+<p>&nbsp;</p>
+<h3>Summary</h3>
+<p>Clearly adding better support for derived types to OData is valuable. And it seems like the proposal is starting to take shape - thanks in large part to your feedback!</p>
+<p>What do you think?</p>
+<p>The best place to tell us is on the <a href="http://www.odata.org/mailing-list">OData Mailing List</a>.</p>
+<p><strong><a href="http://twitter.com/adjames">Alex James</a><br />
+</strong>Program Manager<br />
+Microsoft</p>
+</div>

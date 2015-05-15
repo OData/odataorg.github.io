@@ -1,0 +1,61 @@
+---
+layout: post
+title: TripPin - New OData V4 Sample Service
+date: 2014-07-09 08:09:58.000000000 +08:00
+categories:
+- OData services
+tags: []
+status: publish
+type: post
+published: true
+author: Qian Li
+---
+<h2>Introduction</h2>
+<p><a href="http://services.odata.org/V4/TripPinServiceRW">TripPin</a> is a sample service based on OData V4. Generally speaking, TripPin provides a service that can manage people's trips. The service is designed for below purposes:</p>
+<ul>
+<li>Build a service that will cover as many features for OData V4 as possible.</li>
+<li>Build a more real world service, and will use it to build an end-to-end ecosystem.</li>
+<li>Make a service reference for developers to follow when they try to build an OData service. The source code will be published soon.</li>
+</ul>
+<p>We are happy to announce that the source code of TripPin implemented using Web API OData is now available at <a href="https://github.com/OData/ODataSamples">GitHub</a>. Please take a look and provide questions or feedback.</p>
+<p style="text-align:justify;">Please play with this new sample service for OData V4. You can use it either to know more about OData or build an application upon that. If you have any problems, suggestions, bug reports for TripPin, you can <a href="http://www.odata.org/join-the-odata-discussion/">join OData Mailing List</a> to discuss about it.</p>
+<h2>Model</h2>
+<p>The class diagram below describes the model design for TripPin</p>
+<p><a href="{{site.url}}assets/TripPinClassDiagram.jpg"><img src="{{site.url}}assets/TripPinClassDiagram.jpg" alt="TripPinClassDiagram" width="600" height="398" class="aligncenter size-full wp-image-12077" /></a></p>
+<h2>Feature Coverage</h2>
+<p>As we mentioned in the introduction part, TripPin tries to cover as many features as possible. Below are the main features we covered in TripPin.</p>
+<ul>
+<li><b>Basic entity /  complex type and their collections</b></li>
+<p>For instance, <code>Person</code> is an entity and <code>Country</code> is a complex type. <code>People</code> is a collection of entity and <code>AddressInfo</code> is a collection of complex type.</p>
+<li><b>Navigation property</b></li>
+<p>For instance, <code>Friends</code> is a navigation property.</p>
+<li><b>Singleton</b></li>
+<p><code>Me</code> is the Singleton</p>
+<li><b>Collection property of primitive type</b></li>
+<p>For instance, <code>Emails</code> is a collection property of primitive type string.</p>
+<li><b>Derived entity type</b></li>
+<p>For instance, entity type <code>Event</code> derives from <code>PlanItem</code>.</p>
+<li><b>Derived complex type</b></li>
+<p>For instance, complex type <code>EventLocation</code> derives from <code>Location</code></p>
+<li><b>Open entity type</b></li>
+<p>For instance, <code>Event</code> is an open entity type.</p>
+<li><b>Open complex type</b></li>
+<p>For instance, <code>Location</code> is an open complex type.</p>
+<li><b>Containment</b></li>
+<p>For instance, <code>Person</code> contains <code>Trips</code>.</p>
+<li><b>Functions and Actions (Bound and Unbound)</b></li>
+<p>For instance, GetNearestAirport is  an unbound function, GetInvolvedPeople is a function bound to <code>Trip</code> and ShareTrip is an action bound to <code>Person</code>.</p>
+<li><b>Enum Property</b></li>
+<p><code>Gender</code> is an enum property.</p>
+<li><b>Spatial Property</b></li>
+<p><code>Loc</code> is a spatial property.</p>
+<li><b>Media Entity</b></li>
+<p>For instance, <code>Photo</code> is a media entity</p>
+<li><b>System query options ($select, $expand, $filter, $top, $skip, $count, $orderby, $search)</b></li>
+<li><b>Lambda operations (any, all)</b></li>
+<li><b>Create, Update, Delete</b></li>
+<li><b>Batch</b></li>
+<li><b>Etag</b></li>
+<li><b>Async request</b></li>
+<li><b>Annotations</b></li>
+</ul>

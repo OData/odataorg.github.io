@@ -1,0 +1,107 @@
+---
+layout: post
+title: Adding support for Bags
+date: 2010-09-27 17:46:38.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p><strong>Problem Statement</strong></p>
+<p>Today entries in OData (Customer, Order, etc) may have properties whose value are primitive types, complex types or represent a reference to another entry or collection of entries. However there is no support for properties that *contain* a collection (or bag) of values.</p>
+<p>For example, a sample entry which represents a Customer is shown below.  Notice the entry has primitive properties (firstname, last name) and a navigation property (orders) which refers to the Order entries associated with the Customer.</p>
+<p><a href="{{site.url}}assets/image001_496x245.jpg"><img class="alignnone size-full wp-image-371" alt="image001_496x245" src="{{site.url}}assets/image001_496x245.jpg" width="496" height="245" /></a></p>
+<p><strong>Sample Customer Entry listing</strong></p>
+<p>What if you wanted to enhance the definition of the Customer entry above to include all the email addresses for the customer?  To model this using OData v2 you have two a few options.  One option would be to create multiple string properties (email1, email2, email3) to hold alternate email addresses.  This has the obvious limitation that the number of alternates is bounded and needs to be known at schema definition time.  Another approach would be to create a single 'emails' string property which is a comma separated list of email addresses.  While this is more dynamic it overloads a single property and requires client and server up front to agree on the formatting of the string (comma separated, etc).</p>
+<p>To enable modeling these type of situations easier in OData, this document outlines a proposal for the changes required to represent Entries with properties that are unordered homogenous sets of non-null primitive or complex values (aka "Bags").</p>
+<p><strong>Proposal:</strong></p>
+<p><strong>Metadata</strong></p>
+<p>As you know, OData services may expose a <a href="http://www.odata.org/developers/protocols/overview#MetadataForODataServices"> metadata document</a> ($metadata endpoint) which describes the data model exposed by the service.  Below is an example of the proposed extension of the metadata document  to define Bag properties.   In this case, the Customer Entry has a Bag of email addresses and apartment addresses.</p>
+<p><a href="{{site.url}}assets/image002_498x390.jpg"><img class="alignnone size-full wp-image-372" alt="image002_498x390" src="{{site.url}}assets/image002_498x390.jpg" width="498" height="390" /></a></p>
+<p><strong>Uri Construction Rules</strong></p>
+<p>The optional, but recommended, URI path construction rules defined by OData will be extended as proposed below to support addressing Bag properties.</p>
+<p>A Bag Property is addressable by appending the name of the Bag Property as a URI path segment after a path segment that identifies an Entry (assuming the Entry Type associated with the Entry identified defines the named Bag Property as a property of the type).</p>
+<ul>
+<li>A Bag property cannot be dereference by appending the $value operator to the URI path segment identifying the named Bag Property.</li>
+<li>The individual elements of a bag are NOT addressable</li>
+<li>If a URI addresses a Bag Property directly (i.e. /Customers(1)/Addresses ) then the only valid OData query string option is the $format option.  All other OData query string options MUST NOT be present.</li>
+<li>Except for $select, a Bag Property name MUST NOT be present in the value of any of the query string operators ($filter, etc) in a request URI.</li>
+</ul>
+<p>Example: sample valid URIs to address the Customer Entry Type described in the 'Metadata Description' section above</p>
+<ul>
+<li>Customer(1)  == identifies the Customer Entry with key value equal to 1</li>
+<li>Customer(1)/Name == identifies only the Name property of the Customer Entry with key value 1</li>
+<li>Customer(1)/Addresses== identifies the bag of addresses for Customer 1.
+<ul>
+<li>No further path composition is allowed after a Collection Property in a URI path</li>
+</ul>
+</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Protocol Semantics/Rules</strong></p>
+<ul>
+<li> A Bag represents an unordered homogenous set of non-null primitive or complex values. Therefore, Data services and data service clients are not required to maintain the original order of items in a bag.</li>
+<li><strong>For requests addressing an Entry which includes a Bag Property</strong> (i.e. request URI == /Customer(1) )
+<ul>
+<li>Processing is as per any other Entry which does not have a Bag Property (i.e. Bag Properties are just "regular" properties in this regard)</li>
+</ul>
+</li>
+<li><strong>Rules for Responses to Requests sent to a URI addressing Bag Properties</strong> (i.e. request URI == /Customer(1)/Addresses ):
+<ul>
+<li>Requests using any HTTP verb other than GET or PUT MUST result in a 405 (Method Not Allowed) response.</li>
+<li>All error responses MUST include a response body which conforms to the error response format as described here: <a href="http://msdn.microsoft.com/en-us/library/dd541497%28PROT.10%29.aspx" target="_blank">http://msdn.microsoft.com/en-us/library/dd541497(PROT.10).aspx</a></li>
+<li>If the Entry Type which defines the Bag Property defines a concurrency token, then a GET or PUT request to the bag MUST return an ETag header with the value of the concurrency token equal to that which would be used for the associated Entry Type instance (i.e. same as "regular" properties).</li>
+<li><strong>Responses from a GET request to a Bag Property</strong>:
+<ul>
+<li>If the response indicates success, the response code MUST be 2xx and the response body, if any, MUST be formatted as per one of the serializations described below</li>
+</ul>
+</li>
+<li><strong>Responses from a PUT request to a Bag Property:</strong>
+<ul>
+<li>If the response indicates success, the response code MUST be 204 (OK) and the response body MUST be formatted as per one of the serializations described below.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Payload Examples</strong></p>
+<p><strong>Example 1 : Representing Bag Properties</strong></p>
+<p>Request Uri: GET http:// host /service.svc/Customers(1)</p>
+<p>Response:</p>
+<p><a href="{{site.url}}assets/image003_500x430.jpg"><img class="alignnone size-full wp-image-373" alt="image003_500x430" src="{{site.url}}assets/image003_500x430.jpg" width="500" height="430" /></a></p>
+<p><strong>Example 2: Representing Bag properties with Customizable Feed Mapping</p>
+<p></strong>NOTE: When a Bag is represented outside of &lt;atom:content&gt; using <a href="http://www.odata.org/developers/protocols/atom-format#CustomizingtheRepresentationofanEntry"> Customizable Feed mappings</a> we'll use the Atom collection representation semantics of repeating top level element.  We'll do this both for properties mapped to Atom elements and properties mapped to arbitrary elements in a custom namespace. The Bag MAY still be represented in the &lt;atom:content&gt; section.</p>
+<p><a href="{{site.url}}assets/image004_498x380.jpg"><img class="alignnone size-full wp-image-374" alt="image004_498x380" src="{{site.url}}assets/image004_498x380.jpg" width="498" height="380" /></a></p>
+<p><strong>Example 3: Response to a GET request to /Customers(1)/Addresses</strong></p>
+<p><a href="{{site.url}}assets/image005_500x190.jpg"><img class="alignnone size-full wp-image-375" alt="image005_500x190" src="{{site.url}}assets/image005_500x190.jpg" width="500" height="190" /></a></p>
+<p><strong>Example 4: Response to a GET request to /Customers(1)/EmailAddresses</strong></p>
+<p><a href="{{site.url}}assets/image006_499x134.jpg"><img class="alignnone size-full wp-image-376" alt="image006_499x134" src="{{site.url}}assets/image006_499x134.jpg" width="499" height="134" /></a></p>
+<p><strong>Example 5: JSON representation for an Entry with Bag properties</strong></p>
+<p><a href="{{site.url}}assets/image007_500x233.jpg"><img class="alignnone size-full wp-image-377" alt="image007_500x233" src="{{site.url}}assets/image007_500x233.jpg" width="500" height="233" /></a></p>
+<p><strong>Additional Rules</strong></p>
+<p><strong>Customizable feed mapping</strong></p>
+<p>The following rules define the customizable feed mappings rules for Bags and are in addition to those already defined for entries <a href="http://www.odata.org/developers/protocols/atom-format#CustomizingtheRepresentationofanEntry"> here</a>.</p>
+<ul>
+<li>Each instance in the bag must be represented as a child element of the element representing the bag as a whole and be named 'element' and MUST be defined in the data service namespace (<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>).</li>
+<li>An attribute named 'type' (in the Data Service Metadata namespace) MAY exist on the element representing the bag as a whole.</li>
+<li>If a Bag of Complex type instances with Customizable Feeds annotations in the data services metadata document and has a value of null then the element being mapped to MUST be present with an attribute named 'null'  that  MUST be defined in the data service namespace (<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>). If the null value is being mapped to an attribute the Server or Client MUST return status code 500</li>
+</ul>
+<h3>Versioning</h3>
+<ul>
+<li>The DataServiceVersion header in a response to a GET request for a Service Metadata Document which includes a type with a Bag property MUST be set to 3.0 or greater.</li>
+<li>Servers MUST respond with an error if they process a request with a MaxDataServiceVersion header set to &lt;=2.0 but would result in Bag Properties in the response payload.</li>
+<li>Servers MUST set the DataServiceVersion header to 3.0 in responses containing Bag Properties.</li>
+<li>Servers MUST fail if a request payload contains Bag Properties but it doesn't have the DataServiceVersion set to 3.0 or greater.</li>
+<li>Client MUST set the MaxDataServiceVersion header to 3.0 or greater to be able to get Bag Properties. The DataServiceVersion header of the request MAY be lower.</li>
+<li>If the Client sends Bag Properties in the payload the DataServiceVersion header that request MUST be set to 3.0 or greater.</li>
+<li>If the Client receives payload from the Server which contains Bag Properties, it MUST fail if the response doesn't have DataServiceVersion header set to 3.0 or greater.</li>
+</ul>
+<p>We look forward to hearing what you think of this approach…</p>
+<p>Whatever you think, please tell us all about it on the <a href="http://www.odata.org/mailing-list">OData Mailing List</a>.</p>
+<p><strong>Ahmed Moustafa</strong></p>
+</div>

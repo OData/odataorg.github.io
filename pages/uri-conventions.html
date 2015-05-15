@@ -1,0 +1,569 @@
+---
+layout: page
+title: URI Conventions
+date: 2014-02-28 03:30:31.000000000 +08:00
+permalink: /documentation/odata-version-2-0/uri-conventions/
+---
+<h2>Introduction</h2>
+<p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Identifiers (URIs) and defined in a <a href="../overview#ODataBasics">data model</a>, to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URIs to identify the data and metadata exposed by an OData server as well as a set of reserved URI query string operators, which if accepted by an OData server, MUST be implemented as required by this document.</p>
+<p>The <a href="../atom-format">[OData:Atom]</a> and <a href="../json-format">[OData:JSON]</a> documents specify the format of the resource representations that are exchanged using OData and the <a href="../operations">[OData:Operations]</a> document describes the actions that can be performed on the URIs (optionally constructed following the conventions defined in this document) embedded in those representations.</p>
+<p>It is encouraged that servers follow the URI construction conventions defined in this specification when possible as such consistency promotes an ecosystem of reusable client components and libraries.</p>
+<p>The terms used in this document are defined in the <a href="../terminology">[OData:Terms]</a> document.</p>
+<h2><a id="UriComponents" name="UriComponents"></a>1. URI Components</h2>
+<p>A URI used by an OData service has up to three significant parts: the <a href="../uri-conventions#ServiceRootUri"> service root URI</a>, <a href="../uri-conventions#ResourcePath">resource path</a> and <a href="../uri-conventions#QueryStringOptions"> query string options</a>. Additional URI constructs (such as a fragment) MAY be present in a URI used by an OData service; however, this specification applies no further meaning to such additional constructs.</p>
+<p><a href="{{ site.url }}assets/ODataUri.png"><img src="{{ site.url }}assets/ODataUri.png" alt="ODataUri" width="714" height="32" class="aligncenter size-full wp-image-1831" /></a></p>
+<p>The following are two example URIs broken down into their component parts:</p>
+<pre><code>http://services.odata.org/OData/OData.svc _______________________________________/
+  | service root URI </code>
+http://services.odata.org/OData/OData.svc/Category(1)/Products?$top=2&amp;$orderby=name
+_______________________________________/ __________________/  _________________/
+                   |                                |                    |
+             service root URI                  resource path        query options</pre>
+<h2><a id="ServiceRootUri" name="ServiceRootUri"></a>2. Service Root URI</h2>
+<p>The service root URI identifies the root of an OData service. The resource identified by this URI MUST be an AtomPub Service Document (as specified in [RFC5023]) and follow the OData conventions for AtomPub Service Documents (or an alternate representation of an Atom Service Document if a different format is requested). OData: JSON Format specifies such an alternate JSON-based representation of a service document. The service document is required to be returned from the root of an OData service to provide clients with a simple mechanism to enumerate all of the collections of resources available for the data service.</p>
+<div>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th>Example Request URI</th>
+<th>OData Service URI</th>
+</tr>
+<tr>
+<td>http://services.odata.org:8080</td>
+<td>http://services.odata.org:8080</td>
+</tr>
+<tr>
+<td><a href="http://services.odata.org/OData/OData.svc/Categories">http://services.odata.org/OData/OData.svc/Categories</a></td>
+<td><a href="http://services.odata.org/OData/OData.svc/">http://services.odata.org/OData/OData.svc/</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2><a id="ResourcePath" name="ResourcePath"></a>3. Resource Path</h2>
+<p>The resource path construction rules defined in this section are optional. OData servers are encouraged to follow the URI path construction rules (in addition to the required query string rules) as such consistency promotes a rich ecosystem of reusable client components and libraries.</p>
+<p>The resource path section of a URI identifies the resource to be interacted with (such as Customers, a single Customer, Orders related to Customers in London, and so forth). The resource path enables any aspect of the data model (Collections of Entries, a single Entry, Properties, Links, Service Operations, and so on) exposed by an OData service to be addressed.</p>
+<h3><a id="AddressingEntries" name="AddressingEntries"></a>3.1. Addressing Entries</h3>
+<hr />
+<p>The basic rules for addressing a Collection (of Entries), a single Entry within a Collection, as well as a property of an Entry are illustrated in the figure below.</p>
+<p><a href="http://www.odata.org/wp-content/uploads/ResourcePath.png" rel="attachment wp-att-9621"><img class="wp-image-9621" alt="ResourcePath" src="assets/ResourcePath.png" width="1154" height="101" /></a></p>
+<ul>
+<li><strong>Collection</strong>: The name of a Collection or Service Operation (which returns a Collection of Entries) exposed by the service.</li>
+<li><strong>KeyPredicate</strong>: A predicate that identifies the value(s) of the key Properties of an Entry. If the Entry has a single key Property the predicate may include only the value of the key Property. If the key is made up of two or more Properties, then its value must be stated using name/value pairs. More precisely, the syntax for a KeyPredicate is shown by the following figure.</li>
+</ul>
+<p><a href="{{ site.url }}assets/keyPredicate.png"><img src="{{ site.url }}assets/keyPredicate.png" alt="keyPredicate" width="356" height="83" class="aligncenter size-full wp-image-1821" /></a></p>
+<ul>
+<li><strong>NavPropSingle</strong>: The name of a Navigation Property defined by the Entry associated with the prior path segment. The Navigation Property must identify a single entity (that is, have a "to 1" relationship).</li>
+<li><strong>NavPropCollection</strong>: Same as NavPropSingle except it must identify a Collection of Entries (that is, have a "to many" relationship).</li>
+<li><strong>ComplexType</strong>: The name of a declared or dynamic Property of the Entry or Complex Type associated with the prior path segment.</li>
+<li><strong>Property:</strong> The name of a declared or dynamic Property of the Entry or Complex Type associated with the prior path segment.</li>
+</ul>
+<p>For OData services conformant with the addressing conventions in this section, the canonical form of an absolute URI identifying a single Entry is formed by adding a single path segment to the service root URI. The path segment is made up of the name of the Collection associated with the Entry followed by the key predicate identifying the Entry within the Collection. For example the URIs <a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Products%281%29"> http://services.odata.org/OData/OData.svc/Categories(1)/Products(1)</a> and <a href="http://services.odata.org/OData/OData.svc/Products%281%29"> http://services.odata.org/OData/OData.svc/Products(1)</a> represent the same Entry, but the canonical URI for the Entry is <a href="http://services.odata.org/OData/OData.svc/Products%281%29"> http://services.odata.org/OData/OData.svc/Products(1)</a>.</p>
+<p>Examples</p>
+<p>The example URIs below follow the addressing rules stated above and are based on the reference service and its <a href="../overview#ServiceMetadataDocument"> service metadata document </a>available at <a href="http://services.odata.org/OData/OData.svc/"> http://services.odata.org/OData/OData.svc/</a> and <a href="http://services.odata.org/OData/OData.svc/$metadata"> http://services.odata.org/OData/OData.svc/$metadata</a>.</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories">http://services.odata.org/OData/OData.svc/Categories</a></p>
+<ul>
+<li>Identifies all Categories Collection.</li>
+<li>Is described by the Entity Set named "Categories" in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29">http://services.odata.org/OData/OData.svc/Categories(1)</a></p>
+<ul>
+<li>Identifies a single Category Entry with key value 1.</li>
+<li>Is described by the Entity Type named "Categories" in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Name">http://services.odata.org/OData/OData.svc/Categories(1)/Name</a></p>
+<ul>
+<li>Identifies the Name property of the Categories Entry with key value 1.</li>
+<li>Is described by the Property named "Name" on the "Categories" Entity Type in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Products">http://services.odata.org/OData/OData.svc/Categories(1)/Products</a></p>
+<ul>
+<li>Identifies the collection of Products associated with Category Entry with key value 1.</li>
+<li>Is described by the Navigation Property named "Products" on the "Category" Entity Type in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Products/$count"> http://services.odata.org/OData/OData.svc/Categories(1)/Products/$count</a></p>
+<ul>
+<li>Identifies the number of Product Entries associated with Category 1.</li>
+<li>Is described by the Navigation Property named "Products" on the "Category" Entity Type in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Products%281%29/Supplier/Address/City"> http://services.odata.org/OData/OData.svc/Categories(1)/Products(1)/Supplier/Address/City</a></p>
+<ul>
+<li>Identifies the City of the Supplier for Product 1 which is associated with Category 1.</li>
+<li>Is described by the Property named "City" on the "Address" Complex Type in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Products%281%29/Supplier/Address/City/$value"> http://services.odata.org/OData/OData.svc/Categories(1)/Products(1)/Supplier/Address/City/$value</a></p>
+<ul>
+<li>Same as the URI above, but identifies the "raw value" of the City property.</li>
+</ul>
+<h3><a id="AddressingLinksBetweenEntries" name="AddressingLinksBetweenEntries"></a> 3.2. Addressing Links between Entries</h3>
+<hr />
+<p>Much like the use of links on Web pages, the data model used by OData services supports relationships as a first class construct. For example, an OData service could expose a Collection of Products Entries each of which are related to a Category Entry.</p>
+<p>Associations between Entries are addressable in OData just like Entries themselves are (as described above). The basic rules for addressing relationships are shown in the following figure.</p>
+<p><a href="{{ site.url }}assets/addressingRelationships.png" rel="attachment wp-att-10141"><img class="size-full wp-image-10141" alt="addressingRelationships" src="{{ site.url }}assets/addressingRelationships.png" width="510" height="29" /></a></p>
+<ul>
+<li><strong>NavigationProperty</strong>: The name of a Navigation Property that is declared on the Entry associated with the path segment prior to the "$links" segment.</li>
+</ul>
+<p>Examples</p>
+<p>The example URIs below follow the addressing rules stated above and are based on the reference service and its <a href="../overview#ServiceMetadataDocument"> service metadata document</a> available at <a href="http://services.odata.org/OData/OData.svc/"> http://services.odata.org/OData/OData.svc/</a> and <a href="http://services.odata.org/OData/OData.svc/$metadata"> http://services.odata.org/OData/OData.svc/$metadata</a>.</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29/$links/Products"> http://services.odata.org/OData/OData.svc/Categories(1)/$links/Products</a></p>
+<ul>
+<li>Identifies the set of Products related to Category 1.</li>
+<li>Is described by the Navigation Property named "Products" on the "Category" Entity Type in the associated service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products%281%29/$links/Category">http://services.odata.org/OData/OData.svc/Products(1)/$links/Category</a></p>
+<ul>
+<li>Identifies the Category related to Product 1.</li>
+<li>Is described by the Navigation Property named "Category" on the "Product" Entity Type in the associated service metadata document.</li>
+</ul>
+<h3><a id="AddressingServiceOperations" name="AddressingServiceOperations"></a> 3.3. Addressing Service Operations</h3>
+<hr />
+<p>OData services can expose Service Operations which, like Entries, are identified using a URI. Service Operations are simple functions exposed by an OData service whose semantics are defined by the author of the function. A Service Operation can accept primitive type input parameters and can be defined to return a single primitive, single complex type, collection of primitives, collection of complex types, a single Entry, a Collection of Entries, or void. The basic rules for constructing URIs to address Service Operations and to pass parameters to them are illustrated in the following figure.</p>
+<p><a href="{{ site.url }}assets/addressingServiceOperations.png" rel="attachment wp-att-9871"><img class="wp-image-9871" alt="addressingServiceOperations" src="{{ site.url }}assets/addressingServiceOperations.png" width="644" height="48" /></a></p>
+<ul>
+<li><strong>ServiceRootUri</strong>: The <a href="../uri-conventions#ServiceRootUri">service root URI</a> identifies the root of the OData service.</li>
+<li><strong>ServiceOperation</strong>: The name of a Service Operation exposed by an OData service.</li>
+<li><strong>ParamName</strong>: The name of a parameter accepted by the Service Operation. If the Service Operation accepts multiple parameters, the order of the parameters in the query string of the URI is insignificant.</li>
+<li><strong>ParamValue</strong>: The value of the parameter. The format of the value is defined by the literal form column of the table in the <a href="../overview#AbstractTypeSystem"> Abstract Types</a> section of <a href="../overview">[OData:Core]</a> (the OData overview specification) .</li>
+</ul>
+<p>Examples</p>
+<p>The example URIs below follow the addressing rules stated above and are based on the reference service and its <a href="../overview#ServiceMetadataDocument"> service metadata document</a> available at <a href="http://services.odata.org/OData/OData.svc/"> http://services.odata.org/OData/OData.svc/</a> and <a href="http://services.odata.org/OData/OData.svc/$metadata"> http://services.odata.org/OData/OData.svc/$metadata</a>.</p>
+<p><a href="http://services.odata.org/OData/OData.svc/ProductsByColor?color=%27red%27">http://services.odata.org/OData/OData.svc/ProductsByColor?color='red'</a></p>
+<ul>
+<li>Identifies the ProductByColor Service Operation and passes it a single string parameter. Since Service Operations are just functions, their semantics are up to the implementer of the function. In this case the Service Operation returns all the red Products.</li>
+<li>Is described by the Function Import named "ProductsByColor" that accepts a single string parameter named "color" in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/ProductsByColor%283%29/Category/Name?color=%27red"> http://services.odata.org/OData/OData.svc/ProductsByColor(3)/Category/Name?color='red</a>'</p>
+<ul>
+<li>Identifies the same function as the example above; however, since the function returns a collection of Entries (here, Products) it acts as a pseudo Collection in that additional path segments may follow identifying Entries or Links from the Entries within the pseudo Collection identified by the Service Operation. In this case, the result of the function is treated as a Collection of Entries, as described by the prior Addressing Entries section.</li>
+<li>Is described in the service metadata document by:
+<ul>
+<li>The Function Import named "ProductsByColor" that accepts a single string parameter named "color".</li>
+<li>The "Category" Navigation Property on the "Product" Entity Type.</li>
+<li>The "Name" property on the "Category" Entity Type.</li>
+</ul>
+</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/ProductsByColor?color=%27red%27&amp;param=foo"> http://services.odata.org/OData/OData.svc/ProductsByColor?color='red'&amp;param=foo</a></p>
+<ul>
+<li>Same as the example below, except an additional parameter (param) is specified. Since the function does not define an input parameter named param, this parameter is ignored and not considered part of the function invocation.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/ProductColors">http://services.odata.org/OData/OData.svc/ProductColors</a></p>
+<ul>
+<li>Identifies the ProductColors Service Operation that accepts no parameters.</li>
+<li>Is described by the Function Import named "ProductColors" in the service metadata document. This function returns a collection of strings.</li>
+</ul>
+<h2><a id="QueryStringOptions" name="QueryStringOptions"></a>4. Query String Options</h2>
+<p>The Query Options section of an OData URI specifies three types of information: <a href="../uri-conventions#SystemQueryOptions">System Query Options</a>, <a href="../uri-conventions#CustomerQueryOptions"> Custom Query Options</a>, and <a href="../uri-conventions#ServiceOperationParameters">Service Operation Parameters</a>. All OData services must follow the query string parsing and construction rules defined in this section and its subsections.</p>
+<h3><a id="SystemQueryOptions" name="SystemQueryOptions"></a>4.1. System Query Options</h3>
+<hr />
+<p>System Query Options are query string parameters a client may specify to control the amount and order of the data that an OData service returns for the resource identified by the URI. The names of all System Query Options are prefixed with a "$" character.</p>
+<p>An OData service may support some or all of the System Query Options defined. If a data service does not support a System Query Option, it must reject any requests which contain the unsupported option as defined by the request processing rules in <a href="../operations">[OData:Operations]</a>.</p>
+<h3><a id="OrderBySystemQueryOption" name="OrderBySystemQueryOption"></a> 4.2. Orderby System Query Option ($orderby)</h3>
+<hr />
+<p>A data service URI with a $orderby System Query Option specifies an expression for determining what values are used to order the collection of Entries identified by the Resource Path section of the URI. This query option is only supported when the resource path identifies a Collection of Entries.</p>
+<p>The $orderby section of the normative OData specification outlines the full expression syntax supported by this query option. The examples below represent the most commonly supported subset of that expression syntax.</p>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$orderby=Rating">http://services.odata.org/OData/OData.svc/Products?$orderby=Rating</a></p>
+<ul>
+<li>All Product Entries returned in ascending order when sorted by the Rating Property.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$orderby=Rating%20asc"> http://services.odata.org/OData/OData.svc/Products?$orderby=Rating asc</a></p>
+<ul>
+<li>Same as the example above.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$orderby=Rating,Category/Name%20desc"> http://services.odata.org/OData/OData.svc/Products?$orderby=Rating,Category/Name desc</a></p>
+<ul>
+<li>Same as the URI above except the set of Products is subsequently sorted (in descending order) by the Name property of the related Category Entry.</li>
+</ul>
+<h3><a id="TopSystemQueryOption" name="TopSystemQueryOption"></a>4.3. Top System Query Option ($top)</h3>
+<hr />
+<p>A data service URI with a $top System Query Option identifies a subset of the Entries in the Collection of Entries identified by the Resource Path section of the URI. This subset is formed by selecting only the first N items of the set, where N is a positive integer specified by this query option. If a value less than 0 is specified, the URI should be considered malformed.</p>
+<p>If the data service URI contains a $top query option, but does not contain a $orderby option, then the Entries in the set needs to first be fully ordered by the data service. While no ordering semantics are mandated, to ensure repeatable results, a data service must always use the same semantics to obtain a full ordering across requests.</p>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$top=5">http://services.odata.org/OData/OData.svc/Products?$top=5</a></p>
+<ul>
+<li>The first 5 Product Entries returned where the Collection of Products are sorted using a scheme determined by the OData service.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$top=5&amp;$orderby=Name%20desc%20%20%0d"> http://services.odata.org/OData/OData.svc/Products?$top=5&amp;$orderby=Name desc</a></p>
+<ul>
+<li>The first 5 Product Entries returned in descending order when sorted by the Name property.</li>
+</ul>
+<h3><a id="SkipSystemQueryOption" name="SkipSystemQueryOption"></a> 4.4. Skip System Query Option ($skip)</h3>
+<hr />
+<p>A data service URI with a $skip System Query Option identifies a subset of the Entries in the Collection of Entries identified by the Resource Path section of the URI. That subset is defined by seeking N Entries into the Collection and selecting only the remaining Entries (starting with Entry N+1). N is a positive integer as specified by this query option. If a value less than 0 is specified, the URI should be considered malformed.</p>
+<p>If the data service URI contains a $skip query option, but does not contain a $orderby option, then the Entries in the Collection must first be fully ordered by the data service. While no ordering semantics are mandated, to ensure repeatable results a data service must always use the same semantics to obtain a full ordering across requests.</p>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Products?$skip=2"> http://services.odata.org/OData/OData.svc/Categories(1)/Products?$skip=2</a></p>
+<ul>
+<li>The set of Product Entries (associated with the Category Entry identified by key value 1) starting with the third product.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$skip=2&amp;$top=2&amp;$orderby=Rating"> http://services.odata.org/OData/OData.svc/Products?$skip=2&amp;$top=2&amp;$orderby=Rating</a></p>
+<ul>
+<li>The third and fourth Product Entry from the collection of all products when the collection is sorted by Rating (ascending).</li>
+</ul>
+<h3><a id="FilterSystemQueryOption" name="FilterSystemQueryOption"></a> 4.5. Filter System Query Option ($filter)</h3>
+<hr />
+<p>A URI with a $filter System Query Option identifies a subset of the Entries from the Collection of Entries identified by the <a href="../uri-conventions#ResourcePath">Resource Path</a> section of the URI. The subset is determined by selecting only the Entries that satisfy the predicate expression specified by the query option.</p>
+<p>The expression language that is used in $filter operators supports references to properties and literals. The literal values can be strings enclosed in single quotes, numbers and boolean values (true or false) or any of the additional literal representations shown in the <a href="../overview#AbstractDataModel">Abstract Type System</a> section.</p>
+<p>Note: The $filter section of the normative OData specification provides an ABNF grammar for the expression language supported by this query option.</p>
+<p>The operators supported in the expression language are shown in the following table.</p>
+<div>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th>Operator</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+<tr>
+<td colspan="3">Logical Operators</td>
+</tr>
+<tr>
+<td>Eq</td>
+<td>Equal</td>
+<td>/Suppliers?$filter=Address/City eq 'Redmond'</td>
+</tr>
+<tr>
+<td>Ne</td>
+<td>Not equal</td>
+<td>/Suppliers?$filter=Address/City ne 'London'</td>
+</tr>
+<tr>
+<td>Gt</td>
+<td>Greater than</td>
+<td>/Products?$filter=Price gt 20</td>
+</tr>
+<tr>
+<td>Ge</td>
+<td>Greater than or equal</td>
+<td>/Products?$filter=Price ge 10</td>
+</tr>
+<tr>
+<td>Lt</td>
+<td>Less than</td>
+<td>/Products?$filter=Price lt 20</td>
+</tr>
+<tr>
+<td>Le</td>
+<td>Less than or equal</td>
+<td>/Products?$filter=Price le 100</td>
+</tr>
+<tr>
+<td>And</td>
+<td>Logical and</td>
+<td>/Products?$filter=Price le 200 and Price gt 3.5</td>
+</tr>
+<tr>
+<td>Or</td>
+<td>Logical or</td>
+<td>/Products?$filter=Price le 3.5 or Price gt 200</td>
+</tr>
+<tr>
+<td>Not</td>
+<td>Logical negation</td>
+<td>/Products?$filter=not endswith(Description,'milk')</td>
+</tr>
+<tr>
+<td colspan="3">Arithmetic Operators</td>
+</tr>
+<tr>
+<td>Add</td>
+<td>Addition</td>
+<td>/Products?$filter=Price add 5 gt 10</td>
+</tr>
+<tr>
+<td>Sub</td>
+<td>Subtraction</td>
+<td>/Products?$filter=Price sub 5 gt 10</td>
+</tr>
+<tr>
+<td>Mul</td>
+<td>Multiplication</td>
+<td>/Products?$filter=Price mul 2 gt 2000</td>
+</tr>
+<tr>
+<td>Div</td>
+<td>Division</td>
+<td>/Products?$filter=Price div 2 gt 4</td>
+</tr>
+<tr>
+<td>Mod</td>
+<td>Modulo</td>
+<td>/Products?$filter=Price mod 2 eq 0</td>
+</tr>
+<tr>
+<td colspan="3">Grouping Operators</td>
+</tr>
+<tr>
+<td>( )</td>
+<td>Precedence grouping</td>
+<td>/Products?$filter=(Price sub 5) gt 10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In addition to operators, a set of functions are also defined for use with the filter query string operator. The following table lists the available functions. Note: ISNULL or COALESCE operators are not defined. Instead, there is a null literal which can be used in comparisons.</p>
+<div>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th valign="top">Function</th>
+<th valign="top">Example</th>
+</tr>
+<tr>
+<td valign="top"><strong>String Functions</strong></td>
+</tr>
+<tr>
+<td valign="top"><strong>bool substringof(string po, string p1)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substringof%28%27Alfreds%27,%20CompanyName%29%20eq%20true"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substringof('Alfreds', CompanyName) eq true</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>bool endswith(string p0, string p1)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=endswith%28CompanyName,%20%27Futterkiste%27%29%20eq%20true"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=endswith(CompanyName, 'Futterkiste') eq true</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>bool startswith(string p0, string p1)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=startswith%28CompanyName,%20%27Alfr%27%29%20eq%20true"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=startswith(CompanyName, 'Alfr') eq true</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>int length(string p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=length%28CompanyName%29%20eq%2019"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=length(CompanyName) eq 19</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>int indexof(string p0, string p1)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=indexof%28CompanyName,%20%27lfreds%27%29%20eq%201"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=indexof(CompanyName, 'lfreds') eq 1</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>string replace(string p0, string find, string replace)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=replace%28CompanyName,%20%27%20%27,%20%27%27%29%20eq%20%27AlfredsFutterkiste%27"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=replace(CompanyName, ' ', '') eq 'AlfredsFutterkiste'</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>string substring(string p0, int pos)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring%28CompanyName,%201%29%20eq%20%27lfreds%20Futterkiste%27"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring(CompanyName, 1) eq 'lfreds Futterkiste'</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>string substring(string p0, int pos, int length)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring%28CompanyName,%201,%202%29%20eq%20%27lf%27"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring(CompanyName, 1, 2) eq 'lf'</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>string tolower(string p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=tolower%28CompanyName%29%20eq%20%27alfreds%20futterkiste%27"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>string toupper(string p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=toupper%28CompanyName%29%20eq%20%27ALFREDS%20FUTTERKISTE%27"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>string trim(string p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=trim%28CompanyName%29%20eq%20%27Alfreds%20Futterkiste%27"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=trim(CompanyName) eq 'Alfreds Futterkiste'</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>string concat(string p0, string p1)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=concat%28concat%28City,%20%27,%20%27%29,%20Country%29%20eq%20%27Berlin,%20Germany%27"> http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=concat(concat(City, ', '), Country) eq 'Berlin, Germany'</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>Date Functions</strong></td>
+</tr>
+<tr>
+<td valign="top"><strong>int day(DateTime p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=day%28BirthDate%29%20eq%208"> http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=day(BirthDate) eq 8</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>int hour(DateTime p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=hour%28BirthDate%29%20eq%200"> http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=hour(BirthDate) eq 0</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>int minute(DateTime p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=minute%28BirthDate%29%20eq%200"> http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=minute(BirthDate) eq 0</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>int month(DateTime p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=month%28BirthDate%29%20eq%2012"> http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=month(BirthDate) eq 12</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>int second(DateTime p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=second%28BirthDate%29%20eq%200"> http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=second(BirthDate) eq 0</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>int year(DateTime p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=year%28BirthDate%29%20eq%201948"> http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=year(BirthDate) eq 1948</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>Math Functions</strong></td>
+</tr>
+<tr>
+<td valign="top"><strong>double round(double p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round%28Freight%29%20eq%2032"> http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round(Freight) eq 32d</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>decimal round(decimal p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round%28Freight%29%20eq%2032"> http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round(Freight) eq 32</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>double floor(double p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round%28Freight%29%20eq%2032"> http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round(Freight) eq 32d</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>decimal floor(decimal p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=floor%28Freight%29%20eq%2032"> http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=floor(Freight) eq 32</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>double ceiling(double p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=ceiling%28Freight%29%20eq%2033"> http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=ceiling(Freight) eq 33d</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>decimal ceiling(decimal p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=floor%28Freight%29%20eq%2033"> http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=floor(Freight) eq 33</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>Type Functions</strong></td>
+</tr>
+<tr>
+<td valign="top"><strong>bool IsOf(type p0)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof%28%27NorthwindModel.Order%27%29"> http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof('NorthwindModel.Order')</a></td>
+</tr>
+<tr>
+<td valign="top"><strong>bool IsOf(expression p0, type p1)</strong></td>
+<td valign="top"><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof%28ShipCountry,%20%27Edm.String%27%29"> http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof(ShipCountry, 'Edm.String')</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3><a id="ExpandSystemQueryOption" name="ExpandSystemQueryOption"></a> 4.6. Expand System Query Option ($expand)</h3>
+<hr />
+<p>A URI with a $expand System Query Option indicates that Entries associated with the Entry or Collection of Entries identified by the Resource Path section of the URI must be represented inline (i.e. eagerly loaded). For example, if you want to identify a category and its products, you could use two URIs (and execute two requests), one for /Categories(1) and one for /Categories(1)/Products. The '$expand' option allows you to identify related Entries with a single URI such that a graph of Entries could be retrieved with a single HTTP request.</p>
+<p>The syntax of a $expand query option is a comma-separated list of Navigation Properties. Additionally each Navigation Property can be followed by a forward slash and another Navigation Property to enable identifying a multi-level relationship.</p>
+<p>Note: The $filter section of the normative OData specification provides an ABNF grammar for the expression language supported by this query option.</p>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories?$expand=Products">http://services.odata.org/OData/OData.svc/Categories?$expand=Products</a></p>
+<ul>
+<li>Identifies the Collection of Categories as well as each of the Products associated with each Category.</li>
+<li>Is described by the Entity Set named "Categories" and the "Products" Navigation Property on the "Category" Entity Type in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories?$expand=Products/Suppliers"> http://services.odata.org/OData/OData.svc/Categories?$expand=Products/Suppliers</a></p>
+<ul>
+<li>Identifies the Collection of Categories as well as each of the Products associated with each Category. In addition, the URI also indentifies the Suppliers associated with each Product.</li>
+<li>Is described by the Entity Set named "Categories", the "Products" Navigation Property on the "Category" Entity Type, and the "Suppliers" Navigation Property on the "Product" Entity Type in the service metadata document.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$expand=Category,Suppliers"> http://services.odata.org/OData/OData.svc/Products?$expand=Category,Suppliers</a></p>
+<ul>
+<li>Identifies the set of Products as well as the category and suppliers associated with each product.</li>
+<li>Is described by the Entity Set named "Products" as well as the "Category" and "Suppliers" Navigation Property on the "Product" Entity Type in the service metadata document.</li>
+</ul>
+<h3><a id="FormatSystemQueryOption" name="FormatSystemQueryOption"></a> 4.7. Format System Query Option ($format)</h3>
+<hr />
+<p>A URI with a $format System Query Option specifies that a response to the request MUST use the media type specified by the query option. If the $format query option is present in a request URI it takes precedence over the value(s) specified in the Accept request header. Valid values for the $format query string option are listed in the following table.</p>
+<div>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th>$format Value</th>
+<th>Response Media Type</th>
+</tr>
+<tr>
+<td>Atom</td>
+<td>application/atom+xml</td>
+</tr>
+<tr>
+<td>Xml</td>
+<td>application/xml</td>
+</tr>
+<tr>
+<td>Json</td>
+<td>application/json</td>
+</tr>
+<tr>
+<td>Any other IANA-defined content type</td>
+<td>Any IANA-defined content type</td>
+</tr>
+<tr>
+<td>A service-specific value indicating a format specific to the specific OData service</td>
+<td>Any IANA-defined content type</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$format=atom">http://services.odata.org/OData/OData.svc/Products?$format=atom</a></p>
+<ul>
+<li>Identifies all Product Entries represented using the AtomPub format as defined in <a href="../atom-format">[OData:Atom]</a></li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$format=json">http://services.odata.org/OData/OData.svc/Products?$format=json</a></p>
+<ul>
+<li>Identifies all Product Entries represented using the JSON format as defined in <a href="../json-format">[OData:JSON]</a></li>
+</ul>
+<h3><a id="SelectSystemQueryOption" name="SelectSystemQueryOption"></a> 4.8. Select System Query Option ($select)</h3>
+<hr />
+<p>A data service URI with a $select System Query Option identifies the same set of Entries as a URI without a $select query option; however, the value of $select specifies that a response from an OData service should return a subset of the Properties which would have been returned had the URI not included a $select query option.</p>
+<p>Version Note: This query option is only supported in OData version 2.0 and above.</p>
+<p>The value of a $select System Query Option is a comma-separated list of selection clauses. Each selection clause may be a Property name, Navigation Property name, or the "*" character. The following set of examples uses the data sample data model available at <a href="http://services.odata.org/OData/OData.svc/$metadata">http://services.odata.org/OData/OData.svc/$metadata</a> to describe the semantics for a base set of URIs using the $select system query option. From these base cases, the semantics of longer URIs are defined by composing the rules below.</p>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$select=Price,Name">http://services.odata.org/OData/OData.svc/Products?$select=Price,Name</a></p>
+<ul>
+<li>In a response from an OData service, only the Price and Name Property values are returned for each Product Entry within the Collection of products identified.</li>
+<li>If the $select query option had listed a Property that identified a Complex Type, then all Properties defined on the Complex Type must be returned.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$select=Name,Category"> http://services.odata.org/OData/OData.svc/Products?$select=Name,Category</a></p>
+<ul>
+<li>In a response from an OData service only the Name Property value and a link to the related Category Entry should be returned for each product.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories?$select=Name,Products&amp;$expand=Products/Suppliers"> http://services.odata.org/OData/OData.svc/Categories?$select=Name,Products&amp;$expand=Products/Suppliers</a></p>
+<ul>
+<li>In a response from an OData service, only the Name of the Category Entries should be returned, but all the properties of the Entries identified by the Products and Suppliers Navigation Properties should be returned.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$select=*">http://services.odata.org/OData/OData.svc/Products?$select=*</a></p>
+<ul>
+<li>In a response from an OData service, all Properties are returned for each Product Entry within the Products Entity Set.</li>
+<li>Note: The star syntax is used to reference all properties of the Entry or Collection of Entries identified by the path of the URI or all properties of a Navigation Property. In other words, the "*" syntax causes all Properties on an Entry to be included without traversing associations.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Categories?$select=Name,Products&amp;$expand=Products"> http://services.odata.org/OData/OData.svc/Categories?$select=Name,Products&amp;$expand=Products</a></p>
+<ul>
+<li>In a response from an OData service, the Name property is included and Product Entries with all Properties are included; however, rather than including the fully expanded Supplier Entries referenced in the expand clause, each Product will contain a link that references the corresponding Collection of Supplier Entries.</li>
+</ul>
+<p>Note: The $select section of the <a href="http://www.odata.org/media/6655/[mc-apdsu][1].htm">normative OData specification</a> provides an ABNF grammar for the expression language supported by this query option.</p>
+<h3><a id="InlinecountSystemQueryOption" name="InlinecountSystemQueryOption"></a> 4.9. Inlinecount System Query Option ($inlinecount)</h3>
+<hr />
+<p>A URI with a $inlinecount System Query Option specifies that the response to the request includes a count of the number of Entries in the Collection of Entries identified by the <a href="../uri-conventions#ResourcePath">Resource Path</a> section of the URI. The count must be calculated after applying any <a href="../uri-conventions#FilterSystemQueryOption">$filter System Query Options</a> present in the URI. The set of valid values for the $inlinecount query option are shown in the table below. If a value other than one shown in Table 4 is specified the URI is considered malformed.</p>
+<p>Version Note: This query option is only supported in OData version 2.0 and above</p>
+<div>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th valign="top">$inlinecount value</th>
+<th valign="top">Description</th>
+</tr>
+<tr>
+<td valign="top"><strong>allpages</strong></td>
+<td valign="top">The OData MUST include a count of the number of entities in the collection identified by the URI (after applying any $filter System Query Options present on the URI)</td>
+</tr>
+<tr>
+<td valign="top"><strong>none</strong></td>
+<td valign="top">The OData service MUST NOT include a count in the response. This is equivalence to a URI that does not include a $inlinecount query string parameter.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages"> http://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages</a></p>
+<ul>
+<li>Identifies all Product Entries and the count of all products.</li>
+</ul>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages&amp;$top=10&amp;$filter=Price%20gt%20200"> http://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages&amp;$top=10&amp;$filter=Price gt 200</a></p>
+<ul>
+<li>Identifies the first 10 Product Entries that cost more than 200 and includes a count of the total number of Product Entries that cost more than 200.</li>
+</ul>
+<h2><a id="CustomQueryOptions" name="CustomQueryOptions"></a>5. Custom Query Options</h2>
+<p>Custom Query Options provide an extension point for OData service-specific information to be placed in the query string portion of a URI. A Custom Query String option is defined as any name/value pair query string parameter where the name of the parameter does not begin with the "$" character. Any URI exposed by an OData service may include one or more Custom Query Options.</p>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/Products?x=y">http://services.odata.org/OData/OData.svc/Products?x=y</a></p>
+<ul>
+<li>Identifies all Product entities. Includes a Custom Query Option "x" whose meaning is service specific.</li>
+</ul>
+<h2><a id="ServiceOperationParameters" name="ServiceOperationParameters"></a> 6. Service Operation Parameters</h2>
+<p>Service Operations represent functions exposed by an OData service. These functions may accept zero or more primitive type parameters. If a Service Operation requires an input parameter those parameters are passed via query string name/value pairs appended to the URI which identify the Service Operation as described in the <a href="../uri-conventions#AddressingServiceOperations"> Addressing Service Operations</a> section. For nullable type parameters, a null value may be specified by not including the parameter in the query string of the URI.</p>
+<p>Examples</p>
+<p><a href="http://services.odata.org/OData/OData.svc/GetProductsByRating?rating=5">http://services.odata.org/OData/OData.svc/GetProductsByRating?rating=5</a></p>
+<ul>
+<li>Identifies the "GetProductsByRating" Service Operation and specifies a value of 5 for the "rating" input parameter.</li>
+</ul>
+<h2><a id="UriEquivalence" name="UriEquivalence"></a>7. URI Equivalence</h2>
+<p>When determining if two URIs are equivalent, each URI SHOULD be normalized using the rules specified in <a href="http://tools.ietf.org/html/rfc3987">[RFC3987]</a> and <a href="http://tools.ietf.org/html/rfc3986">[RFC3986]</a> and then compared for equality using the equivalence rules specified in <a href="http://tools.ietf.org/html/rfc2616#section-3.2.3"> HTTP [RFC 2616], Section 3.2.3</a>.</p>

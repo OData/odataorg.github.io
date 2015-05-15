@@ -1,0 +1,161 @@
+---
+layout: post
+title: Consuming OData from JavaScript
+date: 2013-07-15 16:59:50.000000000 +08:00
+categories:
+- JavaScript
+- OData tutorials
+tags:
+- jaydata
+- odata
+- online-offline
+- synchronization
+- tutorial
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<p>This tutorial will introduce the <strong>OData</strong> capabilities of the <strong>JayData library</strong> and gives you all the necessary information to succeed with your OData service via JavaScript. After going through the concept, we will implement a Northwind product editor – full read/write capable - app with JayData and jQuery. We will develop a HTML5/JavaScript client that is using a remote OData endpoint with the unified JavaScript Language Query (JSLQ) syntax. After we are finished with this first version, you will see how easy it is to <strong>sync</strong> the entities from our OData endpoint to a in-browser <strong>WebSQL</strong> or <strong>IndexedDB</strong> storage to have an <strong>online/offline app</strong>.</p>
+<p><a href="{{site.url}}assets/image_thumb.png" rel="attachment wp-att-10001"><img src="{{site.url}}assets/image_thumb.png" alt="image_thumb" width="644" height="242" class="wp-image-10001" /></a></p>
+<p>&nbsp;</p>
+<p><strong>Target audience</strong></p>
+<ul>
+<li>Front-end developers, who want to learn how to manage server-side data published over OData protocol by leveraging their existing JavaScript skillset</li>
+<li>.NET developers, who want to know how to consume OData endpoints from JavaScript with Entity Framework and LINQ mindset.</li>
+</ul>
+<p><strong>After this tutorial you will be able to</strong></p>
+<ul>
+<li>Create HTML5/JavaScript app that create, retrieve, update and delete records in a remote database with typed entities and a LINQ-like API</li>
+<li>Develop online/offline data manager apps with remote-to-local data synchronization</li>
+<li>Bind your OData records to your HTML5 user interface</li>
+<li>Develop online-offline applications with data synchronization capabilities</li>
+</ul>
+<p><strong>Things you will need to start</strong></p>
+<ul>
+<li>Basic understanding of JavaScript</li>
+<li>Your favorite Text Editor</li>
+<li>The latest version of JayData library - You can download it from <a href="http://jaydata.org/download">JayData.org</a> or from <a href="https://nuget.org/packages/JayData/">NuGet</a></li>
+<li>An available OData service – You might want to use a live sample service if you don’t want to build an own one</li>
+<li>You will need a Visual Studio 2012 to run your own OData service from the pre-packed project</li>
+</ul>
+<h3 id="h3_0">What is JayData</h3>
+<p><a href="http://jaydata.org/">JayData</a> is a JavaScript data manager library that provides a friendly, unified developer experience over a number of different online and offline data APIs and data sources like IndexedDB, WebSQL or OData. For local databases, JayData provides automatic database creation and schema management (keys, indices). For OData services, JayData supports the translation of the service metadata document into an intelligent client environment where you can interact with data naturally using JavaScript. I would say JayData library is the „jQuery of data management”.</p>
+<h3 id="h3_1">The JayData concept</h3>
+<p>Before we continue to the coding part, we have to understand the common terms of the library that will ring the bell to Entity Framework developers.</p>
+<p><strong>JavaScript Language Query (JSLQ)</strong></p>
+<p>The <a href="http://jaydata.org/blog/javascript-language-query-jslq-101">JavaScript Language Query</a> is the unified syntax of JayData that was invented in order to manage all storages and cloud services with this unified API. JSLQ is natural for JavaScript developers and provides a friendly environment for developers who have used .NET LINQ before. To developers who use OData, this means the end of long string concatenations – let’s see an example how to get ONLY the product names from the list of products that are either Beverages (Category_Id = 1) or contain tofu in the product name regardless of the case, sorted by the product name.</p>
+<p>[gist id="5975739" file="01 retrieve Northwind products - jQuery.js"]</p>
+<p>[gist id="5975739" file="02 retrieve Northwind products with JayData.js"]</p>
+<p>Read more about the syntax in <a href="http://jaydata.org/blog/how-to-build-a-simple-odata-based-ajax-application-with-visual-studio-2010">JSLQ 101</a>.</p>
+<p><strong>Storage providers</strong></p>
+<p>The library lets you to use pure JavaScript syntax to manage your data, this happens with the help of storage providers that transform JavaScript instructions to the storage-specific operations and parse the results to JavaScript objects. For example the OData storage provider builds the OData requests, initializes the HTTP connection, manages the protocol operations, parses the results and turnes them into typed JavaScript objects, meanwhile the IndexedDB provider initializes the IndexedDB connection, creates collections and indices, builds Cursor API statements and reads recordsets. As you can see, the JayData providers take care of all the dirty job to make you able to concentrate on your business logic.</p>
+<p><strong>Entities</strong></p>
+<p>JayData provides the data management capabilities with typed entities, all the managed types derive from the $data.Entity class, this way you get more than records: you can operate with data AND metadata (type description), state tracking, validation, events handlers. If you’re using the OData provider, entity definitions are built from the $metadata of the service endpoint. The declaration of JayData is the model definition of our application.</p>
+<p>[gist id="5975739" file="03 JayData model: Northwind Product entity.js"]</p>
+<p>The example below shows a part from the Northwind data model. This definition can be built manually or – for OData only – generated by JaySvcUtil.exe.</p>
+<p><strong>Entity sets</strong></p>
+<p>As the databases store the records in tables, OData publishes them through EntitySets. JayData kept this concept and behavior, and maps all the collections to a derived type of the EntitySet class. The collections publish the API to CRUD the entities and manages the associations.</p>
+<p><strong>Entity context</strong></p>
+<p>JayData contexts are similar to Entity Framework contexts, so this is the entry point of your code. Entity contexts can be defined by enlisting the EntitySets in it, and initialized by specifying a storage provider name – and optionally its configuration. The context tracks the changes of the entities in the entity sets and performs the necessary actions on them. Adding, updating, deleting entities happen through the context, which holds the reference to the added, updated and deleted objects and dispatches the operations (HTTP requests) to the OData endpoint after calling the context.saveChanges().</p>
+<p>Just like the Entities, EntityContexts can be defined manually or generated the JaySvcUtil.exe if you work with an OData service.</p>
+<p>[gist id="5975739" file="04 JayData context definition.js"]</p>
+<h3 id="h3_2">Context initialization static data model generated by JaySvcUtil</h3>
+<p>The JaySvcUtil.exe is a tool packed with the JayData Nuget package, and you can also download the latest version from <a href="http://jaysvcutil.codeplex.com/">JaySvcUtil CodePlex page</a>. This tiny tool grabs the result of the $metadata of your service and generates JayData entity and context defintions from it to a JavaScript file, which you can include in your project structure to avoid writing the model definition by hand.</p>
+<p>[gist id="5975739" file="05 Using JaySvcUtil.exe to generate JavaScript model from metadata service.cmd"]</p>
+<p>JaySvcUtil generates TypeScript files as well, your can read our post how to use your OData endpoint with TypeScript.</p>
+<p>Once you have the northwind.js included in your project, you can instantiate the context with the following lines.</p>
+<p>[gist id="5975739" file="06  Init OData context with JayData - static model.js"]</p>
+<p>As you can see the constructor of the context accepts parameters that configure the data provider. The beauty here is that you only need to change the parameters to work with different storage technologies. The initialization happens asynchronously, this is why you must perform all your operations with your context inside the onReady().</p>
+<p>Developing the client app using JaySvcUtil.exe in parallel with the server-side development means you have to run the tool and copy the output to your project from time to time. If you see yourself re-generating model definitions often, consider using the dynamic context initialization with the $data.initService() function.</p>
+<h3 id="h3_3">Dynamic context creation with $data.initService()</h3>
+<p>If you looking for an agile way to consume OData via JavaScript- that doesn’t require leaving your beloved text editor – the $data.initService() function will be your friend. This tiny tool does everything what you can achieve by combining JaySvcUtil.exe, the constructor of the Entity Context and the onReady() event handler – initService creates a ready-to-use OData proxy for your JavaScript app.</p>
+<p>[gist id="5975739" file="07 Init OData context with JayData - dynamic model.js"]</p>
+<p>This is simple and really easy to use, and it can be customized with a second configuration parameter, this will be explained in the advanced section.</p>
+<p>Note that initService() requires the $metadata document to be accessible from the origin of your app, plus jQuery for promise management.</p>
+<p><strong>Benefits of using context with static model</strong></p>
+<ul>
+<li>IntelliSense/autocomplete support</li>
+<li>TypeScript support</li>
+<li>Faster context initialization (the app already has the metadata)</li>
+</ul>
+<p><strong>Benefits of using context with dynamic model</strong></p>
+<ul>
+<li>No need to re-generate entity model in case of schema-changes</li>
+</ul>
+<h2 id="h2_4">Building a Northwind editor with JayData</h2>
+<p>In this chapter we will walk through all the steps you need to perform to create a Northwind product editor only with JayData and jQuery. The application will use a remote OData endpoint and implement the following features:</p>
+<ul>
+<li>list the categories</li>
+<li>list the products in the selected category</li>
+<li>display the details of the selected product</li>
+<li>modify products</li>
+</ul>
+<p>Before we begin developing the Northwind product editor, we will need a working OData endpoint.</p>
+<ul>
+<li>You can build it from scratch by following our tutorial – <a href="http://jaydata.org/blog/how-to-build-a-simple-odata-based-ajax-application-with-visual-studio-2010">How to build a simple OData-based AJAX application</a></li>
+<li>You can download a pre-built solution and run it from Visual Studio</li>
+</ul>
+<p>We will use a static data model pre-generated by JaySvcUtil.exe, so let’s open our command prompt, enter the folder where we saved JaySvcUtil.exe, and run the command we already know from the previous chapter.</p>
+<p>[gist id="5975739" file="05 Using JaySvcUtil.exe to generate JavaScript model from metadata service.cmd"]</p>
+<p>Now we copy our brand-new northwind.js to our project directory and include it in our project.</p>
+<p>Let’s create an index.html page with the following JavaScript files included:</p>
+<p>[gist id="5975739" file="08 Include necessary libraries to work with OData.html"]</p>
+<p>We will use jQuery to access DOM elements and JayData requires <a href="http://datajs.codeplex.com/">data.js</a> only for OData requests.</p>
+<h3 id="h3_5">Rendering the category list</h3>
+<p>We will retrieve the list of the product categories using JayData and insert the result to a HTML table with jQuery.</p>
+<p>HTML template in our body:</p>
+<p>[gist id="5975739" file="09 Northwind product editor HTML template.html"]</p>
+<p>Now it is time to initialize our context with our service URL and retrieve the list of categories with JayData.</p>
+<p>[gist id="5975739" file="10 Northwind product editor - entry point.js"]</p>
+<p>JayData loads the necessary OData provider from the <em>jaydataproviders</em> folder based on the <em>name</em> passed to the context constructor. This auto-load behavior happens using all JayData providers.</p>
+<p>After retrieving the array of categories, we render them to the list to the HTML table by calling the<em>renderCategories</em> function in the success callback.</p>
+<p>[gist id="5975739" file="11 render category list.js"]</p>
+<h3 id="h3_6">Listing the products in the selected category</h3>
+<p>As we can see in the renderCategories(), we want to list the products of the selected categories by calling the<em>loadProduct()</em> function in the <em>onClick</em> event handler of each category. This loadProduct() is a simple function with a JavaScript Language Query (JSLQ) syntax that makes requests to our OData endpoint to filter the products by the selected categoryID.</p>
+<p>[gist id="5975739" file="12 load products by category.js"]</p>
+<p>To keep the data management and the representation a little bit separated, we implement the rendering mechanism to the <em>renderProducts() </em>function. This function gets an array of typed Product entities from JayData.</p>
+<p>[gist id="5975739" file="13 render product list.js"]</p>
+<p>The necesessary HTML:</p>
+<p>[gist id="5975739" file="14 productTable HTML template.html"]</p>
+<p>Now we can list the categories and the products assigned to the selected category.</p>
+<h3 id="h3_7">Displaying the selected product</h3>
+<p>We can see the editProduct() function call in the onClick event of the product list elements. This function uses JayData to retrieve a Product entity through OData by the selected ProductID, then we render the properties of the entity to the form.</p>
+<p>HTML:</p>
+<p>[gist id="5975739" file="15 product editor HTML template.html"]</p>
+<p>Our code to display the product properties:</p>
+<p>[gist id="5975739" file="16 get single product and render its properties.js"]</p>
+<p>Great, we can read the categories and the products, it’s high time to save something back to our OData endpoint!</p>
+<h3 id="h3_8">Updating products</h3>
+<p>Updating entities through OData means a custom HTTP request with MERGE or PATCH verbs and the changed properties in the body. We are lucky, because we don’t have to worry about this, JayData arranges this for use, we only have to write typed JavaScript code. Since we retrieved the selected product entity by JayData, we have the reference to this object, we can modify the properties of this entity and save it. It is important to <strong>attach</strong> the entity to the JayData context <strong>before we begin to modify the properties</strong>, this way JayData can track the changes of the entity and update only the changed fields.</p>
+<p>[gist id="5975739" file="17 update existing product with JayData.js"]</p>
+<p>Now we have a read/write capable product editor client that uses JayData to consume our OData service with a developer-friendly JavaScript API.</p>
+<h2 id="h2_9">Data synchronization - Online/offline scenario</h2>
+<p><strong>The goal</strong>: retrieve categories and products from our OData endpoint, save it to a local in-browser database and use the application on the local database with minimal changes to the code.</p>
+<p>As JayData provides the same JSLQ syntax and set of data management practices for all storage technologies, you can use the entities retrieved from one datasource to save it to an other storage. You only need to create two contexts: one for the OData endpoint and one for the local in-browser database.</p>
+<p><strong></strong><strong>About the local database</strong></p>
+<p>JayData supports WebSQL/SQLite, IndexedDB and HTML5 local storage databases in the browser, developers instruct the library which provider to use by modifying the <em>name</em> parameter of the context constructor to ‘<strong>webSql’</strong>, ‘<strong>indexedDb’</strong>, ‘<strong>LocalStore’</strong>. This isn’t all what JayData is capable to – you can set ‘<strong>local’</strong> to the name of the provider and JayData will find the available storage in the current browser.</p>
+<p><strong>Advanced $data.initService()</strong></p>
+<p>The <em>initService()</em> function was described in the first chapter with its easiest usage, but it supports more advanced scenarios. We would like to build a local database schema without specifying the model by hand, reusing the model of the OData endpoint would be great, and it is because the initService() helps you reuse the model of a context.</p>
+<p>[gist id="5975739" file="18 sync - init local DB from OData model using JayData.js"]</p>
+<p>The promise returned by the initService() function has three arguments.</p>
+<ol>
+<li>the ready-to-use context</li>
+<li>the context factory method that you can call with or without parameters to initialize a new context instance</li>
+<li>the type of the context</li>
+</ol>
+<p>We can look for the snippet marked with “main” in the comment and change it to the following code</p>
+<p>[gist id="5975739" file="19 online-offline data sync with JayData.js"]</p>
+<p>Our code initializes an OData context, retrieves the data model from the $metadata service of the end-point, creates a local database context according to the available storage technology (WebSQL/IndexedDB/HTML5 localStorage). After the resetLocal() function cleans the local database, we are ready to retrieve all the categories and products from our OData datasource and insert it to the clean DB.</p>
+<p>Please note, that JayData supports not only the addition of a single entity using the <em>add()</em>, but to add an array of entities using the <em>addMany()</em>.</p>
+<p><img alt="" src="{{site.url}}assets/image_thumb1.png" /></p>
+<p>he <a href="http://github.com/jaydata/NorthwindProductEditor">example code on Github</a> shows how you can do the same sync process using static model generated by JaySvcUtil.</p>
+<h2 id="h2_10">Further improvements</h2>
+<h3 id="h3_11">UI library integration</h3>
+<p>We used jQuery to manipulate our DOM elements, which seems natural, but you can save many of this code if you use the JayData library with <a href="http://jaydata.org/blog/jaydata-kendo-ui-awesomeness">Kendo UI</a>, <a href="http://jaydata.org/blog/how-to-use-jaydata-with-knockoutjs">Knockout.js</a> or <a href="http://jaydata.org/blog/handlebars-template-support-in-jaydata">Handlebars</a>.</p>
+<h3 id="h3_12">The synchronization process</h3>
+<p>The data sync process in this example was very basic, you can prepare your application for more records by retrieving the records in chunks. Read more about this in our blog - <a href="http://jaydata.org/blog/synchronized-online-offline-data-applications-part-2-syncing-large-tables-and-tables-with-foreign-relations">Synchronized Online/Offline data applications, part 2: Syncing large tables and tables with foreign relations</a></p>
+<h2 id="h2_13">Summary</h2>
+<p>We have learned how to manage OData endpoints with JayData leveraging our JavaScript and jQuery experience, created the skeleton of a simple online/offline application with data synchronization to a local WebSQL or IndexedDB storage. We did all of this with the developer-friendly JSLQ syntax that you can use to <a href="http://jaydata.org/blog/corporate-data-manager-app-example-with-microsoft-dynamics-crm-and-jaydata">consume OData service of Microsoft Dynamics CRM</a>, too.</p>
+<p>You can a working example from <a href="http://github.com/jaydata/NorthwindProductEditor">JayData Github repository</a> and try the app on your machine.</p>
+<p>Follow the latest developer news in the <a href="http://jaydata.org/blog">JayData blog</a> and <a href="http://jaystack.com/blog">read about awesome JayData Pro features in JayStack blog</a>.</p>

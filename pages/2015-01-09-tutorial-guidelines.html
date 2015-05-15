@@ -1,0 +1,79 @@
+---
+layout: page
+title: Tutorial Guidelines
+date: 2015-01-09 02:00:46.000000000 +08:00
+categories: []
+tags: []
+status: draft
+type: page
+published: false
+meta:
+  _edit_last: '4'
+  _wp_page_template: template-custom.php
+  _su_rich_snippet_type: none
+  _revision-control: a:1:{i:0;s:8:"defaults";}
+  _syntaxhighlighter_encoded: '1'
+author:
+  login: qianli
+  email: t-qial@microsoft.com
+  display_name: Qian Li
+  first_name: Qian
+  last_name: Li
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p><script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script><br />
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script></p>
+<p>    	var text = "# Hello OData"</p>
+<p>		$.ajax({<br />
+			type: "GET",<br />
+		  	url: "https://github.com/ODataOrg/tutorials/blob/master/README.md"<br />
+		}).done(function(markdown) {<br />
+		  text = markdown;<br />
+		});</p>
+<p>        var converter = new Showdown.converter();<br />
+        var ret = converter.makeHtml(text);<br />
+        document.getElementById('results').innerHTML=ret</p>
+<div id="results"></div>
+<h3>Basic Requests</h3>
+<ul>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/get-a-primitive-property.html" target="_blank">Get a primitive property</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/get-a-single-entity-from-a-collection.html" target="_blank">Get a single entity from a collection</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/get-the-count-of-matching-items.html" target="_blank">Get the count of matching items</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/get-the-raw-value-of-a-primitive-property.html" target="_blank">Get the raw value of a primitive property</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/navigating-the-resource-graph.html" target="_blank">Navigating the resource graph</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/read-an-entity-set.html" target="_blank">Read an entity set</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/read-the-service-metadata.html" target="_blank">Read the service metadata</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/read-the-service-root.html" target="_blank">Read the service root</a></li>
+</ul>
+<h3>Filtering Collections</h3>
+<ul>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/any-all-filter.html" target="_blank">Any/All filter</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/built-in-functions.html" target="_blank">Built-in functions</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/filter-on-enum-properties.html" target="_blank">Filter on enum properties</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/filter-on-properties-of-properties.html" target="_blank">Filter on properties of properties</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/filtering-primitive-collections.html" target="_blank">Filtering primitive collections</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/logic-operators.html" target="_blank">Logic operators</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/simpler-filter.html" target="_blank">Simple filter</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/type-cast.html" target="_blank">Type cast</a></li>
+</ul>
+<h3>Other System Query Options</h3>
+<ul>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/expand.html" target="_blank">Expand</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/format.html" target="_blank">Format</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/orderby.html" target="_blank">Orderby</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/select.html" target="_blank">Select</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/top-skip.html" target="_blank">Top / Skip</a></li>
+</ul>
+<h3>C(r)UD</h3>
+<ul>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/create.html" target="_blank">Create</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/delete.html" target="_blank">Delete</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/patch.html" target="_blank">Patch</a></li>
+</ul>
+<h3>Operations</h3>
+<ul>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/bound-actions.html" target="_blank">Bound actions</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/bound-functions.html" target="_blank">Bound functions</a></li>
+<li><a href="http://odataorg.github.io/tutorials/tutorials/unbound-functions.html" target="_blank">Unbound functions</a></li>
+</ul>

@@ -1,0 +1,25 @@
+---
+layout: page
+title: Blog
+permalink: /blog/
+---
+
+{% for post in site.posts %}
+  {% if forloop.index < 5 %}
+  <div class='post'>   
+    <h3><a href='{{post.url}}'>{{post.title}}</a></h3>
+    <span class='date'><em>{{post.date | date_to_string}} &nbsp;&nbsp; {{ post.author }}</em></span>
+    <br><br>
+    <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+  </div>
+
+  {% else %}
+    {% if forloop.index == 5 %}
+    <h2>Older Posts</h2>
+    <table>
+    {% endif %}
+    <h3><a href='{{post.url}}'>{{post.title}}</a></h3>
+    <span class='date'><em>{{post.date | date_to_string}} &nbsp;&nbsp; {{ post.author }}</em></span>
+  {% endif %}
+{% endfor %}
+</table>

@@ -1,0 +1,315 @@
+---
+layout: post
+title: Queryable OData Metadata
+date: 2010-04-22 17:56:38.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>Today if you browse an OData service there are two ways to learn about it: Service Documents and $metadata.</p>
+<p>The question is this: Would it be useful to add more metadata capabilities to the protocol?</p>
+<p>&nbsp;</p>
+<h2>Service Documents</h2>
+<p>You can look at the 'Atom Service Document', available from the root of the service, which gives you the titles and urls for each of the service's feeds.</p>
+<p>That's it though.</p>
+<p>The service document doesn't tell you anything about the shape of the entries exposed by that feed or anything about relationships between the feeds.</p>
+<p>&nbsp;</p>
+<h2>$metadata</h2>
+<p>This is where the $metadata comes in. It returns an EDMX document that contains a complete description of the feeds, types, properties, relationships exposed by the service in EDM.</p>
+<p>Most OData client libraries use this information to drive the generation of client-side classes to represent server types and aid programmability.</p>
+<p>There are some limitations with $metadata though:</p>
+<ol>
+<li>It is all or nothing. Lots of metadata means a big document.</li>
+<li>It forces the server to prepare metadata for every type in the system, forcing an up front, rather than on demand model upon the service.</li>
+<li>It isn't queryable. So if you want to find Types that have an Address property you have to retrieve the whole EDMX and search the xml, yourself.</li>
+</ol>
+<p>&nbsp;</p>
+<h2>Queryable $metadata</h2>
+<p>To address these issues one thing we've been considering - I even have a prototype - is extending $metadata so that if becomes just another OData Service. This time exposing the metadata of the service rather than its data.</p>
+<p>You could think of this as Reflection for OData.</p>
+<p>So this:</p>
+<p><strong>GET</strong> <strong>http://localhost:999/dataservice/$metadata/</strong></p>
+<p>Would return the service document for a metadata service used to interrogate the data service:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
+&lt;service xml:base="<a href="http://localhost:999/dataservice/$metadata/">http://localhost:999/dataservice/$metadata/</a>" 
+         xmlns:atom="<a href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>" 
+         xmlns:app="<a href="http://www.w3.org/2007/app">http://www.w3.org/2007/app</a>" 
+         xmlns="<a href="http://www.w3.org/2007/app">http://www.w3.org/2007/app</a>"&gt;
+  &lt;workspace&gt;
+    &lt;atom:title&gt;Default&lt;/atom:title&gt;
+    &lt;collection href="ResourceTypes"&gt;
+      &lt;atom:title&gt;ResourceTypes&lt;/atom:title&gt;
+    &lt;/collection
+    &lt;collection href="ResourceProperties"&gt;
+      &lt;atom:title&gt;ResourceProperties&lt;/atom:title&gt;
+    &lt;/collection&gt;
+    &lt;collection href="ResourceSets"&gt;
+      &lt;atom:title&gt;ResourceSets&lt;/atom:title&gt;
+    &lt;/collection&gt;
+  &lt;/workspace&gt;
+&lt;/service&gt;</pre>
+<p>As you can see this metadata service has a feed containing information about the 'feeds exposed by the data service' (aka ResourceSets), a feed of types (aka ResourceTypes) and a feed of properties (aka ResourceProperties).</p>
+<p>Now you can ask questions about specific types using the standard OData query conventions.</p>
+<p>For example to get information for the Product type you could do this:</p>
+<p><strong>GET</strong> <strong>http://localhost:999/dataservice/$metadata/ResourceTypes('Namespace.Product')</strong></p>
+<p>And it would return something like this:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
+&lt;entry xml:base="<a href="http://localhost:999/dataservice/$metadata/">http://localhost:999/dataservice/$metadata/</a>" 
+       xmlns:d="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>" 
+       xmlns:m="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">http://schemas.microsoft.com/ado/2007/08/dataservices/metadata</a>" 
+       xmlns="http://www.w3.org/2005/Atom"&gt;
+  &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceTypes('Namespace.Product')&lt;/id&gt;
+  &lt;title type="text"&gt;&lt;/title&gt;
+  &lt;updated&gt;2010-04-21T17:34:41Z&lt;/updated&gt;
+  &lt;author&gt;
+    &lt;name /&gt;
+  &lt;/author&gt;
+  &lt;link rel="edit" title="ResourceType" href="ResourceTypes('Namespace.Product')" /&gt;
+  &lt;link rel="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/BaseType">http://schemas.microsoft.com/ado/2007/08/dataservices/related/BaseType</a>" 
+        type="application/atom+xml;type=entry" 
+        title="BaseType" 
+        href="ResourceTypes('Namespace.Product')/BaseType" /&gt;
+  &lt;link rel="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Properties">http://schemas.microsoft.com/ado/2007/08/dataservices/related/Properties</a>" 
+        type="application/atom+xml;type=feed" 
+        title="Properties" 
+        href="ResourceTypes('Namespace.Product')/Properties" /&gt;
+  &lt;category term="System.Data.Services.Providers.ResourceType" 
+        scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt;
+  &lt;content type="application/xml"&gt;
+    &lt;m:properties&gt;
+      &lt;d:FullName&gt;Namespace.Product&lt;/d:FullName&gt;
+      &lt;d:Name&gt;Product&lt;/d:Name&gt;
+      &lt;d:Namespace&gt;Namespace&lt;/d:Namespace&gt;
+      &lt;d:InstanceType&gt;OData.WebApp.Product&lt;/d:InstanceType&gt;
+      &lt;d:IsAbstract m:type="Edm.Boolean"&gt;false&lt;/d:IsAbstract&gt;
+      &lt;d:IsMediaLinkEntry m:type="Edm.Boolean"&gt;false&lt;/d:IsMediaLinkEntry&gt;
+      &lt;d:IsOpenType m:type="Edm.Boolean"&gt;false&lt;/d:IsOpenType&gt;
+      &lt;d:ResourceTypeKind&gt;EntityType&lt;/d:ResourceTypeKind&gt;
+    &lt;/m:properties&gt;
+  &lt;/content&gt;
+&lt;/entry&gt;</pre>
+<p>Which as you can see is essentially just information about the Type - in OData format - with links to where you can learn more about its Properties and BaseType.</p>
+<p>&nbsp;</p>
+<h3>Learning about the shape of a feed on the fly</h3>
+<p>In fact the power of OData becomes apparent when you consider this scenario.</p>
+<p>Imagine you are about to query this feed:</p>
+<p><strong>http://localhost:999/dataservice/Products</strong></p>
+<p>But you want to know the meaning of what you will get back.</p>
+<p>Okay…</p>
+<p>First you can get the metadata for the feed.</p>
+<p><strong>http://localhost:999/dataservice/$metadata/ResourceSets('Products')</strong></p>
+<p>Now from the ResourceSet you can navigate to its ResourceType</p>
+<p><strong>http://localhost:999/dataservice/$metadata/ResourceSets('Products')/ResourceType</strong></p>
+<p>And if you want to know about its properties, you can get them at the same time too using expand:</p>
+<p><strong>GET</strong> <strong>http://localhost:999/dataservice/$metadata/ResourceSets('Products')/ResourceType/?$expand=Properties</strong></p>
+<p>This url should return something like this:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
+&lt;entry xml:base="<a href="http://localhost:999/dataservice/$metadata/">http://localhost:999/dataservice/$metadata/</a>" 
+       xmlns:d="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>" 
+       xmlns:m="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">http://schemas.microsoft.com/ado/2007/08/dataservices/metadata</a>" 
+       xmlns="<a href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>"&gt;
+  &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceTypes('Namespace.Product')&lt;/id&gt;&gt;
+  &lt;title type="text"&gt;&lt;/title&gt;
+  &lt;updated&gt;2010-04-21T17:51:09Z&lt;/updated&gt;
+  &lt;author&gt;
+    &lt;name /&gt;
+  &lt;/author&gt;
+  &lt;link rel="edit" title="ResourceType" href="ResourceTypes('Namespace.Product')" /&gt;
+  &lt;link rel="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/BaseType">http://schemas.microsoft.com/ado/2007/08/dataservices/related/BaseType</a>" 
+        type="application/atom+xml;type=entry" 
+        title="BaseType" 
+        href="ResourceTypes('Namespace.Product')/BaseType" /&gt;
+  &lt;link rel="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Properties">http://schemas.microsoft.com/ado/2007/08/dataservices/related/Properties</a>" 
+        type="application/atom+xml;type=feed" 
+        title="Properties" 
+        href="ResourceTypes('Namespace.Product')/Properties"&gt;
+    &lt;m:inline&gt;
+      &lt;feed&gt;
+        &lt;title type="text"&gt;Properties&lt;/title&gt;
+        &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceTypes('Namespace.Product')/Properties&lt;/id&gt;
+        &lt;updated&gt;2010-04-21T17:51:09Z&lt;/updated&gt;
+        &lt;link rel="self" title="Properties" href="ResourceTypes('Namespace.Product')/Properties" /&gt;
+        &lt;entry&gt;
+          &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceProperties('Namespace.Product.ProdKey')&lt;/id&gt;
+          &lt;title type="text"&gt;&lt;/title&gt;
+          &lt;updated&gt;2010-04-21T17:51:09Z&lt;/updated&gt;
+          &lt;author&gt;
+            &lt;name /&gt;
+          &lt;/author&gt;
+          &lt;link rel="edit" title="ResourceProperty" href="ResourceProperties('Namespace.Product.ProdKey')" /&gt;
+          &lt;link rel="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/ResourceType">http://schemas.microsoft.com/ado/2007/08/dataservices/related/ResourceType</a>" 
+                type="application/atom+xml;type=entry" 
+                title="ResourceType" 
+                href="ResourceProperties('Namespace.Product.ProdKey')/ResourceType" /&gt;
+          &lt;category term="System.Data.Services.Providers.ResourceProperty" 
+                scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt;
+          &lt;content type="application/xml"&gt;
+            &lt;m:properties&gt;
+              &lt;d:FullName&gt;Namespace.Product.ProdKey&lt;/d:FullName&gt;
+              &lt;d:Name&gt;ProdKey&lt;/d:Name&gt;
+              &lt;d:IsKey m:type="Edm.Boolean"&gt;true&lt;/d:IsKey&gt;
+              &lt;d:IsETag m:type="Edm.Boolean"&gt;false&lt;/d:IsETag&gt;
+              &lt;d:IsComplexType m:type="Edm.Boolean"&gt;false&lt;/d:IsComplexType&gt;
+              &lt;d:IsPrimitive m:type="Edm.Boolean"&gt;true&lt;/d:IsPrimitive&gt;
+              &lt;d:IsReference m:type="Edm.Boolean"&gt;false&lt;/d:IsReference&gt;
+              &lt;d:IsSetReference m:type="Edm.Boolean"&gt;false&lt;/d:IsSetReference&gt;
+              &lt;d:ResourceTypeName&gt;Edm.Int32&lt;/d:ResourceTypeName&gt;
+              &lt;d:MimeType m:null="true" /&gt;
+            &lt;/m:properties&gt;
+          &lt;/content&gt;
+        &lt;/entry&gt;
+        &lt;entry&gt;
+          &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceProperties('Namespace.Product.Name')&lt;/id&gt;
+          &lt;title type="text"&gt;&lt;/title&gt;
+          &lt;updated&gt;2010-04-21T17:51:09Z&lt;/updated&gt;
+          &lt;author&gt;
+            &lt;name /&gt;
+          &lt;/author&gt;
+          &lt;link rel="edit" title="ResourceProperty" href="ResourceProperties('Namespace.Product.Name')" /&gt;
+          &lt;link rel="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/ResourceType">http://schemas.microsoft.com/ado/2007/08/dataservices/related/ResourceType</a>" 
+                type="application/atom+xml;type=entry" 
+                title="ResourceType" 
+                href="ResourceProperties('Namespace.Product.Name')/ResourceType" /&gt;
+          &lt;category term="System.Data.Services.Providers.ResourceProperty" 
+                scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt;
+          &lt;content type="application/xml"&gt;
+            &lt;m:properties&gt;
+              &lt;d:FullName&gt;Namespace.Product.Name&lt;/d:FullName&gt;
+              &lt;d:Name&gt;Name&lt;/d:Name&gt;
+              &lt;d:IsKey m:type="Edm.Boolean"&gt;false&lt;/d:IsKey&gt;
+              &lt;d:IsETag m:type="Edm.Boolean"&gt;false&lt;/d:IsETag&gt;
+              &lt;d:IsComplexType m:type="Edm.Boolean"&gt;false&lt;/d:IsComplexType&gt;
+              &lt;d:IsPrimitive m:type="Edm.Boolean"&gt;true&lt;/d:IsPrimitive&gt;
+              &lt;d:IsReference m:type="Edm.Boolean"&gt;false&lt;/d:IsReference&gt;
+              &lt;d:IsSetReference m:type="Edm.Boolean"&gt;false&lt;/d:IsSetReference&gt;
+              &lt;d:ResourceTypeName&gt;Edm.String&lt;/d:ResourceTypeName&gt;
+              &lt;d:MimeType m:null="true" /&gt;
+            &lt;/m:properties&gt;
+          &lt;/content&gt;
+        &lt;/entry&gt;
+        &lt;entry&gt;
+          &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceProperties('Namespace.Product.Price')&lt;/id&gt;
+          &lt;title type="text"&gt;&lt;/title&gt;
+          &lt;updated&gt;2010-04-21T17:51:09Z&lt;/updated&gt;
+          &lt;author&gt;
+            &lt;name /&gt;
+          &lt;/author&gt;
+          &lt;link rel="edit" title="ResourceProperty" href="ResourceProperties('Namespace.Product.Price')" /&gt;
+          &lt;link rel="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/ResourceType">http://schemas.microsoft.com/ado/2007/08/dataservices/related/ResourceType</a>" 
+                type="application/atom+xml;type=entry" 
+                title="ResourceType" 
+                href="ResourceProperties('Namespace.Product.Price')/ResourceType" /&gt;
+          &lt;category term="System.Data.Services.Providers.ResourceProperty" 
+               scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt;
+          &lt;content type="application/xml"&gt;
+            &lt;m:properties&gt;
+              &lt;d:FullName&gt;Namespace.Product.Price&lt;/d:FullName&gt;
+              &lt;d:Name&gt;Price&lt;/d:Name&gt;
+              &lt;d:IsKey m:type="Edm.Boolean"&gt;false&lt;/d:IsKey&gt;
+              &lt;d:IsETag m:type="Edm.Boolean"&gt;false&lt;/d:IsETag&gt;
+              &lt;d:IsComplexType m:type="Edm.Boolean"&gt;false&lt;/d:IsComplexType&gt;
+              &lt;d:IsPrimitive m:type="Edm.Boolean"&gt;true&lt;/d:IsPrimitive&gt;
+              &lt;d:IsReference m:type="Edm.Boolean"&gt;false&lt;/d:IsReference&gt;
+              &lt;d:IsSetReference m:type="Edm.Boolean"&gt;false&lt;/d:IsSetReference&gt;
+              &lt;d:ResourceTypeName&gt;Edm.Decimal&lt;/d:ResourceTypeName&gt;
+              &lt;d:MimeType m:null="true" /&gt;
+            &lt;/m:properties&gt;
+          &lt;/content&gt;
+        &lt;/entry&gt;
+        &lt;entry&gt;
+          &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceProperties('Namespace.Product.Category')&lt;/id&gt;
+          &lt;title type="text"&gt;&lt;/title&gt;
+          &lt;updated&gt;2010-04-21T17:51:09Z&lt;/updated&gt;
+          &lt;author&gt;
+            &lt;name /&gt;
+          &lt;/author&gt;
+          &lt;link rel="edit" title="ResourceProperty" href="ResourceProperties('Namespace.Product.Category')" /&gt;
+          &lt;link rel="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/ResourceType">http://schemas.microsoft.com/ado/2007/08/dataservices/related/ResourceType</a>" 
+                type="application/atom+xml;type=entry" 
+                title="ResourceType" 
+                href="ResourceProperties('Namespace.Product.Category')/ResourceType" /&gt;
+          &lt;category term="System.Data.Services.Providers.ResourceProperty" 
+                scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt;
+          &lt;content type="application/xml"&gt;
+            &lt;m:properties&gt;
+              &lt;d:FullName&gt;Namespace.Product.Category&lt;/d:FullName&gt;
+              &lt;d:Name&gt;Category&lt;/d:Name&gt;
+              &lt;d:IsKey m:type="Edm.Boolean"&gt;false&lt;/d:IsKey&gt;
+              &lt;d:IsETag m:type="Edm.Boolean"&gt;false&lt;/d:IsETag&gt;
+              &lt;d:IsComplexType m:type="Edm.Boolean"&gt;false&lt;/d:IsComplexType&gt;
+              &lt;d:IsPrimitive m:type="Edm.Boolean"&gt;false&lt;/d:IsPrimitive&gt;
+              &lt;d:IsReference m:type="Edm.Boolean"&gt;true&lt;/d:IsReference&gt;
+              &lt;d:IsSetReference m:type="Edm.Boolean"&gt;false&lt;/d:IsSetReference&gt;
+              &lt;d:ResourceTypeName&gt;Namespace.Category&lt;/d:ResourceTypeName&gt;
+              &lt;d:MimeType m:null="true" /&gt;
+            &lt;/m:properties&gt;
+          &lt;/content&gt;
+        &lt;/entry&gt;
+      &lt;/feed&gt;
+    &lt;/m:inline&gt;
+  &lt;/link&gt;
+  &lt;category term="System.Data.Services.Providers.ResourceType" 
+            scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt;
+  &lt;content type="application/xml"&gt;
+    &lt;m:properties&gt;
+      &lt;d:FullName&gt;Namespace.Product&lt;/d:FullName&gt;
+      &lt;d:Name&gt;Product&lt;/d:Name&gt;
+      &lt;d:Namespace&gt;Namespace&lt;/d:Namespace&gt;
+      &lt;d:InstanceType&gt;OData.WebApp.Product&lt;/d:InstanceType&gt;
+      &lt;d:IsAbstract m:type="Edm.Boolean"&gt;false&lt;/d:IsAbstract&gt;
+      &lt;d:IsMediaLinkEntry m:type="Edm.Boolean"&gt;false&lt;/d:IsMediaLinkEntry&gt;
+      &lt;d:IsOpenType m:type="Edm.Boolean"&gt;false&lt;/d:IsOpenType&gt;
+      &lt;d:ResourceTypeKind&gt;EntityType&lt;/d:ResourceTypeKind&gt;
+    &lt;/m:properties&gt;
+  &lt;/content&gt;
+&lt;/entry&gt;
+  &lt;/content&gt;
+&lt;/entry&gt;</pre>
+<p>This result contains all the information you would normally get in an EDM &lt;EntityType&gt; definition including the properties, but it is targeted and specific, and the result is in OData format too.</p>
+<p>And if that is too verbose for you - you could use content-type negotiation to get the results in JSON format.</p>
+<p>Cool huh?</p>
+<p>&nbsp;</p>
+<h2>Changing the way &lt;link @rel&gt; works?</h2>
+<p>Recently Michael Hausenblas wrote an <a href="http://webofdata.wordpress.com/2010/04/14/oh-it-is-data-on-the-web/"> interesting post</a> comparing OData and Linked Data. In that post he lamented that unlike RDF in OData predicate links do not dereference.</p>
+<p>Huh? What does that mean?</p>
+<p>Well if you look at an &lt;entry&gt; and one of its links</p>
+<pre>&lt;entry&gt;
+  &lt;id&gt;<strong>http://localhost:999/dataservice/Products(1)&lt;/id</strong>&gt;
+  &lt;title type="text"&gt;&lt;/title&gt;
+  &lt;updated&gt;2010-04-21T19:47:28Z&lt;/updated&gt;
+  &lt;author&gt;
+    &lt;name /&gt;
+  &lt;/author&gt;
+  &lt;link rel="edit" title=  &lt;link rel="<strong><a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category">http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category</a></strong>" 
+        type="application/atom+xml;type=entry" 
+        title="Category" 
+        href="<strong>Products(1)/Category</strong>" /&gt;
+   …
+&lt;/entry&gt;</pre>
+<p>If you try to map the Category Link into RDF terms (subject-predicate-object) this is what you'll get:</p>
+<p>A '<strong>Product</strong> (<em>http://localhost:999/dataservice/Products(1)</em> )' has a '<strong>Category Property</strong> (<em>http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category</em>)' pointing to '<strong>a Category</strong> (<em>Products(1)/Category</em>)'</p>
+<p>Unfortunately even though the Category Property predicate has a URL, <em>http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category</em>, it returns a 404, i.e. it is not dereference-able.</p>
+<p>RDF on the other hand allows predicates to have dereferencable urls.</p>
+<p>&nbsp;</p>
+<h3>Queryable metadata to the rescue?</h3>
+<p>If however you had queryable metadata you could choose an @rel (predicate url) that queries the metadata to get more information about the Product.Category property, something like this:</p>
+<pre>&lt;link rel="http://localhost:999/dataservice/$metadata/ResourceProperties('Namespace.Product.Category')"
+      type="application/atom+xml;type=entry" 
+      title="Category" 
+      href="Products(1)/Category" href="Products(1)/Category" /&gt;</pre>
+<p>And now you have something that is essentially isomorphic with RDF.</p>
+<p>&nbsp;</p>
+<h2>Summary</h2>
+<p>As you can see we have some thoughts about how to extend the OData protocol to enrich the types of metadata discovery and queries that are possible.</p>
+<p>But as always we are keen to hear your thoughts.</p>
+<p>Do you think queryable metadata is interesting?<br />
+And if so do you think making @rel dereference-able is important?</p>
+<p>Please let us know what you think.</p>
+<p><a href="http://twitter.com/adjames">Alex James</a></p>
+</div>

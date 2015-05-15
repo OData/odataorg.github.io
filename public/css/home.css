@@ -1,0 +1,64 @@
+.step-buttons{
+    font-size: 12px;
+}
+.zero-bottom-margin{
+    margin-bottom: 0;
+}
+.zero-top-margin{
+    margin-top: 0;
+}
+.zero-bottom-padding{
+    padding-bottom: 0;
+}
+.side-padding{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.bottom-margin{
+    margin-bottom: 30px;
+}
+.bottom-padding{
+    padding-bottom: 30px;
+}
+.top-padding{
+    padding-top: 30px;
+}
+.bottom-margin{
+    margin-bottom: 30px;
+}
+.top-margin{
+    margin-top: 30px;
+}
+.bottom-border{
+    border-bottom-width: 1px;
+    border-bottom-color: #ddd;
+    border-bottom-style: solid;
+}
+.transparent-background{
+    background-color: transparent;
+}
+.code-row{
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    border-style: solid;
+    padding: 15px 15px 15px;
+    background-color: white;
+}
+.modal-body{
+    max-height: 500px;
+    overflow: auto;
+}
+.github-logo{
+    float: left;
+    margin-top: 10px;
+    max-width: 100px;
+    max-height: 100px;
+}
+#top-link-block.affix-top{
+    position: absolute; 
+}
+.logo-image{
+    background-size: cover;
+    background-repeat: no-repeat;
+}

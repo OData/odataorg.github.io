@@ -1,0 +1,28 @@
+---
+layout: post
+title: Even more Any and All
+date: 2011-02-15 17:41:20.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>I was talking to a few people last week and one of them suggested another change in the any/all syntax. The more I looked at it the more I liked it. In fact when I asked a few of people over twitter it seemed everyone else liked it to.</p>
+<p>The suggestion was to replace this:</p>
+<p><strong>~/Movies/?$filter=any(Actors a: any(a/Awards))</strong></p>
+<p>With this:</p>
+<p><strong>~/Movies/?$filter=Actors/any(a: a/Awards/any())</strong></p>
+<p>There are a couple of things I think are nice about this:</p>
+<ul>
+<li>It looks a lot like code you might write in something like C# after replace '.'s with '/'s - as is the OData idiom - which hopefully will make it easier to learn.</li>
+<li>It separates the collection variable (i.e. 'Actors') from the range variable (i.e. 'a'). I think this helps because using the old syntax people might be conditioned by the language they use every day to write: any(Actor a: …) instead of any(Actors a: …)</li>
+</ul>
+<p>So I think we should do this.</p>
+<p>But what do you think?<br />
+<a href="http://twitter.com/adjames">Alex</a></p>
+</div>

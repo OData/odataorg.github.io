@@ -1,0 +1,188 @@
+---
+layout: post
+title: Vocabularies
+date: 2011-02-21 17:40:31.000000000 +08:00
+categories:
+- OData vocabularies
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<h3>What are vocabularies?</h3>
+<p>Vocabularies are made up of a set of related 'terms' which when used can express some idea or concept. They allow producers to teach consumers richer ways to interpret and handle data.</p>
+<p>Vocabularies can range in complexity from simple to complex. A simple vocabulary might tell a consumer which property to use as an entity's title when displaying it in a form, whereas a more complex vocabulary might tell someone how to convert an OData person entity into a vCard entry.</p>
+<p>Here are some simple examples:</p>
+<ul>
+<li>This property should be used as the Title of this entity</li>
+<li>This property has a range of acceptable values (e.g. 1 to 100)</li>
+<li>This entity can be converted into an vCard</li>
+<li>This entity is a foaf:Person</li>
+<li>This navigation property is essentially a 'foaf:Knows [a person]' relationship</li>
+<li>This property is a georss:Point</li>
+<li>Etc</li>
+</ul>
+<p>Vocabularies are not a new concept unique to OData, vocabularies are used extensively in the linked data and RDF worlds to great effect, in fact we should be able to re-use many of these existing vocabularies in OData.</p>
+<h3>Why does OData need vocabularies?</h3>
+<p>OData is being used in many different verticals now. Each vertical brings its own specific set of requirements and challenges. While some problems are general enough that solving them inside OData adds value to the OData eco-system as a whole, most don't meet that bar.</p>
+<p>It seems clear then that we need a mechanism that allows Producers to share more information that 'smarter' Consumers MAY understand enough to enable a higher fidelity experience.</p>
+<p>In fact some consumers are already trying to provide a higher fidelity experience, for example <a href="http://metasapiens.com/sesame/data-browser/">Sesame</a> can render the results of OData queries on a map. Sesame does this by looking for specifically named properties, which it 'guesses' represent the entity's location. While this is powerful, it would be much better if it wasn't a 'guess', if the Producer used a well-known vocabulary to tell Consumers which property is the entity's location.</p>
+<h3>Goals</h3>
+<p>As with any new feature, we need to agree on a set of goals before we can come up with the right design. To get us started I propose this set of goals:</p>
+<ul>
+<li>Ability to re-use or reference common micro-formats and vocabularies.</li>
+<li>Ability to annotate OData metadata using the terms from a particular vocabulary.
+<ul>
+<li>Both internally (inside the CSDL file returned from $metadata)</li>
+<li>And externally (allowing for third-parties to 'enrich' existing OData services they don't own).</li>
+<li>No matter how the annotation is made, consumers should be able to consume the annotations in much the same way.</li>
+<li>Ability to annotate OData data too? Although this one is beyond the scope of this post.</li>
+<li>Consumers that don't understand a particular vocabulary should still be able to work with services that reference that vocabulary. The goal should be to enrich the eco-system for those who 'optionally' understand the vocabulary.</li>
+<li>We should be able to reference terms from a vocabulary in CSDL, OData Atom and OData JSON.</li>
+</ul>
+</li>
+</ul>
+<p>It is important to note that our goal stops short of specifying how to define the vocabulary itself, or how to capture the semantics of the vocabulary, or how to enforce the vocabulary. Those concerns lay solely with vocabulary writers, and the producers and consumers that profess to understand the vocabulary. By staying out of this business it allows OData to reference many existing vocabularies and micro-formats, without being unnecessarily restrictive on how those vocabularies are defined or the types of semantics they might imply.</p>
+<h3>Exploration</h3>
+<p>Today if you ask for an OData services metadata (~/service/$metadata) you get back an EDMX document that contains a CSDL schema. Here is an <a href="http://services.odata.org/OData/OData.svc/$metadata">example</a>.</p>
+<p>CSDL already supports annotations, which we could use to refer to a vocabulary and its terms. For example this EntityType definition includes both a structural annotation (validation:Constraint) and a simple attribute annotation (display:Title):</p>
+<p><em>&lt;EntityType Name="Person" display:Title="Firstname Lastname"&gt;<br />
+&lt;Key&gt;<br />
+&lt;PropertyRef Name="ID" /&gt;<br />
+&lt;/Key&gt;<br />
+&lt;Property Name="ID" Type="Edm.Int32" Nullable="false" /&gt;<br />
+&lt;Property Name="Firstname" Type="Edm.String" Nullable="true" /&gt;<br />
+&lt;Property Name="Lastname" Type="Edm.String" Nullable="true"  /&gt;<br />
+&lt;Property Name="Email" Type="Edm.String" Nullable="true"&gt;<br />
+&lt;validation:Constraint&gt;<br />
+&lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
+&lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
+&lt;/validation:Constraint&gt;<br />
+&lt;/Property&gt;<br />
+&lt;Property Name="Age" Type="Edm.Int32" /&gt;<br />
+&lt;/EntityType&gt;</em></p>
+<p>For this to be valid XML the display and validation namespaces would have to be introduced somewhere something like this:</p>
+<p><em>&lt;Schema<br />
+xmlns:display="http://odata.org/vocabularies/display"<br />
+xmlns:validation="http://odata.org/vocabularies/validation"&gt;</em></p>
+<p>Here the URL of the xsd reference identifies the vocabulary globally.</p>
+<p>While this allows for completely arbitrary annotations and is extremely expressive, it has a number of down-sides:</p>
+<ol>
+<li>Structural annotations (i.e. XML elements) support the full power of XML. While power is good, it comes at a price, and here the price is figuring out how to represent the same thing in say JSON? We could come up with a proposal to make CSDL and OData Atom/JSON completely isomorphic, but is that worth the effort? Probably not.</li>
+<li>There is no way to refer to something, like say a property, so that you can annotate it externally, which is one of our goals.</li>
+<li>If we allow for annotations inline in the data (and let's not forget metadata would just be data in an addressable metadata service) it would change the shape of the resulting JSON structure. For example the javascript expression to access the age property of an entity would need to change from something like object.Age to something like object.Age.Value so that object.Age can hold onto all the 'inline annotations'. This is clearly unacceptable if we want existing 'naive' consumers to continue to work.</li>
+</ol>
+<h3>OData values:</h3>
+<p>If we address these issues in turn, one concern for (1) is to restrict the XML available when using a vocabulary to the XML we already know how to convert from XML into JSON, i.e. OData values. For example we take something like this:</p>
+<p><em>&lt;Property Name="Email" Type="Edm.String" Nullable="true"&gt;<br />
+&lt;validation:Constraint&gt;<br />
+&lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
+&lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
+&lt;/validation:Constraint&gt;<br />
+&lt;/Property&gt;</em></p>
+<p>The annotation is pretty simple, and could be modeled as a ComplexType pretty easily:</p>
+<p><em>&lt;ComplexType Name="Constraint"&gt;<br />
+&lt;Property Name="Regex" Type="Edm.String" Nullable="false" /&gt;<br />
+&lt;Property Name="ErrorMessage" Type="Edm.String" Nullable="true" /&gt;<br />
+&lt;/ComplexType&gt;</em></p>
+<p>In fact if you execute an <a href="http://www.odata.org/developers/protocols/atom-format#RepresentingComplexTypesProperties"> OData request</a> that just retrieves an instance of this complex type the response would look like this:</p>
+<p><em>&lt;Constraint<br />
+p1:type="Namespace.Constraint"<br />
+xmlns:p1="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"<br />
+xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices" &gt;<br />
+&lt;Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/Regex&gt;<br />
+&lt;ErrorMessage&gt;Please enter a valid EmailAddress&lt;/ErrorMessage&gt;<br />
+&lt;/Constraint&gt;</em></p>
+<p>And this is almost identical to our original annotation, the only differences being around the xml namespaces.</p>
+<p>Which means it is not too much of a stretch to say if your annotation can be modeled as a ComplexType which - of course allow nested complex types properties and <a href="http://www.odata.org/blog/2010/9/27/adding-support-for-bags">multi-value properties</a> too - then the Annotation is simply an OData value.</p>
+<p>This is very nice because it means when we do <a href="http://www.odata.org/blog/2010/4/22/queryable-odata-metadata"> addressable metadata</a> you can in theory write a query like this to retrieve the annotations for a specific property:</p>
+<p><strong>~/$metadata.svc/Properties('Namespace.Type.PropertyName')/Annotations</strong></p>
+<p><strong>ISSUE:</strong> Actually this introduces a problem, since each annotation instance would have a different 'type' we would need to support either ComplexType inheritance (so we can define the annotation as an EntityType with a Value property of type AnnotationValue, but instances of Annotations would invariably have Values derived from the base AnnotationValue type) or mark Annotation as a OpenType or provide a way to specify a property without specifying the type.</p>
+<p>Of course today annotations are allowed that can't be modeled as ComplexTypes, so we would need to be able to distinguish those. Perhaps the easiest way is like this:</p>
+<p><em>&lt;Property Name="Email" Type="Edm.String" Nullable="true"&gt;<br />
+&lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
+&lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
+&lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
+&lt;/validation:Constraint&gt;<br />
+&lt;/Property&gt;</em></p>
+<p>Here the m:Type attribute indicates that the annotation is an OData value. This tells servers and clients that they can if needed convert between CSDL, ATOM and JSON formats using the above rules.</p>
+<p>By adopting the OData atom format for annotations we can use a few more OData-ism to get clearer about the structure of the Annotation:</p>
+<ul>
+<li>By default each element in the annotation represents a string but you can use m:Type="***"  to change the type to something like Edm.Int32.<br />
+e.g.    &lt;validation:ErrorSeverity m:Type="Edm.Int32"&gt;1&lt;/validation:ErrorSeverity&gt;</li>
+<li>We can use m:IsNull="true" to tell the difference between an empty string and null.<br />
+e.g.   &lt;validation:ErrorMessage m:IsNull="true" /&gt;</li>
+</ul>
+<p>This looks good. It supports both constrained (OData values) and unconstrained annotations, and is consistent with the existing annotation support in OData.</p>
+<h3>Out of line &amp; External Annotations</h3>
+<p>Now if we turn our attention back to concern (2), this example implicitly refers to its parent; however we need to allow vocabularies to refer to something explicitly. For metadata the most obvious solution is to leverage addressable metadata, which allows you to refer to individual pieces of the metadata.</p>
+<p>For example if this URL is the address of the metadata for the Email property: <a href="http://server/service/$metadata/Properties%28%27Namespace.Person.Email%27%29"> http://server/service/$metadata/Properties('Namespace.Person.Email')</a></p>
+<p>Then this 'free floating' element is 'annotating' the Email property using the 'http://odata.org/vocabularies/constraints' vocabulary:</p>
+<p><em>&lt;Annotation AppliesTo="http://server/service/$metadata/Properties('Namespace.Person.Email')"<br />
+xmlns:validation="http://odata.org/vocabularies/constraints"&gt;<br />
+&lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
+&lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
+&lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
+&lt;/validation:Constraint&gt;<br />
+&lt;/Annotation&gt;</em></p>
+<p>Annotation by reference also neatly sidesteps issue (3), i.e. the object annotated is left structurally unchanged, which means we could use a similar approach to annotate data without breaking code (like a javascript path) that relies on a particular structure.</p>
+<p>Another nice side-effect of this design is that you can use it 'inside' the CSDL too, simply by removing the address of the metadata service from the AppliesTo url - since we are in the CSDL we can us 'relative addressing':</p>
+<p><em>&lt;Annotation AppliesTo="Properties('Namespace.Person.Email')"<br />
+xmlns:validation="http://odata.org/vocabularies/constraints"&gt;<br />
+&lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
+&lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
+&lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
+&lt;/validation:Constraint&gt;<br />
+&lt;/Annotation&gt;</em></p>
+<p>Indeed if you have a separate file with many annotations for a particular model, you could group a series of annotations together like this:</p>
+<p><em>&lt;Annotations AppliesTo="http://server/service/$metadata/"&gt;<br />
+&lt;Annotation AppliesTo="Properties('Namespace.Person.Email')"<br />
+xmlns:validation="http://odata.org/vocabularies/constraints"&gt;<br />
+&lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
+&lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
+&lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
+&lt;/validation:Constraint&gt;<br />
+&lt;/Annotation&gt;<br />
+&lt;Annotation AppliesTo="Properties('Namespace.Customer.Email')"<br />
+xmlns:validation="http://odata.org/vocabularies/constraints"&gt;<br />
+&lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
+&lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
+&lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
+&lt;/validation:Constraint&gt;<br />
+&lt;/Annotation&gt;<br />
+&lt;/Annotations&gt;</em></p>
+<p>Here the Annotations/@AppliesTo attribute indicates the shared root url for all the annotations, and could be any url that points to a model, be that http, file or whatever.</p>
+<h3>Vocabulary definitions and semantics</h3>
+<p>It is important to note, that while we are proposing how to 'bind' or 'apply' a vocabulary, we are *not* proposing how to:</p>
+<ul>
+<li>Define the terms in a vocabulary (e.g. Regex, ErrorMessage)</li>
+<li>Define the meaning or semantics associated with the terms (e.g. Regex should be applied to instance values, if the regex doesn't match an error/exception should be raised with the ErrorMessage).</li>
+</ul>
+<p>Clearly however to interoperate two parties must agree on the vocabulary terms available and their meaning. We are however not dictating how that understanding develops. It could be done in many different ways - for example using a Hallway conversation, Word or PDF document, Diagram, or perhaps even an XSD or EDM model.</p>
+<h3>Who creates vocabularies?</h3>
+<p>The short answer is 'anyone'.</p>
+<p>The more nuanced answer is there are many candidate vocabularies - from georss to vCard to Display to Validations - overtime people and companies from the OData ecosystem will start promoting vocabularies they have an interest in, and as is always the case the most useful will flourish.</p>
+<h3>Where are we?</h3>
+<p>I think that this proposal is a good place to gather feedback and think about the scenarios it enables. Using this approach you can imagine a world where:</p>
+<ol>
+<li>A Producer exposes a Data Service without using any terms from a useful vocabulary.</li>
+<li>Someone creates an 'annotation' file that attaches terms from the useful vocabulary to the service, which then enables 'smart consumers' to interact with the Data Service with higher-fidelity.</li>
+<li>The Producer learns of this 'annotation' file and embeds the annotations simply by converting all the 'appliesTo' urls (that are currently absolute) into relative urls.</li>
+</ol>
+<p>You can also imagine a world where consumers like Tableau, PowerPivot and Sesame allow users to build up their own annotation files in response to gestures*.</p>
+<p><strong>*Gestures</strong> - you can think of the various mouse clicks, drags, key presses performed by a user as gestures. So for example right clicking on a column and picking from a list of well-known vocabularies could be interpreted as binding the selected vocabulary to the corresponding property definition. These 'interpretations' could easily be group and stored in an external annotation file.</p>
+<h3>Summary</h3>
+<p>I hope that you, like me, can see the potential power and expressiveness that vocabularies can bring to OData. Vocabularies will allow the OData eco-system to connect more deeply with the web and allow for ever richer and more immersive data consumption scenarios.</p>
+<p>I really want to hear your feedback on the approach proposed above. The proposal is more exploratory than anything. It's definitely not set in stone, so tell us what you think.</p>
+<p>Some specific questions:</p>
+<ul>
+<li>Do you agree that if we have a reference based annotation model, there is no need to support an inline model?</li>
+<li>What do you think of the idea of restricting annotation to the OData type system?</li>
+<li>Do you like the symmetry between in service (i.e. inside $metadata) and external annotations?</li>
+<li>Do we need to define how you attach vocabularies to data too? For example do you have scenarios where each instance has different annotations?</li>
+<li>Are there any particularly cool scenarios you think this enables?</li>
+<li>What vocabularies would you like to see pushed?</li>
+</ul>
+<p>Thanks for reading!<br />
+- <a href="http://twitter.com/adjames"><strong>Alex</strong></a></p>

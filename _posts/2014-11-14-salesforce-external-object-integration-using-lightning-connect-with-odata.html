@@ -1,0 +1,53 @@
+---
+layout: post
+title: Salesforce External Object integration using Lightning Connect with OData
+date: 2014-11-14 13:57:42.000000000 +08:00
+categories:
+- OData standardization
+- OData tools
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: Sumit Sarkar
+---
+<p>Reflecting back on my third Dreamforce trip and fourth <a href="https://blogs.datadirect.com/2013/12/sold-sql-access-salesforce-api-replay-dreamforce-13.html">speaking session around standards based data connectivity</a>; I remain most excited about the announcement at Dreamforce ’14 around Lightning Connect, the new external object support via OData released in Winter ’15.  I consider myself a bit of a “data hippie” interested in the latest news on open data standards for connectivity.</p>
+<h1>Use cases for amazing Lightning Connect OData integration</h1>
+<p>While Salesforce integration is nothing new, Lightning Connect changes the game by treating live external data as native objects driven from the platform using APEX triggers and classes, SOQL, SOSL, Lookup Relationships, Custom Tabs and Details. The most common use case I have heard at Dreamforce is by far integration with on-premise Oracle or SQL Server databases.  From talking to architects, admins and developers at Dreamforce ’14, I am hearing about potential projects to integrate with sources such as:</p>
+<ul>
+<li>On-premise ERP systems such as those built on Oracle (EBS or Peoplesoft), SQL Server (Sage), IBM DB2 (JDEdwards), or OpenEdge (QAD, Infor, Epicor)</li>
+<li>Data Warehouse histories from systems such as Amazon Redshift, Cloudera, or HortonWorks</li>
+<li>Marketing Data such as Marketo, Hubspot, Eloqua, or Google Adwords</li>
+<li>Order fulfillment systems for real-time lookup from service cloud</li>
+<li>Connecting SAP Gateway</li>
+<li>Integration with Microsoft Sharepoint Lists</li>
+</ul>
+<p>OData is not limited to database connectivity, and includes a rich ecosystem or producers; and Progress Software's <a href="http://www.progress.com/datadirectcloud?sfdcid=701a0000002MkKS&amp;cmpid=ddblog&amp;_ga=1.41743778.1076730174.1395324411">DataDirect Cloud</a> supports both on-premise databases behind a firewall and even cloud data sources including Google Analytics, Salesforce Platform (for cross org connectivity), Marketo or Eloqua. In my opinion, this is even more exciting than Salesforce Analytics Cloud (Project Wave).  In my most recent session at DF14, I presented a live demo of this showing how to connect on-premise or cloud sources such as SQL Server, Oracle or Amazon Redshift from my force.com developer account using OData produced by <a href="http://www.progress.com/datadirectcloud?sfdcid=701a0000002MkKS&amp;cmpid=ddblog&amp;_ga=1.41743778.1076730174.1395324411">DataDirect Cloud</a>.  The data gets fetched directly in real-time from source systems on demand without having to physically move or duplicate the data.</p>
+<blockquote><p>"Salesforce1 Lightning Connect is a new breed of real-time integration that turns any external data source into a first class citizen on the Salesforce1 Platform," said Scott Holden, VP, Salesforce1 Platform, Salesforce. "Along with partners like Progress, we are making integration point-and-click simple for our customers."</p></blockquote>
+<h1>How does Lightning Connect work with external objects?</h1>
+<p>From the Salesforce Platform <a href="https://help.salesforce.com/help/pdfs/en/salesforce_winter15_release_notes.pdf">Winter 15 release notes</a>:</p>
+<p>Access External Data with Salesforce1 Lightning Connect. Lightning Connect enables your users to view and search records that are stored outside Salesforce, such as data in an enterprise resource planning (ERP) system. Instead of copying the data into Salesforce, which would be redundant and inefficient, use external objects to reference the data and access the data in real time via Web service callouts.</p>
+<p>Lightning Connect external objects map to data tables in external data sources and are available to Salesforce tools such as lookup relationships, record feeds, the Salesforce1 app, SOSL and SOQL queries, Salesforce APIs, and deployment via the Metadata API, change sets, and packages. To connect to an external data source, Lightning Connect uses the Open Data Protocol (OData) version 2.0.</p>
+<h1>OData and Lightning Connect impressions from the show</h1>
+<p>I joined several sessions and met folks from across the Salesforce.com platform to talk OData integration.  Many of the force.com developers in the devzone were familiar with OData as a standard; but virtually all 150,000 attendees were excited about what OData represents in transforming external data into native Salesforce.com objects and there was a lot of buzz on twitter.</p>
+<blockquote class="twitter-tweet" lang="en"><p>In line for magical external objects via <a href="https://twitter.com/hashtag/OData?src=hash">#OData</a> which is a great intro to my magical demos thurs at 10a <a href="https://twitter.com/hashtag/df14?src=hash">#df14</a> <a href="http://t.co/ksunMyb77L">pic.twitter.com/ksunMyb77L</a></p>
+<p>— Sumit Sarkar (@SAsInSumit) <a href="https://twitter.com/SAsInSumit/status/521708493594562561">October 13, 2014</a></p></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>With Wave, Lightning, External Objects and everything else at <a href="https://twitter.com/hashtag/DF14?src=hash">#DF14</a> I'm going to need a brain upgrade — Richard Clark (@RichClark808) <a href="https://twitter.com/RichClark808/status/522813720833961985">October 16, 2014</a></p></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Salesforce external objects able to query directly from SAP and process builder to orchestrate integration <a href="https://twitter.com/hashtag/DF14?src=hash">#DF14</a> really great — Luke Emberton (@usetheforce_le) <a href="https://twitter.com/usetheforce_le/status/522451781050060800">October 15, 2014</a></p></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Lightning components, process builder, external objects, and more all demoed <a href="https://twitter.com/Dreamforce">@Dreamforce</a> <a href="https://twitter.com/hashtag/devkeynote?src=hash">#devkeynote</a>. Best one so far. <a href="https://twitter.com/hashtag/df14?src=hash">#df14</a> — phillip southern (@phil7s) <a href="https://twitter.com/phil7s/status/522451585029271552">October 15, 2014</a></p></blockquote>
+<h1>Get started with Lightning Connect and OData for real-time connectivity</h1>
+<ol>
+<li>Sign up for a Salesforce.com developer accountas of Winter ’15</li>
+<li>Sign up for aDataDirect Cloud trial.  Or you can select any OData source from the ecosystem on odata.org.  From my experience at Dreamforce, most shops were interested in DataDirect Cloud which produces real-time OData from popular data sources running on-premise or cloud.   If you want to connect securely to an on-premise database using OData, here’s a related<a href="http://www.odata.org/blog/instant-odata-for-ibm-db2-on-zos-iseries-and-luw/">tutorial on odata.org using DataDirect Cloud to instantly produce OData from databases behind your firewall</a> using DB2 as an example, but the same steps apply to SQL Server, Oracle, Postgres, MySQL, OpenEdge, Cloudera or HortonWorks.</li>
+<li>From the Salesforce.com developer account, click on Setup &gt; Develop &gt; External Data Sources</li>
+<li>Configure the data source using the url as follows replacing myDataSource with your DataDirect Cloud data source name: <a href="https://service.datadirectcloud.com/api/odata/myDataSource">https://service.datadirectcloud.com/api/odata/myDataSource</a></li>
+<li>For DataDirect Cloud, authenticate using Basic Authentication. Under the Authentication section, change “Identity Type” to: “Per User” or “Named Principal”; and “Authentication Protocol” to: “Password Authentication”.  Then enter your DataDirect Cloud credentials.</li>
+</ol>
+<p><a href="{{site.url}}assets/Screen-Shot-2014-10-21-at-10.09.41-PM-e1413944380271.png"><img class="aligncenter size-full wp-image-12272" src="{{site.url}}assets/Screen-Shot-2014-10-21-at-10.09.41-PM-e1413944380271.png" alt="Screen-Shot-2014-10-21-at-10.09.41-PM-e1413944380271" width="600" height="295" /></a></p>
+<p>6. Click Validate and Sync and select the external entities you want to treat as external objects. These objects will have API Name appended with __x to indicate an external object; and the fields will be appended with __c similar to other custom fields.</p>
+<p style="text-align: center;"><a href="{{site.url}}assets/external-objects-odata.png"><img class="alignnone wp-image-12361 size-full" src="{{site.url}}assets/external-objects-odata.png" alt="external-objects-odata" width="600" height="260" /></a></p>
+<p>7. At this point, force.com developers are ready to rock the Salesforce Platform with unlimited data.</p>
+<h1>Let’s talk</h1>
+<p>@SAsInSumit</p>
+<p><a href="www.linkedin.com/in/meetsumit">www.linkedin.com/in/meetsumit</a></p>

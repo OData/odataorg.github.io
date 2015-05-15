@@ -1,0 +1,69 @@
+---
+layout: post
+title: An efficient format for OData
+date: 2011-03-25 17:38:14.000000000 +08:00
+categories:
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>The need for a more efficient format for OData has been coming up often lately, with <a href="http://mailinglist.odata.org/scripts/wa-ODATA.exe?A2=ODATA;b331dadb.1103" target="_blank">this thread</a> being the latest on the topic. I thought I would look into the topic in more detail and take a shot at characterizing the problem and start to drill into possible alternatives.</p>
+<p>Discussing the introduction of a new format for OData is something that I think about with a lot of care. As we discussed in this forum in the past, special formats for closed systems are fine, but if we are talking about a format that most of the ecosystem needs to support then it is a very different conversation. We need to make sure it does not fragment the ecosystem and does not leave particular clients or servers out.</p>
+<p>All that said, OData is now used in huge server farms where CPU cycles used in serializing data are tight, and in phone applications where size, CPU utilization and battery consumption need to be watched carefully. So I think is fair to say that we need to look into this.</p>
+<h3>What problem do we need to solve?</h3>
+<p>Whenever you have a discussion about formats and performance the usual question comes up right away: do you optimize for size or speed? The funny thing is that in many, many cases the servers will want to optimize for throughput while the clients talking to those servers will likely want to optimize for whatever maximizes battery life, with whoever is paying for bandwidth wanting to optimize for size.</p>
+<p>The net of this is that we have to find a balanced set of choices, and whenever possible leave the door open for further refinement while still allowing for interoperability. Given that, I will loosely identify the goal as creating an "efficient" format for OData and avoid embedding in the problem statement whether more efficient means more compact, faster to produce, etc.</p>
+<h3>What are the things we can change?</h3>
+<p>Assuming that the process of obtaining the data and taking it apart so it is ready for serialization is constant, the cost of serialization tends to be dominated by the CPU time it takes to convert any non-string data into strings (if doing a text-based format), encode all strings into the right character encoding and stitching together the whole response. If we were only focused on size we could compress the output, but that taxes CPU utilization twice, once to produce the initial document and then again to compress it.</p>
+<p>So we need to write less to start with, while still not getting so fancy that we spend a bunch of time deciding what to write. This translates into finding relatively obvious candidates and eliminating redundancy there.</p>
+<p>On the other hand, there are things that we probably do not want to change. Having OData requests and responses being self-contained is important as it enables communication without out of band knowledge. OData also makes extensive use of URLs for allowing servers to encode whatever they want, such as the distribution of entities or relationships across different hosts, the encoding of continuations, locations of media in CDNs, etc.</p>
+<h3>What (not) to write (or read)</h3>
+<p>If you take a quick look at an OData payload you can quickly guess where the redundancy is. However I wanted to have a bit more quantitative data on that so I ran some numbers (not exactly a scientific study, so take it kind of lightly). I used 3 cases for reference from the sample service that exposes the classic Northwind database as an OData service:</p>
+<ul>
+<li>1Customer: <a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$top=1" target="_blank">http://services.odata.org/Northwind/Northwind.svc/Customers?$top=1</a></li>
+<li>100CustomersAndOrders: <a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$expand=Orders" target="_blank">http://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$expand=Orders</a></li>
+<li>100NarrowCustomers: <a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$select=CustomerID,CompanyName" target="_blank">http://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$select=CustomerID,CompanyName</a></li>
+</ul>
+<p>So a really small data set, a larger and wider data set, and a larger but narrower data set.</p>
+<p>If you contrast the Atom versus the JSON size for these, JSON is somewhere between half and a third of the size of the Atom version. Most of it comes from the fact that JSON has less redundant/unneeded content (no closing tags, no empty required Atom elements, etc.), although some is actually less fidelity, such as lack of type annotations in values.</p>
+<p>Analyzing the JSON payload further, metadata and property names make up about 40% of the content, and system-generated URLs ~40% as well. Pure data ends up being around 20% of the content. For those that prefer to see data visually:<br />
+<a href="{{site.url}}assets/efficientformatpayloadbreakdown.jpg" rel="attachment wp-att-9641"><img src="{{site.url}}assets/efficientformatpayloadbreakdown.jpg" alt="efficientformatpayloadbreakdown" width="496" height="280" class="wp-image-9641" /></a></p>
+<h3>Approach</h3>
+<p>I'm going to try to separate the choice of actual wire format from the strategy to make it less verbose and thus "write less". I'll focus on the latter first.</p>
+<p>From the data above it is clear that the encoding of structure (property names, entry metadata) and URLs both need serious work. A simple strategy would be to introduce two constructs into documents:</p>
+<ul>
+<li>"structural templates" that describe the shape of compound things such as records, nested records, metadata records, etc. Templates can be written once and then actual data can just reference them, avoiding having to repeat the names of properties on every row.</li>
+<li>"textual templates" that capture text patterns that repeat a lot throughout the document, with URLs being the primary candidates for this (e.g. you could imagine the template being something like " <a href="http://services.odata.org/Northwind/Northwind.svc/Customers%28%27%7b0%7d%27%29"> http://services.odata.org/Northwind/Northwind.svc/Customers('{0}')</a>" and then the per-row value would be just what is needed to replace "{0}").</li>
+</ul>
+<p>We could inline these with the data as needed, so only the templates that are really needed would go into a particular document.</p>
+<h3>Actual wire format</h3>
+<p>The actual choice of wire format has a number of dimensions:</p>
+<ul>
+<li>Text or binary?</li>
+<li>What clients should be able to parse it?</li>
+<li>Should we choose a lower level transport format and apply our templating scheme on top, or use a format that already has mechanisms for eliminating redundancy?</li>
+</ul>
+<p>Here are a few I looked at:</p>
+<ul>
+<li>EXI: this is a W3C recommendation for a compact binary XML format. The nice thing about this is that it is still just XML, so we could slice it under the Atom serializers and be done. It also achieves impressive levels of compression. I worry though that we would still do all the work in the higher layers (so I'm not sure about CPU savings), plus not all clients will be able to use it directly, and implementing it seems like quite a task.</li>
+<li>"low level" binary formats: I spent some time digging into BSON, Avro and Protocol Buffers. I call them "low level" because this would still require us to define a format on top to transport the various OData idioms, and if we want to reduce redundancy in most cases we would have to deal with that (although to be fair Avro seems to already handle the self-descriptive aspect on the structural side).</li>
+<li>JSON: this is an intriguing idea someone in the WCF team mentioned some time ago. We can define a "dense JSON" encoding that uses structural and textual templates. The document is still a JSON document and can be parsed using a regular JSON parser in any environment. Fancy parsers would go directly from the dense format into their final output, while simpler parsers can apply a simple JSON -&gt; JSON transform that would return the kind of JSON you would expect for a regular scenario, with plain objects with repeating property names and all that. This approach probably comes with less optimal results in size but great interoperability while having reasonable efficiency.</li>
+</ul>
+<p>Note that for the binary formats and for JSON I'm leaving compression aside. Since OData is built on HTTP, clients and servers can always negotiate compression via content encoding. This allows servers to make choices around throughput versus size, and clients to suggest whether they would prefer to optimize for size or for CPU utilization (which may reflect on battery life on portable devices).</p>
+<h3>A dense JSON encoding for OData</h3>
+<p>Of these, I'm really intrigued by the JSON option. I love the idea of keeping the format as text, even though it could get pretty cryptic with all the templating stuff. I also really like the fact that it would work in browsers in addition to all the other clients.</p>
+<p>This is a long write up already, the actual definition of the JSON encoding belongs to a separate discussion, provided that folks think this is an interesting direction. So let me just give an example for motivation and leave it at that.</p>
+<p>Let's say we have a bunch of rows for the Title type from the Netflix examples above. We would typically have full JSON objects for each row, all packaged in an array, with a __metadata object each containing "self links" and such. The dense version would instead consist of an object stream that has "c", "m" or "d" objects for "control", "metadata" and "data" respectively. Each object represents an object in the top level array, and each value is either a metadata object introducing a new template or a data value representing a particular value for some part of the template, with values matched in template-definition order; control objects are usually first/last and indicate things like count, array/singleton, etc. It would look like this:</p>
+<p><a href="{{site.url}}assets/efficientformatsample.png" rel="attachment wp-att-9671"><img src="{{site.url}}assets/efficientformatsample.png" alt="efficientformatsample" width="931" height="302" class="alignleft size-full wp-image-9671" /></a></p>
+<p>(there are some specifics that aren't quite right on this, take it as an illustration and not a perfect working example)</p>
+<p>Note the two structural templates (JSON-schema-ish) and the one textual template. For a single row this would be a bit bigger than a regular document, but probably not by much. As you have more and more rows, they become densely packed objects with no property names and mostly fixed order for unpacking. With a format like this, the "100NarrowCustomers" example above would be about a third of the size of the original JSON. That's not just smaller on the wire, but a third of text that does not need to be processed at all.</p>
+<h3>Next steps?</h3>
+<p>We need a better evaluation of the various format options. I like the idea of a dense JSON format but we need to have validation that the trade-offs work. I will explore that some more and send another note. Similarly I'm going to try and get to the next level of detail in the dense JSON thing to see how things look.</p>
+<p>If you read this far you must be really motivated by the idea of creating a new format…all feedback is welcome.</p>
+<p>Thanks,<br />
+<strong>-pablo</strong></p>
+</div>

@@ -1,0 +1,37 @@
+---
+layout: page
+title: Vocabularies
+date: 2014-03-10 07:04:12.000000000 +08:00
+categories: []
+tags: []
+status: publish
+type: page
+published: true
+meta:
+  _edit_last: '4'
+  _wp_page_template: template-custom.php
+  _su_rich_snippet_type: none
+  _su_description: ''
+author:
+  login: qianli
+  email: t-qial@microsoft.com
+  display_name: Qian Li
+  first_name: Qian
+  last_name: Li
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>Vocabularies provide the ability to annotate metadata as well as instance data, and define a powerful extensibility point for OData.</p>
+<ul>
+<li>Metadata annotations can be used to define additional characteristics or capabilities of a metadata element, such as a service, entity type, property, function, action or parameter. For example, a metadata annotation may define ranges of valid values for a particular property. </li>
+<li>Instance annotations can be used to define additional information associated with a particular result, entity, property, or error; for example whether a property is read-only for a particular instance.</li>
+</ul>
+<p>Annotations that apply across instances should be specified within the metadata. Where the same annotation is defined at both the metadata and instance level, the instance-level annotation should override the annotation specified at the metadata level.</p>
+<p>Some things to keep in mind about vocabularies:</p>
+<ul>
+<li>A vocabulary is a namespace containing terms where each term is a named metadata extension for an OData service</li>
+<li>Anyone can define a vocabulary that is specific to a scenario; more commonly used terms can be added to shared vocabularies such as the OData core vocabularies</li>
+<li>A service should not require a client to interpret annotations</li>
+<li>Metadata annotations appear in $metadata whereas instance annotations appear in the actual payload</li>
+</ul>
+<p><b><em>To get started with OData Vocabularies</em></b>, please refer to <a href="http://docs.oasis-open.org/odata/odata/v4.0/os/vocabularies/">Vocabulary components</a></p>

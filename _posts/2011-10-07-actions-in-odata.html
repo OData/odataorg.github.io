@@ -1,0 +1,107 @@
+---
+layout: post
+title: Actions in OData
+date: 2011-10-07 17:21:17.000000000 +08:00
+categories:
+- OData protocol
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p><em><span style="font-size: medium">“Actions will provide a way to inject behaviors into an otherwise data centric model without confusing the data aspects of the model, while still staying true to the resource oriented underpinnings of OData."</span></em></p>
+<h3></h3>
+<h3>Motivation:</h3>
+<p>When a client GETs a resource over HTTP it learns about the content type (perhaps HTML) via a header in the response. Clients that understand this content type can then discover possible next steps encoded by the server. For example in HTML these next steps include things like images you can download, stylesheets you should use to render the content, links you can follow, or even forms you can render and fill out. These possible next steps are simply hypermedia actions that you can take using regular HTTP methods, often GET, sometimes POST, less frequently PUT and DELETE.</p>
+<p>Looking at OData through this lens we see that OData servers encode many possible hypermedia actions when a resource is retrieved. For example links that you can follow to GET related resources, a link you can use to update (via a PUT or PATCH) or delete (via a DELETE) the current resource. But there is one glaring omission from OData, in OData there is no hypermedia action that can be used to kick off a related server process (that isn’t CRUD). HTML allows this via HTML forms, which allow the client to both discover (via GET) and invoke (via GET or POST) arbitrary server processes. HTML forms are nothing more than a HTML encoding of a flexible hypermedia action related to the current resource.</p>
+<p>Clearly it would be nice to have something similar in OData. But what would the equivalent hypermedia action look like in OData?</p>
+<p>Now in a purely RESTful system the server uses hypermedia to expose applicable actions (think of this as a workflow) and the client invokes the actions it wants by passing the information (i.e. state) required to the address advertised by the server.</p>
+<p>For example to checkout a movie you post a ‘checkoutmovie’ request (similar to the body of a HTML form) to a uri that essentially represents a process or queue, where the ‘checkoutmovie’ request provides all the state needed to ‘checkout’ the movie.</p>
+<p>Thinking like this leads you to the ‘pit of success’.</p>
+<p>Today in OData the only way to achieve something similar would be to model Actions as Entities, but that is a low fidelity experience with additional baggage. “Actions” will provide a way to inject behaviors into an otherwise data centric model without confusing the data aspects of the model, while still staying true to the resource oriented underpinnings of OData.</p>
+<h3></h3>
+<h3>Design:</h3>
+<p>Actions will be advertised in payloads just like navigation properties today, with two differences:</p>
+<ul>
+<li>You can't just follow a link to an action; they have side-effects so a POST is required.</li>
+<li>Sometime actions need additional parameters too.</li>
+</ul>
+<p>So we need something a little different from a standard link.</p>
+<p>Also note that the availability of an action may be dependent upon the state of the entity, i.e. you can't always Checkout a movie and you can't always Withdraw from a bank account.</p>
+<p>The proposal for atom is &lt;m:action&gt; elements that are peers of an Entry's links:</p>
+<p><span style="font-family: Courier New">&lt;m:action rel="MyEntities.Checkout" target="Movies(6)/Checkout" title="Checkout Donnie Darko" /&gt;</span></p>
+<p>And in JSON we stash this away under the metadata, so as not to confuse Actions and the rest of the data:</p>
+<p><span style="font-family: Courier New">"__metadata": {<br />
+…,<br />
+"actions": {<br />
+</span><span style="font-family: Courier New">      "MyEntities.Checkout": [<br />
+{ "target": "</span><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fserver%2fservice.svc%2fMovies%286%29%2fCheckout"><span style="font-family: Courier New">http://server/service.svc/Movies(6)/Checkout</span></a><span style="font-family: Courier New">", "title": "Checkout Donnie Darko" }<br />
+]<br />
+}<br />
+}</span></p>
+<p>The identity or rel of the action (or the actions property name in JSON) is the EntityContainer qualified Name of a FunctionImport in $metadata that describes the action. This means given a particular rel if you know the URL of $metadata you can find the FunctionImport that describes the parameters, which could optionally be annotated with vocabularies that tell you more about the Action's semantics.</p>
+<p>Note too that in these examples rel is relative to the current $metadata, it is however possible that an Action isn't described in the current $metadata, so we also allow you to use absolute urls, like this:</p>
+<p><span style="font-family: Courier New">&lt;m:action rel="</span><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fotherserver%2f%24metadata%23MyEntities.Checkout"><span style="font-family: Courier New">http://otherserver/$metadata#MyEntities.Checkout</span></a><span style="font-family: Courier New">"<br />
+target="Movies(6)/Checkout"<br />
+title="Checkout Donnie Darko" /&gt;</span></p>
+<p>I guess you can imagine where this is going?</p>
+<p>The contract here is that what comes before the # must be a $metadata endpoint, and what comes after the # is again an EntityContainer qualified FunctionImport that represents the action.</p>
+<p>Finally notice that in JSON we use an array, because while generally there will be just one binding of an action to an entity, it is possible to advertise an action twice, with different targets or titles. A good example would be a ‘Call’ action that is bound to phone numbers, when a person has more than one phone number.</p>
+<h3></h3>
+<h3>Addressable vs Queryable Metadata:</h3>
+<p>Given the current thread on the mailing list about Queryable Metadata it is important to point out that our rels are using 'Addressable Metadata' here. Where Addressable metadata is different from queryable metadata because it doesn't support arbitrary query, it only supports pointing at individual things in the model like EntityTypes, EntitySets and FunctionImports.</p>
+<p>The use of # is there to highlight that this is an 'anchor' inside a larger document rather than a completely separate document.</p>
+<p>One of the key goals here is to create something simple enough that it is possible to quickly create clients that can implement this by themselves - queryable metadata on the other hand is clearly something much richer and much harder to implement in a client framework.</p>
+<h3></h3>
+<h3>In metadata:</h3>
+<p>Actions, like ServiceOperations, are described in $metadata as FunctionImports. Here is the Checkout action:</p>
+<p><span style="font-family: Courier New">&lt;EntityContainer Name="MyEntities" </span><span style="font-family: Courier New">m:IsDefaultEntityContainer="true"&gt;<br />
+</span><span style="font-family: Courier New">   …<br />
+</span><span style="font-family: Courier New">&lt;FunctionImport Name="Checkout" ReturnType="Edm.Boolean"<br />
+</span><span style="font-family: Courier New">IsBindable="true"<br />
+</span><span style="font-family: Courier New">IsSideEffecting="true"<br />
+</span><span style="font-family: Courier New">m:IsAlwaysBindable="false"&gt;<br />
+</span><span style="font-family: Courier New">&lt;Parameter Name="movie" Type="Namespace.Movie" Mode="In" /&gt;<br />
+</span><span style="font-family: Courier New">&lt;Parameter Name="noOfDays" Type="Edm.Int16" Mode="In" /&gt;<br />
+</span><span style="font-family: Courier New">&lt;/FunctionImport&gt;<br />
+</span><span style="font-family: Courier New">…<br />
+</span><span style="font-family: Courier New">&lt;/EntityContainer&gt;</span></p>
+<p>There are some new attributes:</p>
+<ul>
+<li><strong>IsSideEffecting</strong> indicates this is an Action (as opposed to a function which I'll post about soon ...) which means it requires a POST operation to execute. IsSideEffecting defaults to true if omitted.</li>
+<li><strong>IsBindable</strong> indicates that this can 'occasionally' be appended to Urls representing the first parameter, sort like a C# extension method. IsBindable defaults to false if omitted.</li>
+<li><strong>m:IsAlwaysBindable</strong> indicates that this Action is available independently of state. This is useful because it allows servers to omit these actions from an efficient format payload, which will be highly dependent upon metadata, and have the client still know that the action can be invoked. IsAlwaysBindable is only allowed if IsBindable is true, at which point it defaults to false if omitted.</li>
+</ul>
+<p>Notice that Actions can be distinguished from a legacy ServiceOperation because the legacy m:HttpMethod, which was previously required, is omitted.</p>
+<h3></h3>
+<h3>Invoking the Action:</h3>
+<p>In our example movie entry, the server has indicated that the 'MyEntities.Checkout' action can be invoked via a POST to this URL:</p>
+<p><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fserver%2fservice.svc%2fMovies%286%29%2fCheckout">http://server/service.svc/Movies(6)/Checkout</a></p>
+<p>However we don't yet know what to POST.</p>
+<p>Using the rel of the action ('MyEntities.Checkout') we know the 'Checkout' FunctionImport in the 'MyEntities' EntityContainer describes the action, and we can see that our action requires two parameters: movie and noOfDays.</p>
+<p>Because the action is advertised (or bound) in an entity we known that the movie (or binding) parameter is provided 'by reference' in the target URL. However we still need to provide a value for noOfDays. All other parameters are always passed in the payload of the POST in JSON format.</p>
+<p>So to Checkout Movie(6) for 7 days you need to make a request like this:</p>
+<p><span style="font-family: Courier New">POST /service.svc/Movies(6)/Checkout</p>
+<p></span><span style="font-family: Courier New">{<br />
+</span><span style="font-family: Courier New">   "noOfDays": 7<br />
+</span><span style="font-family: Courier New">}</span></p>
+<p>It is important to notice that establishing required parameters etc. can done once and cached, indeed you could even generate methods, in C# for example, to capture this information.</p>
+<p>Of course caching this information introduces coupling to a particular version of the server, so there is a trade off here.</p>
+<p>Once the server receives this request it will attempt to invoke the Action by passing the movie referenced by /Movies(6), and the value 7 for the number of days, into the actual implementation of the Checkout action. In our case the returnType is a bool, but the return type could be any standard OData type, Collection or MultiValue, and the shape of the response will be exactly what you would expect for that ReturnType; i.e. a Single Entry, a Feed, an OData collection etc.</p>
+<h3></h3>
+<h3>Summary:</h3>
+<p>“Actions” is a big feature that adds significant power to the OData protocol, and has me for one very excited. Actions allow you to model behavior with high fidelity and without compromise, and their conditional availability leaves the server in full control nudging OData further towards HATEOAS.</p>
+<p>Actions though are a big topic, and this post only scratches the surface, in future posts I'll talk about topics like:</p>
+<ul>
+<li>Supported Parameters types</li>
+<li>Conditional Execution (i.e. ETags)</li>
+<li>Composition</li>
+<li>Functions (i.e. like actions but without Side Effects).</li>
+</ul>
+<p>That said I hope this is enough to whet your appetite.</p>
+<p>Please let me know what you think via the OData.org <a href="http://www.odata.org/mailing-list">mailing list</a>.</p>
+<p>Cheers<br />
+<a href="http://twitter.com/adjames">Alex</a></p>
+</div>

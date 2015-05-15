@@ -1,0 +1,68 @@
+---
+layout: post
+title: 'ODataQueryBuilder: a JavaScript library for building OData queries'
+date: 2013-08-28 00:11:12.000000000 +08:00
+categories:
+- JavaScript
+- OData tutorials
+tags:
+- odata
+- ODataQueryBuilder
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<h2>The objective: standardizing on an abstraction</h2>
+<p>We are a team from Microsoft that is responsible for internal data and operations.  As you can imagine, there are a variety of services modeling various aspects of operation (Inventory, Support Teams, Supply Chain, Telemetry, Incident Handling, etc.) and each are implemented in different manners and with various technologies.  Each service exposes its own API (for automated processes and scripting) and its own UI (tools for manual interaction).  Sooner or later that becomes a “Tower of Babel” problem (too many languages) so people stop understanding each other.  <b>We use OData as a standardized abstraction to cope with it. Here is why.</b></p>
+<p>Information services store data which model the real world, and help us to create, manipulate and search this data. The better we understand “what’s inside”, the easier we can use those services. We describe the real world using words from our language - nouns (things), adjectives (properties of those things), verbs (actions), prepositions (relations between things) etc.  <a href="http://en.wikipedia.org/wiki/Object-oriented_programming">OOP</a> languages offer a hierarchy of <i>classes</i> (and their instances), <i>properties</i>, <i>methods</i> and <i>references</i> to model our thinking.  OData attempts to combine an OO approach (resources as classes, their instances having a <b>C</b>reate, <b>R</b>ead/<b>U</b>pdate, and <b>D</b>elete lifecycle, and relationships as navigations), with an uniform search language similar to SQL.  OData permits defining actions and functions (class-specific <i>methods</i>).  The OData protocol is built on top of ubiquitous platform-independent HTTP.  All that sounds promising!  Also, the <a href="http://en.wikipedia.org/wiki/REST">RESTful</a> idea that every “<i>thing</i>” has a unique URL (“<i>reference</i>”), and once you follow that URL you can get the details about that “<i>thing</i>”, is very appealing too as compared with complex instructions about how to connect to a service and what to tell it in order to get the “<i>thing</i>”.</p>
+<p>With that in mind, we have made a plan to <b>provide OData façades to all services</b>, thus exposing a uniform model of thinking and a uniform API (on the wire), as well as a uniform experience for C# and JavaScript code writers.  But what about UI, can we provide a uniform UI to browse <b><i>any</i></b> business data?</p>
+<h2>The problem: generating syntactically correct OData queries and interpreting the results</h2>
+<p>As an example, suppose someone is interested in finding information about a specific employee.  They are told that they can find what they are looking for at <a href="http://services.odata.org/Northwind/Northwind.svc/Employees(1)">http://services.odata.org/Northwind/Northwind.svc/Employees(1)</a>.  This is what they will retrieve as a result:</p>
+<p>[gist id="261b948a9d18562d600e" file="NancyBlob.xml"]</p>
+<p>What an awful lot of obscure XML!  Eventually they can reach the section which really matters:</p>
+<p>[gist id="261b948a9d18562d600e" file="Nancy.xml"]</p>
+<p>They cannot easily read this, nor can they click on the URL about <b>Employees(1)/Orders </b>to see what Orders Nancy created because Atom format does not compose absolute URLs for links (<i>navigations</i>, in OData terminology).</p>
+<p>A programmatic client might need all those details of the Atom format in order to interpret it, but I am not a program, I am a human being, and I want readable data!  The same thing happens with a naïve question such as “What is this OData endpoint all about?”  The OData answer is behind the $metadata URL <a href="http://services.odata.org/Northwind/Northwind.svc/$metadata">http://services.odata.org/Northwind/Northwind.svc/$metadata</a>:</p>
+<p>[gist id="261b948a9d18562d600e" file="Metadata.xml"]</p>
+<p>It might tell you about Customers, Products, Categories, and other related things… <i>if you know how to read it</i>!  That exercise is left to the reader.</p>
+<p>Another problem: suppose I want to find the orders, dated earlier than last week and with shipping address containing “12”.  Having thoroughly read all the <a href="http://odata.org">http://odata.org</a> documents (as we all do before even touching the keyboard ;-)), I may be tempted to compose a URL like this:</p>
+<p><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=OrderDate%20le%202013-08-07%20and%20substringof(ShipAddress,%20'12')%20eq%20true">http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=OrderDate le 2013-08-07 and substringof(ShipAddress, '12') eq true</a></p>
+<p>That will return an error message because the Edm.DateTime literal is ill-formed; I should have entered <b>OrderDate le datetime'2013-08-07'</b>.  However, even with the corrected date format:</p>
+<p><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=OrderDate%20le%20datetime'2013-08-07'%20and%20substringof(ShipAddress,%20'12')%20eq%20true">http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=OrderDate le datetime'2013-08-07' and substringof(ShipAddress, '12') eq true</a></p>
+<p>The service returns an empty list:</p>
+<p>[gist id="261b948a9d18562d600e" file="EmptyList.xml"]</p>
+<p>The list is empty because the order of the parameters for substringof was incorrect (see <a href="http://www.odata.org/documentation/odata-v2-documentation/uri-conventions/">http://www.odata.org/documentation/odata-v2-documentation/uri-conventions/</a>).  The correct URL should in fact be <a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=OrderDate%20le%20datetime'2013-08-07'%20and%20substringof('12',%20ShipAddress)%20eq%20true">http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=OrderDate le datetime'2013-08-07' and substringof('12', ShipAddress) eq true</a> which yields all the orders (click the URL to see them all).</p>
+<p>[gist id="261b948a9d18562d600e" file="Results.xml"]</p>
+<p>The last example of a difficult query for a naïve user to build is the following: “Who is the employee that placed the order number 10258?”  The correct URL would be:</p>
+<p><a href="http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=Orders/any(x:%20x/OrderID%20eq%2010258)">http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=Orders/any(x: x/OrderID eq 10258)</a></p>
+<p>And the answer is Nancy (see the first XML example above).</p>
+<p>But if I ask, “what are all the orders placed by the employee with id 1?” the URL would look like this:</p>
+<p><a href="http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=Employee/EmployeeID%20eq%201">http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=Employee/EmployeeID eq 1</a></p>
+<p>Now, one example uses the format <b>Orders/any(x: x/OrderID eq 10258)</b> and the other the format <b>Employee/EmployeeID </b>because the relationships between the two entities are not the same (1 to many and many to 1).  If the user does not know this, it will be incredibly hard to build a correct query (e.g. <a href="http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=Orders/OrderID%20eq%2010258">http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=Orders/OrderID eq 10258</a> does not work).</p>
+<h2>Our solution: a simple to use, graphical OData query builder</h2>
+<p>So we decided to present naïve users with a simple to use ODataQueryBuilder.  The steps to use it are very simple:</p>
+<ol>
+<li>Choose an endpoint (you can customize which endpoint you want to use, and even cache the $metadata, if you prefer).</li>
+<li>Select the entity that you want to query and how many results you want.</li>
+<li>Put some conditions on the search.</li>
+<li>And optionally sort the results by some value.</li>
+</ol>
+<p>Done.  The query has been built and if you press “Search” it will be run and display the results!</p>
+<p><a href="{{site.url}}assets/image_thumb3.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image_thumb3.png" width="244" height="202" border="0" /></a></p>
+<p>The ODataQueryBuilder gives the user the ability to quickly construct relatively complex queries with <b>zero</b> <i>a priori</i> knowledge of OData syntax and rules.  The ODataQueryBuilder provides dropdown lists to avoid typos.  When users select a filter, they are shown choices like “before”, “after”, etc. and other familiar prepositions such as “less than” or “less than or equal to” and even shorthand values like “yesterday” or an “hour ago” which are typical time points in the operation world (The suggested values can be easily tweaked to accommodate anyone’s need).</p>
+<p><a href="{{site.url}}assets/image_thumb4.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image_thumb4.png" width="244" height="60" border="0" /></a></p>
+<p>The ODataQueryBuilder also answers the question “What is this OData endpoint all about?” because it exposes lists of all resource types, their properties, and navigation properties.</p>
+<p><a href="{{site.url}}assets/image_thumb5.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image_thumb5.png" width="238" height="244" border="0" /></a></p>
+<p>For example, one of the previous hard-to-build queries (I want to find the orders that have an order date earlier than last week and a shipping address that contains the value “12”) would look something like this:</p>
+<p><a href="{{site.url}}assets/image4.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image4.png" width="244" height="138" border="0" /></a></p>
+<p>As we simplify the process of creating an OData query, we also display the results in a human-readable, tabular, presentation of the OData responses (no XML):</p>
+<p><a href="{{site.url}}assets/image_thumb7.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image_thumb7.png" width="244" height="48" border="0" /></a></p>
+<p>Expansion ($expand) is modeled by presenting the list of navigational links from which you can select the navigator and expand the list of related items as shown above.</p>
+<p>And the results are shown as nested tables:</p>
+<p><a href="{{site.url}}assets/image6.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image6.png" width="244" height="43" border="0" /></a></p>
+<p>We have decided to favor simple and intuitive UI versus “completeness”; we do not claim that <i>any</i> OData filter can be composed using this UI.  For example, all Where conditions are “and”-ed (and there is no UI to “or”), but the majority of naïve user filters can be composed this way, even such non-trivial ones as navigational conditions (see examples above).  You could try to compose them mentally and type them into the browser without mistakes or you could let the ODataQueryBuilder do them for you.</p>
+<p>&nbsp;</p>
+<h2>Conclusion</h2>
+<p>We use our ODataQueryBuilder to construct queries against any OData service we provide and users can optionally navigate the results directly.  For this we stand up a basic HTML page that configures the ODataQueryBuilder with a list of service endpoints we want to give users access to.  The users can select an endpoint, use the query builder to construct the query, and then view and drill down into the results through the navigation links.</p>
+<p>Our ODataQueryBuilder is able to talk to any OData service, not just a known or specially built service.  The source code is in JavaScript and the instructions on how to use and configure the ODataQueryBuilder can be found in the <a href="https://odatasamples.codeplex.com/documentation" target="_blank">open-source publication</a>.</p>

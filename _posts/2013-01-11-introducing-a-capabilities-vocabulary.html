@@ -1,0 +1,623 @@
+---
+layout: post
+title: Introducing a Capabilities Vocabulary
+date: 2013-01-11 22:03:10.000000000 +08:00
+categories:
+- OData tutorials
+- OData vocabularies
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<p>As OData becomes richer, individual services may support a range of capabilities beyond a core basis of OData functionality. Even within V1 functionality different services may support different sets of functionality, for example updatability. Generic consumers that want to adapt based on service capabilities require a dynamic way of determining those capabilities.</p>
+<div>
+<p>What follows is a proposed Capabilities Vocabulary that aims to provide a way for service authors to describe certain capabilities of an OData Service. We'd love to get your feedback!</p>
+<p>-Mike Pizzo</p>
+<h1>Design Principles</h1>
+<p>There are many trade-offs that go into defining a vocabulary to describe capabilities of a system at varying levels. The following principles were factored in to the design of this vocabulary.</p>
+<p><strong><em>Keep it as simple as possible </em></strong></p>
+<p>This vocabulary aims to enable expression of most general capabilities without diving into complicated cases. The expectation is that an extension to this vocabulary can be designed to cover more complicated cases.</p>
+<p><strong><em>Reasonable defaults </em></strong></p>
+<p>Annotations are generally extensions to an OData service. Clients consuming an OData service should be able to continue to consume a service regardless of existence of capabilities annotations. However, existence of these annotations enable clients to understand more about the certain capabilities of a service.</p>
+<p>There are some capabilities which are strongly recommended for services to support even though they are optional. Support for $top and $skip is a good example as supporting these query options helps with performance of a service and are essential. Such capabilities are assumed to be default capabilities of an OData service even in the case that a capabilities annotation doesn't exist. Capabilities annotations are mainly expected to be used to explicitly specify that a service doesn't support such capabilities. Capabilities annotations can as well be used to declaratively specify the support of such capabilities.</p>
+<p>On the other hand, there are some capabilities that may not be appropriate for a given service (such as updatability), that a particular service many not reasonably be capable of supporting, or that a service may only be capable of supporting in varying degrees. $filter and $orderby may be such examples. This vocabulary aims to define terms to specify support or no support for such capabilities.</p>
+<p>In the absence of an annotation, a service is assumed to support the following capabilities:</p>
+<ul>
+<li>Countability ($count, $inlinecount)</li>
+<li>Client pageability ($top, $skip)</li>
+<li>Expandability ($expand)</li>
+<li>Indexability by key</li>
+<li>Batch support ($batch)</li>
+<li>Navigability of navigation properties</li>
+</ul>
+<p>A service is expected to use the following annotations if any of the relevant restrictions apply:</p>
+<ul>
+<li>Filterability ($filter)</li>
+<li>Sortability ($orderby)</li>
+<li>Queryability of top level entity sets</li>
+<li>Query functions</li>
+</ul>
+<p>In the absence of an annotation, the client cannot assume that a service supports the following capabilities.</p>
+<ul>
+<li>Insertability</li>
+<li>Updatability</li>
+<li>Deletability</li>
+</ul>
+<p>Assumed defaults notwithstanding, a client should always be prepared for services to fail to support any optional capabilities.</p>
+<h1>Namespace</h1>
+<p>The namespace of this version of the vocabulary is <em>Org.OData.Capabilities.V1 </em></p>
+<h1>Terms</h1>
+<h2>InsertRestrictions</h2>
+<pre>&lt;ValueTerm Name="InsertRestrictions" Type="Self.InsertRestrictionsType" /&gt;
+&lt;ComplexType Name="InsertRestrictionsType"&gt;
+&lt;Property Name="Insertable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="NonInsertableProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="NonInsertableNavigationProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;</pre>
+<p>Used to express whether Insert operations are supported for an applicable target.</p>
+<p><em>Applicable Targets</em>: EntitySet</p>
+<p><em>Default Capability</em>: If the term doesn't exist on an applicable target, it means that insertability of that target is <strong><em>unknown. </em></strong></p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Properties</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="3" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">Insertable</td>
+<td valign="middle">If "true", the targeted EntitySet is <strong><em>insertable</em></strong>.If "false", the targeted EntitySet is <strong><em>not insertable</em></strong>.</td>
+</tr>
+<tr>
+<td valign="middle">NonInsertableProperties</td>
+<td valign="middle">These properties SHOULD be omitted from POST requests because the server will ignore their values.</td>
+</tr>
+<tr>
+<td valign="middle">NonInsertableNavigationProperties</td>
+<td valign="middle">These navigation properties do not allow InsertLink requests.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>UpdateRestrictions</h2>
+<pre>&lt;ValueTerm Name="UpdateRestrictions" Type="Self.UpdateRestrictionsType" /&gt;
+&lt;ComplexType Name="UpdateRestrictionsType"&gt;
+&lt;Property Name="Updatable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="NonUpdatableProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="NonUpdatableNavigationProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;</pre>
+<p>Used to express whether Update operations are supported for an applicable target.</p>
+<p>Applicable Targets: EntitySet</p>
+<p><em>Default Capability</em>: If the term doesn't exist on applicable target, it means that updatability of that target is <strong><em>unknown. </em></strong></p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Properties</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="3" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">Updatable</td>
+<td valign="middle">If "true", the targeted EntitySet is <strong><em>updatable</em></strong>.If "false", the targeted EntitySet is <strong><em>not updatable</em></strong>.</td>
+</tr>
+<tr>
+<td valign="middle">NonUpdatableProperties</td>
+<td valign="middle">These properties SHOULD be omitted from PUT or PATCH requests because the server will ignore their values.These properties do not allow UpdateValue and DeleteValue requests.</td>
+</tr>
+<tr>
+<td valign="middle">NonUpdatableNavigationProperties</td>
+<td valign="middle">These navigation properties do not allow UpdateLink requests.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>DeleteRestrictions</h2>
+<pre>&lt;ValueTerm Name="DeleteRestrictions" Type="Self. DeleteRestrictionsType" /&gt;
+&lt;ComplexType Name="DeleteRestrictionsType"&gt;
+&lt;Property Name="Deletable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="NonDeletableNavigationProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;</pre>
+<p>Used to express whether Delete operations are supported for an applicable target.</p>
+<p>Applicable Targets: EntitySet</p>
+<p>If the term doesn't exist on applicable target, it means that deletability of that target is <strong><em>unknown. </em></strong></p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Properties</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="2" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">Deletable</td>
+<td valign="middle">If "true", the targeted EntitySet is <strong><em>deletable</em></strong>.If "false", the targeted EntitySet is <strong><em>not deletable</em></strong>.</td>
+</tr>
+<tr>
+<td valign="middle">NonDeletableNavigationProperties</td>
+<td valign="middle">These navigation properties do not allow DeleteLink requests.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Countable</h2>
+<pre>&lt;ValueTerm Name="Countable" Type="Edm.Boolean" /&gt;
+
+Used to express whether $count and $inlinecount operations are supported for an applicable target.
+
+Applicable Targets: EntitySet
+
+<em>Default Capability</em>: If the term doesn't exist on applicable target, it means that countability of that target is <strong><em>supported. </em></strong></pre>
+<div>
+<p><strong>Value</strong><br />
+<strong>Meaning</strong></p>
+<p>True [Default Value]<br />
+$count and $inlinecount is<strong><em> supported</em></strong> for the targeted EntitySet.</p>
+<p>$count and $inlinecount is<strong><em> not supported</em></strong> for the targeted EntitySet.</p>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody>
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+</tr>
+<tr>
+<td rowspan="2" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">False</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+</div>
+<p>&nbsp;</p>
+<h2>Queryable</h2>
+<p>&lt;ValueTerm Name="Queryable" Type="Edm.Boolean" /&gt; Used to express whether a set is directly queryable as a top level set. Applicable Targets: EntitySet <em>Default Capability</em>: If the term doesn't exist on an applicable target, it means that the queryability of the target is <strong><em>supported. </em></strong></p>
+<div>
+<p><strong>Value</strong><br />
+<strong>Meaning</strong></p>
+<p>True [Default Value]<br />
+The targeted EntitySet can be directly be <strong><em>queried</em></strong> as a top level set.</p>
+<p>The targeted EntitySet <strong>cannot</strong> be directly <strong><em>queried</em></strong> as a top level set. Members are accessed only through relationships or functions</p>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody>
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+</tr>
+<tr>
+<td rowspan="2" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">False</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+</div>
+<p>&nbsp;</p>
+<h2>ClientPageable</h2>
+<p>&nbsp;</p>
+<pre>&lt;ValueTerm Name="ClientPageable" Type="Edm.Boolean" /&gt;</pre>
+<p>Used to express whether $top and $skip operations are supported for a navigation property or not.</p>
+<p>Applicable Targets: EntitySet</p>
+<p><em>Default Capability</em>: If the term doesn't exist on an applicable target, it means that $top and $skip operations are <strong><em>supported.</em></strong></p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Value</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="2" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">True [Default Value]</td>
+<td valign="middle">$top and $skip operations are <strong><em>supported</em></strong> for the targeted EntitySet.</td>
+</tr>
+<tr>
+<td valign="middle">False</td>
+<td valign="middle">$top and $skip operations are <strong><em>not supported</em></strong> for the targeted EntitySet. If a service doesn't support both $top and $skip, it must specify a value of false.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Expandable</h2>
+<p>&lt;ValueTerm Name="Expandable" Type="Edm.Boolean" /&gt;</p>
+<p>Used to express whether $expand operation is supported for a navigation property or not.</p>
+<p>Applicable Targets: Navigation Property</p>
+<p><em>Default Capability</em>: If the term doesn't exist on an applicable target, it means that $expand is <strong><em>supported.</em></strong></p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Value</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="2" valign="middle"><strong>Navigation Property</strong></td>
+<td valign="middle">True [Default Value]</td>
+<td valign="middle">$expand operation is <strong><em>supported</em></strong> for the targeted EntitySet.</td>
+</tr>
+<tr>
+<td valign="middle">False</td>
+<td valign="middle">$expand operation is <strong><em>not supported</em></strong> for the targeted EntitySet.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Navigable</h2>
+<p>&lt;ValueTerm Name="Navigable" Type="Edm.Boolean" /&gt;</p>
+<p>Used to express whether a navigation property can be part of the resource path in a query expression.</p>
+<p>Applicable Targets: Navigation Property</p>
+<p><em>Default Capability</em>: If the term doesn't exist on an applicable target, it means that the navigation property is <strong><em>navigable</em></strong> in a query expression.</p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Value</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="2" valign="middle"><strong>Navigation Property</strong></td>
+<td valign="middle">True [Default Value]</td>
+<td valign="middle">Navigation property <strong><em>can be navigated</em></strong> in a query expression.</td>
+</tr>
+<tr>
+<td valign="middle">False</td>
+<td valign="middle">Navigation property <strong><em>cannot be navigated</em></strong> in a query expression.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>IndexableByKey</h2>
+<p>&lt;ValueTerm Name="IndexableByKey" Type="Edm.Boolean" /&gt;</p>
+<p>Used to express whether entities within an entity set can be indexed by key value(s) according to OData URL convention.</p>
+<p>Applicable Targets: EntitySet</p>
+<p><em>Default Capability</em>: If the term doesn't exist on an applicable target, it means that indexing by key is <strong><em>supported.</em></strong></p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Value</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="2" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">True [Default Value]</td>
+<td valign="middle">Indexing by key is <strong><em>supported</em></strong> within the target EntitySet</td>
+</tr>
+<tr>
+<td valign="middle">False</td>
+<td valign="middle">Indexing by key is <strong><em>not supported</em></strong> within the target EntitySet</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>SupportsBatch</h2>
+<pre>&lt;ValueTerm Name="SupportsBatch" Type="Edm.Boolean" /&gt;</pre>
+<p>Used to express whether an EntityContainer supports batch operations.</p>
+<p>Applicable Targets: EntityContainer</p>
+<p><em>Default Capability</em>: If the term doesn't exist on an applicable target, it means that $batch is <strong><em>supported.</em></strong></p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Value</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="2" valign="middle"><strong>EntityContainer</strong></td>
+<td valign="middle">True [Default Value]</td>
+<td valign="middle">$batch is <strong><em>supported</em></strong> for the target EntityContainer</td>
+</tr>
+<tr>
+<td valign="middle">False</td>
+<td valign="middle">$batch is <strong><em>not supported</em></strong> for the target EntityContainer</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>QueryFunctions</h2>
+<pre>&lt;ValueTerm Name="QueryFunctions" Type="Collection(Edm.String)" /&gt;</pre>
+<p>Used to express the list of supported query function names.</p>
+<p>Applicable Targets: EntityContainer</p>
+<p><em>Default Capability</em>: If the term doesn't exist on the applicable target, functions that the service supports are <strong><em>unknown</em></strong>.</p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Value</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td valign="middle"><strong>EntityContainer</strong></td>
+<td valign="middle">List of query function names (e.g. length, day, double, isOf)</td>
+<td valign="middle">Listed query functions are supported by the service.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>If a certain function name is listed in the annotation, it is expected that any property of the type that is filterable on an entity set can be used as the function's parameter.</p>
+<p>&nbsp;</p>
+<h2>FilterRestrictions</h2>
+<pre>&lt;ValueTerm Name="FilterRestrictions" Type="Self.FilterRestrictionsType" /&gt;
+&lt;ComplexType Name="FilterRestrictionsType"&gt;
+&lt;Property Name="Filterable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="RequiredProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="NonFilterableProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;</pre>
+<p>Used to express restrictions on $filter support of a service.</p>
+<p>Applicable Targets: EntitySet</p>
+<p><em>Default Capability</em>: If the term doesn't exist on an EntitySet, it means that <strong><em>$filter is supported</em></strong> on that EntitySet.</p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Properties</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="3" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">Filterable</td>
+<td valign="middle">If "true", $filter is supported. If "false" $filter is not supported on any properties. Default value for this property is <strong><em>true.</em></strong></td>
+</tr>
+<tr>
+<td valign="middle">RequiredProperties</td>
+<td valign="middle">This collection of property paths must be specified in the $filter clause when enumerating the set. (Properties of derived types are not supported).</td>
+</tr>
+<tr>
+<td valign="middle">NonFilterableProperties</td>
+<td valign="middle">This collection of property paths cannot be specified in the $filter clause.If the last path segment is a navigation property, all properties related via that navigation property cannot be specified.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It is possible to specify various capabilities by annotating with this term and picking values for the parameters. The table below shows some examples.</p>
+<div>
+<table border="0">
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Annotation</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td valign="middle"><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;ValueAnnotation Term="C.FilterRestrictions"&gt;
+&lt;Record&gt;
+&lt;PropertyValue Name="Filterable" Boolean="False" /&gt;
+&lt;/Record&gt;
+&lt;/ValueAnnotation&gt;</pre>
+</td>
+<td valign="middle">The EntitySet is not filterable.</td>
+</tr>
+<tr>
+<td valign="middle"><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;ValueAnnotation Term="C.FilterRestrictions"&gt;
+&lt;Record&gt;</pre>
+<p><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;PropertyValue Name="Filterable" Boolean="True" /&gt;
+&lt;/Record&gt;</pre>
+<p><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;/ValueAnnotation&gt;</pre>
+</td>
+<td valign="middle">The entity set is filterable and all properties of all types can be used in $filter expression. This is the same as not including an annotation.</td>
+</tr>
+<tr>
+<td valign="middle"><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;ValueAnnotation Term="C.FilterRestrictions"&gt;
+&lt;Record&gt;
+&lt;PropertyValue Name="RequiredProperties"&gt;
+&lt;Collection&gt;
+&lt;String&gt;Prop1&lt;/String&gt;
+&lt;String&gt;Prop2&lt;/String&gt;
+&lt;/Collection&gt;</pre>
+<p><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;/PropertyValue&gt;</pre>
+<p><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;/Record&gt;</pre>
+<p><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;/ValueAnnotation&gt;</pre>
+</td>
+<td valign="middle">The entity set is filterable and Prop1 and Prop2 of the type must be used in the $filter expression</td>
+</tr>
+<tr>
+<td valign="middle"><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;ValueAnnotation Term="C.FilterRestrictions"&gt;
+&lt;Record&gt;
+&lt;PropertyValue Name="NonFilterableProperties"&gt;
+&lt;Collection&gt;
+&lt;String&gt;Prop3&lt;/String&gt;
+&lt;String&gt;Prop4&lt;/String&gt;
+&lt;String&gt;NavProp5/Prop6&lt;/String&gt;
+&lt;String&gt;NavProp7&lt;/String&gt;
+&lt;/Collection&gt;
+&lt;/PropertyValue&gt;
+&lt;/Record&gt;
+&lt;/ValueAnnotation&gt;</pre>
+</td>
+<td valign="middle">The entity set is filterable but Prop3 and Prop4 of the type cannot be used in the $filter expression, as well as Prop6 of the type related via NavProp5 and all properties of the type related via NavProp7. All other properties can be used.</td>
+</tr>
+<tr>
+<td valign="middle"><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;ValueAnnotation Term="C.FilterRestrictions"&gt;
+&lt;Record&gt;
+&lt;PropertyValue Name="RequiredProperties"&gt;
+&lt;Collection&gt;
+&lt;String&gt;Prop1&lt;/String&gt;
+&lt;String&gt;Prop2&lt;/String&gt;
+&lt;/Collection&gt;
+&lt;/PropertyValue&gt;</pre>
+<p><strong><strong><br />
+</strong></strong></p>
+<pre>&lt;PropertyValue Name="NonFilterableProperties"&gt;
+&lt;Collection&gt;
+&lt;String&gt;Prop3&lt;/String&gt;
+&lt;String&gt;Prop4&lt;/String&gt;
+&lt;/Collection&gt;
+&lt;/PropertyValue&gt;
+&lt;/Record&gt;
+&lt;/ValueAnnotation&gt;</pre>
+</td>
+<td valign="middle">The entity set is filterable and Prop1 and Prop2 properties of the type must be used in the $filter. However, Prop3 and Prop4 of the type cannot be used in a $filter expression.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>SortRestrictions</h2>
+<pre>&lt;ValueTerm Name="SortRestrictions" Type="Self.SortRestrictionsType" /&gt;
+&lt;ComplexType Name="SortRestrictionsType"&gt;
+&lt;Property Name="Sortable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="AscendingOnlyProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="DescendingOnlyProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="UnsortableProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;</pre>
+<p>Used to express restrictions on sortability of an EntitySet.</p>
+<p>Applicable Targets: EntitySet</p>
+<p><em>Default Capability</em>: If the term doesn't exist on an EntitySet, it means that EntitySet is <strong><em>sortable in both directions</em></strong> on all properties.</p>
+<div>
+<table border="0">
+<col />
+<col />
+<col />
+<tbody valign="top">
+<tr>
+<td valign="middle"><strong>Target</strong></td>
+<td valign="middle"><strong>Properties</strong></td>
+<td valign="middle"><strong>Meaning</strong></td>
+</tr>
+<tr>
+<td rowspan="4" valign="middle"><strong>EntitySet</strong></td>
+<td valign="middle">Sortable</td>
+<td valign="middle">If "true", $orderby is supported. If "false" $orderby is not supported on any properties of the EntitySet. Default value for this property is <strong><em>true.</em></strong></td>
+</tr>
+<tr>
+<td valign="middle">AscendingOnlyProperties</td>
+<td valign="middle">Properties specified in this collection can only be used for sorting in Ascending order</td>
+</tr>
+<tr>
+<td valign="middle">DescendingOnlyProperties</td>
+<td valign="middle">Properties specified in this collection can only be used for sorting in Descending order</td>
+</tr>
+<tr>
+<td valign="middle">UnsortableProperties</td>
+<td valign="middle">Properties specified in this collection cannot be used for sorting</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Various restrictions can be specified using the combination of term's properties similar to FilterRestrictions.</p>
+<h1>Formal CSDL Definition</h1>
+<pre>&lt;Schema Namespace="Org.OData.Capabilities.V1" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" Alias="Self"&gt;
+
+&lt;ValueTerm Name="InsertRestrictions" Type="Self.InsertRestrictionsType" /&gt;
+
+&lt;ValueTerm Name="UpdateRestrictions" Type="Self.UpdateRestrictionsType" /&gt;
+
+&lt;ValueTerm Name="DeleteRestrictions" Type="Self.DeleteRestrictionsType" /&gt;
+
+&lt;ValueTerm Name="Countable" Type="Edm.Boolean" /&gt;
+
+&lt;ValueTerm Name="Queryable" Type="Edm.Boolean" /&gt;
+
+&lt;ValueTerm Name="ClientPageable" Type="Edm.Boolean" /&gt;
+
+&lt;ValueTerm Name="Expandable" Type="Edm.Boolean" /&gt;
+
+&lt;ValueTerm Name="Navigable" Type="Edm.Boolean" /&gt;
+
+&lt;ValueTerm Name="IndexableByKey" Type="Edm.Boolean" /&gt;
+
+&lt;ValueTerm Name="SupportsBatch" Type="Edm.Boolean" /&gt;
+
+&lt;ValueTerm Name="QueryFunctions" Type="Collection(Edm.String)" /&gt;
+
+&lt;ValueTerm Name="FilterRestrictions" Type="Self.FilterRestrictionsType" /&gt;
+
+&lt;ValueTerm Name="SortRestrictions" Type="Self.SortRestrictionsType" /&gt;
+
+&lt;ComplexType Name="InsertRestrictionsType"&gt;
+&lt;Property Name="Insertable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="NonInsertableProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="NonInsertableNavigationProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;
+
+&lt;ComplexType Name="UpdateRestrictionsType"&gt;
+&lt;Property Name="Updatable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="NonUpdatableProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="NonUpdatableNavigationProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;
+
+&lt;ComplexType Name="DeleteRestrictionsType"&gt;
+&lt;Property Name="Deletable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="NonDeletableNavigationProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;
+
+&lt;ComplexType Name="FilterRestrictionsType"&gt;
+&lt;Property Name="Filterable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="RequiredProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="NonFilterableProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;
+
+&lt;ComplexType Name="SortRestrictionsType"&gt;
+&lt;Property Name="Sortable" Type="Edm.Boolean" /&gt;
+&lt;Property Name="AscendingOnlyProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="DescendingOnlyProperties" Type="Collection(Edm.String)" /&gt;
+&lt;Property Name="UnsortableProperties" Type="Collection(Edm.String)" /&gt;
+&lt;/ComplexType&gt;
+&lt;/Schema&gt;</pre>
+</div>

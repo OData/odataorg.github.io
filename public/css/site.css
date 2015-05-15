@@ -1,0 +1,91 @@
+.theme-font{
+  color: #dd4814;
+}
+.jumbotron {
+  background-color: transparent;
+  margin-bottom: 20px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+.jumbotron h1{
+  color: #dd4814;
+}
+.jumbotron .p{
+  color: black;
+}
+#index-guide{
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.github-logo{
+    float: left;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/* styles for basic tutorails*/
+.tutorial-sidebar.affix {
+    position: static;
+}
+.tutorial-sidebar .nav>li>a {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    color: #bf3e11;
+    padding: 4px 20px;
+}
+.tutorial-sidebar .nav>li>a:hover, .tutorial-sidebar .nav>li>a:focus {
+    padding-left: 19px;
+    color: #563d7c;
+    text-decoration: none;
+    background-color: transparent;
+    border-left: 1px solid #563d7c;
+}
+.tutorial-sidebar .nav>.active>a, .tutorial-sidebar .nav>.active:hover>a, .tutorial-sidebar .nav>.active:focus>a {
+    padding-left: 18px;
+    font-weight: 700;
+    color: #563d7c;
+    background-color: transparent;
+    border-left: 2px solid #563d7c;
+}
+.tutorial-sidebar .nav .nav {
+    display: none;
+    padding-bottom: 10px;
+}
+.tutorial-sidebar .nav .nav>li>a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 14px;
+    font-weight: 400;
+}
+.tutorial-sidebar .nav .nav>li>a:hover, .tutorial-sidebar .nav .nav>li>a:focus {
+    padding-left: 29px;
+}
+.tutorial-sidebar .nav .nav>.active>a, .tutorial-sidebar .nav .nav>.active:hover>a, .tutorial-sidebar .nav .nav>.active:focus>a {
+    font-weight: 500;
+    padding-left: 28px;
+}
+.tutorial-sidebar.affix, .tutorial-sidebar.affix-bottom {
+    width: 213px;
+}
+.tutorial-sidebar.affix {
+    position: fixed;
+    top: 20px;
+}
+.tutorial-sidebar.affix-bottom {
+    position: absolute;
+}
+.tutorial-sidebar.affix-bottom .tutorial-sidenav, .tutorial-sidebar.affix .tutorial-sidenav {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.tutorial-sidenav {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+@media (min-width:992px) {
+    .tutorial-sidebar .nav>.active>ul {
+    display: block;
+}

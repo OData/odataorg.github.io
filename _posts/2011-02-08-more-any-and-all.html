@@ -1,0 +1,42 @@
+---
+layout: post
+title: More Any and All
+date: 2011-02-08 17:42:22.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>The Data Services team has starting thinking about adding Any/All support to Data Services and we noticed a couple of things that I think warrant minor changes to the proposal. So as always I wanted to share and get your thoughts.</p>
+<h1>New separator</h1>
+<p>The <a href="http://www.odata.org/blog/2010/11/11/support-for-any-and-all">original any/all proposal</a> suggested using a ',' to separate the range variable from the predicate, e.g:</p>
+<p><strong>~/Movies/?$filter=any(Actors a,</strong> <strong>a/Name eq 'John Belushi')</strong></p>
+<p>I think this has a problem. Usually ',' is used to separate similar things, like the parameters to a function, but in this case it separates a Lambda Parameter from a Predicate. Clearly these things are not the same, moreover using ',' would confuse things in the future if we ever allowed calling custom functions with multiple parameters in the filter.</p>
+<p>I think this means we need something more lambda-ish, perhaps something like this:</p>
+<p><strong>~/Movies/?$filter=any(Actors a:</strong> <strong>a/Name eq 'John Belushi')</strong></p>
+<p>This uses ':' instead of ','. There is even a precedent for using ':' in lambdas, python uses ':' like this:</p>
+<p>lambda a: a+1</p>
+<p>More importantly this makes sense in OData because:</p>
+<ul>
+<li>':' is explicitly allowed in querystrings, in fact it is in a list of suggested scheme specific separators called out in <a href="http://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a>.</li>
+<li>Using a single character (as opposed to something like =&gt; or -&gt;) makes more sense in a URL that needs to be concise.</li>
+</ul>
+<h1>Shorthand Syntax</h1>
+<p>While thinking through scenarios for any/all, I noticed that I was often writing queries like this:</p>
+<p><strong>~/Movies/?$filter=any(Awards a: true)</strong></p>
+<p>Or this:</p>
+<p><strong>~/Movies/?$filter=any(Actors a: any(a/Awards aw: true))</strong></p>
+<p>In both cases the predicate really doesn't matter, so requiring 'true' seems a little bit like a quiz.</p>
+<p>The proposal then is to add a shorter (and easier to understand) 'overload':</p>
+<p><strong>~/Movies/?$filter=any(Awards)<br />
+~/Movies/?$filter=any(Actors a: any(a/Awards))</strong></p>
+<p>I think you'll agree this is a lot easier to understand.</p>
+<h1>Conclusion</h1>
+<p>Hopefully these proposals are not too controversial, either way though I'm very keen to hear your thoughts. Do you think they make sense?</p>
+<p><a href="http://twitter.com/adjames">Alex</a></p>
+</div>

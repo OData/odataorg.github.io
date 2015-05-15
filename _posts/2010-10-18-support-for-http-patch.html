@@ -1,0 +1,31 @@
+---
+layout: post
+title: Support for Http PATCH
+date: 2010-10-18 17:45:16.000000000 +08:00
+categories:
+- OData protocol
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>OData has supported two types of updates for a while now:</div>
+<ul>
+<li>
+<div><strong>Replace Semantics via a standard PUT</strong>: this updates the whole entry with what has been provided on the wire, so any properties missing from the wire will be reset to their default values.</div>
+</li>
+<li>
+<div><strong>Merge Semantics via a MERGE tunneled through POST using the X-Http-Method header</strong>: this updates only the properties on the wire, so any properties missing will be left unchanged.</div>
+</li>
+</ul>
+<div></div>
+<div>Now when we added MERGE there wasn't a standard HTTP way to request merge semantics.</div>
+<div></div>
+<div></div>
+<div>However <a href="http://tools.ietf.org/html/rfc5789">PATCH</a> is now a standard, and is semantically equivalent to OData's MERGE.</div>
+<div></div>
+<div>So we think - given our principle of adopting HTTP and ATOM standards wherever possible - that the next version of OData should support both PATCH and MERGE, and treat PATCH requests like MERGE requests.</div>
+<div></div>
+<div>Thoughts?</div>
+<div>Alex</div>

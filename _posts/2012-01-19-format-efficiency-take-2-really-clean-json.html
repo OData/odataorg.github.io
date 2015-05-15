@@ -1,0 +1,146 @@
+---
+layout: post
+title: 'Format efficiency take 2: really clean JSON'
+date: 2012-01-19 22:47:41.000000000 +08:00
+categories:
+- OData payloads
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>It took me longer than expected to write again about this, but I have another round of measurements and another proposal that goes with it. Since folks want to close on the next version of OData soon, it would be great to iterate quickly on this one so if we all agree we can include it in this version.</p>
+<p>Back then we started with some discussion about pros/cons of various options and about what to optimize for (see this <a href="http://mailinglist.odata.org/scripts/wa-ODATA.exe?A2=ind1103&amp;L=ODATA&amp;D=0&amp;P=72051">thread</a> and this <a href="http://www.odata.org/blog/2011/3/25/an-efficient-format-for-odata">post</a> if you want to see some of the original content). I proposed a JSON-encoded-in-JSON approach that had some fans but also some folks were worried that we might be optimizing for the wrong thing. Based on that I started to look at alternate approaches so I could put more options on the table, and I ended up with something that I think has a lot of potential.</p>
+<p>I showed a somewhat half-baked version of this at //BUILD back in September, you can see it by skipping to 00:41:55 in <a href="http://channel9.msdn.com/events/BUILD/BUILD2011/SAC-824T">this video</a>.</p>
+<h2>Trying a different angle</h2>
+<p>This time I started asking “what if we could serve really clean JSON, just the kind of JSON you'd have in a custom service, but still keep all the richness in semantics of OData?” Control information (particularly URLs) adds lots of bloat to existing JSON format payloads. If you remote it, how do things change? Check out the following chart for a typical OData feed:</p>
+<p><a href="{{site.url}}assets/1055.jsonstats1.png"><img class="alignnone size-medium wp-image-296" alt="1055.jsonstats1" src="{{site.url}}assets/1055.jsonstats1.png" width="300" height="159" /></a></p>
+<p>So if you remove every bit of control information (e.g. those “__metadata” properties) you end up with a JSON “light” format that’s very close to the “dense” format I was exploring before, but without all the weirdness of a custom encoding. In fact, you get very nice and clean JSON, pretty much as if you built a custom endpoint. Now, there is still a small but non-zero difference between “light” and “dense”…what if we combine this with compression? The difference is even smaller:</p>
+<p><a href="{{site.url}}assets/1425.jsonstats2.png"><img class="alignnone size-medium wp-image-297" alt="1425.jsonstats2" src="{{site.url}}assets/1425.jsonstats2.png" width="300" height="159" /></a></p>
+<p>Now the question is: is it possible to actually describe a format that’s clean JSON with no extra stuff in it that still fully maintains OData semantics? I think we can get close enough.</p>
+<h2>Approach</h2>
+<p>To put this approach in context I need to establish a key assumption I’m making: there are two big buckets of OData clients, those that just don’t care about metadata (because they are too simple to, or because the use out-of-band knowledge and are hardcoded to a particular service) and those that use service metadata in order to maintain decoupling or provide richer functionality.</p>
+<p>For the first set, the less stuff we put in our JSON payloads the better, and they’ve hardcoded knowledge about everything else anyway, so why include it? They can derive URLs from IDs, know when to expect a list versus a single object, etc. Whether hardwiring these assumptions into your application is a good idea depends on the context, I’m not judging here :)</p>
+<p>The second set is the interesting one then. The approach for this set of clients can be summarized as follows:</p>
+<ol>
+<li>All OData clients need to know about two content types, OData metadata and OData data [1]</li>
+<li>All resources contain a pointer to metadata, so a link to any part of an OData service namespace is fully self-contained and requires no out-of-band knowledge</li>
+<li>All control information that’s uniform enough (most of it) is captured as patterns in metadata</li>
+<li>Control information that doesn’t follow the pattern can be included in any instance, overriding any metadata-described value</li>
+</ol>
+<p>This turns this 2-row response (from: <a href="http://services.odata.org/OData/OData.svc/Products?$top=2&amp;$inlinecount=allpages&amp;$format=json">http://services.odata.org/OData/OData.svc/Products?$top=2&amp;$inlinecount=allpages&amp;$format=json</a>):</p>
+<p><span style="font-family: Lucida Console"><span>{</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  </span><span><span style="color: #800000">"d"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"results"</span></span><span>: [</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"__metadata"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>          </span><span><span style="color: #800000">"uri"</span>: <span style="color: #800000">"</span><a href="http://services.odata.org/OData/OData.svc/Products%280%29" target="_blank"><span style="color: #0000ff">http://services.odata.org/OData/OData.svc/Products(0)</span></a><span style="color: #800000">"</span></span><span>, </span></span></p>
+<p><span style="font-family: Lucida Console"><span>          </span><span><span style="color: #800000">"type"</span>: </span><span style="color: #800000">"ODataDemo.Product"</span></span></p>
+<p><span style="font-family: Lucida Console"><span>        },</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"ID"</span></span><span>: 0,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Name"</span>: <span style="color: #800000">"Bread"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Description"</span>: <span style="color: #800000">"Whole grain bread"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"ReleaseDate"</span>: <span style="color: #800000">"/Date(694224000000)/"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"DiscontinuedDate"</span>: <span style="color: #0000ff">null</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Rating"</span></span><span>: 4,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Price"</span>: <span style="color: #800000">"2.5"</span></span><span>, </span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Category"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>        </span><span><span style="color: #800000">"__deferred"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>          </span><span><span style="color: #800000">"uri"</span>: </span><span><span style="color: #800000">"</span><a href="http://services.odata.org/OData/OData.svc/Products%280%29/Category" target="_blank"><span style="color: #0000ff">http://services.odata.org/OData/OData.svc/Products(0)/Category</span></a><span style="color: #800000">"</span></span></span></p>
+<p><span style="font-family: Lucida Console"><span>        }</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      }, </span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Supplier"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>        </span><span><span style="color: #800000">"__deferred"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>          </span><span><span style="color: #800000">"uri"</span>: </span><span><span style="color: #800000">"</span><a href="http://services.odata.org/OData/OData.svc/Products%280%29/Supplier" target="_blank"><span style="color: #0000ff">http://services.odata.org/OData/OData.svc/Products(0)/Supplier</span></a><span style="color: #800000">"</span></span></span></p>
+<p><span style="font-family: Lucida Console"><span>        }</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      }</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    }, </span></span></p>
+<p><span style="font-family: Lucida Console"><span>    {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"__metadata"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>        </span><span><span style="color: #800000">"uri"</span>: <span style="color: #800000">"</span><a href="http://services.odata.org/OData/OData.svc/Products%281%29" target="_blank"><span style="color: #0000ff">http://services.odata.org/OData/OData.svc/Products(1)</span></a><span style="color: #800000">"</span></span><span>, </span></span></p>
+<p><span style="font-family: Lucida Console"><span>        </span><span><span style="color: #800000">"type"</span>: </span><span style="color: #800000">"ODataDemo.Product"</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      },</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"ID"</span></span><span>: 1,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Name"</span>: <span style="color: #800000">"Milk"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Description"</span>: <span style="color: #800000">"Low fat milk"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"ReleaseDate"</span>: <span style="color: #800000">"/Date(812505600000)/"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"DiscontinuedDate"</span>: <span style="color: #0000ff">null</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Rating"</span></span><span>: 3,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Price"</span>: <span style="color: #800000">"3.5"</span></span><span>, </span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Category"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>        </span><span><span style="color: #800000">"__deferred"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>          </span><span><span style="color: #800000">"uri"</span>: </span><span><span style="color: #800000">"</span><a href="http://services.odata.org/OData/OData.svc/Products%281%29/Category" target="_blank"><span style="color: #0000ff">http://services.odata.org/OData/OData.svc/Products(1)/Category</span></a><span style="color: #800000">"</span></span></span></p>
+<p><span style="font-family: Lucida Console"><span>        }</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      }, </span></span></p>
+<p><span style="font-family: Lucida Console"><span>      </span><span><span style="color: #800000">"Supplier"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>        </span><span><span style="color: #800000">"__deferred"</span></span><span>: {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>          </span><span><span style="color: #800000">"uri"</span>: </span><span><span style="color: #800000">"</span><a href="http://services.odata.org/OData/OData.svc/Products%281%29/Supplier" target="_blank"><span style="color: #0000ff">http://services.odata.org/OData/OData.svc/Products(1)/Supplier</span></a><span style="color: #800000">"</span></span></span></p>
+<p><span style="font-family: Lucida Console"><span>        }</span></span></p>
+<p><span style="font-family: Lucida Console"><span>      }</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    }],</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"__count"</span></span><span>: 9</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  }</span></span></p>
+<p><span style="font-family: Lucida Console"><span>}</span></span></p>
+<p>Into this (note that we also propose we drop the “d” wrapper):</p>
+<p><span style="font-family: Lucida Console"><span>{</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  </span><span><span style="color: #800000">"__servicemetadata"</span>: <span style="color: #800000">"</span><a href="http://services.odata.org/OData/OData.svc/$metadata#ODataDemo.DemoService.Products" target="_blank"><span style="color: #0000ff">http://services.odata.org/OData/OData.svc/$metadata#ODataDemo.DemoService.Products</span></a><span style="color: #800000">"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  </span><span><span style="color: #800000">"results"</span></span><span>: [</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"ID"</span></span><span>: 0,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"Name"</span>: <span style="color: #800000">"Bread"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"Description"</span>: <span style="color: #800000">"Whole grain bread"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"ReleaseDate"</span>: <span style="color: #800000">"/Date(694224000000)/"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"DiscontinuedDate"</span>: <span style="color: #0000ff">null</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"Rating"</span></span><span>: 4,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"Price"</span>: </span><span style="color: #800000">"2.5"</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  },</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  {</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"ID"</span></span><span>: 1,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"Name"</span>: <span style="color: #800000">"Milk"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"Description"</span>: <span style="color: #800000">"Low fat milk"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"ReleaseDate"</span>: <span style="color: #800000">"/Date(812505600000)/"</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"DiscontinuedDate"</span>: <span style="color: #0000ff">null</span></span><span>,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"Rating"</span></span><span>: 3,</span></span></p>
+<p><span style="font-family: Lucida Console"><span>    </span><span><span style="color: #800000">"Price"</span>: </span><span style="color: #800000">"3.5"</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  }],</span></span></p>
+<p><span style="font-family: Lucida Console"><span>  </span><span><span style="color: #800000">"__count"</span></span><span>: 9</span></span></p>
+<p><span style="font-family: Lucida Console"><span>}</span></span></p>
+<p>In the best case all control information goes away. In order to be able to reestablish it, we put one URL per response (in "__servicemetadata") that contains a link to where to find instructions if you want to interpret this document as an OData response with full fidelity. A client can follow the metadata link and using patterns described there reconstruct all URLs, ETags, types, etc. If a given object has something different, e.g. a link that doesn’t follow the pattern, or it’s an instance of a subtype, then you just add that piece of data (e.g. “__metadata”: { “type”: “some.subtype” }).</p>
+<h2>Capturing control information as patterns</h2>
+<p>I mentioned patterns several times already. Let me make this more concrete. As we discussed before in the OData mailing list, we’re adding support for annotations to metadata using vocabularies. In order to support this JSON-based “light” format we introduce a vocabulary that captures how to derive all bits of control information from the regular object data. We’ll have the details of every pattern documented in the official spec, but here are a few to show what they look like.</p>
+<p>This one shows the base URL for the service, and is used for all relative URLs in other patterns:</p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>    &lt;</span></span><span><span style="color: #a31515">ValueAnnotation</span><span style="color: #ff0000">Term</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">odata.urls.baseurlexpression</span>"<span style="color: #ff0000">Target</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">ODataDemo.DemoService</span>"</span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>      &lt;</span></span><span><span style="color: #a31515">String</span><span style="color: #0000ff">&gt;http://services.odata.org/OData/OData.svc/&lt;/<span><span style="color: #a31515">String</span></span></span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>    &lt;/</span></span><span><span style="color: #a31515">ValueAnnotation</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p>These two show two URL construction rules, one to obtain the URL of a collection (a set) and one to obtain the URL of an individual element within that collection:</p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>    &lt;</span></span><span><span style="color: #a31515">ValueAnnotation</span><span style="color: #ff0000">Term</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">odata.urls.setexpression</span>"<span style="color: #ff0000">Target</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">ODataDemo.DemoService.Products</span></span><span>"</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>                     </span></span><span><span style="color: #ff0000">String</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">Products/</span>"</span><span style="color: #0000ff">/&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span> </span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>    &lt;</span></span><span><span style="color: #a31515">ValueAnnotation</span><span style="color: #ff0000">Term</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">odata.urls.keylookupexpression</span>"<span style="color: #ff0000">Target</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">ODataDemo.DemoService.Products</span>"</span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>      &lt;</span></span><span><span style="color: #a31515">Apply</span><span style="color: #ff0000">Function</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">KeyConcat</span>"</span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>        &lt;</span></span><span><span style="color: #a31515">String</span><span style="color: #0000ff">&gt;</span>(<span style="color: #0000ff">&lt;/</span><span style="color: #a31515">String</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>        &lt;</span></span><span><span style="color: #a31515">Path</span><span style="color: #0000ff">&gt;</span>ID<span style="color: #0000ff">&lt;/</span><span style="color: #a31515">Path</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>        &lt;</span></span><span><span style="color: #a31515">String</span><span style="color: #0000ff">&gt;</span>)/<span style="color: #0000ff">&lt;/</span><span style="color: #a31515">String</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>      &lt;/</span></span><span><span style="color: #a31515">Apply</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>    &lt;/</span></span><span><span style="color: #a31515">ValueAnnotation</span></span><span style="color: #0000ff">&gt;</span></span><span style="font-family: Lucida Console"><span> </span></span></p>
+<p>Finally, here’s one that’s not a URL but a plain value, in this case the ETag for each element (doesn’t apply to the “Product” type, but included here as an example):</p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>    &lt;</span></span><span><span style="color: #a31515">ValueAnnotation</span><span style="color: #ff0000">Term</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">odata.json.etagexpression</span>"<span style="color: #ff0000">Target</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">ODataDemo.DemoService.Products</span>"</span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>      &lt;</span></span><span><span style="color: #a31515">Apply</span><span style="color: #ff0000">Function</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">Concat</span>"</span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>        &lt;</span></span><span><span style="color: #a31515">String</span><span style="color: #0000ff">&gt;</span>W/"<span style="color: #0000ff">&lt;/</span><span style="color: #a31515">String</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>        &lt;</span></span><span><span style="color: #a31515">Apply</span><span style="color: #ff0000">Function</span><span style="color: #0000ff">=</span>"<span style="color: #0000ff">RawValue</span>"</span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>          &lt;</span></span><span><span style="color: #a31515">Path</span><span style="color: #0000ff">&gt;</span>Version<span style="color: #0000ff">&lt;/</span><span style="color: #a31515">Path</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>        &lt;/</span></span><span><span style="color: #a31515">Apply</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>        &lt;</span></span><span><span style="color: #a31515">String</span><span style="color: #0000ff">&gt;</span>"<span style="color: #0000ff">&lt;/</span><span style="color: #a31515">String</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>      &lt;/</span></span><span><span style="color: #a31515">Apply</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p><span style="font-family: Lucida Console"><span style="color: #0000ff"><span>    &lt;/</span></span><span><span style="color: #a31515">ValueAnnotation</span></span><span style="color: #0000ff">&gt;</span></span></p>
+<p>Note that an interesting side-effect of this approach is that removes any knowledge of the server URL namespace from clients. In the past OData clients had to choose between the higher coupling that came from knowing the URL conventions of the server and losing the query capabilities. Now that patterns are captured in metadata a client that knows about both data and metadata content types can derive all URLs from patterns. This removes the coupling and makes it possible for servers to have their own URL conventions as long as they can be represented with annotations (yes, it means you can have a server that uses “/” instead of “(“ and “)” if you want, for those that were always unhappy with parenthesis :) )</p>
+<h2>Summary</h2>
+<p>We discussed a JSON format that’s clean and lean and doesn’t need a special coding/decoding step and still preserves a lot of the compactness. We achieve this by moving control information that’s regular enough to metadata in the form of patterns, and by linking data and metadata so clients need no out-of-band knowledge. The approach also allows servers to have different URL conventions without causing OData clients to lose any functionality.</p>
+<p>That do you think? As usual, the <a href="http://www.odata.org/mailing-list">OData mailing list</a> is the best place for debate.</p>
+<p>-pablo</p>
+<p>&nbsp;</p>
+<p>[1] We had long debates with folks here about introducing “application/odata+json”. It seems that this will just cause things to break more for the majority of users, so staying with application/json is probably the right thing. More on this in a future post.</p>
+</div>

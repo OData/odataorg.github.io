@@ -1,0 +1,203 @@
+---
+layout: page
+title: Batch Processing
+date: 2014-02-28 03:34:09.000000000 +08:00
+permalink: /documentation/odata-version-2-0/batch-processing/
+---
+<h2>Introduction</h2>
+<p>The OData protocol exposes a uniform service interface to operate on collections of structured and unstructured data. <a href="../operations">[OData-Operations]</a> enumerates the set of operations supported by the uniform interface and describes a means to send one operation per HTTP request.</p>
+<p>This document builds on the <a href="../operations">[OData-Operations]</a> document and describes how an OData implementation can optionally support executing multiple operations sent in a single HTTP request through the use of Batching. This document covers both how Batch operations are represented and processed.</p>
+<h2><a id="Background" name="Background"></a>1. Background</h2>
+<p>The OData service interface has a fixed number of operations that have uniform meaning across all the resources it can act on. These operations are retrieve, create, update and delete and they map to the GET, POST, PUT and DELETE HTTP methods. Clients query to retrieve a feed, entry, or service document by issuing an HTTP GET request against its URI as described in <a href="../operations">[OData-Operations]</a> . Clients insert, update, and delete a feed, entry or service document by issuing a POST, PUT or DELETE request against its URI as described in <a href="../operations">[OData-Operations]</a> .</p>
+<h2><a id="FormatOfABatchRequest" name="FormatOfABatchRequest"></a> 2. Format of a Batch Request</h2>
+<p>An OData Batch Request is represented as a Multipart MIME v1.0 message <a href="http://tools.ietf.org/html/rfc2046"> [RFC2046]</a>, a standard format allowing the representation of multiple parts, each of which may have a different content type, within a single request.</p>
+<h3><a id="BatchRequestHeaders" name="BatchRequestHeaders"></a>2.1. Batch Request Headers</h3>
+<p>Batch requests allow grouping multiple operations, as described in <a href="../operations">[OData-Operations]</a> , into a single HTTP request payload.</p>
+<p>Batch Requests are submitted as a single HTTP POST request to the $batch endpoint of a service as described in <a href="../uri-conventions">[OData-URI]</a>. The batch request must contain a Content-Type header specifying a content type of "multipart/mixed" and a boundary specification. The example below shows a GUID as a boundary and "OData/OData.svc" for the URI of the service. &lt;Batch Request Body&gt; is defined in the <a href="../batch#BatchRequestBody">Batch Request Body</a> section below.</p>
+<pre>POST OData/OData.svc/$batch HTTP/1.1
+Host: services.odata.org
+DataServiceVersion: 1.0 
+MaxDataServiceVersion: 2.0 
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+
+&lt;Batch Request Body&gt;</pre>
+<p>Note: The batch request boundary must be quoted if it contains any of the following special characters :</p>
+<pre>( ) &lt; &gt; @ , ; :  / " [ ] ? =</pre>
+<p>In addition to the Content-Type header, the Batch request may contain <a href="../overview#ProtocolVersioning"> DataServiceVersion headers</a> or other HTTP Headers which apply to the entire Batch Request as appropriate. In the example above, DataServiceVersion has a value of 1.0 representing the version of the OData specification used to generate the request, and MaxDataServiceVersion has a value of 2.0 representing the maximum response version the client is prepared to accept.</p>
+<h3><a id="BatchRequestBody" name="BatchRequestBody"></a>2.2. Batch Request Body</h3>
+<p>The body of a Batch Request is made up of an ordered series of retrieve operations (as described in <a href="../operations">[OData-Operations]</a> ) and/or ChangeSets. A ChangeSet is an atomic unit of work that is made up of an unordered group of one or more of the insert, update or delete operations described in <a href="/developers/protocols/operations">[OData:Operations]</a>. ChangeSets cannot contain retrieve requests and cannot be nested (i.e. a ChangeSet cannot contain a ChangeSet).</p>
+<p>In the Batch request body, each retrieve request and ChangeSet is represented as a distinct MIME part and is separated by the boundary marker defined in the Content-Type header of the request. The contents of the MIME part which represents a ChangeSet is itself a multipart MIME document with one part for each operation that makes up the ChangeSet.</p>
+<p>Each MIME part representing a retrieve request or ChangeSet within the Batch includes both Content-Type and Content-Transfer-Encoding MIME headers as seen in the examples below. The batch request boundary is the name specified in the Content-Type Header for the batch.</p>
+<p>The example below shows a sample batch request that contains the following operations in the order listed:</p>
+<ul>
+<li>Retrieve</li>
+<li>A Change Set that contains the following requests:
+<ul>
+<li>Insert</li>
+<li>Update</li>
+</ul>
+</li>
+<li>A second retrieve request</li>
+</ul>
+<p>Note: In the example, request bodies are excluded in favor of English descriptions inside '&lt;&gt;' brackets to simplify the example.</p>
+<pre>POST /service/$batch HTTP/1.1 
+Host: host 
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b 
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http 
+Content-Transfer-Encoding:binary
+
+GET /service/Customers('ALFKI') HTTP/1.1
+Host: host
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b 
+Content-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621 
+Content-Length: ###       
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621
+Content-Type: application/http 
+Content-Transfer-Encoding: binary 
+
+POST /service/Customers HTTP/1.1 
+Host: host  
+Content-Type: application/atom+xml;type=entry 
+Content-Length: ### 
+
+&lt;AtomPub representation of a new Customer&gt; 
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621
+Content-Type: application/http 
+Content-Transfer-Encoding:binary 
+
+PUT /service/Customers('ALFKI') HTTP/1.1 
+Host: host 
+Content-Type: application/json 
+If-Match: xxxxx 
+Content-Length: ### 
+
+&lt;JSON representation of Customer ALFKI&gt; 
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621-- 
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http 
+Content-Transfer-Encoding:binary 
+
+GET service/Products HTTP/1.1 
+Host: host 
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</pre>
+<h4><a id="ReferencingRequestsInAChangeSet" name="ReferencingRequestsInAChangeSet"></a> 2.2.1. Referencing Requests in a Change Set</h4>
+<p>If a MIME part representing an Insert request within a ChangeSet includes a Content-ID header, then the new entity may be referenced by subsequent requests within the same ChangeSet by referring to the Content-ID value prefixed with a "$" character. When used in this way, $&lt;contentIdValue&gt; acts as an alias for the Resource Path that identifies the new entity.</p>
+<p>The example below shows a sample batch request that contains the following operations in the order listed:</p>
+<ul>
+<li>A Change Set that contains the following requests:
+<ul>
+<li><strong>Insert request</strong> (with Content-ID = 1)</li>
+<li>A second <strong>Insert request</strong> (references request with Content-ID = 1)</li>
+</ul>
+</li>
+<li>A second retrieve request</li>
+</ul>
+<pre>POST /service/$batch HTTP/1.1 
+Host: host 
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b 
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b 
+Content-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621 
+Content-Length: ###       
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621 
+Content-Type: application/http 
+Content-Transfer-Encoding: binary 
+
+POST /service/Customers HTTP/1.1 
+Host: host  
+Content-Type: application/atom+xml;type=entry 
+Content-Length: ###
+Content-ID: 1
+
+&lt;AtomPub representation of a new Customer&gt; 
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621 
+Content-Type: application/http 
+Content-Transfer-Encoding: binary 
+
+POST $1/Orders HTTP/1.1 
+Host: host 
+Content-Type: application/atom+xml;type=entry 
+Content-Length: ### 
+
+&lt;AtomPub representation of a new Order&gt; 
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621-- 
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</pre>
+<h2><a id="ProcessingABatchRequest" name="ProcessingABatchRequest"></a> 3. Processing a Batch Request</h2>
+<p>Requests within a batch are evaluated according to the same semantics used when the request appears outside of the context of a batch.</p>
+<p>The order of ChangeSets and retrieve requests within a Batch request is significant as it states the order in which the service processes the components of the Batch.  The order of requests within a ChangeSet is not significant such that a service may process the requests within a ChangeSet in any order.</p>
+<p>All operations in a ChangeSet represent a single change unit so the server must successfully process and apply all the requests in the ChangeSet or else apply none of the requests in the ChangeSet.  It is up to the service to define rollback semantics to undo any requests within a ChangeSet that may have been applied before another request in that same ChangeSet failed and thereby honor this all-or-nothing requirement.</p>
+<p>If the set of HTTP Request headers of a Batch request are valid (the Content-Type is set to multipart/mixed, etc.) the server returns a 202 Accepted HTTP response code to indicate that the request has been accepted for processing, but that the processing has not yet been completed. The requests within the Batch request body may subsequently fail or be malformed; however, this mechanism enables clients of a Batch implementation to stream the results of a Batch request without having to first wait for all requests to be processed.</p>
+<p>If the service receives a Batch request with an invalid set of headers it returns a 4xx response code and no further processing of the batch is performed.</p>
+<h2><a id="FormatOfABatchResponse" name="FormatOfABatchResponse"></a> 4. Format of a Batch Response</h2>
+<p>The format of the Batch Response mirrors that of the Batch request as described by the following subsections.</p>
+<h3><a id="BatchResponseHeaders" name="BatchResponseHeaders"></a>4.1. Batch Response Headers</h3>
+<p>The batch response, as shown in the example below, must contain a Content-Type header specifying a content type of multipart/mixed and a batch boundary specification which may be different than the batch boundary that was used in the corresponding request.</p>
+<pre>HTTP/1.1 202 Accepted
+DataServiceVersion: 1.0
+Content-Length: 1254
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</pre>
+<h3><a id="FormatOfABatchResponseBody" name="FormatOfABatchResponseBody"></a> 4.2. Batch Response Body</h3>
+<p>Within the body of the batch response is a response for each retrieve request and ChangeSet that was in the associated Batch request. The order of responses in the response body must match the order of requests in the Batch request. Each response includes a Content-Type header with a value of "application/http", and a Content-Transfer-Encoding MIME header with a value of "binary".</p>
+<p>A response to a retrieve request is formatted exactly as it would have appeared outside of a batch as described in <a href="../operations">[OData-Operations]</a> .</p>
+<p>The body of a ChangeSet response is either a response for all the successfully processed change request within the ChangeSet, formatted exactly as it would have appeared outside of a batch, as described in <a href="../operations">[OData-Operations]</a> , or a single response indicating a failure of the entire ChangeSet, as described in <a href="../operations">[OData-Operations]</a> .</p>
+<p>For example, referencing the batch request in section 2.2, assume all the requests except the final retrieve request succeed. In this case the Batch response body would be as shown in the following example.</p>
+<pre>HTTP/1.1 202 Accepted
+DataServiceVersion: 1.0
+Content-Length: ####
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 200 Ok
+Content-Type: application/atom+xml;type=entry
+Content-Length: ###
+
+&lt;AtomPub representation of the Customer entity with EntityKey ALFKI&gt;
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621
+Content-Length: ###      
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 201 Created
+Content-Type: application/atom+xml;type=entry
+Location: http://host/service.svc/Customer('POIUY')
+Content-Length: ###
+
+&lt;AtomPub representation of a new Customer entity&gt;
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 204 No Content
+Host: host
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd621--
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 404 Not Found
+Content-Type: application/xml
+Content-Length: ###
+
+&lt;Error message&gt;
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</pre>

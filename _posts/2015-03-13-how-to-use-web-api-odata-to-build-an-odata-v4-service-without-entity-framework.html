@@ -1,0 +1,220 @@
+---
+layout: post
+title: How to Use Web API OData to Build an OData V4 Service without Entity Framework
+date: 2015-03-13 03:10:41.000000000 +08:00
+categories:
+- ".NET"
+- OData tutorials
+- OData V4
+tags: []
+status: publish
+type: post
+published: true
+author: Qian Li
+---
+<p>There are quite a lot of <a href="http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint">tutorials</a> showing how to create OData services using Web API OData, but these requires Entity Framework and a database server behind. If you want a quick try or you have your own way of implementing data sources, these tutorials may not be the best fit. In this article, we will show how to build an OData service using <strong>in-memory data</strong> as data source and with basic function.</p>
+<h2>Create the solution</h2>
+<p>Create a new solution following File -> New -> Project -> Web, then choose <code>ASP.NET Web Application</code>. Name it with <code>Demo</code>. Then in the upcoming dialogue box, choose <code>Empty</code> and check <code>Web API</code>, click OK.</p>
+<h2>Install NuGet packages</h2>
+<p>Run the following command in the <a href="http://docs.nuget.org/docs/start-here/using-the-package-manager-console">Package Manager Console</a>.</p>
+<p><code>PM> Install-Package Microsoft.AspNet.OData</code></p>
+<h2>Add Models</h2>
+<p>In this getting-started example, we just add two model class <code>Person.cs</code> and <code>Trip.cs</code> under folder <code>Models</code>. <code>Person</code> can navigate to <code>Trips</code>.</p>
+{% highlight csharp %}
+using System;
+using System.ComponentModel.DataAnnotations;
+namespace Demo.Models
+{
+    public class Person
+    {
+        [Key]
+        public String ID { get; set; }
+        [Required]
+        public String Name { get; set; }
+        public String Description { get; set; }
+        public List<Trip> Trips { get; set; }
+    }
+}
+{% endhighlight %}
+{% highlight csharp %}
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+namespace Demo.Models
+{
+    public class Trip
+    {
+        [Key]
+        public String ID { get; set; }
+        [Required]
+        public String Name { get; set; }
+    }
+}
+{% endhighlight %}
+<p>The attributes <code>[Key]</code> and <code>[Required]</code> are all from <code>System.ComponentModel.DataAnnotations</code> meaning the property is key and required seperately.</p>
+<h2>In-Memory data source</h2>
+<p>This tutorial uses in-memory data source, which is more flexible. Below are only one way to implement, you can definitely have your only way.</p>
+<p>Add a folder <code>DataSource</code> and add a class file <code>DemoDataSources.cs</code> with the code below.</p>
+{% highlight csharp %}
+using Demo.Models;
+using System.Collections.Generic;
+namespace Demo.DataSource
+{
+    public class DemoDataSources
+    {
+        private static DemoDataSources instance = null;
+        public static DemoDataSources Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DemoDataSources();
+                }
+                return instance;
+            }
+        }
+        public List<Person> People { get; set; }</p>
+        private DemoDataSources()
+        {
+            this.Reset();
+            this.Initialize();
+        }
+        public void Reset()
+        {
+            this.People = new List<Person>();
+        }
+        public void Initialize()
+        {
+            this.Trips.AddRange(new List<Trip>()
+            {
+                new Trip()
+                {
+                    ID = "0",
+                    Name = "Trip 0"
+                },
+                new Trip()
+                {
+                    ID = "1",
+                    Name = "Trip 1"
+                },
+                new Trip()
+                {
+                    ID = "2",
+                    Name = "Trip 2"
+                },
+                new Trip()
+                {
+                    ID = "3",
+                    Name = "Trip 3"
+                }
+            });
+            this.People.AddRange(new List<Person>
+            {
+                new Person()
+                {
+                    ID = "001",
+                    Name = "Angel",
+                    Trips = new List<Trip>{Trips[0], Trips[1]}
+                },
+                new Person()
+                {
+                    ID = "002",
+                    Name = "Clyde",
+                    Description = "Contrary to popular belief, Lorem Ipsum is not simply random text.",
+                    Trips = new List<Trip>{Trips[2], Trips[3]}
+                },
+                new Person()
+                {
+                    ID = "003",
+                    Name = "Elaine",
+                    Description = "It has roots in a piece of classical Latin literature from 45 BC, making Lorems over 2000 years old."
+                }
+            });
+        }
+    }
+}
+{% endhighlight %}</p>
+<h2>Add Controllers</h2>
+<p>Since there are two entity set, we will add two controller class under the folder <code>Controllers</code></p>
+<p>First is controller for <em>People</em>
+{% highlight csharp %}
+using Demo.DataSource;
+using System.Linq;
+using System.Web.Http;
+using System.Web.OData;
+namespace Demo.Controllers
+{
+    [EnableQuery]
+    public class PeopleController : ODataController
+    {
+        public IHttpActionResult Get()
+        {
+            return Ok(DemoDataSources.Instance.People.AsQueryable());
+        }
+    }
+}
+{% endhighlight %}
+<p>Then is the controller for <em>Trips</em>
+{% highlight csharp %}
+using Demo.DataSource;
+using System.Linq;
+using System.Web.Http;
+using System.Web.OData;
+namespace Demo.Controllers
+{
+    public class TripsController : ODataController
+    {
+        public IHttpActionResult Get()
+        {
+            return Ok(DemoDataSources.Instance.Trips.AsQueryable());
+        }
+    }
+}
+{% endhighlight %}
+<p>In this very simple implementation, only simple <code>Get</code> with query options are allowed. If you want to enable more capabilities in your controller, the code is quite similar with what's done with EF as data source. Please refer to
+<a href="https://aspnet.codeplex.com/SourceControl/latest#Samples/WebApi/OData/v4/">ASP.NET Web API OData V4 Samples</a> and <a href="http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint">Create an OData v4 Endpoint Using ASP.NET Web API 2.2</a>.</p>
+<h2>Configure the Endpoint</h2>
+<p>The last step is to modify the <code>WebApiConfig.cs</code> file under <code>App_Start</code>.</p>
+{% highlight csharp %}
+using Demo.Models;
+using Microsoft.OData.Edm;
+using System.Web.Http;
+using System.Web.OData.Batch;
+using System.Web.OData.Builder;
+using System.Web.OData.Extensions;
+namespace Demo
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            config.MapODataServiceRoute("odata", null, GetEdmModel(), new DefaultODataBatchHandler(GlobalConfiguration.DefaultServer));
+            config.EnsureInitialized();
+        }
+        private static IEdmModel GetEdmModel()
+        {
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.Namespace = "Demos";
+            builder.ContainerName = "DefaultContainer";
+            builder.EntitySet<Person>("People");
+            builder.EntitySet<Trip>("Trips");
+            var edmModel = builder.GetEdmModel();
+            return edmModel;
+        }
+    }
+}
+{% endhighlight %}</p>
+<h2>Try with it</h2>
+<p>It's done to create a very basic OData endpoint with in-memory data source using Web API OData.
+You can try it out now! All samples below are all <code>GET</code> method.</p>
+<p>Service document</p>
+<p><code>http://localhost:[portNumber]/</code></p>
+<p>Service metadata</p>
+<p><code>http://localhost:21830/$metadata</code></p>
+<p>Get People</p>
+<p><code>http://localhost:21830/People</code></p>
+<p>Queries</p>
+<p><code>http://localhost:21830/People?$filter=contains(Description,'Lorem')</code></p>
+<p><code>http://localhost:21830/People?$select=Name</code></p>
+<p><code>http://localhost:21830/People?$expand=Trips</code></p>

@@ -1,0 +1,92 @@
+---
+layout: post
+title: Support for Any and All
+date: 2010-11-11 17:43:01.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>One thing that folks in this list and elsewhere have brought up is the need to express filters based on the contents of a collection, be that a set of related entities or a multi-valued property.</p>
+<p>This is because currently there is no easy way to:</p>
+<ul>
+<li>find all movies starring a particular actor</li>
+<li>find all orders where at least one of the order-lines is for a particular product</li>
+<li>find all orders where every order-line has a value greater than $400</li>
+<li>find all movies tagged 'quirky' - where Tags is a multi-valued property.</li>
+<li>find all movies with a least one actor tagged as a favorite</li>
+</ul>
+<p>This proposal addresses that by introducing two new operators, "any" and "all".</p>
+<p>&nbsp;</p>
+<h3>Relationships</h3>
+<p>For example it would be nice if this:</p>
+<p><strong>~/Movies/?$filter=any(Actors,Name eq 'John Belushi')</strong></p>
+<p>could be used to find any John Belushi movie. And this:</p>
+<p><strong>~/Orders/?$filter=any(OrderLines,Product/Name eq 'kinect')</strong></p>
+<p>would find orders that include one or more 'kinect' orderline. And this:</p>
+<p><strong>~/Orders/?$filter=all(OrderLines, Cost gt 400.0m)</strong></p>
+<p>would find orders where all orderlines costs more than $400.</p>
+<p>&nbsp;</p>
+<h3>Multi-Valued properties</h3>
+<p>All of the above query relationships, but this also needs to work for Multi-Value properties too:</p>
+<p>The key difference here from a semantics perspective - is that a multi-valued property is often just a primitive, rather than an entity - so you often need to refer to 'it' directly in comparisons, perhaps something like this:</p>
+<p><strong>~/Movies/?$filter=any(Tags, it eq 'quirky')</strong></p>
+<p>In this example Tags is a multi-valued property containing strings. And 'it' or 'this' or something similar is required to refer to the current tag.</p>
+<p>Given the need to be able refer to the 'current' item being tested in the predicate, perhaps we should force the use of 'it' even when the thing referred to is an entity?</p>
+<p>Which would mean this:</p>
+<p><strong>~/Movies/?$filter=any(Actors, Name eq 'John Belushi')</strong></p>
+<p>Would need to become this:</p>
+<p><strong>~/Movies/?$filter=any(Actors, it/Name eq 'John Belushi')</strong></p>
+<p>Interestingly forcing this would conceptually allow for queries like this too:</p>
+<p><strong>~/Movies/?$filter=any(Actors, it eq Director)</strong></p>
+<p>Here we are looking for movies where an actor in the movie is also the movie's director.</p>
+<p>Note: Today OData doesn't allow for entity to entity comparisons like above, so instead you'd have to compare keys like this:</p>
+<p><strong>~/Movies/?$filter=any(Actors, it/ID eq Director/ID)</strong></p>
+<p><strong> </strong></p>
+<h3>Nested queries</h3>
+<p>Our design must also accommodate nesting too:</p>
+<p><strong>~/Movies/?$filter=any(Actors,any(it/Tags, it eq 'Favorite'))</strong></p>
+<p>Here we are asking for movies where any of actors are tagged as a favorite.</p>
+<p>Notice though that 'it' is used twice and has a different meaning each time. First it refers to 'an actor' then it refers to 'a tag'.</p>
+<p>Does this matter?</p>
+<p>Absolutely if you want to be able to refer to the outer variable inside an inner predicate, which is vital if you need to ask questions like:</p>
+<ul>
+<li>Find any movies where any of the actors is tagged as a favorite</li>
+<li>Find any movies where an actor has also directed another movie</li>
+</ul>
+<p>Clearly these are useful queries.</p>
+<p>LINQ handles this by forcing you to explicitly name your variable whenever you call Any/All.</p>
+<p><em>from m in ctx.Movies<br />
+where m.Actors.Any(a =&gt; a.Tags.Any(t =&gt; t == "Favorite"))<br />
+select m;</em></p>
+<p><em>from m in ctx.Movies<br />
+where m.Actors.Any(a =&gt; a.Movies.Any(am =&gt; am.Director.ID == a.ID))<br />
+select m;</em></p>
+<p>If we did something similar it would look like this:<br />
+<strong>~/Movies/?$filter=any(Actors a, a/Name eq 'John Belushi')</strong></p>
+<p>This is a little less concise, but on the plus side you get something that is much more unambiguously expressive:</p>
+<p><strong>~/Movies/?$filter=any(Actors a, any(a/Movies m, a/ID eq m/Director/ID))</strong></p>
+<p>Here we are looking for movies where any of the actors is also a director of at least one movie.</p>
+<p>&nbsp;</p>
+<h3>Final Proposal</h3>
+<p>Given that it is nice to support nested scenarios like this, it is probably better to require explicit names.</p>
+<p>Trying to be flexible for the sake of a little conciseness often leads to pain and confusion down the road, so let's not do that J</p>
+<p>That leaves us with a proposal where you have to provide an explicit alias any time you need Any or All.</p>
+<p>Per the proposal here are some examples of valid queries:</p>
+<p><strong>~/Orders/?$filter=all(OrderLines line, line/Cost gt 400.0m)<br />
+~/Movies/?$filter=any(Actors a, a/Name eq 'John Belushi')<br />
+~/Movies/?$filter=any(Actors a, a/ID eq Director/ID)<br />
+~/Movies/?$filter=any(Actors a, any(a/Tags t, t eq 'Favorite'))<br />
+~/Movies/?$filter=any(Actors a, any(a/Movies m, m/Director/ID eq a/ID))</strong></p>
+<p>&nbsp;</p>
+<h3>Summary</h3>
+<p>Adding Any / All support to the protocol will greatly improve the expressiveness of OData queries.</p>
+<p>I think the above proposal is expressive, flexible and unambiguous, and importantly it also addresses the major limitations of MultiValue properties that a few of you were rightly concerned about.</p>
+<p>As always I'm very keen to hear your thoughts…<br />
+Alex.</p>
+</div>

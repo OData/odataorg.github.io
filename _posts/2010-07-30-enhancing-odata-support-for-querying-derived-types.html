@@ -1,0 +1,116 @@
+---
+layout: post
+title: Enhancing OData Support for querying derived types
+date: 2010-07-30 17:50:56.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>Probably the most frequently requested addition to OData is better support for derived types in queries.</p>
+<p>What does that mean exactly?</p>
+<p>&nbsp;</p>
+<h3>Background:</h3>
+<p>Today if you have a model like this:</p>
+<p><a href="{{site.url}}assets/employeemodel.png" rel="attachment wp-att-9971"><img src="{{site.url}}assets/employeemodel.png" alt="employeemodel" width="422" height="243" class="wp-image-9971" /></a></p>
+<p>Assuming you have a People set - as is usually but not always the case - and you try to expose it via a DataService here: <strong>http://server/service.svc/People</strong> it will fail.</p>
+<p>This is because Data Services recognizes that the OData protocol doesn't provide rich enough support for querying derived types, so it fails early.</p>
+<p>&nbsp;</p>
+<h3>What is missing from OData?</h3>
+<p>(For the sake of brevity we'll use this ~ as short hand for <strong>http://server/service.svc</strong> from now on).</p>
+<p>Given this setup all Employee objects should live in the same feed as - their base type - Person.</p>
+<p>So if the Person feed is here: <strong>~/People</strong></p>
+<p>Employee 41 will be found here: <strong>~/People(41)</strong></p>
+<p>Great. So far so good.</p>
+<p>What though if you want to retrieve the manager for Employee 41?</p>
+<p>This: <strong>~/People(41)/Manager</strong> won't work, because as far as the OData protocol is concerned the <strong>~/People(41)</strong> uri segment is a Person, which as you can see from the model doesn't have a Manager property or navigation.</p>
+<p>Not only that you can't reference derived properties or navigations in any query options either:</p>
+<p>So something like this: <strong>~/People/?$filter=Building eq '18' OR Firstname eq 'Bill'</strong></p>
+<p>Which is trying to find Employees in building 18 or People called Bill, won't work, again because OData sees the Segment type as Person and Building isn't defined on Person.</p>
+<p>These two limitations really restrict the sorts of models you can expose in OData.</p>
+<p>&nbsp;</p>
+<h3>Requirements:</h3>
+<p>To remove these limitations we need two things:</p>
+<ol>
+<li>A way to change the url segment type, by filtering a base type feed to a derived type feed, so that derived navigations and properties can be accessed.</li>
+<li>A way to access derived properties and navigations in filters, projections, orderbys and expand query options without previously changing the url segment type.</li>
+</ol>
+<p>&nbsp;</p>
+<h3>Option 1 - !Employee:</h3>
+<p>We could add an ability to filter like this:</p>
+<p><strong>~/People!Employee</strong></p>
+<p>Which would filter the feed to contain only instances of employee or a subtype of employee and change the type of the segment from Person to Employee.</p>
+<p>At which point you could either use a key selector directly:</p>
+<p><strong>~/People!Employee(41)</strong></p>
+<p>or you could access derived properties and navigations:</p>
+<p><strong>~/People!Employee(41)/Manager</strong></p>
+<p>you could also shape &amp; filter the results using query options that now have access to the properties of Employee:</p>
+<p><strong>~/People!Employee/?$filter=ManagerFirstname eq 'Bill' OR Firstname eq 'Bill'</strong></p>
+<p>We'd also give you the ability to get to the derived type in a query option like this:</p>
+<p><strong>~/People/?$filter=!EmployeeManagerFirstname eq 'Bill' OR Firstname eq 'Bill'</strong></p>
+<p>You might be wondering why leaving the segment type unchanged and changing the type in the query option like this is useful.</p>
+<p>If you compare the intent of these two urls, it should become clear:</p>
+<p>(1): <strong>~/People!Employee/?$filter=ManagerFirstname eq 'Bill' OR Firstname eq 'Bill'</strong></p>
+<p>(2): <strong>~/People/?$filter=!EmployeeManagerFirstname eq 'Bill' OR Firstname eq 'Bill'</strong></p>
+<p>Uri (1) returns employees that are either called Bill or have a manager called Bill.<br />
+Uri (2) returns employees who have a manager called Bill or *people* who are called Bill.</p>
+<p>&nbsp;</p>
+<h3>Option 2 - OfType:</h3>
+<p>Another option is to add a system function called <strong>OfType(..)</strong>, that takes the target type name as a parameter. And allow functions to be appended to URI segments and used in query options.</p>
+<p>So something like this:</p>
+<p><strong>~/People/OfType('Employee')</strong></p>
+<p>would return just employees, and allow access to Employee properties etc.</p>
+<p>Whereas this:</p>
+<p><strong>~/People/OfType('Employee')/?$filter=ManagerFirstname eq 'Bill'</strong></p>
+<p>would return just employees managed by Bill.</p>
+<p>If you wanted to access by key, you would simple add a key in the normal way:</p>
+<p><strong>~/People/OfType('Employee')(41)</strong></p>
+<p>And now you can continue appending OData uri fragments in the normal way:</p>
+<p><strong>~/People/OfType('Employee')(41)/Manager<br />
+~/People/OfType('Employee')(41)/Building/$value</strong></p>
+<p>to access Employee 41's manager and raw ($value) Building respectively.</p>
+<p>You could also use the function like this:</p>
+<p><strong>~/People/?$filter=OfType('Employee')/Manager/Firstname eq 'Bill'</strong></p>
+<p>This final example does feel a little weird, at least if you dig into the semantics, because it is actually a null propagating cast operator!</p>
+<p>&nbsp;</p>
+<h4>Possible Ambiguity?</h4>
+<p>If we allowed you to apply <strong>OfType(..)</strong> to uris that represent a single entry as well as uris that represent feeds, like this:</p>
+<p><strong>~/People(41)/OfType('Employee')</strong></p>
+<p>there is a chance for ambiguity.</p>
+<p>Take this example:</p>
+<p><strong>~/Users('1')/Friends('2')</strong></p>
+<p>this is a valid OData uri today, that says get Person 1's friends and look for Person 2 in that collection.</p>
+<p>All that needs to change to make this collide with <strong>OfType(..)</strong>, is for the navigation property name to change from Friends to OfType.</p>
+<p>So if we ever supported OfType on a segment identifying a single entry we would need a way of disambiguating.</p>
+<p>Clearly <strong>OfType(..)</strong> is a 'system' function so the obvious choice would be to further embrace the <strong>$</strong> prefix.</p>
+<p>The rule could be: if there is any ambiguity, pick the user navigation property. Then if you really need to use the system <strong>OfType(..)</strong> function you need to prepend the $ prefix, like this:</p>
+<p><strong>~/Users('1')/$OfType('SuperUser')</strong></p>
+<p>&nbsp;</p>
+<h3>Pros and Cons?</h3>
+<p>Option 1 has these strengths:</p>
+<ul>
+<li>It is very simple.</li>
+<li>It avoids quoting type names.</li>
+<li>There are never any ugly double bracket combos i.e. ('type')(key).</li>
+<li>It avoids possible ambiguity with navigation properties.</li>
+</ul>
+<p>Option 2 on the other hand:</p>
+<ul>
+<li>Is nicely aligned with the existing <strong>IsOf('TypeName')</strong> function which can be used today to narrow a set of results like this: <strong>~/People/?$filter=IsOf('Employee')</strong></li>
+<li>Unlike the <strong>!Employee</strong> option, this approach is more widely applicable. You can simply think of <strong>OfType</strong> as a (system) function, that we allow you to append to correctly typed URIs or inside query options, sort like CLR extensions methods. This approach would lay a foundation for a future world where custom functions can be appended to URIs too.</li>
+<li>If OfType is simply a function, then creating a way to change the type of a single entry, rather than a feed, like this: <strong>~/People(41)/OfType('Employee')<br />
+</strong>is as simple as adding a new overload.</li>
+</ul>
+<p>Perhaps we can get the benefits of both by thinking of <strong>!Employee</strong> as simply a short hand notation for <strong>OfType('Employee')</strong>?</p>
+<p>&nbsp;</p>
+<h3>Summary:</h3>
+<p>As you can see we've come up with two options to add better support for Derived types in OData queries.</p>
+<p>Which do you prefer? And why? Perhaps you have another suggestion?</p>
+<p>Whatever you think, please tell us all about it on the <a href="http://www.odata.org/mailing-list">OData Mailing List</a>.</p>
+<p><a href="http://twitter.com/adjames">Alex James</a></p>
+</div>

@@ -1,0 +1,28 @@
+---
+layout: post
+title: 'OData Service Validation Tool Update: New feature and rules'
+date: 2011-10-25 17:18:43.000000000 +08:00
+categories:
+- OData tools
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<p>We pushed another update to <a href="http://validator.odata.org">http://validator.odata.org</a> and the <a href="http://odatavalidator.codeplex.com">Codeplex project</a>:</p>
+<ul>
+<li>Added the crawling feature with UI support</li>
+<li>Added 2 new <a href="http://services.odata.org/Validation/RuleSet/Rules?$filter=Target%20eq%20%27Metadata%27&amp;$orderby=Initial_Release%20desc&amp;$top=2">rules</a> for Metadata</li>
+<li>Minor bug fixes for 3 rules</li>
+<li>Changed XML rules version definition</li>
+</ul>
+<p>I’d like to highlight the new crawling feature. Since we launched one of the requests that we heard was to be able to hierarchically validate a service starting from a service document. We had added the capability to do that in the engine in the last release. In this release, we added UI support for the feature.</p>
+<p>If you enter enter a URL to a service document and select the crawling checkbox, the validation engine will automatically validate the service doc, the metadata document (if available), the top feed in the service document and the top entry in the feed. In addition to those we also send a bad request to generate an OData error payload and validate that as well.</p>
+<p>As always we’d like to hear your feedback. Please check the new feature out and let us know what you think either on the <a href="http://odata.org/mailing-list">mailing list</a> or on the <a href="http://odatavalidator.codeplex.com/discussions">discussions page</a> on the Codeplex site.</p>
+<p>&nbsp;</p>
+<p>Turker Keskinpala</p>
+<p>Program Manager</p>
+<p>OData Team</p>
+</div>

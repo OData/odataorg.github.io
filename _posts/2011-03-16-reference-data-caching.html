@@ -1,0 +1,77 @@
+---
+layout: post
+title: Reference Data Caching
+date: 2011-03-16 17:39:49.000000000 +08:00
+categories:
+- OData protocol
+- OData tutorials
+tags: []
+status: publish
+type: post
+published: true
+author: OData.org Archive
+---
+<div>
+<h3>What is reference data caching?</h3>
+<p>One of the comments I hear from customers building apps that use OData is they aren't always connected to their data source and often want to cache data on a client.  This allows their applications to function while "off-line", to perform better, and to allow cross-session persistence.  A few examples of applications that could make use of cached data:</p>
+<ul>
+<li>A shipping application that wants to store reference data locally that is occasionally updated, e.g. a list of zip codes in the U.S.</li>
+<li>A dictionary application that stores dictionary data locally, updating it on a set cadence, e.g. once a month.</li>
+<li>A translation application that stores selected language packs locally.  Updates to purchased language packs are pulled to the client at application startup.</li>
+<li>A restaurant finder application that stores restaurants in a city interesting to a user locally.  Restaurant data is updated when user parameters are changed or pushed from the server as the data set changes.</li>
+<li>A conference organization application that allows attendees to browse sessions, build a schedule, rate speakers, etc.  Sessions make up a large set of data that might be worthwhile to cache and periodically incrementally update.</li>
+</ul>
+<p>&nbsp;</p>
+<h3>What can do you do with cached reference data?</h3>
+<p>I'm going to walk through a hypothetical lifecycle of data in the conference organization application above to highlight some of the things an application might want to do with the cached data.  I'll assume the application is running on a phone or other mobile device and there are a large number of sessions across many tracks.</p>
+<p>At startup the application pulls all session data for the conference using an OData query.  Once the session data is obtained it's <em>stored in a local cache</em> allowing the application to continue to function if the user loses connectivity.  The user opens a Search screen in order to look for sessions with "OData" in the title or description.  Users could further limit search parameters by specifying tracks of interest or the day &amp; timeslot for sessions.  In this case the system <em>queries the local data</em> for the sessions.  The user views their session results and drills into those of interest.  After a particular session is found the user closes the application.  Sometime later the user wants to again browse sessions.  They start up their application at which time the application <em>updates the local cache incrementally</em> with updated sessions, deletes cancelled sessions, and adds new sessions.  The user then searches again.</p>
+<p>This example illustrates a few scenarios; other scenarios and benefits I can picture would be the service <em>pushing</em> new session suggestions to the user based on their registration information, the service having a <em>faster startup time</em> because it's caching sessions locally already, the cached session data being <em>updated on a schedule</em> (e.g. any updates to the cached sessions are pulled once an hour to accommodate a rapidly changing conference schedule), more <em>complex queries</em> against the data (e.g. sessions with speakers that have great speaker ratings), and more.</p>
+<p>While it's possible to accomplish these scenarios today by storing data locally retrieved through an OData feed, it must be manually done and keeping the data up to date once stored locally is arduous and inefficient.</p>
+<p>&nbsp;</p>
+<h3>Why add protocol support for reference data caching to OData?</h3>
+<p>Adding protocol support for reference data caching would provide an efficient way to retrieve changes to cached data.  This would give clients that are frequently disconnected from their data source great benefits from storing data locally.</p>
+<p>If you look at the apps in your phone, you'll see that many of them use a nice display against locally cached data that comes from a web service.  I look across the breadth of applications that could use reference data caching features and think adding protocol support for a subset of caching and local data scenarios would be useful.</p>
+<p>&nbsp;</p>
+<h3>How far should we go?</h3>
+<p>I want to explore what makes sense in terms of features to support.  I think there's a sweet spot in finding the right set of features to add that allows delivering on a limited set of key scenarios fast, provide high value, and don't add a great deal of complexity to the protocol or to OData clients &amp; servers implementing the extensions.</p>
+<p>As with any add to the protocol the additions need to be provided in a RESTful manner and not be tied to any specific OData client or server.  Any changes made to the protocol to enable reference data caching shouldn't be required changes for existing OData clients and servers, i.e. the additions should allow backward compat support.  A client should also be able to run against a server that's "reference data caching enabled" and use it just like any other OData server, either taking advantage of the caching features or not.</p>
+<p>My 'strawman' for the set of features that make up the sweet spot is small and I'd like your reality check on it.  Here's an initial take:</p>
+<ul>
+<li>The protocol should support allowing sets of data to be pulled from a server and then updated incrementally.</li>
+<li>Supporting updates to the local data through a "pull" method should be supported.</li>
+<li>"Pushing" updates from server to client is interesting but I don't think it's needed in a V1.</li>
+<li>Allowing writes on the local data and pushing those writes to the server on demand in an initial rev isn't required.</li>
+<li>I think providing protocol support for scheduled refreshes of data isn't necessary.</li>
+<li>The structure of data cached on a client could change, e.g. fields could be added/deleted/updated to the Conference Session in the application above.  While the system could offer the capability to update the data already pulled locally in a V1 I believe it'd be acceptable to ask the client to redownload all data with the new structure.</li>
+</ul>
+<p>I'd love to hear your thoughts on this list.</p>
+<p>&nbsp;</p>
+<h3>Exploration</h3>
+<p>I want to explore what the protocol changes might be for supporting reference data caching in the conference organization finder application we dug into above.</p>
+<p>The conference application first went through a startup sequence and used an OData query to pull all conference sessions.  This query would look like any other OData query, e.g.</p>
+<p><a href="http://conferenceorganization/v1/sessions/">http://conferenceorganization/v1/sessions/</a></p>
+<p>The data returned by the feed for the query would look exactly like any other dataset for an OData query with one exception:</p>
+<p><em>&lt;?xml version="1.0" encoding="utf-8" standalone="yes" ?&gt;<br />
+</em><em>&lt;feed ...&gt;<br />
+</em><em>&lt;session&gt;<br />
+</em><em>...<br />
+</em><em>&lt;/session&gt;<br />
+</em><em><strong>&lt;link rel="http://odata.org/delta" href="http://</strong> <strong>conferenceorganization/v1/</strong> <strong>sessions/?$deltatoken=B:405973881944444416</strong><strong>"/&gt;<br />
+</strong></em><em>&lt;/feed&gt;</em></p>
+<p>Note the inclusion of a delta (or refresh) link after the data.  The client can store the data obtained locally then use the delta link to obtain any changes to the dataset subsequent to the initial query.   Using the link to query for new changes will give you empty results until the data in the service is updated.  If there are updates, just instance data that changed (added, updated, or deleted) is returned along with a new delta link.  This allows a client to poll the server for changes to a specific set of data keeping it up to date over time while improving performance and reducing network use.</p>
+<p>One immediate question with the design is how the system would interact with server driven paging.  It's important that a server calculate the delta token at the moment a query is executed considering instance data could change while a client is paging through results using a series of next links.  This allows clients to use a delta link to get any changes for a set of data that occurred since the query was first executed.  How would the delta token be persisted or carried across a set of next links?  The protocol is stateless so we wouldn't want to persist it on the server (or client).  One option would be to hold the delta token inside the next link, such as:</p>
+<p><em>&lt;link rel="next" href="http://conferenceorganization/v1/ sessions/?$skiptoken='5QLs'&amp;<strong>$deltatoken=N:405973881944444416</strong> <strong>"</strong> /&gt;</em></p>
+<p>This would allow the server to obtain the token across requests and create the delta link for use on the last page of results.</p>
+<p>&nbsp;</p>
+<h3>Summary</h3>
+<p>Reference data caching could enable a broad range of enhancements and new features for applications that are sometimes disconnected or would like to reduce network use in order to increase performance.  I'd like your thoughts on value of the feature, how far you think it should go, and any comments you have on the exploration of the idea.</p>
+<p>At this stage this seems like something that we should add to version 3.0 of OData. Do you agree with that assessment? If not we should discuss how you think of relative priorities.</p>
+<p>Some specific questions:</p>
+<ul>
+<li>Do you agree that adding protocol support for reference data caching is worthwhile?</li>
+<li>What do you think is the sweet spot of features that should be added to the protocol?</li>
+<li>Do you see red flags in the exploration or ideas missing?</li>
+<li>Are there any particularly applications where you'd use this?</li>
+</ul>
+<p>Thanks for reading, Tim</p>
+</div>
