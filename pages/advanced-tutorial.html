@@ -26,7 +26,7 @@ permalink: /getting-started/advanced-tutorial/
                     <code>GET serviceRoot/Me </code><br />
 <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#Me",
     "@odata.id": "serviceRoot/Me",
@@ -52,14 +52,14 @@ permalink: /getting-started/advanced-tutorial/
     "Gender": "Female",
   "Concurrency": 635404810447326000
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="querySingletonProperty">
 <h3>Requesting property of Singleton </h3>
 <p>                    The request below returns the property <em>AddressInfo</em> of singleton <em>Me</em>.<br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#Me/AddressInfo",
     "value": [
@@ -73,7 +73,7 @@ permalink: /getting-started/advanced-tutorial/
         }
     ]
 }
-</pre>
+{% endhighlight %}
 <p>                    }
                 </p></div>
 <div id="updateSingleton">
@@ -91,10 +91,10 @@ permalink: /getting-started/advanced-tutorial/
                     </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
 OData-Version: 4.0
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="derived">
@@ -106,7 +106,7 @@ OData-Version: 4.0
 <p>                    <code>GET serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(21)/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
  <br /> <br />
 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1003)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight/$entity",
     "PlanItemId": 21,
@@ -117,7 +117,7 @@ Response Payload</p>
     "SeatNumber": "B11",
     "FlightNumber": "FM1930"
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="requestDerivedEntitySet">
 <h3>Requesting a Derived Entity Collection</h3>
@@ -125,7 +125,7 @@ Response Payload</p>
                     <code>GET serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight",
     "value": [
@@ -149,7 +149,7 @@ Response Payload</p>
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="filterDerived">
 <h3>Filter on Derived Type</h3>
@@ -158,7 +158,7 @@ Response Payload</p>
                     <code>serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight?$filter=FlightNumber eq 'VA1930'</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight",
     "value": [
@@ -182,7 +182,7 @@ Response Payload</p>
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="createDerived">
 <h3>Create a Derived Entity</h3>
@@ -215,7 +215,7 @@ Response Payload</p>
                     </code><br />
 <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
  Response HTTP/1.1 201 Created
 {
 "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1003)/PlanItems/$entity", 
@@ -236,7 +236,7 @@ Response Payload</p>
 "BuildingInfo": "Regus Business Center"
   }
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="updateDerived">
 <h3>Update a Derived Entity</h3>
@@ -253,9 +253,9 @@ Response Payload</p>
                     </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="deleteDerived">
 <h3>Delete a Derived Entity</h3>
@@ -263,9 +263,9 @@ HTTP/1.1 204 No Content
 <p>                    <code>DELETE serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(21)/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
 <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="containment">
@@ -277,7 +277,7 @@ HTTP/1.1 204 No Content
                     <code>GET serviceRoot/People('russellwhyte')/Trips </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "http://services.odata.org/V4/(S(mmobft3g4aut3krzqrxxip4w))/TripPinServiceRW/$metadata#People('russellwhyte')/Trips",
     "value": [
@@ -311,7 +311,7 @@ HTTP/1.1 204 No Content
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="createContain">
 <h3>Create a Contained Entity</h3>
@@ -338,7 +338,7 @@ HTTP/1.1 204 No Content
                     </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 201 Created
 Content-Length: 344
 Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
@@ -355,7 +355,7 @@ OData-Version: 4.0
     "EndsAt":"2014-02-01T00:00:00+08:00",
     "Tags":["Test Tag 1","Test Tag 2"]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="filterContain">
 <h3>Filter on a Contained Entity Set</h3>
@@ -363,7 +363,7 @@ OData-Version: 4.0
                     <code>GET serviceRoot/People('russellwhyte')/Trips?$filter=contains(Description, 'New York')</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips",
     "value": [
@@ -382,7 +382,7 @@ OData-Version: 4.0
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="updateContainment">
 <h3>Update Contained Entity</h3>
@@ -398,9 +398,9 @@ OData-Version: 4.0
                         }<br />
                     </code> </p>
 <p>                    Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="deleteContaiment">
 <h3>Delete Contained Entity</h3>
@@ -408,9 +408,9 @@ HTTP/1.1 204 No Content
 <p>                    <code>DELETE serviceRoot/People('russellwhyte')/Trips(1001)</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="openType">
@@ -448,7 +448,7 @@ HTTP/1.1 204 No Content
                     </code><br />
 <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 201 Created
 {
    "@odata.context":"serviceRoot/$metadata#People/$entity",
@@ -462,7 +462,7 @@ HTTP/1.1 201 Created
    "AddressInfo":[{"Address":"1 Suffolk Ln.","City":{"CountryRegion":"United States","Name":"Boise","Region":"ID"}}],
    "Gender":"Female"
 }
-</pre>
+{% endhighlight %}
 <p>
                     The request below shows how to add an undeclared property <em>Description</em> when update the open entity <em>Person</em>.<br />
                     <code><br />
@@ -477,9 +477,9 @@ HTTP/1.1 201 Created
 <br />
                         Response Payload<br />
 </code>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="openComplex">
 <h3>Open Complex Type</h3>
@@ -531,9 +531,9 @@ HTTP/1.1 204 No Content
                     </code><br />
 <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 <p>
                     The request below show how to add undeclared property <em>Description</em> when update an instance with  <em>OccursAt</em> of open complex type <em>EventLocation</em>. </p>
 <p>                    <code>PATCH serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(5)/Microsoft.OData.SampleService.Models.TripPin.Event</code><br />
@@ -559,9 +559,9 @@ HTTP/1.1 204 No Content
                     </code><br />
 <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="batch">
@@ -603,7 +603,7 @@ HTTP/1.1 204 No Content
 <p>                </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 200 OK
 Cache-Control: no-cache
 Content-Length: 3100
@@ -670,7 +670,7 @@ Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE7
 }]
 }
 --batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35--
-</pre>
+{% endhighlight %}
 </p></div>
 </div>
 <div class="col-md-1"></div>

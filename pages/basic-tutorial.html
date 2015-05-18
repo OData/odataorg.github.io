@@ -26,7 +26,7 @@ permalink: /getting-started/basic-tutorial/
                 <code>GET serviceRoot/People </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "@odata.nextLink": "serviceRoot/People?%24skiptoken=8",
@@ -74,7 +74,7 @@ permalink: /getting-started/basic-tutorial/
         }
     ]
 }
-                    </pre>
+                    {% endhighlight %}
 </p></div>
 <div id="entityByID">
 <h3>Requesting an Individual Entity by ID</h3>
@@ -82,7 +82,7 @@ permalink: /getting-started/basic-tutorial/
                 <code>GET serviceRoot/People('russellwhyte') </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People/$entity",
     "@odata.id": "serviceRoot/People('russellwhyte')",
@@ -108,7 +108,7 @@ permalink: /getting-started/basic-tutorial/
     "Gender": "Male",
     "Concurrency": 635404797346655200
 }
-            </pre>
+            {% endhighlight %}
 </p></div>
 <div id="property">
 <h3>Requesting an Individual Property</h3>
@@ -117,22 +117,22 @@ permalink: /getting-started/basic-tutorial/
 <p>                <code>GET serviceRoot/Airports('KSFO')/Name </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#Airports('KSFO')/Name",
     "value": "San Francisco International Airport"
 }
-</pre>
+{% endhighlight %}
 <p>                Then let's see how to get a property value of a complex type. The request below returns the <em>Address</em> of the complex type <em>Location</em> in an <em>Airport</em>.<br />
                 <code>GET serviceRoot/Airports('KSFO')/Location/Address </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
 "@odata.context": "serviceRoot/$metadata#Airports('KSFO')/Location/Address",
 "value": "South McDonnell Road, San Francisco, CA 94128"
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="propertyVal">
 <h3>Requesting an Individual Property Raw Value</h3>
@@ -140,9 +140,9 @@ permalink: /getting-started/basic-tutorial/
                 <code>GET serviceRoot/Airports('KSFO')/Name/$value </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 San Francisco International Airport
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="queryData">
@@ -157,7 +157,7 @@ San Francisco International Airport
                     <code>GET serviceRoot/People?$filter=FirstName eq 'Scott'</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "value": [
@@ -186,7 +186,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="complexType">
 <h4>Filter on Complex Type</h4>
@@ -194,7 +194,7 @@ San Francisco International Airport
 <p>                    <code>GET serviceRoot/Airports?$filter=contains(Location/Address, 'San Francisco')</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#Airports",
     "value": [
@@ -228,7 +228,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="filterEnum">
 <h4>Filter on Enum Properties</h4>
@@ -236,7 +236,7 @@ San Francisco International Airport
                     <code>GET serviceRoot/People?$filter=Gender eq Microsoft.OData.SampleService.Models.TripPin.PersonGender'Female' </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "@odata.nextLink": "serviceRoot/People?%24filter=Gender+eq+Microsoft.OData.SampleService.Models.TripPin.PersonGender%27Female%27&%24skiptoken=8",
@@ -275,7 +275,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="nestedFilter">
 <h4>Nested Filter in Expand</h4>
@@ -283,7 +283,7 @@ San Francisco International Airport
                     <code>GET serviceRoot/People?$expand=Trips($filter=Name eq 'Trip in US')</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "@odata.nextLink": "serviceRoot/People?%24expand=Trips(%24filter%3dName+eq+%27Trip+in+US%27)&%24skiptoken=8",
@@ -349,7 +349,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="orderby">
@@ -358,7 +358,7 @@ San Francisco International Airport
 <p>                <code>GET serviceRoot/People('scottketchum')/Trips?$orderby=EndsAt desc</code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People('scottketchum')/Trips",
     "value": [
@@ -390,7 +390,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="topskip">
 <h3>System Query Option $top and $skip</h3>
@@ -399,7 +399,7 @@ San Francisco International Airport
 <p>                <code>GET serviceRoot/People?$top=2 </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "value": [
@@ -452,12 +452,12 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 <p>                The request below returns people starting with the 19th people of the entity set <em>People</em></p>
 <p>                <code>GET serviceRoot/People?$skip=18 </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "value": [
@@ -492,7 +492,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="count">
 <h3>System Query Option $count</h3>
@@ -501,9 +501,9 @@ San Francisco International Airport
 <p>                <code>GET serviceRoot/People/$count </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 20
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="expand">
 <h3>System Query Option $expand</h3>
@@ -511,7 +511,7 @@ San Francisco International Airport
 <p>                <code>GET serviceRoot/People('keithpinckney')?$expand=Friends </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People/$entity",
     "@odata.id": "serviceRoot/People('keithpinckney')",
@@ -559,7 +559,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="select">
 <h3>System Query Option $select</h3>
@@ -567,7 +567,7 @@ San Francisco International Airport
 <p>                <code>GET serviceRoot/Airports?$select=Name, IcaoCode</code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#Airports(Name,IcaoCode)",
     "value": [
@@ -587,7 +587,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="search">
 <h3>System Query Option $search</h3>
@@ -595,7 +595,7 @@ San Francisco International Airport
 <p>                <code>serviceRoot/People?$search=Boise</code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "value": [
@@ -625,7 +625,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="lambda">
 <h3>Lambda Operators</h3>
@@ -634,7 +634,7 @@ San Francisco International Airport
 <p>                <code>GET serviceRoot/People?$filter=Emails/any(s:endswith(s, 'contoso.com'))</code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "value": [
@@ -679,12 +679,12 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 <p>                The request below returns the friends of <em>Me</em> who have friends using "Scott" as their <em>FirstName</em>.</p>
 <p>                <code>GET serviceRoot/Me/Friends?$filter=Friends/any(f:f/FirstName eq 'Scott')</code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 {
     "@odata.context": "serviceRoot/$metadata#People",
     "value": [
@@ -729,7 +729,7 @@ San Francisco International Airport
         }
     ]
 }
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="modifyData">
@@ -764,7 +764,7 @@ San Francisco International Airport
                 </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 201 Created
 Content-Length: 468
 Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
@@ -781,7 +781,7 @@ OData-Version: 4.0
     "AddressInfo":[{"Address":"1 Suffolk Ln.","City":{"CountryRegion":"United States","Name":"Boise","Region":"ID"}}],
     "Gender":"Female"
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="delete">
 <h3>Remove an Entity</h3>
@@ -789,10 +789,10 @@ OData-Version: 4.0
                 <code>DELETE serviceRoot/People('vincentcalabrese') </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
 OData-Version: 4.0
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="update">
 <h3>Update an Entity</h3>
@@ -809,9 +809,9 @@ OData-Version: 4.0
                 </code><br />
                 <br />
                 Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="relationship">
 <h3>Relationship Operations</h3>
@@ -830,9 +830,9 @@ HTTP/1.1 204 No Content
                     </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="changeLink">
 <h4>Change a Link</h4>
@@ -848,13 +848,13 @@ HTTP/1.1 204 No Content
                     </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 200 OK
 {
     "@odata.context":"serviceRoot/TripPinServiceRW/$metadata#$ref",
     "@odata.id":"serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems(11)/Microsoft.OData.SampleService.Models.TripPin.Flight/Airline"
 }
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="operation">
@@ -866,7 +866,7 @@ HTTP/1.1 200 OK
                     <code>GET serviceRoot/GetNearestAirport(lat = 33, lon = -118)</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 Response 200 OK
 {
     "@odata.context": "serviceRoot/$metadata#Airports/$entity", 
@@ -895,7 +895,7 @@ Response 200 OK
         }
     }
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="boundedFunction">
 <h4>Invoking Bound Functions</h4>
@@ -903,7 +903,7 @@ Response 200 OK
                     <code>GET serviceRoot/People('russellwhyte')/Microsoft.OData.SampleService.Models.TripPin.GetFavoriteAirline()</code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 Response 200 OK
 {
     "@odata.context": "serviceRoot/$metadata#Airlines/$entity", 
@@ -912,7 +912,7 @@ Response 200 OK
     "AirlineCode": "AA", 
     "Name": "American Airlines"
 }
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="unboundedAction">
 <h4>Invoking Unbound Actions</h4>
@@ -933,9 +933,9 @@ Response 200 OK
                     </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 <div id="etag">
@@ -957,9 +957,9 @@ HTTP/1.1 204 No Content
                     </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 <div id="deleteEtag">
 <h4>Delete Entity with ETag</h4>
@@ -973,9 +973,9 @@ HTTP/1.1 204 No Content
                     </code><br />
                     <br />
                     Response Payload</p>
-<pre>
+{% highlight javascript%}
 HTTP/1.1 204 No Content
-</pre>
+{% endhighlight %}
 </p></div>
 </p></div>
 </p></div>
