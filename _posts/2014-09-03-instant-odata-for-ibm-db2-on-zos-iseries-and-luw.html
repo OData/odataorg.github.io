@@ -40,13 +40,13 @@ DB2 for i 5/OS V5R4 (DB2 UDB V5R4 for I)</p>
 </li>
 </ol>
 <p>&nbsp;</p>
-<p><a href="{{site.url}}assets/datadirectcloud-e1409558639290.png"><img class="aligncenter size-full wp-image-12214" src="{{site.url}}assets/datadirectcloud-e1409558639290.png" alt="datadirectcloud" width="600" height="307" /></a></p>
+<p><a href="/assets/datadirectcloud-e1409558639290.png"><img class="aligncenter size-full wp-image-12214" src="/assets/datadirectcloud-e1409558639290.png" alt="datadirectcloud" width="600" height="307" /></a></p>
 <p>&nbsp;</p>
 <ol>
 <li>Enter the DB2 connection information from perspective on on-premise connector including the connector ID from step #2. For example, I’m connecting to a DB2 for i system running in Progress Software’s corporate firewall.</li>
 </ol>
 <p>&nbsp;</p>
-<p><a href="{{site.url}}assets/db2-e1409558820738.png"><img class="aligncenter size-full wp-image-12215" src="{{site.url}}assets/db2-e1409558820738.png" alt="db2" width="580" height="599" /></a><br />
+<p><a href="/assets/db2-e1409558820738.png"><img class="aligncenter size-full wp-image-12215" src="/assets/db2-e1409558820738.png" alt="db2" width="580" height="599" /></a><br />
 5. Click on Advanced Tab to configure the OData map which is a JSON string during the beta, but subject to change when GA (<a style="background-color: #ffffff" href="http://documentation.progress.com/output/DataDirect/DataDirectCloud/index.html">check latest documentation</a>).  The following value exposes two entities with a foreign key relationship. {"schemaName":"TEST01","includedTables":["ACCOUNT","OPPORTUNITY"],"tableMapping":[{"name":"OPPORTUNITY","key":["SYS_NAME"]}]}</p>
 <ol>
 <li>For a demo, I selected PragmatiQa XOData which is one of several Odata consumers available from the list compiled by Odata.org (thanks to PragmatiQa for support during the trial)</li>
@@ -58,7 +58,7 @@ DB2 for i 5/OS V5R4 (DB2 UDB V5R4 for I)</p>
 <p>Click Connection tab and enter the DataDirect Cloud credentials for an OData 2.0 url.</p>
 </li>
 <p>&nbsp;</p>
-<p><a href="{{site.url}}assets/pragmatiQa1-e1409559072749.png"><img class="aligncenter size-full wp-image-12216" src="{{site.url}}assets/pragmatiQa1-e1409559072749.png" alt="pragmatiQa1" width="600" height="539" /></a></p>
+<p><a href="/assets/pragmatiQa1-e1409559072749.png"><img class="aligncenter size-full wp-image-12216" src="/assets/pragmatiQa1-e1409559072749.png" alt="pragmatiQa1" width="600" height="539" /></a></p>
 <p>&nbsp;</p>
 <ol>
 <li>Click “Use this Setup” and then “Get Details”</li>
@@ -68,19 +68,19 @@ DB2 for i 5/OS V5R4 (DB2 UDB V5R4 for I)</p>
 <li>Click Diagram tab to see OData feed entity relationship diagram</li>
 </ol>
 <p>&nbsp;</p>
-<p><a href="{{site.url}}assets/pragmatiQa2-e1409558811478.png"><img class="aligncenter size-full wp-image-12217" src="{{site.url}}assets/pragmatiQa2-e1409558811478.png" alt="pragmatiQa2" width="600" height="458" /></a></p>
+<p><a href="/assets/pragmatiQa2-e1409558811478.png"><img class="aligncenter size-full wp-image-12217" src="/assets/pragmatiQa2-e1409558811478.png" alt="pragmatiQa2" width="600" height="458" /></a></p>
 <p>&nbsp;</p>
 <ol>
 <li>Click API Details for entity data types</li>
 </ol>
 <p>&nbsp;</p>
-<p><a href="{{site.url}}assets/pragmatiQa3-e1409559150915.png"><img class="aligncenter size-full wp-image-12218" src="{{site.url}}assets/pragmatiQa3-e1409559150915.png" alt="pragmatiQa3" width="600" height="458" /></a></p>
+<p><a href="/assets/pragmatiQa3-e1409559150915.png"><img class="aligncenter size-full wp-image-12218" src="/assets/pragmatiQa3-e1409559150915.png" alt="pragmatiQa3" width="600" height="458" /></a></p>
 <p>&nbsp;</p>
 <ol>
 <li>Click Query Builder and select “Account” and then click “Expand” and check “Opportunities” which has a foreign key relationship.  Then click “Get Data” from the following url:</li>
 </ol>
 <p><a href="https://service.datadirectcloud.com/api/odata/DB2/ACCOUNTS?$top=100&amp;$expand=OPPORTUNITIES">https://service.datadirectcloud.com/api/OData/DB2/ACCOUNTS?$top=100&amp;$expand=OPPORTUNITIES</a></p>
-<p><a href="{{site.url}}assets/pragmatiQa4-e1409559142583.png"><img class="aligncenter size-full wp-image-12219" src="{{site.url}}assets/pragmatiQa4-e1409559142583.png" alt="pragmatiQa4" width="600" height="539" /></a></p>
+<p><a href="/assets/pragmatiQa4-e1409559142583.png"><img class="aligncenter size-full wp-image-12219" src="/assets/pragmatiQa4-e1409559142583.png" alt="pragmatiQa4" width="600" height="539" /></a></p>
 <p>At this point, we've queried DB2 for i data using OData application.  This same feed can be consumed by a number of applications including Microsoft BI tools, Microsoft PowerPivot, CMS (Drupal or Joomla), Tableau, Telerik, and a host of development tools and libraries for web/mobile applications.<br />
 <strong>Summary</strong></p>
 <ul>

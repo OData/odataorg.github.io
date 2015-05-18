@@ -18,7 +18,7 @@ author: Qian Li
 <p><a href="http://www.odata.org/geospatial-data-support-in-odata/"> According to OData</a>, one of the key features of the next global solutions, is common spatial properties which include time and geography. To implement this feature, Odata v3 supports the <a href="http://www.odata.org/geospatial-data-support-in-odata/">Spatial Model</a>.</p>
 <p>On the backend side, SQL Server provides a <a href="http://msdn.microsoft.com/en-us/library/ff848797.aspx">Spatial Type</a>, which is well distributed and already widely used.</p>
 <p><strong> However, when using Spatial Model, a gap appears in the flow of service as the OData spatial types are not cross compatible with the SQL Spatial library. Any attempt to build a WCF service against Entity with SQL data will fail with gentle kind of “not compatible type” message.</strong></p>
-<p><a href="{{site.url}}assets/case_study_spatial_data-300x178.png"><img class="alignnone size-medium wp-image-11711" alt="case_study_spatial_data" src="{{site.url}}assets/case_study_spatial_data-300x178.png" width="300" height="178" /></a></p>
+<p><a href="/assets/case_study_spatial_data-300x178.png"><img class="alignnone size-medium wp-image-11711" alt="case_study_spatial_data" src="/assets/case_study_spatial_data-300x178.png" width="300" height="178" /></a></p>
 <p><strong>This short article will show you a trick to fill this gap as shown in the previous diagram.</strong></p>
 <p><strong><span style="font-size: 18px;">Wrapping the Geography data Model</span></strong></p>
 <p>First we have to define wrappers which define a common data model for both types. We use the explicit and implicit operator to achieve this.<br />

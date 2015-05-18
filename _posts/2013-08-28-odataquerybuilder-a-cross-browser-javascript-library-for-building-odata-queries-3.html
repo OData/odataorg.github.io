@@ -49,18 +49,18 @@ author: OData.org Archive
 <li>And optionally sort the results by some value.</li>
 </ol>
 <p>Done.  The query has been built and if you press “Search” it will be run and display the results!</p>
-<p><a href="{{site.url}}assets/image_thumb3.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image_thumb3.png" width="244" height="202" border="0" /></a></p>
+<p><a href="/assets/image_thumb3.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="/assets/image_thumb3.png" width="244" height="202" border="0" /></a></p>
 <p>The ODataQueryBuilder gives the user the ability to quickly construct relatively complex queries with <b>zero</b> <i>a priori</i> knowledge of OData syntax and rules.  The ODataQueryBuilder provides dropdown lists to avoid typos.  When users select a filter, they are shown choices like “before”, “after”, etc. and other familiar prepositions such as “less than” or “less than or equal to” and even shorthand values like “yesterday” or an “hour ago” which are typical time points in the operation world (The suggested values can be easily tweaked to accommodate anyone’s need).</p>
-<p><a href="{{site.url}}assets/image_thumb4.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image_thumb4.png" width="244" height="60" border="0" /></a></p>
+<p><a href="/assets/image_thumb4.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="/assets/image_thumb4.png" width="244" height="60" border="0" /></a></p>
 <p>The ODataQueryBuilder also answers the question “What is this OData endpoint all about?” because it exposes lists of all resource types, their properties, and navigation properties.</p>
-<p><a href="{{site.url}}assets/image_thumb5.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image_thumb5.png" width="238" height="244" border="0" /></a></p>
+<p><a href="/assets/image_thumb5.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="/assets/image_thumb5.png" width="238" height="244" border="0" /></a></p>
 <p>For example, one of the previous hard-to-build queries (I want to find the orders that have an order date earlier than last week and a shipping address that contains the value “12”) would look something like this:</p>
-<p><a href="{{site.url}}assets/image4.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image4.png" width="244" height="138" border="0" /></a></p>
+<p><a href="/assets/image4.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="/assets/image4.png" width="244" height="138" border="0" /></a></p>
 <p>As we simplify the process of creating an OData query, we also display the results in a human-readable, tabular, presentation of the OData responses (no XML):</p>
-<p><a href="{{site.url}}assets/image_thumb7.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image_thumb7.png" width="244" height="48" border="0" /></a></p>
+<p><a href="/assets/image_thumb7.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="/assets/image_thumb7.png" width="244" height="48" border="0" /></a></p>
 <p>Expansion ($expand) is modeled by presenting the list of navigational links from which you can select the navigator and expand the list of related items as shown above.</p>
 <p>And the results are shown as nested tables:</p>
-<p><a href="{{site.url}}assets/image6.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="{{site.url}}assets/image6.png" width="244" height="43" border="0" /></a></p>
+<p><a href="/assets/image6.png"><img style="display: inline; border-width: 0px;" title="image" alt="image" src="/assets/image6.png" width="244" height="43" border="0" /></a></p>
 <p>We have decided to favor simple and intuitive UI versus “completeness”; we do not claim that <i>any</i> OData filter can be composed using this UI.  For example, all Where conditions are “and”-ed (and there is no UI to “or”), but the majority of naïve user filters can be composed this way, even such non-trivial ones as navigational conditions (see examples above).  You could try to compose them mentally and type them into the browser without mistakes or you could let the ODataQueryBuilder do them for you.</p>
 <p>&nbsp;</p>
 <h2>Conclusion</h2>

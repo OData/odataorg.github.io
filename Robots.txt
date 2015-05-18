@@ -3,4 +3,4 @@ Disallow:
 Disallow: /assets
 Disallow: /public
 
-Sitemap: http://odata-prod-stage.azurewebsites.net/sitemap.xml
+Sitemap: http://www.odata.org/sitemap.xml

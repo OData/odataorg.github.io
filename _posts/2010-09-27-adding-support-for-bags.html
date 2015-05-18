@@ -15,14 +15,14 @@ author: OData.org Archive
 <p><strong>Problem Statement</strong></p>
 <p>Today entries in OData (Customer, Order, etc) may have properties whose value are primitive types, complex types or represent a reference to another entry or collection of entries. However there is no support for properties that *contain* a collection (or bag) of values.</p>
 <p>For example, a sample entry which represents a Customer is shown below.  Notice the entry has primitive properties (firstname, last name) and a navigation property (orders) which refers to the Order entries associated with the Customer.</p>
-<p><a href="{{site.url}}assets/image001_496x245.jpg"><img class="alignnone size-full wp-image-371" alt="image001_496x245" src="{{site.url}}assets/image001_496x245.jpg" width="496" height="245" /></a></p>
+<p><a href="/assets/image001_496x245.jpg"><img class="alignnone size-full wp-image-371" alt="image001_496x245" src="/assets/image001_496x245.jpg" width="496" height="245" /></a></p>
 <p><strong>Sample Customer Entry listing</strong></p>
 <p>What if you wanted to enhance the definition of the Customer entry above to include all the email addresses for the customer?  To model this using OData v2 you have two a few options.  One option would be to create multiple string properties (email1, email2, email3) to hold alternate email addresses.  This has the obvious limitation that the number of alternates is bounded and needs to be known at schema definition time.  Another approach would be to create a single 'emails' string property which is a comma separated list of email addresses.  While this is more dynamic it overloads a single property and requires client and server up front to agree on the formatting of the string (comma separated, etc).</p>
 <p>To enable modeling these type of situations easier in OData, this document outlines a proposal for the changes required to represent Entries with properties that are unordered homogenous sets of non-null primitive or complex values (aka "Bags").</p>
 <p><strong>Proposal:</strong></p>
 <p><strong>Metadata</strong></p>
 <p>As you know, OData services may expose a <a href="http://www.odata.org/developers/protocols/overview#MetadataForODataServices"> metadata document</a> ($metadata endpoint) which describes the data model exposed by the service.  Below is an example of the proposed extension of the metadata document  to define Bag properties.   In this case, the Customer Entry has a Bag of email addresses and apartment addresses.</p>
-<p><a href="{{site.url}}assets/image002_498x390.jpg"><img class="alignnone size-full wp-image-372" alt="image002_498x390" src="{{site.url}}assets/image002_498x390.jpg" width="498" height="390" /></a></p>
+<p><a href="/assets/image002_498x390.jpg"><img class="alignnone size-full wp-image-372" alt="image002_498x390" src="/assets/image002_498x390.jpg" width="498" height="390" /></a></p>
 <p><strong>Uri Construction Rules</strong></p>
 <p>The optional, but recommended, URI path construction rules defined by OData will be extended as proposed below to support addressing Bag properties.</p>
 <p>A Bag Property is addressable by appending the name of the Bag Property as a URI path segment after a path segment that identifies an Entry (assuming the Entry Type associated with the Entry identified defines the named Bag Property as a property of the type).</p>
@@ -73,16 +73,16 @@ author: OData.org Archive
 <p><strong>Example 1 : Representing Bag Properties</strong></p>
 <p>Request Uri: GET http:// host /service.svc/Customers(1)</p>
 <p>Response:</p>
-<p><a href="{{site.url}}assets/image003_500x430.jpg"><img class="alignnone size-full wp-image-373" alt="image003_500x430" src="{{site.url}}assets/image003_500x430.jpg" width="500" height="430" /></a></p>
+<p><a href="/assets/image003_500x430.jpg"><img class="alignnone size-full wp-image-373" alt="image003_500x430" src="/assets/image003_500x430.jpg" width="500" height="430" /></a></p>
 <p><strong>Example 2: Representing Bag properties with Customizable Feed Mapping</p>
 <p></strong>NOTE: When a Bag is represented outside of &lt;atom:content&gt; using <a href="http://www.odata.org/developers/protocols/atom-format#CustomizingtheRepresentationofanEntry"> Customizable Feed mappings</a> we'll use the Atom collection representation semantics of repeating top level element.  We'll do this both for properties mapped to Atom elements and properties mapped to arbitrary elements in a custom namespace. The Bag MAY still be represented in the &lt;atom:content&gt; section.</p>
-<p><a href="{{site.url}}assets/image004_498x380.jpg"><img class="alignnone size-full wp-image-374" alt="image004_498x380" src="{{site.url}}assets/image004_498x380.jpg" width="498" height="380" /></a></p>
+<p><a href="/assets/image004_498x380.jpg"><img class="alignnone size-full wp-image-374" alt="image004_498x380" src="/assets/image004_498x380.jpg" width="498" height="380" /></a></p>
 <p><strong>Example 3: Response to a GET request to /Customers(1)/Addresses</strong></p>
-<p><a href="{{site.url}}assets/image005_500x190.jpg"><img class="alignnone size-full wp-image-375" alt="image005_500x190" src="{{site.url}}assets/image005_500x190.jpg" width="500" height="190" /></a></p>
+<p><a href="/assets/image005_500x190.jpg"><img class="alignnone size-full wp-image-375" alt="image005_500x190" src="/assets/image005_500x190.jpg" width="500" height="190" /></a></p>
 <p><strong>Example 4: Response to a GET request to /Customers(1)/EmailAddresses</strong></p>
-<p><a href="{{site.url}}assets/image006_499x134.jpg"><img class="alignnone size-full wp-image-376" alt="image006_499x134" src="{{site.url}}assets/image006_499x134.jpg" width="499" height="134" /></a></p>
+<p><a href="/assets/image006_499x134.jpg"><img class="alignnone size-full wp-image-376" alt="image006_499x134" src="/assets/image006_499x134.jpg" width="499" height="134" /></a></p>
 <p><strong>Example 5: JSON representation for an Entry with Bag properties</strong></p>
-<p><a href="{{site.url}}assets/image007_500x233.jpg"><img class="alignnone size-full wp-image-377" alt="image007_500x233" src="{{site.url}}assets/image007_500x233.jpg" width="500" height="233" /></a></p>
+<p><a href="/assets/image007_500x233.jpg"><img class="alignnone size-full wp-image-377" alt="image007_500x233" src="/assets/image007_500x233.jpg" width="500" height="233" /></a></p>
 <p><strong>Additional Rules</strong></p>
 <p><strong>Customizable feed mapping</strong></p>
 <p>The following rules define the customizable feed mappings rules for Bags and are in addition to those already defined for entries <a href="http://www.odata.org/developers/protocols/atom-format#CustomizingtheRepresentationofanEntry"> here</a>.</p>

@@ -14,7 +14,7 @@ author: OData.org Archive
 <div>
 <p>The Data Services team has starting thinking about adding Any/All support to Data Services and we noticed a couple of things that I think warrant minor changes to the proposal. So as always I wanted to share and get your thoughts.</p>
 <h1>New separator</h1>
-<p>The <a href="http://www.odata.org/blog/2010/11/11/support-for-any-and-all">original any/all proposal</a> suggested using a ',' to separate the range variable from the predicate, e.g:</p>
+<p>The <a href="http://www.odata.org/blog/support-for-any-and-all">original any/all proposal</a> suggested using a ',' to separate the range variable from the predicate, e.g:</p>
 <p><strong>~/Movies/?$filter=any(Actors a,</strong> <strong>a/Name eq 'John Belushi')</strong></p>
 <p>I think this has a problem. Usually ',' is used to separate similar things, like the parameters to a function, but in this case it separates a Lambda Parameter from a Predicate. Clearly these things are not the same, moreover using ',' would confuse things in the future if we ever allowed calling custom functions with multiple parameters in the filter.</p>
 <p>I think this means we need something more lambda-ish, perhaps something like this:</p>

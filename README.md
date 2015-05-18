@@ -23,7 +23,7 @@ Contents of your blog post in Markdown syntax
 ```
 
 
-- If you want to  add images in your post, please add the image under *assets* folder first and the `src` url should be `{{ site.url }}assets/img.png`
+- If you want to  add images in your post, please add the image under *assets* folder first and the `src` url should be `/assets/img.png`
 - If you want to add code in your post, please refer to the *Appendix B* section below.
 
 - Then create a pull request for your update, we will publish your blog post after a quick review.

@@ -22,14 +22,14 @@ author: Qian Li
 <h2>How does it work?</h2>
 <p>The OData connections are tied to Generic Inquiry screens in Acumatica.</p>
 <p>Building a Generic Inquiry screen is a job for a power user, not a programmer. The Acumatica toolset allows you to simply click a button to display the database table/field names behind any field on any screen in the system like this:</p>
-<p><img src="{{site.url}}assets/acumatica11.png" alt="Acumatica Schema Browser" title="Acumatica Schema Browser" width="622" height="359" class="aligncenter size-full wp-image-13032" /></p>
+<p><img src="/assets/acumatica11.png" alt="Acumatica Schema Browser" title="Acumatica Schema Browser" width="622" height="359" class="aligncenter size-full wp-image-13032" /></p>
 <p>Then, the Generic Inquiry creation screen allows you to graphically combine those tables/fields by joining/filtering/sorting/grouping like this:</p>
-<p><img src="{{site.url}}assets/acumatica21.png" alt="Acumatica Generic Inquiry Screen" title="Acumatica Generic Inquiry Screen" width="753" height="539" class="aligncenter size-full wp-image-13033" /></p>
+<p><img src="/assets/acumatica21.png" alt="Acumatica Generic Inquiry Screen" title="Acumatica Generic Inquiry Screen" width="753" height="539" class="aligncenter size-full wp-image-13033" /></p>
 <p>The end user now has an easy to use inquiry screen that allows them to reorder columns, show/hide columns, or filter on any column like this:</p>
-<p><img src="{{site.url}}assets/acumatica31.png" alt="Acumatica Generic Inquiry Screen Filtering" title="Acumatica Generic Inquiry Screen Filtering" width="755" height="570" class="aligncenter size-full wp-image-13034" /></p>
+<p><img src="/assets/acumatica31.png" alt="Acumatica Generic Inquiry Screen Filtering" title="Acumatica Generic Inquiry Screen Filtering" width="755" height="570" class="aligncenter size-full wp-image-13034" /></p>
 <h2>No programming skills needed</h2>
 <p>To enable OData, all the power user has to do is check the Expose via OData box in the Generic Inquiry creation screen and the data instantly becomes available via OData.</p>
-<p><img src="{{site.url}}assets/acumatica41.png" alt="Expose via OData in Acumatica ERP" title="Expose via OData in Acumatica ERP" width="414" height="214" class="aligncenter size-full wp-image-13035" /></p>
+<p><img src="/assets/acumatica41.png" alt="Expose via OData in Acumatica ERP" title="Expose via OData in Acumatica ERP" width="414" height="214" class="aligncenter size-full wp-image-13035" /></p>
 <p>There are no firewalls to configure, no 3rd party applications to install, and no configuration needed within Acumatica. As long as you are using version 5.1, it works out of the box.</p>
 <h2>Consuming the data</h2>
 <p>In order to consume the data from an OData-enabled Generic Inquiry screen, an end user simply needs to connect to a URL. Since the Acumatica application is browser-based, users are already accustomed to browsing to a URL in their web browser like this:</p>
@@ -37,7 +37,7 @@ author: Qian Li
 <p>In order to access OData, a user simply adds /OData to the end of the regular URL like this:</p>
 <p><code>http://MyCompany.com/AcumaticaERP/OData</code></p>
 <p>If they browse to this URL from an application like Microsoft Excel, they are prompted for their username and password, then presented with the OData connections that are available to them like this:</p>
-<p><img src="{{site.url}}assets/acumatica51.png" alt="Acumatica and Microsoft Excel" title="Acumatica and Microsoft Excel" width="518" height="336" class="aligncenter size-full wp-image-13036" /></p>
+<p><img src="/assets/acumatica51.png" alt="Acumatica and Microsoft Excel" title="Acumatica and Microsoft Excel" width="518" height="336" class="aligncenter size-full wp-image-13036" /></p>
 <h2>Filtering and Sorting</h2>
 <p>You can pass parameters to the OData URL if you want to apply filters or restrict how many records are returned. For example, if you only want open orders and you only want the first 25 records, you can do this:</p>
 <p><code>http://MyCompany.com/AcumaticaERP/OData/Sales Orders and Quotes?$top=25&amp;$filter=Status eq 'Open'</code></p>
