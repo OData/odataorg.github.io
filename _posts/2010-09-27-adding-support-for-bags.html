@@ -21,7 +21,7 @@ author: OData.org Archive
 <p>To enable modeling these type of situations easier in OData, this document outlines a proposal for the changes required to represent Entries with properties that are unordered homogenous sets of non-null primitive or complex values (aka "Bags").</p>
 <p><strong>Proposal:</strong></p>
 <p><strong>Metadata</strong></p>
-<p>As you know, OData services may expose a <a href="http://www.odata.org/developers/protocols/overview#MetadataForODataServices"> metadata document</a> ($metadata endpoint) which describes the data model exposed by the service.  Below is an example of the proposed extension of the metadata document  to define Bag properties.   In this case, the Customer Entry has a Bag of email addresses and apartment addresses.</p>
+<p>As you know, OData services may expose a <a href="http://www.odata.org/documentation/odata-version-2-0/overview#MetadataForODataServices"> metadata document</a> ($metadata endpoint) which describes the data model exposed by the service.  Below is an example of the proposed extension of the metadata document  to define Bag properties.   In this case, the Customer Entry has a Bag of email addresses and apartment addresses.</p>
 <p><a href="/assets/image002_498x390.jpg"><img class="alignnone size-full wp-image-372" alt="image002_498x390" src="/assets/image002_498x390.jpg" width="498" height="390" /></a></p>
 <p><strong>Uri Construction Rules</strong></p>
 <p>The optional, but recommended, URI path construction rules defined by OData will be extended as proposed below to support addressing Bag properties.</p>
@@ -75,7 +75,7 @@ author: OData.org Archive
 <p>Response:</p>
 <p><a href="/assets/image003_500x430.jpg"><img class="alignnone size-full wp-image-373" alt="image003_500x430" src="/assets/image003_500x430.jpg" width="500" height="430" /></a></p>
 <p><strong>Example 2: Representing Bag properties with Customizable Feed Mapping</p>
-<p></strong>NOTE: When a Bag is represented outside of &lt;atom:content&gt; using <a href="http://www.odata.org/developers/protocols/atom-format#CustomizingtheRepresentationofanEntry"> Customizable Feed mappings</a> we'll use the Atom collection representation semantics of repeating top level element.  We'll do this both for properties mapped to Atom elements and properties mapped to arbitrary elements in a custom namespace. The Bag MAY still be represented in the &lt;atom:content&gt; section.</p>
+<p></strong>NOTE: When a Bag is represented outside of &lt;atom:content&gt; using <a href="http://www.odata.org/documentation/odata-version-2-0/atom-format#CustomizingtheRepresentationofanEntry"> Customizable Feed mappings</a> we'll use the Atom collection representation semantics of repeating top level element.  We'll do this both for properties mapped to Atom elements and properties mapped to arbitrary elements in a custom namespace. The Bag MAY still be represented in the &lt;atom:content&gt; section.</p>
 <p><a href="/assets/image004_498x380.jpg"><img class="alignnone size-full wp-image-374" alt="image004_498x380" src="/assets/image004_498x380.jpg" width="498" height="380" /></a></p>
 <p><strong>Example 3: Response to a GET request to /Customers(1)/Addresses</strong></p>
 <p><a href="/assets/image005_500x190.jpg"><img class="alignnone size-full wp-image-375" alt="image005_500x190" src="/assets/image005_500x190.jpg" width="500" height="190" /></a></p>
@@ -85,7 +85,7 @@ author: OData.org Archive
 <p><a href="/assets/image007_500x233.jpg"><img class="alignnone size-full wp-image-377" alt="image007_500x233" src="/assets/image007_500x233.jpg" width="500" height="233" /></a></p>
 <p><strong>Additional Rules</strong></p>
 <p><strong>Customizable feed mapping</strong></p>
-<p>The following rules define the customizable feed mappings rules for Bags and are in addition to those already defined for entries <a href="http://www.odata.org/developers/protocols/atom-format#CustomizingtheRepresentationofanEntry"> here</a>.</p>
+<p>The following rules define the customizable feed mappings rules for Bags and are in addition to those already defined for entries <a href="http://www.odata.org/documentation/odata-version-2-0/atom-format#CustomizingtheRepresentationofanEntry"> here</a>.</p>
 <ul>
 <li>Each instance in the bag must be represented as a child element of the element representing the bag as a whole and be named 'element' and MUST be defined in the data service namespace (<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>).</li>
 <li>An attribute named 'type' (in the Data Service Metadata namespace) MAY exist on the element representing the bag as a whole.</li>
@@ -102,6 +102,6 @@ author: OData.org Archive
 <li>If the Client receives payload from the Server which contains Bag Properties, it MUST fail if the response doesn't have DataServiceVersion header set to 3.0 or greater.</li>
 </ul>
 <p>We look forward to hearing what you think of this approach…</p>
-<p>Whatever you think, please tell us all about it on the <a href="http://www.odata.org/mailing-list">OData Mailing List</a>.</p>
+<p>Whatever you think, please tell us all about it on the <a href="http://www.odata.org/join-the-odata-discussion/">OData Mailing List</a>.</p>
 <p><strong>Ahmed Moustafa</strong></p>
 </div>

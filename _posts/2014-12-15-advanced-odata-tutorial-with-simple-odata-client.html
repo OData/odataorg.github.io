@@ -19,18 +19,18 @@ author: Vagif Abilov
 ---
 <p>This article describes advanced OData scenario, both for the most recent OData protocol (V4) and earlier versions. The article was inspired by the <a title="Advanced OData Tutorial" href="http://www.odata.org/getting-started/advanced-tutorial/" target="_blank">Advanced OData Tutorial</a> article published at the odata.org. The original article describes the HTTP communication level: it shows how to build URLs, which verbs to use and what response to expect. Most of developers prefer using some kind of library to encapsulate OData HTTP communication, and we are going to study how to solve the advanced OData scenarios using <a title="Simple.OData.Client wiki" href="https://github.com/object/Simple.OData.Client/wiki" target="_blank">Simple.OData.Client</a>. This library supports all OData protocol versions and can be installed as a NuGet package for either OData <a title="OData V1-3" href="https://www.nuget.org/packages/Simple.OData.V3.Client/" target="_blank">V1-3</a>, <a title="OData V4" href="https://www.nuget.org/packages/Simple.OData.V4.Client/" target="_blank">V4</a> or as <a title="Simple.OData.Client NuGet package" href="https://www.nuget.org/packages/Simple.OData.Client/" target="_blank">version-agnostic client</a>. All library versions are packaged as Portable Class Library with support for .NET 4.x, Windows Store, Windows Phone 8, Silverlight 5, Xamarin iOS and Xamarin Android platforms.</p>
 <h3>Creating client instance</h3>
-<p>To communicate with OData service we need an instance of ODataClient. It can be created either from its URL string or using ODataClientSettings. Here's the simplest version:<br />
-[csharp]<br />
-var client = new ODataClient(&quot;http://services.odata.org/V4/TripPinServiceRW/&quot;);<br />
-[/csharp]<br />
-And here is a slightly more complicated example where we instruct the client not to raise exceptions on 404 error and trace all requests so we can check the HTTP communication:<br />
-[csharp]<br />
-var client = new ODataClient(new ODataClientSettings(&quot;http://services.odata.org/V4/TripPinServiceRW/&quot;)<br />
-{<br />
-    IgnoreResourceNotFoundException = true,<br />
-    OnTrace = (x, y) =&gt; Console.WriteLine(string.Format(x, y)),<br />
-});<br />
-[/csharp]<br />
+<p>To communicate with OData service we need an instance of ODataClient. It can be created either from its URL string or using ODataClientSettings. Here's the simplest version:
+{% highlight csharp%}
+var client = new ODataClient('http://services.odata.org/V4/TripPinServiceRW/');
+{% endhighlight %}
+And here is a slightly more complicated example where we instruct the client not to raise exceptions on 404 error and trace all requests so we can check the HTTP communication:
+{% highlight csharp%}
+var client = new ODataClient(new ODataClientSettings('http://services.odata.org/V4/TripPinServiceRW/')
+{
+    IgnoreResourceNotFoundException = true,
+    OnTrace = (x, y) => Console.WriteLine(string.Format(x, y)),
+});
+{% endhighlight %}
 In the examples above we used an address of Microsoft's TripPin sample service. This is an OData V4 service that exposes most of the essential OData features, and this is the one we will be using through this article.</p>
 <h3>Choosing API flavor</h3>
 <p>Despite the word "Simple" in its title, Simple.OData.Client actually supports three API flavors: typed, dynamic and untyped.</p>
@@ -38,208 +38,208 @@ In the examples above we used an address of Microsoft's TripPin sample service. 
 <p><em>Dynamic</em> API is works without entity classes, using dynamic C# syntax. It is best for OData service exploration, when all you need to consume OData feed is just a few lines of code. Moreover, the syntax of this code will be very similar to the syntax of typed API (and in fact it is the same API, just different overloads), so you can later easily convert your dynamic code to become typed.</p>
 <p>Finally, <em>untyped</em> API is what the client uses internally where all data are stored in collections of IDictionary<string,object>. This syntax is also exposed and fits explorarion and ad-hoc access scenarios. In our examples we will be using typed API flavors but will show for couple of examples its dynamic counterpart. They are interchangeable.</p>
 <h3>Retrieving top-level collections</h3>
-<p>To retrieve entries from an OData service collection, we only need to know the collection name. If the collection name matches the name of our entity type (either in singular or plural form), the client will manage to figure out the name of the corresponding OData resource. Otherwise we can send the name of the collection with the method call. Here how we can retrieve the entries from <strong>People</strong> collection:<br />
-[csharp]<br />
-var people = await client<br />
-    .For&lt;Person&gt;()<br />
-    .FindEntriesAsync(annotations);<br />
-[/csharp]<br />
+<p>To retrieve entries from an OData service collection, we only need to know the collection name. If the collection name matches the name of our entity type (either in singular or plural form), the client will manage to figure out the name of the corresponding OData resource. Otherwise we can send the name of the collection with the method call. Here how we can retrieve the entries from <strong>People</strong> collection:
+{% highlight csharp%}
+var people = await client
+    .For<Person>()
+    .FindEntriesAsync(annotations);
+{% endhighlight %}
 For an entry-level introduction to OData there probably wouldn't be more to say about how to retrieve top-level OData collection elements, but this is an advanced tutorial, so we need to complicate the things. If you checked the content of the sample TripPin database, you would discover 20 items in <strong>People</strong> collection. And if you check the count of items returned by code above, you will find that it's only 8. So where is the rest?</p>
-<p>By inspecting the HTTP traffic we can discover some additional data returned together with <strong>People</strong> items, among them so called OData annotations. Annotations supply extra information about the data being retrieved like links to endpoints that can be accessed to perform further operations with the response data. But sometimes these links are also essential to fully perform the current operation. To prevent the service from being overloaded by unconstrained requests (e.g. requesting <em>all</em> data from a particular collection), the service may issue its own constraints on such requests together with a hint about how to retrieve the rest of data. Simple.OData.Client can handle such annotations, so the code to obtain all <strong>People</strong> entries will look like this:<br />
-[csharp]var annotations = new ODataFeedAnnotations();<br />
-var people = await client<br />
-    .For&lt;Person&gt;()<br />
-    .FindEntriesAsync(annotations)<br />
-    .ToList();</p>
-<p>while (annotations.NextPageLink != null)<br />
-{<br />
-    people.AddRange(await _client<br />
-        .For&lt;Person&gt;()<br />
-        .FindEntriesAsync(annotations.NextPageLink, annotations));<br />
-}<br />
-[/csharp]</p>
+<p>By inspecting the HTTP traffic we can discover some additional data returned together with <strong>People</strong> items, among them so called OData annotations. Annotations supply extra information about the data being retrieved like links to endpoints that can be accessed to perform further operations with the response data. But sometimes these links are also essential to fully perform the current operation. To prevent the service from being overloaded by unconstrained requests (e.g. requesting <em>all</em> data from a particular collection), the service may issue its own constraints on such requests together with a hint about how to retrieve the rest of data. Simple.OData.Client can handle such annotations, so the code to obtain all <strong>People</strong> entries will look like this:
+{% highlight csharp%}var annotations = new ODataFeedAnnotations();
+var people = await client
+    .For<Person>()
+    .FindEntriesAsync(annotations)
+    .ToList();
+while (annotations.NextPageLink != null)
+{
+    people.AddRange(await _client
+        .For<Person>()
+        .FindEntriesAsync(annotations.NextPageLink, annotations));
+}
+{% endhighlight %}
 <h3>Expanding associated collections</h3>
-<p>If you look at TripPin service metadata, you will see that <strong>People</strong> collection refer to other collections: emails, addresses, friends, trips and photos. OData protocol is lazy, it doesn't fetch all associated data unless explicitly requested. Here how we can expand <strong>People</strong> key lookup result to include <strong>Trips</strong> and <strong>Friends</strong>:<br />
-[csharp]var person = await client<br />
-    .For&lt;Person&gt;()<br />
-    .Key(&quot;russellwhyte&quot;)<br />
-    .Expand(x =&gt; new { x.Trips, x.Friends })<br />
-    .FindEntryAsync();<br />
-[/csharp]<br />
+<p>If you look at TripPin service metadata, you will see that <strong>People</strong> collection refer to other collections: emails, addresses, friends, trips and photos. OData protocol is lazy, it doesn't fetch all associated data unless explicitly requested. Here how we can expand <strong>People</strong> key lookup result to include <strong>Trips</strong> and <strong>Friends</strong>:
+{% highlight csharp%}var person = await client
+    .For<Person>()
+    .Key('russellwhyte')
+    .Expand(x => new { x.Trips, x.Friends })
+    .FindEntryAsync();
+{% endhighlight %}
 In this example we expanded the result containing a single person data, but expansions can also be applied to requests for multiple items.</p>
-<p>In case you have opted for a dynamic syntax, here's the corresponding code:<br />
-[csharp]var x = ODataDynamic.Expression;<br />
-var person = await client<br />
-    .For(x.People)<br />
-    .Key(&quot;russellwhyte&quot;)<br />
-    .Expand(x.Trips, x.Friends)<br />
-    .FindEntryAsync();<br />
-[/csharp]<br />
+<p>In case you have opted for a dynamic syntax, here's the corresponding code:
+{% highlight csharp%}var x = ODataDynamic.Expression;
+var person = await client
+    .For(x.People)
+    .Key('russellwhyte')
+    .Expand(x.Trips, x.Friends)
+    .FindEntryAsync();
+{% endhighlight %}
 As you can see, the dynamic syntax is very similar and differs in the following:</p>
-<p>- You need to define somewhere in the code an instance of OData dynamic expression (<strong>ODataDynamic.Expression</strong>). You don't need to define it every time you make a call, actually it's sufficient to define it once for the whole application. This variable is an intermediate placeholder for expressions.<br />
+<p>- You need to define somewhere in the code an instance of OData dynamic expression (<strong>ODataDynamic.Expression</strong>). You don't need to define it every time you make a call, actually it's sufficient to define it once for the whole application. This variable is an intermediate placeholder for expressions.
 - Once a variable of <strong>ODataDynamic.Expression</strong> is instantiated, you can use it anywhere you would use any typed expression, typically generic type specifiers and lambda expressions.</p>
 <h3>Navigating to associated collections</h3>
-<p>Results expansions enrich results with associated information, but what if we only need that associated information and are not interested in the root level data. Continuing exploration of <strong>People</strong>, we will now lookup a person, navigate to one of his trips and then fetch all plan items registered on that trip. Here's how this can be achieved:<br />
-[csharp]var planItems = await client<br />
-    .For&lt;Person&gt;()<br />
-    .Key(&quot;russellwhyte&quot;)<br />
-    .NavigateTo(x =&gt; x.Trips)<br />
-    .Key(1003)<br />
-    .NavigateTo(x =&gt; x.PlanItems)<br />
-    .FindEntriesAsync();<br />
-[/csharp]<br />
+<p>Results expansions enrich results with associated information, but what if we only need that associated information and are not interested in the root level data. Continuing exploration of <strong>People</strong>, we will now lookup a person, navigate to one of his trips and then fetch all plan items registered on that trip. Here's how this can be achieved:
+{% highlight csharp%}var planItems = await client
+    .For<Person>()
+    .Key('russellwhyte')
+    .NavigateTo(x => x.Trips)
+    .Key(1003)
+    .NavigateTo(x => x.PlanItems)
+    .FindEntriesAsync();
+{% endhighlight %}
 Note that we had to call <em>NavigateTo</em> method twice: first to advance from the <strong>People</strong> entry to <strong>Trips</strong> collection (thus abandoning <strong>People</strong> details like if we started from <strong>Trips</strong> collection), and then advancing to <strong>PlanItems</strong> collection (again, abandoning <strong>Trips</strong> details). The result will contain a collection of <strong>PlanItems</strong> data, just like if it was a top-level collection, only that if will contain only plan items for the specific trip of the specific person.</p>
 <h3>Using Any and All clauses</h3>
-<p>Now that we know how to retrieve OData collections on different levels, let's have a look at how we can filter them using <em>Any</em> and <em>All</em> quantors. Suppose we want to fetch people information that includes their trips but only if the trip budget was over $10000. Here's what we do:<br />
-[csharp]var flights = await client<br />
-    .For&lt;Person&gt;()<br />
-    .Filter(x =&gt; x.Trips<br />
-    .All(y =&gt; y.Budget &gt; 10000d))<br />
-    .Expand(x =&gt; x.Trips)<br />
-    .FindEntriesAsync();<br />
-[/csharp]<br />
-To make the search criteria more complex, let's include both <em>Any</em> and <em>All</em> clauses. We will now search for people with trips all of them would contain at least one plan item with duration longer than 4 hours:<br />
-[csharp]var duration = TimeSpan.FromHours(4);<br />
-var flights = await client<br />
-    .For&lt;Person&gt;()<br />
-    .Filter(x =&gt; x.Trips<br />
-    .All(y =&gt; y.PlanItems<br />
-    .Any(z =&gt; z.Duration &lt; duration)))<br />
-    .FindEntriesAsync();<br />
-[/csharp]<br />
-And here's the same operation written using dynamic C# syntax:<br />
-[csharp]var x = ODataDynamic.Expression;<br />
-var duration = TimeSpan.FromHours(4);<br />
-var flights = await client<br />
-    .For(x.People)<br />
-    .Filter(x.Trips<br />
-    .All(x.PlanItems<br />
-    .Any(x.Duration &lt; duration)))<br />
-    .FindEntriesAsync();<br />
-[/csharp]<br />
+<p>Now that we know how to retrieve OData collections on different levels, let's have a look at how we can filter them using <em>Any</em> and <em>All</em> quantors. Suppose we want to fetch people information that includes their trips but only if the trip budget was over $10000. Here's what we do:
+{% highlight csharp%}var flights = await client
+    .For<Person>()
+    .Filter(x => x.Trips
+    .All(y => y.Budget > 10000d))
+    .Expand(x => x.Trips)
+    .FindEntriesAsync();
+{% endhighlight %}
+To make the search criteria more complex, let's include both <em>Any</em> and <em>All</em> clauses. We will now search for people with trips all of them would contain at least one plan item with duration longer than 4 hours:
+{% highlight csharp%}var duration = TimeSpan.FromHours(4);
+var flights = await client
+    .For<Person>()
+    .Filter(x => x.Trips
+    .All(y => y.PlanItems
+    .Any(z => z.Duration < duration)))
+    .FindEntriesAsync();
+{% endhighlight %}
+And here's the same operation written using dynamic C# syntax:
+{% highlight csharp%}var x = ODataDynamic.Expression;
+var duration = TimeSpan.FromHours(4);
+var flights = await client
+    .For(x.People)
+    .Filter(x.Trips
+    .All(x.PlanItems
+    .Any(x.Duration < duration)))
+    .FindEntriesAsync();
+{% endhighlight %}
 Note that we didn't have to use different variables in different lambda-expressions: the <strong>"x"</strong> dynamic expression variable is recycled after each use so it can be used again in the next clause.</p>
 <h3>Querying singletons</h3>
 <p>Singleton concept is a newcomer to OData. What if one particular element of the OData collection has a distinct role of being the one and only when it comes to certain quality? A company that runs a Web shop may be registered in the Company database together with its clients, but it might be convenient to expose its details in a way that makes it easy to refer to that company without hard-coding its ID in the client application. This can achieved using OData singletons.</p>
-<p>A singleton in OData is a top-level collection that contains only one item. You can't search for items within the singleton, it doesn't make sense. You can only grab that only record it contains.<br />
-[csharp]var person = await client<br />
-    .For&lt;Person&gt;(&quot;Me&quot;)<br />
-    .FindEntryAsync();<br />
-[/csharp]<br />
+<p>A singleton in OData is a top-level collection that contains only one item. You can't search for items within the singleton, it doesn't make sense. You can only grab that only record it contains.
+{% highlight csharp%}var person = await client
+    .For<Person>('Me')
+    .FindEntryAsync();
+{% endhighlight %}
 Note that we only had to specify a different collection name (<strong>"Me"</strong>) and the command doesn't have a query filter or key, otherwise it looks just like a request to <strong>People</strong> collection. And the singleton quality only applies to the top-level element - the <strong>"Me"</strong> person may refer to other collections that can be navigated in the same way like demonstrated earlier.</p>
 <h3>Subclassing search criteria and results</h3>
 <p>Subclassing is one of the less known features of OData, but it's quite powerful. In addition to grouping data into different collections, it is also possible to categorize them within each collection as being data of different subtype of the collection type. Moreover, it is also possible to search for data of the specific type. Collections of subclassed data are called derived collections.</p>
-<p>Suppose we want to retrieve the given persons's plan items but we also want to restrict the plan items by only flights and include flight details not exposed by the <strong>PlanItem</strong> collection. Simple.OData.Client has a clause <em>As</em> that serves exactly this purpose:<br />
-[csharp]var flights = await client<br />
-    .For&lt;Person&gt;()<br />
-    .Key(&quot;russellwhyte&quot;)<br />
-    .NavigateTo(x =&gt; x.Trips)<br />
-    .Key(1003)<br />
-    .NavigateTo(x =&gt; x.PlanItems)<br />
-    .As&lt;Flight&gt;()<br />
-    .FindEntriesAsync();<br />
-[/csharp]<br />
-<strong>Flight</strong> definition includes additional fields like <strong>FlightNumber</strong> and <strong>Airline</strong> that don't exist in <strong>PlanItem</strong> definition, and these extra properties will be retrieved by the client as long as it uses <em>As</em> clause. And once we navigate to the subclass, we can write query expressions that include fields defined by that subclass, like in the example below where we lookup for a flight with the specific flight number among the given person's flights:<br />
-[csharp]var flights = await client<br />
-    .For&lt;Person&gt;()<br />
-    .Key(&quot;russellwhyte&quot;)<br />
-    .NavigateTo(x =&gt; x.Trips)<br />
-    .Key(1003)<br />
-    .NavigateTo(x =&gt; x.PlanItems)<br />
-    .As&lt;Flight&gt;()<br />
-    .Filter(x =&gt; x.FlightNumber == &quot;FM1930&quot;)<br />
-    .FindEntriesAsync();<br />
-[/csharp]</p>
+<p>Suppose we want to retrieve the given persons's plan items but we also want to restrict the plan items by only flights and include flight details not exposed by the <strong>PlanItem</strong> collection. Simple.OData.Client has a clause <em>As</em> that serves exactly this purpose:
+{% highlight csharp%}var flights = await client
+    .For<Person>()
+    .Key('russellwhyte')
+    .NavigateTo(x => x.Trips)
+    .Key(1003)
+    .NavigateTo(x => x.PlanItems)
+    .As<Flight>()
+    .FindEntriesAsync();
+{% endhighlight %}
+<strong>Flight</strong> definition includes additional fields like <strong>FlightNumber</strong> and <strong>Airline</strong> that don't exist in <strong>PlanItem</strong> definition, and these extra properties will be retrieved by the client as long as it uses <em>As</em> clause. And once we navigate to the subclass, we can write query expressions that include fields defined by that subclass, like in the example below where we lookup for a flight with the specific flight number among the given person's flights:
+{% highlight csharp%}var flights = await client
+    .For<Person>()
+    .Key('russellwhyte')
+    .NavigateTo(x => x.Trips)
+    .Key(1003)
+    .NavigateTo(x => x.PlanItems)
+    .As<Flight>()
+    .Filter(x => x.FlightNumber == 'FM1930')
+    .FindEntriesAsync();
+{% endhighlight %}</p>
 <h3>Modifying derived collection entries</h3>
 <p>Ability to specify derived collections in search criteria is quite useful, but there must also be a way to create, updated and delete subclassed data. Deletion doesn't require additional functionality because OData resources are always deleted by key. They are also updated by key, but updating derived collections need special attention since a client should be able to send values of the properties that are only defined in the subclass. The same goes for insertion where a client needs to send derived collection property values.</p>
-<p>Here is the syntax of the statement that inserts into person's <strong>PlanItems</strong> an entry of a type <strong>Event</strong>. <strong>Event</strong> type is derived from <strong>PlanItem</strong> and adds a couple of properties (<strong>Descrption</strong> and <strong>OccursAt</strong>).<br />
-[csharp]var tripEvent = client<br />
-    .For&lt;Person&gt;()<br />
-    .Key(&quot;russellwhyte&quot;)<br />
-    .NavigateTo&lt;Trip&gt;()<br />
-    .Key(1003)<br />
-    .NavigateTo(x =&gt; x.PlanItems)<br />
-    .As&lt;Event&gt;()<br />
-    .Set(CreateEventDetails())<br />
-    .InsertEntryAsync();<br />
-[/csharp]<br />
-To make the code easier to read, I extracted the method <strong>CreateEventDetails</strong> that initialized properties of the <strong>Event</strong> instance:<br />
-[csharp]private Event CreateEventDetails()<br />
-{<br />
-    return new Event<br />
-    {<br />
-        ConfirmationCode = &quot;4372899DD&quot;,<br />
-        Description = &quot;Client Meeting&quot;,<br />
-        Duration = TimeSpan.FromHours(3),<br />
-        EndsAt = DateTimeOffset.Parse(&quot;2014-06-01T23:11:17.5479185-07:00&quot;),<br />
-        OccursAt = new EventLocation()<br />
-        {<br />
-            Address = &quot;100 Church Street, 8th Floor, Manhattan, 10007&quot;,<br />
-            BuildingInfo = &quot;Regus Business Center&quot;,<br />
-            City = new Location.LocationCity()<br />
-            {<br />
-                CountryRegion = &quot;United States&quot;,<br />
-                Name = &quot;New York City&quot;,<br />
-                Region = &quot;New York&quot;,<br />
-            }<br />
-        },<br />
-        PlanItemId = 33,<br />
-        StartsAt = DateTimeOffset.Parse(&quot;2014-05-25T23:11:17.5459178-07:00&quot;),<br />
-    };<br />
-}<br />
-[/csharp]<br />
-Updating the event uses the same technique:<br />
-[csharp]var tripEvent = client<br />
-    .For&lt;Person&gt;()<br />
-    .Key(&quot;russellwhyte&quot;)<br />
-    .NavigateTo&lt;Trip&gt;()<br />
-    .Key(1003)<br />
-    .NavigateTo(x =&gt; x.PlanItems)<br />
-    .As&lt;Event&gt;()<br />
-    .Key(33)<br />
-    .Set(new { Description = &quot;This is a new description&quot; })<br />
-    .UpdateEntryAsync();<br />
-[/csharp]<br />
+<p>Here is the syntax of the statement that inserts into person's <strong>PlanItems</strong> an entry of a type <strong>Event</strong>. <strong>Event</strong> type is derived from <strong>PlanItem</strong> and adds a couple of properties (<strong>Descrption</strong> and <strong>OccursAt</strong>).
+{% highlight csharp%}var tripEvent = client
+    .For<Person>()
+    .Key('russellwhyte')
+    .NavigateTo<Trip>()
+    .Key(1003)
+    .NavigateTo(x => x.PlanItems)
+    .As<Event>()
+    .Set(CreateEventDetails())
+    .InsertEntryAsync();
+{% endhighlight %}
+To make the code easier to read, I extracted the method <strong>CreateEventDetails</strong> that initialized properties of the <strong>Event</strong> instance:
+{% highlight csharp%}private Event CreateEventDetails()
+{
+    return new Event
+    {
+        ConfirmationCode = '4372899DD',
+        Description = 'Client Meeting',
+        Duration = TimeSpan.FromHours(3),
+        EndsAt = DateTimeOffset.Parse('2014-06-01T23:11:17.5479185-07:00'),
+        OccursAt = new EventLocation()
+        {
+            Address = '100 Church Street, 8th Floor, Manhattan, 10007',
+            BuildingInfo = 'Regus Business Center',
+            City = new Location.LocationCity()
+            {
+                CountryRegion = 'United States',
+                Name = 'New York City',
+                Region = 'New York',
+            }
+        },
+        PlanItemId = 33,
+        StartsAt = DateTimeOffset.Parse('2014-05-25T23:11:17.5459178-07:00'),
+    };
+}
+{% endhighlight %}
+Updating the event uses the same technique:
+{% highlight csharp%}var tripEvent = client
+    .For<Person>()
+    .Key('russellwhyte')
+    .NavigateTo<Trip>()
+    .Key(1003)
+    .NavigateTo(x => x.PlanItems)
+    .As<Event>()
+    .Key(33)
+    .Set(new { Description = 'This is a new description' })
+    .UpdateEntryAsync();
+{% endhighlight %}
 Note that the reason we need to navigate to <strong>PlanItems</strong> collection via <strong>Person</strong> is that plan items don't have a top-level collection - they are contained in their respective person's details. Otherwise we could start right from <strong>PlanItems</strong>.</p>
 <h3>Executing functions and actions</h3>
 <p>OData has supported so called service operations for a long time, but the version 4 of OData protocol has a clear distinction between <em>functions</em> and <em>actions</em>. Functions don't have side effects and are usually executed using GET command (although the service may support sending function arguments as POST content). Actions has side effect and following REST principles are executed using POST. Both function and actions can be <em>bounded</em> and <em>unbounded</em> which means that they are applied to a collection or the whole service respectively.</p>
-<p>Here's how Simple.OData.Client can execute unbound function <strong>GetNearestAirport</strong> that takes geolocation as an input and returns the closest airport to the specified coordinates:<br />
-[csharp]var airport = await client<br />
-    .Unbound&lt;Airport&gt;()<br />
-    .Function(&quot;GetNearestAirport&quot;)<br />
-    .Set(new { lat = 100d, lon = 100d })<br />
-    .ExecuteAsSingleAsync();<br />
-[/csharp]<br />
-And this is an example for unbound action:<br />
-[csharp]await client<br />
-    .Unbound()<br />
-    .Action(&quot;ResetDataSource&quot;)<br />
-    .ExecuteAsync();<br />
-[/csharp]<br />
-To execute a bound function or action, we need to specify the collection. In the following example we execute an action <strong>ShareTrip</strong> that shares the person's trip information with another person.<br />
-[csharp]await client<br />
-    .For&lt;Person&gt;()<br />
-    .Key(&quot;russellwhyte&quot;)<br />
-    .Action(&quot;ShareTrip&quot;)<br />
-    .Set(new { userName = &quot;scottketchum&quot;, tripId = 1003 })<br />
-    .ExecuteAsSingleAsync();<br />
-[/csharp]<br />
+<p>Here's how Simple.OData.Client can execute unbound function <strong>GetNearestAirport</strong> that takes geolocation as an input and returns the closest airport to the specified coordinates:
+{% highlight csharp%}var airport = await client
+    .Unbound<Airport>()
+    .Function('GetNearestAirport')
+    .Set(new { lat = 100d, lon = 100d })
+    .ExecuteAsSingleAsync();
+{% endhighlight %}
+And this is an example for unbound action:
+{% highlight csharp%}await client
+    .Unbound()
+    .Action('ResetDataSource')
+    .ExecuteAsync();
+{% endhighlight %}
+To execute a bound function or action, we need to specify the collection. In the following example we execute an action <strong>ShareTrip</strong> that shares the person's trip information with another person.
+{% highlight csharp%}await client
+    .For<Person>()
+    .Key('russellwhyte')
+    .Action('ShareTrip')
+    .Set(new { userName = 'scottketchum', tripId = 1003 })
+    .ExecuteAsSingleAsync();
+{% endhighlight %}
 Bounded function and actions don't need to be applied to top-level collection. The OData service metadata specifies only the type the function or action is bound to, not an entity set.</p>
 <h3>Executing OData batch operations</h3>
 <p>Last but not least we will show how to use Simple.OData.Client with batch operations. Developers sometimes think of OData batches as transactions, but this is not correct. Batches in OData are used to optimize HTTP traffic and reduce the number of roundtrips. You can always cancel the batch while it is being built (and it will cancel all its operations) but once the batch is sent to the server, you can not ensure all-or-nothing behavior. The OData service executes batch operations one by one without ability to rollback earlier executed operations in case of a failure. But that's not all: there is no guarantee that the outcome of the current operation will be available for the next one, neither there is a guarantee that it will not. It all depends on how the service works, so when executing a series of OData operations as a batch, don't put any transactional semantics in it without checking the service implementation.</p>
-<p>The following example executes a batch that consists of three operations: retrieving all airlines, creating a new airline and retrieving all airlines again. If you run this batch on the TripPin service example, you will find that although a new airline is created successfully, it will not be included in the list of airlines returned by the next batch operation call. This is not an error, just a service behavior, as mentioned above.<br />
-[csharp]IEnumerable&lt;Airline&gt; airlines1 = null;<br />
-IEnumerable&lt;Airline&gt; airlines2 = null;</p>
-<p>var batch = new ODataBatch(client);<br />
-batch += async c =&gt; airlines1 = await c<br />
-    .For&lt;Airline&gt;()<br />
-    .FindEntriesAsync();<br />
-    batch += c =&gt; c<br />
-    .For&lt;Airline&gt;()<br />
-    .Set(new Airline() { AirlineCode = &quot;TT&quot;, Name = &quot;Test Airline&quot;})<br />
-    .InsertEntryAsync(false);<br />
-batch += async c =&gt; airlines2 = await c<br />
-    .For&lt;Airline&gt;()<br />
-    .FindEntriesAsync();<br />
-await batch.ExecuteAsync();<br />
-[/csharp]<br />
+<p>The following example executes a batch that consists of three operations: retrieving all airlines, creating a new airline and retrieving all airlines again. If you run this batch on the TripPin service example, you will find that although a new airline is created successfully, it will not be included in the list of airlines returned by the next batch operation call. This is not an error, just a service behavior, as mentioned above.</p>
+{% highlight csharp%}IEnumerable<Airline> airlines1 = null;
+IEnumerable<Airline> airlines2 = null;
+<p>var batch = new ODataBatch(client);
+batch += async c => airlines1 = await c
+    .For<Airline>()
+    .FindEntriesAsync();
+    batch += c => c
+    .For<Airline>()
+    .Set(new Airline() { AirlineCode = 'TT', Name = 'Test Airline'})
+    .InsertEntryAsync(false);
+batch += async c => airlines2 = await c
+    .For<Airline>()
+    .FindEntriesAsync();
+await batch.ExecuteAsync();
+{% endhighlight %}
 Also note that you only need to await batch operations in case you need to get hold of its result. The operation in the middle (insertion) doesn't need to store its result, so it doesn't need to be awaited.</p>

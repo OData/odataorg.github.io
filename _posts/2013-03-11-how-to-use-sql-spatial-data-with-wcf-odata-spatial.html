@@ -15,236 +15,246 @@ author: Qian Li
 <p>Developing such solutions in a scalable and robust manner through heterogeneous pre-existing networks and systems is a challenge. Companies face distracting, time consuming and misplaced investments when trying to address all these problems at once, often failing to deliver their solution to the market, not because of the technology itself but due to the need of supporting infrastructure.</p>
 <p>A common scenario we will be looking into in this article consists in using OData in conjunction with a SQL-based backend, leveraging Odata Spatial Model and SQL Spatial Type.</p>
 <p>One of the goals of OData and .Net underlying frameworks is to offer a robust end to end solution to fulfill these issues.</p>
-<p><a href="http://www.odata.org/geospatial-data-support-in-odata/"> According to OData</a>, one of the key features of the next global solutions, is common spatial properties which include time and geography. To implement this feature, Odata v3 supports the <a href="http://www.odata.org/geospatial-data-support-in-odata/">Spatial Model</a>.</p>
+<p><a href="http://www.odata.org/blog/geospatial-data-support-in-odata/"> According to OData</a>, one of the key features of the next global solutions, is common spatial properties which include time and geography. To implement this feature, Odata v3 supports the <a href="http://www.odata.org/blog/geospatial-data-support-in-odata/">Spatial Model</a>.</p>
 <p>On the backend side, SQL Server provides a <a href="http://msdn.microsoft.com/en-us/library/ff848797.aspx">Spatial Type</a>, which is well distributed and already widely used.</p>
 <p><strong> However, when using Spatial Model, a gap appears in the flow of service as the OData spatial types are not cross compatible with the SQL Spatial library. Any attempt to build a WCF service against Entity with SQL data will fail with gentle kind of “not compatible type” message.</strong></p>
 <p><a href="/assets/case_study_spatial_data-300x178.png"><img class="alignnone size-medium wp-image-11711" alt="case_study_spatial_data" src="/assets/case_study_spatial_data-300x178.png" width="300" height="178" /></a></p>
 <p><strong>This short article will show you a trick to fill this gap as shown in the previous diagram.</strong></p>
 <p><strong><span style="font-size: 18px;">Wrapping the Geography data Model</span></strong></p>
-<p>First we have to define wrappers which define a common data model for both types. We use the explicit and implicit operator to achieve this.<br />
+<p>First we have to define wrappers which define a common data model for both types. We use the explicit and implicit operator to achieve this.
 For the Geographic Point:</p>
-<p>[code language="csharp"]<br />
-public class GeographyPointWrapper<br />
-{<br />
-public static CultureInfo defaultCulture = CultureInfo.GetCultureInfo(&quot;En-Us&quot;);<br />
-// implicit Spatial Geography Point to GeographyPointWrapper conversion operator<br />
-public static implicit operator GeographyPointWrapper(GeographyPoint gp)<br />
-{<br />
-double l_lat = (double)(gp != null ? gp.Latitude : 0);<br />
-double l_lon = (double)(gp != null ? gp.Longitude : 0);<br />
-double? l_alt = gp != null ? gp.Z : 0;</p>
-<p>return GeographyPointWrapper.Create(l_lat, l_lon, l_alt);<br />
-}</p>
-<p>// implicit GeographyPointWrapper to Spatial Geography Point conversion operator<br />
-public static implicit operator GeographyPoint(GeographyPointWrapper p)<br />
-{<br />
-double l_lat = (double)(p != null ? p.Latitude : 0);<br />
-double l_lon = (double)(p != null ? p.Longitude : 0);<br />
-double? l_alt = p != null ? p.Altitude : 0;</p>
-<p>return GeographyPoint.Create(l_lat, l_lon, l_alt);<br />
-}</p>
-<p>// implicit SQLGeography to GeographyPointWrapper conversion operator<br />
-public static implicit operator GeographyPointWrapper(DbGeography dbg)<br />
-{<br />
-double l_lat = (double)(dbg != null &amp;&amp; dbg.Latitude != null ? dbg.Latitude : 0);<br />
-double l_lon = (double)(dbg != null &amp;&amp; dbg.Longitude != null ? dbg.Longitude : 0);<br />
-double? l_alt = dbg != null ? dbg.Elevation : 0;</p>
-<p>return GeographyPointWrapper.Create(l_lat, l_lon, l_alt);<br />
-}</p>
-<p>// implicit GeographyPointWrapper to SQLGeography conversion operator<br />
-public static implicit operator DbGeography(GeographyPointWrapper p)<br />
-{<br />
-// has to be optimized !!<br />
-return DbGeography.FromText(&quot;POINT(&quot; + p.Latitude.ToString(defaultCulture)<br />
-+ &quot; &quot; + p.Longitude.ToString(defaultCulture) + &quot;)&quot;);<br />
-}</p>
-<p>public static GeographyPointWrapper Create(double lat, double lon, double? alt)<br />
-{<br />
-return new GeographyPointWrapper(lat, lon, alt);<br />
-}</p>
-<p>double _lat;<br />
-double _lon;<br />
-double? _alt;</p>
-<p>protected GeographyPointWrapper(double lat, double lon, double? alt)<br />
-{<br />
-_lat = lat;<br />
-_lon = lon;<br />
-_alt = alt;<br />
-}</p>
-<p>public double Latitude { get { return _lat; } set { _lat = value; } }<br />
-public double Longitude { get { return _lon; } set { _lon = value; } }<br />
-public double? Altitude { get { return _alt; } set { _alt = value; } }<br />
-}<br />
-[/code]</p>
-<p><strong><span style="font-size: 18px;">Exposing the Services</span></strong></p>
+
+{% highlight csharp%}
+public class GeographyPointWrapper
+{
+public static CultureInfo defaultCulture = CultureInfo.GetCultureInfo('En-Us');
+// implicit Spatial Geography Point to GeographyPointWrapper conversion operator
+public static implicit operator GeographyPointWrapper(GeographyPoint gp)
+{
+double l_lat = (double)(gp != null ? gp.Latitude : 0);
+double l_lon = (double)(gp != null ? gp.Longitude : 0);
+double? l_alt = gp != null ? gp.Z : 0;
+return GeographyPointWrapper.Create(l_lat, l_lon, l_alt);
+}
+// implicit GeographyPointWrapper to Spatial Geography Point conversion operator
+public static implicit operator GeographyPoint(GeographyPointWrapper p)
+{
+double l_lat = (double)(p != null ? p.Latitude : 0);
+double l_lon = (double)(p != null ? p.Longitude : 0);
+double? l_alt = p != null ? p.Altitude : 0;
+return GeographyPoint.Create(l_lat, l_lon, l_alt);
+}
+// implicit SQLGeography to GeographyPointWrapper conversion operator
+public static implicit operator GeographyPointWrapper(DbGeography dbg)
+{
+double l_lat = (double)(dbg != null && dbg.Latitude != null ? dbg.Latitude : 0);
+double l_lon = (double)(dbg != null && dbg.Longitude != null ? dbg.Longitude : 0);
+double? l_alt = dbg != null ? dbg.Elevation : 0;
+return GeographyPointWrapper.Create(l_lat, l_lon, l_alt);
+}
+// implicit GeographyPointWrapper to SQLGeography conversion operator
+public static implicit operator DbGeography(GeographyPointWrapper p)
+{
+// has to be optimized !!
+return DbGeography.FromText('POINT(' + p.Latitude.ToString(defaultCulture)
++ ' ' + p.Longitude.ToString(defaultCulture) + ')');
+}
+public static GeographyPointWrapper Create(double lat, double lon, double? alt)
+{
+return new GeographyPointWrapper(lat, lon, alt);
+}
+double _lat;
+double _lon;
+double? _alt;
+protected GeographyPointWrapper(double lat, double lon, double? alt)
+{
+_lat = lat;
+_lon = lon;
+_alt = alt;
+}
+public double Latitude { get { return _lat; } set { _lat = value; } }
+public double Longitude { get { return _lon; } set { _lon = value; } }
+public double? Altitude { get { return _alt; } set { _alt = value; } }
+}
+{% endhighlight %}
+
+<strong><span style="font-size: 18px;">Exposing the Services</span></strong>
 <p>After this, we need to define a service model which deals with the Entity framework and WCF tools.</p>
-<p>[code language="csharp"]</p>
-<p>[IgnorePropertiesAttribute(&quot;location&quot;)]<br />
- [DataServiceKey(&quot;THING_KEY&quot;)]</p>
-<p>public class IOfThings_Things<br />
- {<br />
- GeographyPointWrapper _w;</p>
-<p>public IOfThings_Things()<br />
- {<br />
- }</p>
-<p>[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]<br />
- public long THING_KEY { get; set; }<br />
- public long CLASS_KEY { get; set; }<br />
- public System.Data.Spatial.DbGeography location { get { return _w; } set { _w = value; } }<br />
- public Nullable timestamp { get; set; }<br />
- public string metadataURI { get; set; }<br />
- public string serviceURI { get; set; }<br />
- public string manifestURI { get; set; }</p>
-<p>[NotMappedAttribute]<br />
- public GeographyPoint wcf_location { get { return _w; } set { _w = value; } }<br />
- }</p>
-<p>[/code]</p>
+
+{% highlight csharp%}
+[IgnorePropertiesAttribute('location')]
+ [DataServiceKey('THING_KEY')]
+public class IOfThings_Things
+ {
+ GeographyPointWrapper _w;
+public IOfThings_Things()
+ {
+ }
+[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+ public long THING_KEY { get; set; }
+ public long CLASS_KEY { get; set; }
+ public System.Data.Spatial.DbGeography location { get { return _w; } set { _w = value; } }
+ public Nullable timestamp { get; set; }
+ public string metadataURI { get; set; }
+ public string serviceURI { get; set; }
+ public string manifestURI { get; set; }
+[NotMappedAttribute]
+ public GeographyPoint wcf_location { get { return _w; } set { _w = value; } }
+ }
+{% endhighlight %}
+
 <p>On the Entity framework view, we set the [NotMappedAttribute] to the wcf_location property.</p>
 <p>On the WCF view, we set the [IgnorePropertiesAttribute] to the location property.</p>
 <p>Each property has the same wrapper model, which makes the cast with the implicit operator.</p>
 <p>This allows to implement each Wrapper type as needed in your own services.</p>
 <p><strong><span style="font-size: 18px;">Implementing the entity</span></strong></p>
 <p>Because we want to show some changes to the code, we chose to code the entity from the ground up. But you can generate the DBContext using Entity tools and edit it later. Remember that when using the Entity tool, all your changes to the generated code will be lost when you update the DB model.</p>
-<p>[code language="csharp"]</p>
-<p>public partial class IOfThings_Context : DbContext<br />
- {</p>
-<p>const string ds = &quot;your azure connection string &quot;;<br />
- public static IOfThings_Context defaultContext = new IOfThings_Context();</p>
-<p>public IOfThings_Context() : base(ds) { }</p>
-<p>public DbSet&lt;IOfThings_Things&gt; IOfThings_Things { get; set; }<br />
- }</p>
-<p>public class IOfThings_Entity<br />
- {<br />
- public IQueryable&lt;IOfThings_Things&gt; IOfThings_Things<br />
- {<br />
- get<br />
- {<br />
- var l_res = from t in IOfThings_Context.defaultContext.IOfThings_Things select t;<br />
- return l_res;<br />
- }<br />
- }<br />
- }</p>
-<p>[/code]</p>
-<p>If you want to add write capabilities, you need to add the support of the IUpdatable interface which is a bit complex.</p>
-<p>[code language="csharp"]</p>
-<p>public class IOfThings_Entity : IUpdatable<br />
- {<br />
- public IQueryable&lt;IOfThings_Things&gt; IOfThings_Things<br />
- {<br />
- get<br />
- {<br />
- var l_res = from t in IOfThings_Context.defaultContext.IOfThings_Things select t;<br />
- return l_res;<br />
- }<br />
- }</p>
-<p>// Creates an object in the container.<br />
- object IUpdatable.CreateResource(string containerName, string fullTypeName)<br />
- {<br />
- // create the object using reflection<br />
- var objType = Type.GetType(fullTypeName);<br />
- var resourceToAdd = Activator.CreateInstance(objType);<br />
- // add the course to the courses in-memory list<br />
- IOfThings_Context.defaultContext.IOfThings_Things.Add((IOfThings_Things)resourceToAdd);<br />
- return resourceToAdd;<br />
- }</p>
-<p>// Gets the object referenced by the resource.<br />
- object IUpdatable.GetResource(IQueryable query, string fullTypeName)<br />
- {<br />
- object resource = query.Cast&lt;IOfThings_Things&gt;().SingleOrDefault();</p>
-<p>// fullTypeName can be null for deletes<br />
- if (fullTypeName != null &amp;&amp; resource.GetType().FullName != fullTypeName)<br />
- throw new ApplicationException(&quot;Unexpected type for this resource.&quot;);<br />
- return resource;<br />
- }</p>
-<p>// Resets the value of the object to its default value.<br />
- object IUpdatable.ResetResource(object resource)<br />
- {<br />
- throw new NotImplementedException();<br />
- }</p>
-<p>// Sets the value of the given property on the object.<br />
- void IUpdatable.SetValue(object targetResource, string propertyName, object propertyValue)<br />
- {<br />
- // get the property info using reflection<br />
- Type targetType = targetResource.GetType();<br />
- PropertyInfo property = targetType.GetProperty(propertyName);<br />
- // set the property value<br />
- property.SetValue(targetResource, propertyValue, null);<br />
- }</p>
-<p>// Gets the value of a property on an object.<br />
- object IUpdatable.GetValue(object targetResource, string propertyName)<br />
- {<br />
- // get the property info using reflection<br />
- var targetType = targetResource.GetType();<br />
- var targetProperty = targetType.GetProperty(propertyName);<br />
- // retrun the value of the property<br />
- return targetProperty.GetValue(targetResource, null);<br />
- }</p>
-<p>// Sets the related object for a reference.<br />
- void IUpdatable.SetReference(object targetResource, string propertyName, object propertyValue)<br />
- {<br />
- ((IUpdatable)this).SetValue(targetResource, propertyName, propertyValue);<br />
- }</p>
-<p>// Adds the object to the related objects collection.<br />
- void IUpdatable.AddReferenceToCollection(object targetResource, string propertyName, object resourceToBeAdded)<br />
- {<br />
- PropertyInfo pi = targetResource.GetType().GetProperty(propertyName);<br />
- if (pi == null) throw new Exception(&quot;Can't find property&quot;);<br />
- IList collection = (IList)pi.GetValue(targetResource, null);<br />
- collection.Add(resourceToBeAdded);<br />
- }</p>
-<p>// Removes the object from the related objects collection.<br />
- void IUpdatable.RemoveReferenceFromCollection(<br />
- object targetResource, string propertyName, object resourceToBeRemoved)<br />
- {<br />
- PropertyInfo pi = targetResource.GetType().GetProperty(propertyName);<br />
- if (pi == null)<br />
- throw new Exception(&quot;Can't find property&quot;);<br />
- IList collection = (IList)pi.GetValue(targetResource, null);<br />
- collection.Remove(resourceToBeRemoved);<br />
- }</p>
-<p>// Deletes the resource.<br />
- void IUpdatable.DeleteResource(object targetResource)<br />
- {<br />
- // remove the course form the courses list<br />
- IOfThings_Context.defaultContext.IOfThings_Things.Remove((IOfThings_Things)targetResource);<br />
- }</p>
-<p>// Saves all the pending changes.<br />
- void IUpdatable.SaveChanges()<br />
- {<br />
- IOfThings_Context.defaultContext.SaveChanges();<br />
- }</p>
-<p>// Returns the actual instance of the resource represented<br />
- // by the resource object.<br />
- object IUpdatable.ResolveResource(object resource)<br />
- {<br />
- return resource;<br />
- }</p>
-<p>// Reverts all the pending changes.<br />
- void IUpdatable.ClearChanges()<br />
- {<br />
- throw new NotSupportedException();<br />
- }<br />
- }</p>
-<p>[/code]</p>
+
+{% highlight csharp%}
+public partial class IOfThings_Context : DbContext
+ {
+const string ds = 'your azure connection string ';
+ public static IOfThings_Context defaultContext = new IOfThings_Context();
+public IOfThings_Context() : base(ds) { }
+public DbSet<IOfThings_Things> IOfThings_Things { get; set; }
+ }
+public class IOfThings_Entity
+ {
+ public IQueryable<IOfThings_Things> IOfThings_Things
+ {
+ get
+ {
+ var l_res = from t in IOfThings_Context.defaultContext.IOfThings_Things select t;
+ return l_res;
+ }
+ }
+ }
+{% endhighlight %}
+
+If you want to add write capabilities, you need to add the support of the IUpdatable interface which is a bit complex.
+
+{% highlight csharp%}
+public class IOfThings_Entity : IUpdatable
+ {
+ public IQueryable<IOfThings_Things> IOfThings_Things
+ {
+ get
+ {
+ var l_res = from t in IOfThings_Context.defaultContext.IOfThings_Things select t;
+ return l_res;
+ }
+ }
+// Creates an object in the container.
+ object IUpdatable.CreateResource(string containerName, string fullTypeName)
+ {
+ // create the object using reflection
+ var objType = Type.GetType(fullTypeName);
+ var resourceToAdd = Activator.CreateInstance(objType);
+ // add the course to the courses in-memory list
+ IOfThings_Context.defaultContext.IOfThings_Things.Add((IOfThings_Things)resourceToAdd);
+ return resourceToAdd;
+ }
+// Gets the object referenced by the resource.
+ object IUpdatable.GetResource(IQueryable query, string fullTypeName)
+ {
+ object resource = query.Cast<IOfThings_Things>().SingleOrDefault();
+// fullTypeName can be null for deletes
+ if (fullTypeName != null && resource.GetType().FullName != fullTypeName)
+ throw new ApplicationException('Unexpected type for this resource.');
+ return resource;
+ }
+// Resets the value of the object to its default value.
+ object IUpdatable.ResetResource(object resource)
+ {
+ throw new NotImplementedException();
+ }
+// Sets the value of the given property on the object.
+ void IUpdatable.SetValue(object targetResource, string propertyName, object propertyValue)
+ {
+ // get the property info using reflection
+ Type targetType = targetResource.GetType();
+ PropertyInfo property = targetType.GetProperty(propertyName);
+ // set the property value
+ property.SetValue(targetResource, propertyValue, null);
+ }
+// Gets the value of a property on an object.
+ object IUpdatable.GetValue(object targetResource, string propertyName)
+ {
+ // get the property info using reflection
+ var targetType = targetResource.GetType();
+ var targetProperty = targetType.GetProperty(propertyName);
+ // retrun the value of the property
+ return targetProperty.GetValue(targetResource, null);
+ }
+// Sets the related object for a reference.
+ void IUpdatable.SetReference(object targetResource, string propertyName, object propertyValue)
+ {
+ ((IUpdatable)this).SetValue(targetResource, propertyName, propertyValue);
+ }
+// Adds the object to the related objects collection.
+ void IUpdatable.AddReferenceToCollection(object targetResource, string propertyName, object resourceToBeAdded)
+ {
+ PropertyInfo pi = targetResource.GetType().GetProperty(propertyName);
+ if (pi == null) throw new Exception('Can't find property');
+ IList collection = (IList)pi.GetValue(targetResource, null);
+ collection.Add(resourceToBeAdded);
+ }
+// Removes the object from the related objects collection.
+ void IUpdatable.RemoveReferenceFromCollection(
+ object targetResource, string propertyName, object resourceToBeRemoved)
+ {
+ PropertyInfo pi = targetResource.GetType().GetProperty(propertyName);
+ if (pi == null)
+ throw new Exception('Can't find property');
+ IList collection = (IList)pi.GetValue(targetResource, null);
+ collection.Remove(resourceToBeRemoved);
+ }
+// Deletes the resource.
+ void IUpdatable.DeleteResource(object targetResource)
+ {
+ // remove the course form the courses list
+ IOfThings_Context.defaultContext.IOfThings_Things.Remove((IOfThings_Things)targetResource);
+ }
+// Saves all the pending changes.
+ void IUpdatable.SaveChanges()
+ {
+ IOfThings_Context.defaultContext.SaveChanges();
+ }
+// Returns the actual instance of the resource represented
+ // by the resource object.
+ object IUpdatable.ResolveResource(object resource)
+ {
+ return resource;
+ }
+// Reverts all the pending changes.
+ void IUpdatable.ClearChanges()
+ {
+ throw new NotSupportedException();
+ }
+ }
+{% endhighlight %}
+
 <p><strong><span style="font-size: 18px;">WCF</span></strong></p>
 <p>Finally, the WCF DataService:</p>
-<p>[code language="csharp"]</p>
-<p>[JSONPSupportBehavior]<br />
- [ServiceBehavior(IncludeExceptionDetailInFaults = true)]<br />
- public class IOfThings : DataService&lt;IOfThings_Entity&gt;<br />
- {<br />
- // This method is called only once to initialize service-wide policies.<br />
- public static void InitializeService(DataServiceConfiguration config)<br />
- {<br />
- config.SetEntitySetAccessRule(&quot;*&quot;, EntitySetRights.All);<br />
- // config.SetServiceOperationAccessRule(&quot;MyServiceOperation&quot;, ServiceOperationRights.All);<br />
- config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;<br />
- config.DataServiceBehavior.AcceptProjectionRequests = true;<br />
- config.DataServiceBehavior.AcceptCountRequests = true;<br />
- config.UseVerboseErrors = true;<br />
- }<br />
- }</p>
-<p>[/code]</p>
+
+
+{% highlight csharp%}
+[JSONPSupportBehavior]
+ [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+ public class IOfThings : DataService<IOfThings_Entity>
+ {
+ // This method is called only once to initialize service-wide policies.
+ public static void InitializeService(DataServiceConfiguration config)
+ {
+ config.SetEntitySetAccessRule('*', EntitySetRights.All);
+ // config.SetServiceOperationAccessRule('MyServiceOperation', ServiceOperationRights.All);
+ config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
+ config.DataServiceBehavior.AcceptProjectionRequests = true;
+ config.DataServiceBehavior.AcceptCountRequests = true;
+ config.UseVerboseErrors = true;
+ }
+ }
+{% endhighlight %}
 <p>Note that we use the JSONPSupportBehavior for JSON support. You can find it at <a href="http://code.msdn.microsoft.com/DataServicesJSONP">http://code.msdn.microsoft.com/DataServicesJSONP</a></p>
 <p><strong><span style="font-size: 18px;">Finally</span></strong></p>
 <p>Now you have a clean skeleton to bridge OData Spatial and SQL Spatial models and use them in conjunction.</p>

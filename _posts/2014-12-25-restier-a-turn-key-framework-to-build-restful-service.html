@@ -21,94 +21,94 @@ author: Qian Li
 <p>In this section, we will show you how RESTier solve the developers' problems. We have a REST developer named Mark and we will use RESTier to meet his needs.</p>
 <p style="font-size:18px;"><i>Mark wants to build an OData service against the Northwind database to provide an easy API for users to access and operate on the data. He has used Entity Framework tools to generate the model class from the database and now he wants to bootstrap the OData service in a few minutes.</i></p>
 <p>    RESTier can easily satisfy Mark's needs. All he has to do is to add around 20 lines of code as below:</p>
-<p>    Add an <code>NorthwindDomain.cs</code> to <code>Models</code>. The DbDomain is for handling the domain logic of an OData service. Since Mark just wants an easy bootstrap, he only needs to return the DbContext now.<br />
-    [csharp]<br />
-    public class NorthwindDomain : DbDomain&lt;NorthwindContext&gt;<br />
-    {<br />
-        public NorthwindContext Context<br />
-        {<br />
-            get { return DbContext; }<br />
-        }<br />
-    }<br />
-    [/csharp]</p>
-<p>    Add an <code>NorthwindController.cs</code> to <code>Controllers</code> which inherits from ODataDomainController instead of ODataController. There are around 10 entity sets in Northwind and Mark only need <b>ONE</b> controller with 3 lines of code instead of ten controllers with tens and hundreds lines of boilerplate code.<br />
-    [csharp]<br />
-    public class NorthwindController : ODataDomainController&lt;NorthwindDomain&gt;<br />
-    {<br />
-        private NorthwindContext DbContext<br />
-        {<br />
-            get { return Domain.Context;}<br />
-        }<br />
-    }<br />
-    [/csharp]</p>
-<p>    Modify the <code>WebApiConfig.cs</code> file as below. Mark only needs around 5 lines of code instead of specificly include every entity sets in the config file.<br />
-    [csharp]<br />
-    public static class WebApiConfig<br />
-    {<br />
-        public static void Register(HttpConfiguration config)<br />
-        {<br />
-            config.MapHttpAttributeRoutes();<br />
-            RegisterNorthwind(config, GlobalConfiguration.DefaultServer);<br />
+<p>    Add an <code>NorthwindDomain.cs</code> to <code>Models</code>. The DbDomain is for handling the domain logic of an OData service. Since Mark just wants an easy bootstrap, he only needs to return the DbContext now.</p>
+    {% highlight csharp%}
+    public class NorthwindDomain : DbDomain<NorthwindContext>
+    {
+        public NorthwindContext Context
+        {
+            get { return DbContext; }
+        }
+    }
+    {% endhighlight %}
+<p>    Add an <code>NorthwindController.cs</code> to <code>Controllers</code> which inherits from ODataDomainController instead of ODataController. There are around 10 entity sets in Northwind and Mark only need <b>ONE</b> controller with 3 lines of code instead of ten controllers with tens and hundreds lines of boilerplate code.</p>
+    {% highlight csharp%}
+    public class NorthwindController : ODataDomainController<NorthwindDomain>
+    {
+        private NorthwindContext DbContext
+        {
+            get { return Domain.Context;}
+        }
+    }
+    {% endhighlight %}
+<p>    Modify the <code>WebApiConfig.cs</code> file as below. Mark only needs around 5 lines of code instead of specificly include every entity sets in the config file.</p>
+    {% highlight csharp%}
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            config.MapHttpAttributeRoutes();
+            RegisterNorthwind(config, GlobalConfiguration.DefaultServer);
         }</p>
-<p>        public static async void RegisterNorthwind(HttpConfiguration config, HttpServer server)<br />
-        {<br />
-            await config.MapODataDomainRoute&lt;NorthwindController&gt;(<br />
-               &quot;NorthwindApi&quot;, &quot;api/Northwind&quot;,<br />
-                new ODataDomainBatchHandler(server));<br />
-        }<br />
-    }<br />
-    [/csharp]</p>
+<p>        public static async void RegisterNorthwind(HttpConfiguration config, HttpServer server)
+        {
+            await config.MapODataDomainRoute<NorthwindController>(
+               'NorthwindApi', 'api/Northwind',
+                new ODataDomainBatchHandler(server));
+        }
+    }
+    {% endhighlight %}
 <p>    After these 3 steps above, a RESTful service is bootstraped using RESTier.</p>
 <p style="font-size:18px;"><i>With RESTier, Mark has successfully built the RESTful service against his data source. Now he got several asks from customers of adding business logic to this service.</i></p>
 <ul>
 <li style="font-size:18px;"><i>Customer A says besides the current <code>Orders</code>, he also wants an entity set <code>CurrentOrders</code> which haven't been shipped yet.</i></li>
-<p>        With RESTier, <b>Imperative Views</b> can make this ask work by adding some code in <code>NorthwindDomain.cs</code><br />
-        [csharp]<br />
-        protected IQueryable&lt;Order&gt; CurrentOrders<br />
-        {<br />
-            get<br />
-            {<br />
-                return this.Source&lt;Order&gt;(&quot;Orders&quot;).Where(o =&gt; o.ShippedDate == null);<br />
-            }<br />
-        }<br />
-        [/csharp]</p>
+<p>        With RESTier, <b>Imperative Views</b> can make this ask work by adding some code in <code>NorthwindDomain.cs</code></p>
+        {% highlight csharp%}
+        protected IQueryable<Order> CurrentOrders
+        {
+            get
+            {
+                return this.Source<Order>('Orders').Where(o => o.ShippedDate == null);
+            }
+        }
+        {% endhighlight %}
 <li style="font-size:18px;"><i>Customer B says he only cares <code>Customers</code> from France and he doesn't want to add a $filter query for every request.</i></li>
-<p>        With RESTier, <b>Entity Set Filters</b> can make this work by adding some code in <code>NorthwindDomain.cs</code><br />
-        [csharp]<br />
-        private IQueryable&lt;Customer&gt; OnFilterCustomers(IQueryable&lt;Customer&gt; customers)<br />
-        {<br />
-            return customers.Where(c =&gt; c.Country == &quot;France&quot;);<br />
-        }<br />
-        [/csharp]</p>
+<p>        With RESTier, <b>Entity Set Filters</b> can make this work by adding some code in <code>NorthwindDomain.cs</code></p>
+        {% highlight csharp%}
+        private IQueryable<Customer> OnFilterCustomers(IQueryable<Customer> customers)
+        {
+            return customers.Where(c => c.Country == 'France');
+        }
+        {% endhighlight %}
 <li style="font-size:18px;"><i>Customer C says he has some additional logic when he deletes an <code>Product</code></i></li>
-<p>        With RESTier, <b>Submit Logic</b> can make this work by adding some code in <code>NorthwindDomain.cs</code><br />
-        [csharp]<br />
-        private void OnDeletingProducts(Product product)<br />
-        {<br />
-            // User logic code when deleting a product.<br />
-        }<br />
-        [/csharp]</p>
+<p>        With RESTier, <b>Submit Logic</b> can make this work by adding some code in <code>NorthwindDomain.cs</code></p>
+        {% highlight csharp%}
+        private void OnDeletingProducts(Product product)
+        {
+            // User logic code when deleting a product.
+        }
+        {% endhighlight %}
 <li style="font-size:18px;"><i>Customer D says he only wants users to have READ permission on <code>Suppliers</code></i></li>
-<p>        With RESTier, <b>Role-based Security</b> can make this work by adding some code in <code>NorthwindDomain.cs</code><br />
-        [csharp]<br />
-        [EnableRoleBasedSecurity]<br />
-        // Grant ALL permission on other entity sets. Just put Customers here and omit others.<br />
-        [Grant(DomainPermissionType.All, On = &quot;Customers&quot;)]<br />
-        // Grant only read pemission on Suppliers<br />
-        [Grant(DomainPermissionType.Inspect, On = &quot;Suppliers&quot;)]<br />
-        [Grant(DomainPermissionType.Read, On = &quot;Suppliers&quot;)]</p>
-<p>        public class NorthwindDomain : DbDomain&lt;NorthwindContext&gt;<br />
-        {<br />
-           // code<br />
-        }<br />
-        [/csharp]
+<p>        With RESTier, <b>Role-based Security</b> can make this work by adding some code in <code>NorthwindDomain.cs</code></p>
+        {% highlight csharp%}
+        [EnableRoleBasedSecurity]
+        // Grant ALL permission on other entity sets. Just put Customers here and omit others.
+        [Grant(DomainPermissionType.All, On = 'Customers')]
+        // Grant only read pemission on Suppliers
+        [Grant(DomainPermissionType.Inspect, On = 'Suppliers')]
+        [Grant(DomainPermissionType.Read, On = 'Suppliers')]
+        public class NorthwindDomain : DbDomain<NorthwindContext>
+        {
+           // code
+        }
+        {% endhighlight %}
     </ul>
 <h1>Behind the Scenes</h1>
 <p>    After the previous section of introducting how RESTier help solve your problems, now let's take a deeper look at RESTier itself. And please be noted that RESTier is currently an alpha version, so there are still some limitions.</p>
 <h2>Structure of RESTier</h2>
-<p>    From the picture below, you can easily find out that client request is handled by Web API OData and RESTier, and RESTier then handle the request and response with the data source. Currently when talking to data source, RETier only supports using EF as data proxy (data provider).<br />
-    <a href="/assets/RESTier1.png"><img src="/assets/RESTier1.png" alt="RESTier1" width="600" height="335" class="aligncenter size-full wp-image-12481" /></a><br />
-    RESTier itself has three main modules : Model, Query and Submit (as shown below). Model mainly focus on model producing, Query mainly handles GET request and Submit handles CREATE, UPDATE and DELETE request. These are all based on OData EDM Model.<br />
+<p>    From the picture below, you can easily find out that client request is handled by Web API OData and RESTier, and RESTier then handle the request and response with the data source. Currently when talking to data source, RETier only supports using EF as data proxy (data provider).
+    <a href="/assets/RESTier1.png"><img src="/assets/RESTier1.png" alt="RESTier1" width="600" height="335" class="aligncenter size-full wp-image-12481" /></a>
+    RESTier itself has three main modules : Model, Query and Submit (as shown below). Model mainly focus on model producing, Query mainly handles GET request and Submit handles CREATE, UPDATE and DELETE request. These are all based on OData EDM Model.
     <a href="/assets/RESTier2.png"><img src="/assets/RESTier2.png" alt="RESTier2" width="450" height="342" class="aligncenter size-full wp-image-12482" /></a></p>
 <h2>Features supported by RESTier</h2>
 <h3>Basic OData V4 features</h3>
