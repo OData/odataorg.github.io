@@ -9,3 +9,17 @@ $(function () {
         .text($(this).text())))
   });
 });
+
+
+$(document).ready(function(){
+  // Window width change
+  $( window ).resize(function() {
+      if ($(window).width() < 768) {
+        $('#fork-me-on-github').hide();
+      }
+      else{
+        $('#fork-me-on-github').show(); 
+      }
+  });
+});
+
