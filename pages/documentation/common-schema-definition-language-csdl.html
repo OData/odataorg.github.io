@@ -4,7 +4,9 @@ title: Common Schema Definition Language (CSDL) (OData Version 3.0)
 date: 2014-02-20 08:01:53.000000000 +08:00
 permalink: /documentation/odata-version-3-0/common-schema-definition-language-csdl/
 ---
-<h5 class="alert alert-success">Note: OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. <a href="/documentation/" title="" class="alert-link"><span class="glyphicon glyphicon-chevron-right"></span> Go to OData Version 4.0</a></h5>
+<h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
+<br><br>
+<a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
 <h1 id="introduction">Introduction</h1>
 <p>OData services are described by an Entity Data Model (EDM). Common Schema Definition Language (CSDL) defines an XML-based representation of the entity model exposed by an OData service. CSDL is based on standards defined in [<code><a href="http://www.w3.org/TR/2006/REC-xml11–20060816/">XML 1.1</a></code>] and [<code><a href="http://www.w3.org/standards/techs/xmlschema#w3c_all">XML Schema</a></code>].</p>
 <p>An OData service SHOULD provide a CSDL description of its entity model when a client requests a description of the entity model by sending a <code>GET</code> request to <code>&lt;serviceRoot&gt;/$metadata</code>. <code>$metadata</code> MUST wrap the CSDL document in an EDMX wrapper.</p>
