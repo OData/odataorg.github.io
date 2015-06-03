@@ -1,0 +1,121 @@
+---
+layout: page
+title: Adopters (Draft)
+permalink: /adopters/
+---
+
+<style>
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width:auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+</style>
+
+<div class="swiper-container">
+
+<div class="swiper-wrapper">
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#microsoft-detail"><img src="holder.js/250x200"></a>
+  	<br /> <br />
+  	<p><strong>Microsoft</strong> Cloud first, Mobile first.</p>
+  </div>
+
+  <div class="swiper-slide">
+    <a class="open-popup-link" href="#"><img src="holder.js/250x200"></a>
+    <br /> <br />
+    <p><strong>SAP</strong> The best-run businesses run SAP.</p>
+  </div>
+
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#salesforce-detail"><img src="holder.js/250x200"></a>
+  	<br /> <br />
+  	<p><strong>Salesforce</strong> Sell smarter and faster with the world’s #1 CRM.</p>
+  </div>
+
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#"><img src="holder.js/250x200"></a>
+  	<br /> <br />
+  	<p><strong>IBM</strong> Accelera insights, improve performance, cut costs</p>
+  </div>
+
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#acumatica-detail"><img src="holder.js/250x200"></a>
+    <br /> <br />
+    <p><strong>Acumatica</strong> a cloud- and browser-based enterprise resource planning (ERP) solution</p>
+  </div>
+
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#"><img src="holder.js/250x200"></a>
+  </div>
+
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#"><img src="holder.js/250x200"></a>
+  </div>
+
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#"><img src="holder.js/250x200"></a>
+  </div>
+
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#"><img src="holder.js/250x200"></a>
+  </div>
+
+  <div class="swiper-slide">
+  	<a class="open-popup-link" href="#"><img src="holder.js/250x200"></a>
+  </div>
+
+</div>
+
+
+  <br /><br />
+  <div class="swiper-pagination"></div>
+</div>
+
+<!-- Detailed descriptions of each company-->
+<div id="microsoft-detail" class="white-popup mfp-hide">
+<h1>Microsoft</h1>
+<p>A lot of Microsoft products support OData, including <b>Excel</b>, <b>Sharepoint</b>, <b>Office API</b>, <b>Auzre</b>, <b>Exchange</b>, <b>Dynamics CRM</b>, and etc.</p>
+<ul>
+	<li><a href="#">Power Query</a> is a data analysis feature available for Excel that lets you discover, combine and refine data. Microsoft Power Query for Excel enhances self-service business intelligence (BI) for Excel with an intuitive and consistent experience for discovering, combining, and refining data across a wide variety of sources including relational, structured and semi-structured, <b>OData</b>, Web, Hadoop, Azure Marketplace, and more.</li>
+	<li><a href="">Office 365 APIs</a> enable you to provide access to your customer's Office 365 data, including the things they care about most--their mail, calendars, contacts, users and groups, files, and folders--all right from within your app itself.</li>
+	<li><a href="#">Microsoft Dynamics</a> offers a full range of software focused on delivering business insights that matter to both you and your customers. Developers can query Microsoft Dynamics CRM data using the <b>OData</b> endpoint</li>
+</ul>
+
+</div>
+
+<div id="salesforce-detail" class="white-popup mfp-hide">
+<h1>Salesforce Details</h1>
+</div>
+
+<div id="acumatica-detail" class="white-popup mfp-hide">
+  <h1>Acumatica</h1>
+  <p>Acumatica, founded in 2008, is a technology provider that develops adaptable cloud- and browser-based enterprise resource planning (ERP) software designed to improve productivity of small and medium-sized businesses (SMBs). The company is headquartered in the Seattle metropolitan area and has a number of satellite offices around the globe. Business data and lists created in generic inquiries can be exposed as <b>OData</b> endpoints.</p>
+</div>
+
+<!--Below is for the adopters page-->
+<script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/js/swiper.jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.7.1/holder.min.js"></script>
+<!--end-->
+
+<script type="text/javascript">
+var swiper = new Swiper('.swiper-container', {
+  pagination: '.swiper-pagination',
+  slidesPerView: 4,
+  slidesPerColumn: 2,
+  paginationClickable: '.swiper-pagination',
+  spaceBetween: 30,
+  speed: 300,
+  autoplay: 5000
+});
+$('.open-popup-link').magnificPopup({
+  type:'inline',
+  midClick: true
+});
+</script>
+
