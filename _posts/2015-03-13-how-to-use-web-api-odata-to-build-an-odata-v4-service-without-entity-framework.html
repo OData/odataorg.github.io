@@ -74,7 +74,8 @@ namespace Demo.DataSource
                 return instance;
             }
         }
-        public List<Person> People { get; set; }</p>
+        public List<Person> People { get; set; }
+        public List<Trip> Trips { get; set; }
         private DemoDataSources()
         {
             this.Reset();
@@ -83,6 +84,7 @@ namespace Demo.DataSource
         public void Reset()
         {
             this.People = new List<Person>();
+            this.Trips = new List<Trip>();
         }
         public void Initialize()
         {
@@ -163,6 +165,7 @@ using System.Web.Http;
 using System.Web.OData;
 namespace Demo.Controllers
 {
+    [EnableQuery]
     public class TripsController : ODataController
     {
         public IHttpActionResult Get()
@@ -211,10 +214,10 @@ You can try it out now! All samples below are all <code>GET</code> method.</p>
 <p>Service document</p>
 <p><code>http://localhost:[portNumber]/</code></p>
 <p>Service metadata</p>
-<p><code>http://localhost:21830/$metadata</code></p>
+<p><code>http://localhost:[portNumber]/$metadata</code></p>
 <p>Get People</p>
-<p><code>http://localhost:21830/People</code></p>
+<p><code>http://localhost:[portNumber]/People</code></p>
 <p>Queries</p>
-<p><code>http://localhost:21830/People?$filter=contains(Description,'Lorem')</code></p>
-<p><code>http://localhost:21830/People?$select=Name</code></p>
-<p><code>http://localhost:21830/People?$expand=Trips</code></p>
+<p><code>http://localhost:[portNumber]/People?$filter=contains(Description,'Lorem')</code></p>
+<p><code>http://localhost:[portNumber]/People?$select=Name</code></p>
+<p><code>http://localhost:[portNumber]/People?$expand=Trips</code></p>
