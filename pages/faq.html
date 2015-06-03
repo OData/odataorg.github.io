@@ -1,0 +1,94 @@
+---
+layout: post
+title: FAQ
+permalink: /faq/
+---
+
+<p>The FAQ page is for frequently asked and general questions about OData. <strong>If you have more questions, please ask in the comments below.</strong> We will regularly collect questions from the comments (and other channels like StackOverflow, Twitter and mailing list) then put them on the FAQ page.</p>
+
+
+<div class="panel-group" id="faq-title" role="tablist" aria-mutiselectable="false">
+
+
+	<!--Q: OData versions and compatibility?-->
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="q-odata-version">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="faq-title" href="#a-odata-version" aria-controls="a-odata-version">
+					Q: OData versions and compatibility?
+				</a>
+			</h4>
+		</div>
+		<div id="a-odata-version" class="panel-collapse collapse" role="tabpanel" aria-labelledby="q-odata-version">
+			<div class="panel-body">
+			Currently, there are four versions of OData: OData version 1.0, 2.0, 3.0 and 4.0. OData was initiated by Microsoft in year 2007. Version 1.0, 2.0 and 3.0 are released under the <a href="http://en.wikipedia.org/wiki/Microsoft_Open_Specification_Promise">Microsoft Open Specification Promise</a>. Version 4.0 was standarlized at <a href="http://en.wikipedia.org/wiki/OASIS_(organization)">OASIS</a>, with a release in March 2014. And in April 2015, OASIS has further submitted OData v4 and OData JSON Format v4 to ISO/IEC JTC 1 for approval as an International Standard.
+			</div>
+		</div>
+	</div>
+	
+	<!--Q: What is service document and metadata document?-->
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="q-service-doc-metadata">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="faq-title" href="#a-service-doc-metadata" aria-controls="a-service-doc-metadata">
+					Q: What is service document and metadata document?
+				</a>
+			</h4>
+		</div>
+		<div id="a-service-doc-metadata" class="panel-collapse collapse" role="tabpanel" aria-labelledby="q-service-doc-metadata">
+			<div class="panel-body">
+				Service document advertises the top-level resources which can be accessed on the service root. Metadata on the other hand represents the data model of the REST service. Service document is a MUST for every OData service and metadata document is RECOMMENDED. Metadata document is very important for clients to understand your service.
+			</div>
+		</div>
+	</div>
+
+
+	<!--Q: Does OData support transactions?-->
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="q-1">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="faq-title" href="#a-1" aria-controls="a-1">
+					Q: Does OData support transactions?
+				</a>
+			</h4>
+		</div>
+		<div id="a-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="q-1">
+			<div class="panel-body">
+				Yes. Although the term "transaction" may not appear in the OData spec, <b>Batch</b> is supported in OData. Batch requests allow grouping multiple operations into a single HTTP request payload. In batch request you can define change sets. For example, Dynamics CRM has this built in. More please check <a href="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398359">batch request in OData spec.</a>
+			</div>
+		</div>
+	</div>
+
+	<!--Q: What platforms support OData?-->
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="q-relational-db">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="faq-title" href="#a-relational-db" aria-expanded="false" aria-controls="a-relational-db">
+					Q: Does OData support non-relational database?
+				</a>
+			</h4>
+		</div>
+		<div id="a-relational-db" class="panel-collapse collapse" role="tabpanel" aria-labelledby="q-relational-db">
+			<div class="panel-body">
+			Yes.
+			</div>
+		</div>
+	</div>
+
+	<!--Q: OData and REST? (relationship between OData and REST)-->
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="q-odata-rest">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="faq-title" href="#a-odata-rest" aria-expanded="false" aria-controls="a-odata-rest">
+					Q: OData and REST?
+				</a>
+			</h4>
+		</div>
+		<div id="a-odata-rest" class="panel-collapse collapse" role="tabpanel" aria-labelledby="q-odata-rest">
+			<div class="panel-body">
+			
+			</div>
+		</div>
+	</div>
+
+</div>
