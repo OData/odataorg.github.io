@@ -12,17 +12,14 @@ $(function () {
 
 
 $(document).ready(function(){
-  if ($(window).width() < 768) {
-    $('#fork-me-on-github').hide();
-  }
   // Window width change
   $( window ).resize(function() {
-    if ($(window).width() < 768) {
-      $('#fork-me-on-github').hide();
-    }
-    else{
-      $('#fork-me-on-github').show(); 
-    }
+      if ($(window).width() < 768) {
+        $('#fork-me-on-github').hide();
+      }
+      else{
+        $('#fork-me-on-github').show(); 
+      }
   });
 });
 
