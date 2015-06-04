@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body data-spy="scroll" data-target="nav">
+
+    {% include navbar.html %}
+
+    <div class="container">
+  		<div class="page-header">
+    		<h1>{{ page.title }}</h1>
+  		</div>
+  		{{ content }}
+		</div>
+
+    <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/public/site.js"></script>
+  </body>
+
+  {% include footer.html %}
+
+</html>
