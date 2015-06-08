@@ -1,0 +1,38 @@
+---
+layout: page
+title: Vocabularies
+date: 2015-06-08
+permalink: /vocabularies/
+---
+
+<h2>Introduction</h2>
+<p>Vocabularies provide the ability to annotate metadata as well as instance data, and define a powerful extensibility point for OData.</p>
+<ul>
+<li>
+  <strong>Metadata annotations</strong> can be used to define additional characteristics or capabilities of a metadata element, such as a service, entity type, property, function, action or parameter. For example, a metadata annotation may define ranges of valid values for a particular property. 
+</li>
+<li>
+  <strong>Instance annotations</strong> can be used to define additional information associated with a particular result, entity, property, or error; for example whether a property is read-only for a particular instance.
+</li>
+</ul>
+<p>Annotations that apply across instances should be specified within the metadata. Where the same annotation is defined at both the metadata and instance level, the instance-level annotation should override the annotation specified at the metadata level.</p>
+
+<h2>Please be noted: </h2>
+<ul>
+<li>A vocabulary is a namespace containing <strong>terms</strong> where each term is a named metadata extension for an OData service</li>
+<li>Anyone can define a vocabulary that is specific to a scenario commonly used terms can be added to <strong>shared vocabularies</strong> such as the OData core vocabularies</li>
+<li>A service SHOULD NOT require a client to interpret annotations</li>
+<li>Metadata annotations appear in $metadata whereas instance annotations appear in the actual payload</li>
+</ul>
+
+<h2>OData vocabulary components</h2>
+Currently there are three vocabulary components in OData V4.
+<ul>
+  <li><a href="http://docs.oasis-open.org/odata/odata/v4.0/os/vocabularies/Org.OData.Capabilities.V1.xml">OData Capability Vocabulary</a></li>
+  <li><a href="http://docs.oasis-open.org/odata/odata/v4.0/os/vocabularies/Org.OData.Core.V1.xml">OData Core Vocabulary</a></li>
+  <li><a href="http://docs.oasis-open.org/odata/odata/v4.0/os/vocabularies/Org.OData.Measures.V1.xml">OData Measures Vocabulary</a></li>
+</ul>
+
+
+<h2>Getting involved</h2>
+We hosted a <a href="https://github.com/OData/vocabularies">GitHub repository for OData vocabularies</a> to discuss about OData vocabulary <strong>definitions</strong> and <strong>usage</strong>. You can <strong>discuss</strong> and <strong>contribute</strong> to the OData shared vocabularies following the <a href="https://github.com/OData/vocabularies/blob/master/contributing.md">guideline</a>.
