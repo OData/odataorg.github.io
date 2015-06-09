@@ -4,22 +4,155 @@ title: Documentation
 date: 2014-02-20 06:56:35.000000000 +08:00
 permalink: /documentation/
 ---
-<h2>OData Version 4.0</h2>
-<p>The latest version of OData, version 4.0 (plus errata 02), has been <a href="https://www.oasis-open.org/news/pr/oasis-approves-odata-4-0-standards-for-an-open-programmable-web">publicly standardized by OASIS</a> and is <a href="https://www.oasis-open.org/news/announcements/member-review-of-proposed-submission-of-odata-v4-0-and-odata-json-format-v4-0-to-">beginning the standardization process with ISO</a>. All new OData implementations should use this version of OData.</p>
-<ul>
-<li><a href="http://docs.oasis-open.org/odata/new-in-odata/v4.0/cn01/new-in-odata-v4.0-cn01.html">What’s New in OData Version 4.0</a> | <a href="http://docs.oasis-open.org/odata/new-in-odata/v4.0/cn01/new-in-odata-v4.0-cn01.pdf">PDF</a></li>
-<li><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html">Part 1: Protocol</a> | <a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.pdf">PDF</a></li>
-<li><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">Part 2: URL Conventions</a> | <a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.pdf">PDF</a></li>
-<li><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html">Part 3: Common Schema Definition Language</a> | <a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.pdf">PDF</a></li>
-<li><a href="http://docs.oasis-open.org/odata/odata-json-format/v4.0/odata-json-format-v4.0.html">JSON Format</a> | <a href="http://docs.oasis-open.org/odata/odata-json-format/v4.0/odata-json-format-v4.0.pdf">PDF</a></li>
-<li><a href="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/">ABNF</a></li>
-<li><a href="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/">Standardized Vocabularies</a></li>
-<li><a href="http://docs.oasis-open.org/odata/odata-atom-format/v4.0/odata-atom-format-v4.0.html">ATOM Format (Committee Specification)</a> | <a href="http://docs.oasis-open.org/odata/odata-atom-format/v4.0/odata-atom-format-v4.0.pdf">PDF</a></li>
-<li><a href="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs01/odata-data-aggregation-ext-v4.0-cs01.html">Aggregation Extension (Committee Specification) </a> | <a href="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs01/odata-data-aggregation-ext-v4.0-cs01.pdf">PDF</a></li>
-</ul>
-<p><strong>To get started learning OData V4</strong>, we recommend working through the <a href="/getting-started/basic-tutorial">Beginner Tutorial</a> and <a href="/getting-started/advanced-tutorial">Advanced Tutorial</a> first. Next, read <em><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html">Part 1: Protocol</a></em> for an overview of the OData Protocol. See <em><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">Part 2: URL Conventions</a></em> for details on the URL syntax, and <em><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html">Part 3: Common Schema Definition Language</a></em> for details on the OData Modeling language. Finally, refer to <em><a href="http://docs.oasis-open.org/odata/odata-json-format/v4.0/odata-json-format-v4.0.html">OData JSON Format</a></em> or <em><a href="http://docs.oasis-open.org/odata/odata-atom-format/v4.0/odata-atom-format-v4.0.html">OData Atom Format</a></em> for details on the individual payload formats.</p>
-<h2>Older Versions</h2>
-<ul>
-<li><a href="/documentation/odata-version-3-0">OData Version 3.0</a></li>
-<li><a href="/documentation/odata-version-2-0">OData Version 2.0</a></li>
-</ul>
+
+<style>
+.table th {
+	text-align: center;
+	font-size: 18px;
+}
+.link-td {
+	text-align: center;
+	width: 120px;
+}
+.section-td {
+	text-align: left;
+	width: 300px;
+	font-size: 16px;
+}
+
+</style>
+
+
+<p>
+	This page displays the <strong>OData specifications</strong> for OData version 4.0, version 3.0 and version 2.0. The latest version of OData, version 4.0 (plus errata 02), has been <a href="https://www.oasis-open.org/news/pr/oasis-approves-odata-4-0-standards-for-an-open-programmable-web">publicly standardized by OASIS</a> and is <a href="https://www.oasis-open.org/news/announcements/member-review-of-proposed-submission-of-odata-v4-0-and-odata-json-format-v4-0-to-">beginning the standardization process with ISO</a>.So we highly recommend all new OData implementations use this version of OData V4. You can take a look at <a href="http://docs.oasis-open.org/odata/new-in-odata/v4.0/cn01/new-in-odata-v4.0-cn01.html">What's new in OData Version 4.0</a> (<a href="http://docs.oasis-open.org/odata/new-in-odata/v4.0/cn01/new-in-odata-v4.0-cn01.pdf">PDF version</a>).
+</p>
+<p>
+	<strong>To get started learning OData</strong> (especially for OData V4), we recommend first working through the <a href="http://www.odata.org/getting-started/basic-tutorial">basic tutorial</a> and then, read <strong>protocol</strong> part for an overview of OData.
+
+	For other parts of the specification: 
+	<ul>
+		<li><strong>URL conventions</strong> describe details on URL syntax</li>
+		<li><strong>Common Schema Definition Language</strong> describe details on OData modeling language</li>
+		<li><strong>JSON format</strong> and <strong>Atom format</strong> describe details on payload formats.</li>
+		<li><strong>ABNF</strong> defines the URL syntax and serialization format for primitive literals in payloads.</li>
+		<li><strong>Vocabularies</strong> describes how to annotate metadata and instance data. (<a href="http://www.odata.org/vocabularies">vocabulary page</a>)</li>
+		<li><strong>Aggregation Extension</strong> is the extentsion part of OData protocol.</li>
+		<li>Batch processing and operations are sperate documented in OData V2 but covered in Protocol part in OData V3 and V4.</li>
+	</ul>
+</p>
+
+
+<br>
+
+<table class="table table-striped table-responsive">
+
+<tr>
+<th></th>
+<th colspan="2">Version 4 &nbsp;<span class="label label-success">recommended</span></th>
+<th colspan="2">Version 3</th>
+<th colspan="2">Version 2</th>
+</tr>
+
+<tr>
+	<td class="section-td">Protocol</td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.pdf"><img src="/assets/doc-pdf.png"></img></a></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-3-0/odata-version-3-0-core-protocol"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"><a href="http://download.microsoft.com/download/9/5/E/95EF66AF-9026-4BB0-A41D-A4F81802D92C/[MS-ODATA].pdf"><img src="/assets/doc-pdf.png"></img></a></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-2-0/overview"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+</tr>
+
+<tr>
+	<td class="section-td">URL Conventions</td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.pdf"><img src="/assets/doc-pdf.png"></img></a></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-2-0/uri-conventions"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+</tr>
+
+<tr>
+	<td class="section-td">Common Schema Definition Language</td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.pdf"><img src="/assets/doc-pdf.png"></img></a></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"><a href="http://download.microsoft.com/download/9/5/E/95EF66AF-9026-4BB0-A41D-A4F81802D92C/[MC-CSDL].pdf"><img src="/assets/doc-pdf.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+</tr>
+
+<tr>
+	<td class="section-td">JSON Format</td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata-json-format/v4.0/odata-json-format-v4.0.html"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata-json-format/v4.0/odata-json-format-v4.0.pdf"><img src="/assets/doc-pdf.png"></img></a></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-3-0/json-verbose-format"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-2-0/json-format"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+</tr>
+
+<tr>
+	<td class="section-td">ATOM Format</td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata-atom-format/v4.0/odata-atom-format-v4.0.html"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata-atom-format/v4.0/odata-atom-format-v4.0.pdf"><img src="/assets/doc-pdf.png"></img></a></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-3-0/atom-format"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-2-0/atom-format"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+</tr>
+
+
+
+<tr>
+	<td class="section-td">ABNF</td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-3-0/abnf"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+</tr>
+
+<tr>
+	<td class="section-td">Standarlized Vocabularies</td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"><a href="https://github.com/OData/vocabularies/tree/master/odata-v3"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+</tr>
+
+<tr>
+	<td class="section-td">Aggregation Extension</td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs01/odata-data-aggregation-ext-v4.0-cs01.html"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"><a href="http://docs.oasis-open.org/odata/odata-atom-format/v4.0/odata-atom-format-v4.0.pdf"><img src="/assets/doc-pdf.png"></img></a></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+</tr>
+
+<tr>
+	<td class="section-td">Batch Processing</td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-2-0/batch-processing"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+</tr>
+
+<tr>
+	<td class="section-td">Operations</td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"></td>
+	<td class="link-td"><a href="http://www.odata.org/documentation/odata-version-2-0/operations"><img src="/assets/doc-outlink.png"></img></a></td>
+	<td class="link-td"></td>
+</tr>
+
+</table>
