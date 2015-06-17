@@ -7,11 +7,11 @@ author: Mitch Graw
 
 ## Lightning Connect to NetSuite External Objects
 
-Salesforce [Lightning Connect](http://www.salesforce.com/platform/services/lightning/) enables Salesforce users to connect to data from OData sources from Salesforce in the same way that users interact with standard Salesforce objects. Through Lightning Connect, Salesforce customers can build real-time analysis from within their Salesforce dashboard and other Salesforce1 apps. In this article we are going to show you how you can enable bi-directional connectivity between NetSuite CRM and ERP data from Salesforce using the [Cloud Drivers from CData Software](http://www.cdata.com/cloud/) to create OData feeds of live NetSuite data.
+Salesforce [Lightning Connect](http://www.salesforce.com/platform/services/lightning/) enables Salesforce users to connect to data from OData sources from Salesforce in the same way that users interact with standard Salesforce objects. Through Lightning Connect, Salesforce customers can build real-time analysis from within their Salesforce dashboard and other Salesforce1 apps. In this article we are going to show you how you can enable bi-directional connectivity between NetSuite CRM and ERP data from Salesforce using the [Cloud Drivers from CData Software](http://www.cdata.com/cloud/) to create OData feeds of live NetSuite data.
 
-The [Cloud Drivers](http://www.cdata.com/cloud/) from CData Software are lightweight web applications that proxy live data through standards-based interfaces like ODATA, SOAP, REST, HTML, RSS, ATOM, JSON, XLS, and CSV, making it easily accessible across platforms and devices. The [NetSuite Cloud Driver](http://www.cdata.com/cloud/netsuite) enables you to securely feed NetSuite Leads, Contacts, and Opportunities to Salesforce Lightning Connect.
+The [Cloud Drivers](http://www.cdata.com/cloud/) from CData Software are lightweight web applications that proxy live data through standards-based interfaces like ODATA, SOAP, REST, HTML, RSS, ATOM, JSON, XLS, and CSV, making it easily accessible across platforms and devices. The [NetSuite Cloud Driver](http://www.cdata.com/cloud/netsuite) enables you to securely feed NetSuite Leads, Contacts, and Opportunities to Salesforce Lightning Connect.
 
-In this article, we will consume NetSuite objects in Salesforce filter lists. We will also create related lists that show related NetSuite and Salesforce objects. You can follow the same general procedure for connectign to data from any other available Cloud Drivers, including — Microsoft Dynamics, QuickBooks, Oracle, Google services, etc.
+In this article, we will consume NetSuite objects in Salesforce filter lists. We will also create related lists that show related NetSuite and Salesforce objects. You can follow the same general procedure for connectign to data from any other available Cloud Drivers, including Microsoft Dynamics, QuickBooks, Oracle, Google services, etc.
 
 The NetSuite Cloud Driver makes it easy to work with nontraditional data sources like NetSuite as tables. The tables are intuitive and the underlying OData protocol is transparent. However, the benefits are immediately apparent: OData enables you to see changes to your data in real time.
 
@@ -45,7 +45,7 @@ After you connect, allow the cloud driver access to each NetSuite table you want
 
 After the cloud driver is running, follow the steps below to set up Lightning Connect to consume the cloud driver's NetSuite feed.
 
-1. Log into Salesforce and click Setup -&gt; Develop -&gt; External Data Sources.
+1. Log into Salesforce and click Setup -> Develop -> External Data Sources.
 2. Click New External Data Source.
 3. Enter values for the following properties:
     - Label: Enter a label to be used in list views and reports.
@@ -74,10 +74,10 @@ After you have created the external data source, follow the steps below to creat
 
 ### NetSuite as a Database
 
-The [NetSuite Cloud Driver](http://www.cdata.com/cloud/netsuite) enables you to use data access standards like OData to work with NetSuite data as a database, without loading the data into a database. Using the NetSuite Cloud Driver in Salesforce is almost the same as using the SQL Server, Oracle, or MySQL Cloud Drivers. The Cloud Driver abstracts NetSuite entities into normalized tables. This relational view provides data integrity: You can use the cloud driver to provide trusted OData feeds of NetSuite data.
+The [NetSuite Cloud Driver](http://www.cdata.com/cloud/netsuite) enables you to use data access standards like OData to work with NetSuite data as a database, without loading the data into a database. Using the NetSuite Cloud Driver in Salesforce is almost the same as using the SQL Server, Oracle, or MySQL Cloud Drivers. The Cloud Driver abstracts NetSuite entities into normalized tables. This relational view provides data integrity: You can use the cloud driver to provide trusted OData feeds of NetSuite data.
 
 Working with NetSuite transactions and lists is straightforward. To expand the lists of a table into separate tables, simply set the IncludeChildTables connection property to true and reconnect. When you connect, the NetSuite Cloud Driver dynamically obtains the table definitions. In Lightning Connect, you can sync these definitions with external objects.
 
 #### Learn More
 
-More information about Salesforce Lightning integration can be found on the [Salesforce1 Lightning platform page](http://www.salesforce.com/platform/services/lightning/). Learn more about the CData Cloud Drivers online at [www.cdata.com/cloud/](http://www.cdata.com/cloud/).
+More information about Salesforce Lightning integration can be found on the [Salesforce1 Lightning platform page](http://www.salesforce.com/platform/services/lightning/). Learn more about the CData Cloud Drivers online at [www.cdata.com/cloud/](http://www.cdata.com/cloud/).
