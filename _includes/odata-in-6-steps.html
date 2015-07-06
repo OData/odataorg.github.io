@@ -557,7 +557,7 @@ The client library used is the <a href="https://github.com/object/Simple.OData.C
 var serviceRoot = 'http://services.odata.org/V4/TripPinServiceRW/';
 var headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
 var request = {
-    requestUri: serviceRoot + 'People('russellwhyte')',
+    requestUri: serviceRoot + 'People("russellwhyte")',
     method: 'GET',
     headers: headers,
     data: null
@@ -585,7 +585,7 @@ The client library used is the <a href="https://github.com/odata/odatacpp-client
 {% highlight js %}
 var http = require('http');
 var serviceRoot = 'http://services.odata.org/v4/TripPinServiceRW/';
-getURL(serviceRoot + 'People('russellwhyte')');
+getURL(serviceRoot + 'People("russellwhyte")');
 function getURL(url) {
     var body = '';
     http.get(url, function (response) {
@@ -1083,10 +1083,10 @@ The client library used is the <a href="https://github.com/object/Simple.OData.C
 var serviceRoot = 'http://services.odata.org/V4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/';
 var headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
 var relateBody = {
-    '@odata.id':'http://services.odata.org/V4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/People('russellwhyte')/Trips(0)'
+    '@odata.id':'http://services.odata.org/V4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/People("russellwhyte")/Trips(0)'
 };
 var request = {
-    requestUri: serviceRoot + 'People('lewisblack')/Trips/$ref',
+    requestUri: serviceRoot + 'People("lewisblack")/Trips/$ref',
     method: 'POST',
     headers: headers,
     data: relateBody
@@ -1119,11 +1119,11 @@ var http = require('http');
 var serviceHost = 'services.odata.org';
 var servicePath = '/v4/TripPinServiceRW/';
 var postData = JSON.stringify({
-    '@odata.id': 'http://services.odata.org/V4/TripPinServiceRW/People('russellwhyte')/Trips(0)'
+    '@odata.id': 'http://services.odata.org/V4/TripPinServiceRW/People("russellwhyte")/Trips(0)'
 });
 var options = {
     hostname: serviceHost,
-    path: servicePath + 'People('lewisblack')/Trips/$ref',
+    path: servicePath + 'People("lewisblack")/Trips/$ref',
     port: 80,
     method: 'POST',
     headers: {
@@ -1227,7 +1227,7 @@ The client library used is the <a href="https://github.com/object/Simple.OData.C
 var serviceRoot = 'http://services.odata.org/V4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/';
 var headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
 var request = {
-    requestUri: serviceRoot + 'People('russellwhyte')/Trips(0)/Microsoft.OData.SampleService.Models.TripPin.GetInvolvedPeople()',
+    requestUri: serviceRoot + 'People("russellwhyte")/Trips(0)/Microsoft.OData.SampleService.Models.TripPin.GetInvolvedPeople()',
     method: 'GET',
     headers: headers,
     data: null
@@ -1257,7 +1257,7 @@ The client library used is the <a href="https://github.com/odata/odatacpp-client
 {% highlight js %}
 var http = require('http');
 var serviceRoot = 'http://services.odata.org/v4/TripPinServiceRW/';
-getURL(serviceRoot + 'People('russellwhyte')/Trips(0)/Microsoft.OData.SampleService.Models.TripPin.GetInvolvedPeople()');
+getURL(serviceRoot + 'People("russellwhyte")/Trips(0)/Microsoft.OData.SampleService.Models.TripPin.GetInvolvedPeople()');
 function getURL(url) {
     var body = '';
     http.get(url, function (response) {
