@@ -481,7 +481,7 @@ The client library used is the <a href="https://github.com/odata/odatacpp-client
 {% highlight js %}
 var http = require('http');
 var serviceRoot = 'http://services.odata.org/v4/TripPinServiceRW/';
-getURL(serviceRoot + '/People');
+getURL(serviceRoot + 'People');
 function getURL(url) {
     var body = '';
     http.get(url, function (response) {
