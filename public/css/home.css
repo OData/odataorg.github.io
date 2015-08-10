@@ -10,17 +10,18 @@ body {
     border-color: #ffffff;
     border-radius: 0;
     box-shadow: 0 3.5px 5px rgba(0,0,0,0.15); 
+    z-index: 999;
 }
 
 .navbar-default .navbar-nav>li>a {
   color: #F18B1B;
 }
 
-.navbar-default .navbar-nav {
+/*.navbar-default .navbar-nav {
   float: right;
   width: 60% ;
 }
-
+*/
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Microsoft Yahei";
 }
@@ -86,3 +87,84 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.tutor{
+    width:80%; 
+    height:80%; 
+    margin: auto;
+    color: rgba(0, 0, 0,0.5); 
+    border-radius: 3px;
+    font-size:48px; 
+    background-color: rgba(255, 255, 255,0.5); 
+}
+
+@media (max-width: 767px) {
+     .tutor {
+      font-size: 28px;
+     }
+}
+
+.posthome{
+    color: white;
+    background-color: rgba(55, 36, 36,0.5); 
+    padding: 10px;
+    border-radius: 3px;
+}
+
+@media (max-width: 767px) {
+     .posthome {
+      font-size: 14px;
+     }
+}
+
+.img-responsive{
+    margin: auto;
+}
+
+
+#intro{
+    min-height: 640px;
+    background-size: cover;
+    background-image: url(/assets/pic1.jpg);
+    background-position: center center;
+}
+
+#start{
+    min-height: 640px;
+    background-size: cover;
+    background-image: url(/assets/pic2.jpg);
+    background-position: center center;
+}
+      
+#customer{
+    min-height: 640px;
+    background-size: cover;
+    background-image: url(/assets/pic3.jpg);
+    background-position: center center;
+}
+    
+
+#posts{
+    min-height: 640px;
+    background-size: cover;
+    background-image: url(/assets/pic4.jpg);
+    background-position: center center;
+}
+      
+.col-md-6{
+    margin:10px 0 10px 0;
+}
+
+@media (max-width: 767px){
+   .bottom-padding .col-md-12 >img{
+    display: none;
+   }
+   .bottom-padding .col-md-12 >h2{
+    display:block;
+   }
+}
+
+@media (min-width: 767px){
+.bottom-padding .col-md-12 >h2{
+    display:none;
+   }

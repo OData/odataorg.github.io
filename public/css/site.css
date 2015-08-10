@@ -85,7 +85,13 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 @media (min-width:992px) {
     .tutorial-sidebar .nav>.active>ul {
     display: block;
+}
+
+@media (max-width: 767px){
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+    color: #333333;
 }
