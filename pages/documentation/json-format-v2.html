@@ -193,43 +193,41 @@ OData V2: {
 <p>To conserve resources (bandwidth, CPU, and so on), it is generally not a good idea for an OData service to return the full graph of Entries related to an Entry or Collection of entries as identified in a request URI. For example, an OData service should defer sending related Entries unless the client explicitly asked for them using the <a href="../uri-conventions">$expand System Query Option</a> which provides a way for a client to state related entities should be <a href="../json-format#InlineRepresentationofAssociatedEntries"> represented inline</a>. As shown in the example above, by default properties which represent <a href="../terminology">Links</a> (the "Products" property in the example) are represented as an object with a "__deferred" name/value pair to indicate the service deferred representing the related Entries. The uri name/value pair within the "__deferred" object must be provided and can be used to retrieve the deferred content.</p>
 <h2><a id="InlineRepresentationOfAssociatedEntries" name="InlineRepresentationOfAssociatedEntries"></a>9. Inline Representation of Associated Entries</h2>
 <p>As described in the <a href="../uri-conventions">$expand System Query Option section</a> of the <a href="../uri-conventions">[OData-URI]</a> document, a request URI may include the $expand query option to explicitly request that a linked to Entry or collection of Entries be serialized inline, rather than deferred. For example, a single Category Entry with its related Product Entries serialized inline as shown in the example below.</p>
-{% highlight javascript %}OData V2: { 
+{% highlight javascript %}OData V1 and V2: { 
   "d" : { 
-    "results": { 
-      "__metadata": { 
-        "uri": "http://services.odata.org/OData/OData.svc/Categories(0)",
-        "type": "DataServiceProviderDemo.Category" }, 
-        "ID": 0,
-        "Name": "Food", 
-        "Products": [ { 
-          "__metadata": { 
-            "uri": "http://services.odata.org/OData/OData.svc/Products(0)",
-            "etag": "W/"0"", 
-            "type": "DataServiceProviderDemo.Product" 
-          }, 
-          "ID": 0, 
-          "Name": "Bread", 
-          "Description": "Whole grain bread", 
-          "ReleaseDate": "/Date(694224000000)/",
-          "DiscontinuedDate": null, 
-          "Rating": 4, 
-          "Price": "2.5", 
-          "Concurrency": 0, 
-          "Category": { 
-            "__deferred": { 
-              "uri": "http://services.odata.org/OData/OData.svc/Products(0)/Category"
-            } 
-          }, 
-          "Supplier": { 
-            "__deferred": { 
-              "uri": "http://services.odata.org/OData/OData.svc/Products(0)/Supplier"
-            } 
+    "__metadata": { 
+      "uri": "http://services.odata.org/OData/OData.svc/Categories(0)",
+      "type": "DataServiceProviderDemo.Category" }, 
+      "ID": 0,
+      "Name": "Food", 
+      "Products": [ { 
+        "__metadata": { 
+          "uri": "http://services.odata.org/OData/OData.svc/Products(0)",
+          "etag": "W/"0"", 
+          "type": "DataServiceProviderDemo.Product" 
+        }, 
+        "ID": 0, 
+        "Name": "Bread", 
+        "Description": "Whole grain bread", 
+        "ReleaseDate": "/Date(694224000000)/",
+        "DiscontinuedDate": null, 
+        "Rating": 4, 
+        "Price": "2.5", 
+        "Concurrency": 0, 
+        "Category": { 
+          "__deferred": { 
+            "uri": "http://services.odata.org/OData/OData.svc/Products(0)/Category"
+          } 
+        }, 
+        "Supplier": { 
+          "__deferred": { 
+            "uri": "http://services.odata.org/OData/OData.svc/Products(0)/Supplier"
           } 
         } 
-      ] 
-    } 
+      } 
+    ] 
   } 
-} * OData V1 also supports inline content {% endhighlight %}
+} {% endhighlight %}
 <h2><a id="RepresentingMediaLinkEntries" name="RepresentingMediaLinkEntries"></a> 10. Representing Media Link Entries</h2>
 <p><a href="../terminology">Media Link Entries (MLE)</a> are represented in the same way as "plain" Entries as described in <a href="../json-format#RepresentingEntries"> Representing Entries</a>; however, they also contain additional metadata per Entry that describes the Media Resource (MR) associated with the Entry. This additional MR metadata is represented as name/value pairs of the "__metadata" object associated with the Entry.</p>
 <table border="1" cellspacing="0" cellpadding="0">
