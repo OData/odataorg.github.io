@@ -23,7 +23,7 @@ Maximum OData result set size (16MB)
 ##Winter '16 (available in sandboxes as of this blog's publish date)
 * OData 4.0 support
 * Full CRUD support via OData
-![Full OData CRUD support](http://docs.releasenotes.salesforce.com/en-us/winter16/release-notes/release_notes/images/external_data_source_writeable_198.png
+![Full OData CRUD support](http://docs.releasenotes.salesforce.com/en-us/winter16/release-notes/release_notes/images/external_data_source_writeable_198.png)
 
 [See Release Notes for complete details](http://docs.releasenotes.salesforce.com/en-us/winter16/release-notes/salesforce_release_notes.htm)
 
