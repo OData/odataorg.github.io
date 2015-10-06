@@ -5,7 +5,7 @@ date: 2015-10-06 17:59:43.000000000 +08:00
 author: Sumit Sarkar
 ---
 
-In my role as Chief Data Evangelist for Progress Software, it’s important to promote best practices for data connectivity and integration patterns. In thinking about an architecture for building enterprise mobile applications, I made the recommendation to leverage OData for the connectivity.  
+In my role as Chief Data Evangelist for Progress Software, it’s important to promote best practices for data connectivity and integration patterns. In thinking about an architecture for building enterprise mobile applications at Progress Software, I made the recommendation to leverage OData for the connectivity.  
 
 Below is a tutorial on building an enterprise mobile application by leveraging end-to-end solutions in the OData.org ecosystem. 
 
