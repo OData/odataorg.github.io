@@ -17,7 +17,7 @@ From the OData ecosystem, we selected the [Telerik Platform for mobile applicati
 
 * Login to DataDirect Cloud by clicking on ‘Connect Data’.
  
-* You will be redirected to Data Direct Cloud Dashboard. The first step here would be to create a Data Source definition. On the Dashboard, you can click on ‘Data Sources’ tab to the left of Dashboard and then you would have to click on ‘Data Stores’ on the Next Screen.
+* You will be redirected to DataDirect Cloud Dashboard. The first step here would be to create a Data Source definition. On the Dashboard, you can click on ‘Data Sources’ tab to the left of Dashboard and then you would have to click on ‘Data Stores’ on the Next Screen.
 
 ![DataDirect Cloud OData sources](/assets/enterprise-mobile1.png)
  
