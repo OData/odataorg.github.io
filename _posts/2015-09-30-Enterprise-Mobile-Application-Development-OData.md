@@ -58,6 +58,6 @@ Progress Software
 @SAsInSumit
 [www.linkedin.com/in/meetsumit](www.linkedin.com/in/meetsumit)
 
-Progress Software also [serves on the OASIS OData Technical Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata) and we're interested in learning more about your expeirences with OData for mobile development.
+Progress Software also [serves on the OASIS OData Technical Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata) and we're interested in learning more about your experiences with OData for mobile development.
 
 Special thanks to Saikrishna Teja Bobba, Developer Evangelist with Progress DataDirect, who helped put this tutorial together.
