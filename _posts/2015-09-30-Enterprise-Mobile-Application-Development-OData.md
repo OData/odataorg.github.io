@@ -1,6 +1,6 @@
 ---
 layout: post
-Enterprise Mobile Application Development using OData
+title: Enterprise Mobile Application Development using OData
 date: 2015-10-06 17:59:43.000000000 +08:00
 author: Sumit Sarkar
 ---
@@ -55,8 +55,11 @@ Next, Log in to your account at Telerik Mobile App Builder platform [here](https
 #Let's Connect:
 
 Sumit Sarkar, Chief Data Evangelist
+
 Progress Software
+
 @SAsInSumit
+
 [www.linkedin.com/in/meetsumit](www.linkedin.com/in/meetsumit)
 
 Progress Software also [serves on the OASIS OData Technical Committee](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata) and we're interested in learning more about your experiences with OData for mobile development.

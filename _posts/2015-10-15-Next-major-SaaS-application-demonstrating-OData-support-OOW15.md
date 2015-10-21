@@ -1,6 +1,6 @@
 ---
 layout: post
-Next major SaaS application will be demonstrating OData support at OOW15
+title: Next major SaaS application will be demonstrating OData support at OOW15
 date: 2015-10-15 17:59:43.000000000 +08:00
 author: Sumit Sarkar
 ---
@@ -39,6 +39,9 @@ Unfortunately, I cannot say until the session.  But what I can say is that this 
 #Let's Connect:
 
 Sumit Sarkar, Chief Data Evangelist
+
 Progress Software
+
 @SAsInSumit
+
 [www.linkedin.com/in/meetsumit](www.linkedin.com/in/meetsumit)
