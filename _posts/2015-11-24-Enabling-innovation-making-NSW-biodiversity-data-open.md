@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Enabling innovation: making NSW biodiversity data open
+title: Enabling Innovation: Making NSW Biodiversity Data Open
 date: 2015-11-24 17:59:43.000000000 +08:00
 author: James Bibby
 ---
-# Enabling innovation: making NSW biodiversity data open #
+# Enabling Innovation: Making NSW Biodiversity Data Open #
 
 The NSW Office of Environment and Heritage has recently opened up its massive store of biodiversity data to IT developers using an OData based web service.  This first release of BioNet Web Services makes over 7 million species sightings records available for direct access by software applications enabling open innovation on this valuable public resource.
 
@@ -26,7 +26,8 @@ The project team continues to work on making more biodiversity data held in BioN
 
 *Where can I find out more?*
 
-More information, including developer guides, can be found at data.bionet.nsw.gov.au
+More information, including developer guides, can be found at [data.bionet.nsw.gov.au](data.bionet.nsw.gov.au)
 
 James Bibby
+
 Senior Scientist, Biodiversity Information Systems
