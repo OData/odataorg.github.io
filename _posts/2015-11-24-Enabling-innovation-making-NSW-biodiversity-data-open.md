@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Enabling Innovation - Making NSW Biodiversity Data Open
+title: "Enabling Innovation: Making NSW Biodiversity Data Open"
 date: 2015-11-30 17:59:43.000000000 +08:00
 author: James Bibby
 ---
