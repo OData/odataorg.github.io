@@ -1,6 +1,6 @@
 ---
 layout: post
-title: your blog title
+title: "Webinar: External data integration strategies"
 date: 2016-01-13 16:17:23.000000000 +08:00
 author: Mark Stafford
 ---
