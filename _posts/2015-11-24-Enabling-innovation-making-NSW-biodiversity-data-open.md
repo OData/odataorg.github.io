@@ -4,7 +4,7 @@ title: "Enabling Innovation: Making NSW Biodiversity Data Open"
 date: 2015-11-30 17:59:43.000000000 +08:00
 author: James Bibby
 ---
-# Enabling Innovation: Making NSW Biodiversity Data Open #
+<small>The following is a guest post by James Bibby of NSW Office of Environment & Heritage. The views expressed and statements made are those of Biodiversity Information Systems and not of OData.org or its administrators.</small>
 
 The NSW Office of Environment and Heritage has recently opened up its massive store of biodiversity data to IT developers using an OData based web service.  This first release of BioNet Web Services makes over 7 million species sightings records available for direct access by software applications enabling open innovation on this valuable public resource.
 
@@ -14,7 +14,7 @@ OEH’s Science Division had a clear aim of improving both environmental decisio
 
 By adopting the OASIS OData standard for the BioNet web service, the project team saw that these barriers could be significantly reduced.   IT developers wishing to consume data via the OData API would be able to easily access a range of pre-existing libraries across a range of platforms, and in addition tap into existing online developer communities to support their development.
 
-Realisation of these benefits was borne out by [Gaia Guide](www.gaiaguide.info), one of the early adopters of the service who use the Apache Olingo Library.  “The API is really nice and transparent”, commented Geoff Shuetrim, Director at GaiaGuide.  “It took us 2 hours of development effort to connect to the BioNet web service compared with nearly a week for any other web service we have connected to.”
+Realisation of these benefits was borne out by [Gaia Guide](http://www.gaiaguide.info), one of the early adopters of the service who use the Apache Olingo Library.  “The API is really nice and transparent”, commented Geoff Shuetrim, Director at GaiaGuide.  “It took us 2 hours of development effort to connect to the BioNet web service compared with nearly a week for any other web service we have connected to.”
 
 ![Excel Biodiversity Powermap](/assets/biodiversitypowermap.png)
 *An extract of all sightings for Clarence Valley Local Government Area retrieved using Power Query for Excel and displayed via Power Map for Excel*
@@ -25,7 +25,7 @@ The project team continues to work on making more biodiversity data held in BioN
 
 ##Where can I find out more?##
 
-More information, including developer guides, can be found at [data.bionet.nsw.gov.au](data.bionet.nsw.gov.au)
+More information, including developer guides, can be found at [data.bionet.nsw.gov.au](http://data.bionet.nsw.gov.au)
 
 James Bibby
 
