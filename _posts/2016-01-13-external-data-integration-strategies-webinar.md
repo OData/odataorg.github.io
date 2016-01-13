@@ -4,9 +4,9 @@ title: "Webinar: External data integration strategies"
 date: 2016-01-13 16:17:23.000000000 +08:00
 author: Mark Stafford
 ---
-<small>The following is a guest post by Mark Stafford of Microsoft's OData team.</small>
+<small>The following is a post by Mark Stafford of Microsoft's OData team.</small>
 
-Join us on January 19th at 1:00pm Eastern Time for a webinar discussing external data integration strategies. This webinar is free of charge and hosted by Progress Software, Oracle, and Microsoft. To register for the webinar, please follow this link: [http://forms.progress.com/wbr-odata-integration-for-saas]
+Join us on January 19th at 1:00pm Eastern Time for a webinar discussing external data integration strategies. This webinar is free of charge and hosted by Progress Software, Oracle, and Microsoft. To register for the webinar, please follow this link: [http://forms.progress.com/wbr-odata-integration-for-saas](http://forms.progress.com/wbr-odata-integration-for-saas)
 
 ## Self-service integration and the explosion of data sources are driving OData adoption from leading SaaS vendors.
 
