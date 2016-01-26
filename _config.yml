@@ -19,11 +19,8 @@ collections:
   tutorials:
     output: true
     permalink: /tutorials/:title/
-  posts:
-    output: true
-    permalink: /blog/:title/
 
-#permalink: /blog/:title/
+permalink: /blog/:title/
 
 # highlighter: pygments
 
