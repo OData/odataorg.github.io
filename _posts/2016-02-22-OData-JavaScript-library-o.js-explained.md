@@ -17,7 +17,7 @@ The installation of o.js is simple. You just need to include the `o.js` file int
 
 o.js adds a `o()` function to the global namespace. This function can be used to define a query. It returns a oHandler, which then allows to retrive, change or push data to the service:
 
-```js
+```
 var oHandler = o('http://services.odata.org/V4/(S(wptr35qf3bz4kb5oatn432ul))/TripPinServiceRW/People');
 oHandler.get(function(data) {
     console.log(data); // data of the TripPinService/People endpoint
@@ -25,7 +25,7 @@ oHandler.get(function(data) {
 ```
 The example above shows how to get the data from the defined handler with the `get()` function. The `get()`-function accepts an success- and error-callback to get the return of the request. If you prefer to use promise, you can use [q.js](https://github.com/kriskowal/q). The following example shows how to get data from the endpoint and manipulate the result with promise:
 
-```js
+```
 o('http://services.odata.org/V4/(S(wptr35qf3bz4kb5oatn432ul))/TripPinServiceRW/People(\'Russell Whyte\')').get().then(function(result) {
 	result.data.FirstName = 'New Name';
 	return(result.save());
@@ -36,7 +36,7 @@ o('http://services.odata.org/V4/(S(wptr35qf3bz4kb5oatn432ul))/TripPinServiceRW/P
 If you include q.js you can call the `get()` function without a callback and it returns a promise. The data is then stored in a `o.data` which you can manipulate and save by calling save(). The `save()` itself is used for POST and PUT request to the database and returns a second promise. This way the function above requested a resource, manipulates it and saves the manipulated data back to the service.
 
 As you can see the requested service URL is quite long. If you use o.js to query one endpoint often you can configure o.js to use the same endpoint all the time:
-```js
+```
 o().config({
 	endpoint: 'http://services.odata.org/V4/(S(ms4wufavzmwsg3fjo3eqdgak))/TripPinServiceRW/'
 });
@@ -44,7 +44,7 @@ o().config({
 
 From now on you can use only the resource name to query an endpoint. The following example uses the configured endpoint and the `save()` function to POST, PUT and DELETE data to the TripPinService:
 
-```js
+```
     o('People').post({
             UserName:name,
             FirstName:'foo',
@@ -67,7 +67,7 @@ In the promise chain above o.js first adds a new user using `post()` and saves i
 # Chaining the query
 We already used the chained function `find()` to find a specific person. o.js allows multiple functions to detail your query. The `find()` is a special case, because it allows to find a specific resource by the key. But you can also use functions to limit the result. For example you can chain your query with `.skip(2).take(5)` to request only the first 5 rows skipped by the first 2 rows. There are many more chained function and you can find a complete list in the [o.js readme](https://github.com/janhommes/o.js). Mostly you will use the where function to find something:
 
-```js
+```
 o('People').where('FirstName == "foo"').get(function(data) {
     console.log(data); //all persons where the firstname is "foo"
 });
@@ -76,7 +76,7 @@ o('People').where('FirstName == "foo"').get(function(data) {
 > Note: o.js automatically maps some basic operations from JavaScript to OData. For complex `where` request, you need to use the OData equivalent (e.g. `FirstName eq "foo"`).
 
 As mentioned you can chain multiple functions to build a query. The following example shows a pagination function which expands the result with the Trip result:
-```js
+```
 function loadNextPage(skip) {
     o('People').expand('Trips').skip(skip).take(5).get(function(data) {
         console.log(data); // 5 People skipped by the function parameter and extended by "Trips"
@@ -91,7 +91,7 @@ For the example we will use the `route()` function of o.js and bind the data to 
 
 If you try the example you will see a top navigation point `People`. This is basically a typical html hash-link `<a href="#People">People</a>` which does not change anything. But if we register a o.js route on this hash value, o.js automatically triggers the request to the configured endpoint. Therefore we first configure the endpoint:
 
-```js
+```
     // initialize the ko observables
 	self.People=ko.observableArray([]);
 	self.route=ko.observable('');
@@ -114,7 +114,7 @@ The start and ready function defines what should be done when the request starts
 > Note: The `self` object is a reference to this. This is usually done in knockout ViewModels-Function. For easier understanding the ViewModel-Function is left out here. You can find the full file [here](https://github.com/janhommes/o.js/blob/master/example/app.js).
 
 Afterwards you can define a route to map to the `#People` hash:
-```js
+```
 o('People').route('People', function(data) {
 		self.route('People');
 		self.People(data);
@@ -134,7 +134,7 @@ The first parameter of the `route` function is a string that maps to the hash. T
 
 The `self.route` parameter is used to handle the visibility of a route. We then bind all the People returned by the OData service with the `ko foreach` statement. In this statement we display the FirstName and LastName property to headings. Also we bind a href hash-link to the route `#People/Detail/ + UserName`. To handle this route we register a second o.js route-handler:
 
-```js
+```
 o('People').where('UserName == \':0\'').expand('Trips').first().route('People/Detail/:0', function(data) {
 		self.route('Detail');
 		self.detailPeople(data);
@@ -145,7 +145,7 @@ The added route is a dynamic route. With `:0` the dynamic part of the route is d
 
 As you can see this routing also expands the Trips resource and saves all to the knockout observable `detailPeople`. Therefore we can display the Trips of the person in the details by using the following DOM binding:
 
-```html
+```
 <div data-bind="visible:route()==='Detail',with:detailPeople">
     <div class="jumbotron">
         <h1 data-bind="text:FirstName + ' ' + LastName "></h1>
@@ -166,7 +166,7 @@ As you can see this routing also expands the Trips resource and saves all to the
 That`s all to display people from the TripPin-Example service and their Trips. With the `post`, `put` and `delete` functions, explained in the beginning of this post, you can now add, modify or delete this data. In the full example you can find an example to delete Trips of a user.
 
 One last thing is the loading animation. That is quite easy to do, because we already defined the `self.isLoading` observable. By simply binding this to the DOM we can show a loading spinner to the user:
-```html
+```
 <div class="loading" data-bind="visible:isLoading()">
 	<div class="jumbotron" >
 		<img src="img/ajax-loader.gif" alt="Loading ...">
