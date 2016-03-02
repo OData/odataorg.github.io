@@ -11,9 +11,9 @@ In this tutorial I will show you how easy you can use it in your web application
 
 # Getting started with o.js
 The installation of o.js is simple. You just need to include the `o.js` file into your page and you are ready to query OData services:
-```
+{% highlight html %}
 <script src="path/to/o.min.js"></script>
-```
+{% endhighlight %}
 
 o.js adds a `o()` function to the global namespace. This function can be used to define a query. It returns a oHandler, which then allows to retrive, change or push data to the service:
 
@@ -122,7 +122,7 @@ o('People').route('People', function(data) {
 {% endhighlight %}
 The first parameter of the `route` function is a string that maps to the hash. The second parameter is a callback that is triggered as soon as the first parameter and the hash is equal and the request to the OData service is done. When you now click on the top navigation link the callback gets triggered with the Data from the TripPinService. This callback then sets the knockout observable `self.route` to 'People' and adds the data to the observableArray `self.People`. Afterwards you only need to bind the data to your DOM with the knockout `data-bind` property:
 
-```
+{% highlight html %}
 <div data-bind="visible:route()==='People'">
 	<!-- ko foreach: People -->
 		<h4 data-bind="text:FirstName"></h4>
@@ -130,7 +130,7 @@ The first parameter of the `route` function is a string that maps to the hash. T
 		<a role="button" class="btn btn-primary" data-bind="attr { href:'#People/Detail/'+UserName }">Details</a>
 	<!-- /ko -->
   </div>
-```
+{% endhighlight %}
 
 The `self.route` parameter is used to handle the visibility of a route. We then bind all the People returned by the OData service with the `ko foreach` statement. In this statement we display the FirstName and LastName property to headings. Also we bind a href hash-link to the route `#People/Detail/ + UserName`. To handle this route we register a second o.js route-handler:
 
@@ -145,7 +145,7 @@ The added route is a dynamic route. With `:0` the dynamic part of the route is d
 
 As you can see this routing also expands the Trips resource and saves all to the knockout observable `detailPeople`. Therefore we can display the Trips of the person in the details by using the following DOM binding:
 
-```
+{% highlight html %}
 <div data-bind="visible:route()==='Detail',with:detailPeople">
     <div class="jumbotron">
         <h1 data-bind="text:FirstName + ' ' + LastName "></h1>
@@ -162,18 +162,18 @@ As you can see this routing also expands the Trips resource and saves all to the
 		</tbody>
     </table>
 </div>
-```
+{% endhighlight %}
 That`s all to display people from the TripPin-Example service and their Trips. With the `post`, `put` and `delete` functions, explained in the beginning of this post, you can now add, modify or delete this data. In the full example you can find an example to delete Trips of a user.
 
 One last thing is the loading animation. That is quite easy to do, because we already defined the `self.isLoading` observable. By simply binding this to the DOM we can show a loading spinner to the user:
-```
+{% highlight html %}
 <div class="loading" data-bind="visible:isLoading()">
 	<div class="jumbotron" >
 		<img src="img/ajax-loader.gif" alt="Loading ...">
 		<p>Loading ...</p>
 	</div>
 </div>
-```
+{% endhighlight %}
 
 # Conclusion
 o.js is a simple way to query OData services fast. It allows to add CRUD operations on any OData-Service easily into your page. So everything perfect? Sadly not. o.js is not a complete OData-Solution. It only supports the basic OData functions and is not suitable for complex scenarios. For example the `batch` operation is only supported rudimentary and ETag are not supported. However, if you need a quick request or want to display some OData service on a simple webpage, o.js is the right choice.
