@@ -163,7 +163,7 @@ As you can see this routing also expands the Trips resource and saves all to the
     </table>
 </div>
 {% endhighlight %}
-That`s all to display people from the TripPin-Example service and their Trips. With the `post`, `put` and `delete` functions, explained in the beginning of this post, you can now add, modify or delete this data. In the full example you can find an example to delete Trips of a user.
+That's all to display people from the TripPin-Example service and their Trips. With the `post`, `put` and `delete` functions, explained in the beginning of this post, you can now add, modify or delete this data. In the full example you can find an example to delete Trips of a user.
 
 One last thing is the loading animation. That is quite easy to do, because we already defined the `self.isLoading` observable. By simply binding this to the DOM we can show a loading spinner to the user:
 {% highlight html %}
@@ -180,6 +180,7 @@ o.js is a simple way to query OData services fast. It allows to add CRUD operati
 
 
 Links:
+
 * [o.js on Github](https://github.com/janhommes/o.js)
 * [The example souce code](https://github.com/janhommes/o.js/tree/master/example)
 * [The example to try it out](http://www.janhommes.de/o.js/example/)
