@@ -1,7 +1,7 @@
 ---
 category: net
 name: AdaptiveLINQ
-version: V1-V3
+version: V1-V4
 object: Both
 downloads:
   - source: AdaptiveLINQ
