@@ -57,6 +57,8 @@ permalink: /getting-started/advanced-tutorial/
 <div id="querySingletonProperty">
 <h3>Requesting property of Singleton </h3>
 <p>                    The request below returns the property <em>AddressInfo</em> of singleton <em>Me</em>.<br />
+  <code>GET serviceRoot/Me/AdressInfo </code><br />
+
                     <br />
                     Response Payload</p>
 {% highlight javascript%}
@@ -153,7 +155,7 @@ Response Payload</p>
 </p></div>
 <div id="filterDerived">
 <h3>Filter on Derived Type</h3>
-<p>                    The two request below shows how to filter on derived entities. These requests return all <em>Flight</em> deriving from <em>PlanItem</em> which has <em>FligthNumber</em> as 'VA1930'.</p>
+<p>                    The two request below shows how to filter on derived entities. These requests return all <em>Flight</em> deriving from <em>PlanItem</em> which has <em>FlightNumber</em> as 'VA1930'.</p>
 <p>                    <code>serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems?$filter=Microsoft.OData.SampleService.Models.TripPin.Flight/FlightNumber eq 'VA1930'</code><br />
                     <code>serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight?$filter=FlightNumber eq 'VA1930'</code><br />
                     <br />
@@ -188,9 +190,11 @@ Response Payload</p>
 <h3>Create a Derived Entity</h3>
 <p>                    The request below creates an event entity in trips. <em>Event</em> derives from <em>PlanItem</em>.<br />
                     <code><br />
-                        POST serviceRoot/People("russellwhyte")/Trips<br />
+                        POST serviceRoot/People("russellwhyte")/Trips(1001)/PlanItems<br />
                         OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
+                        Content-Type: application/json
+                        ;
+                        odata.metadata=minimal<br />
                         Accept: application/json</p>
 <p>                        {<br />
                         "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",<br />
@@ -218,21 +222,21 @@ Response Payload</p>
 {% highlight javascript%}
  Response HTTP/1.1 201 Created
 {
-"@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1003)/PlanItems/$entity", 
-"@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event", 
-"PlanItemId": 33, 
-"ConfirmationCode": "4372899DD", 
-"StartsAt": "2014-05-25T23:11:17.5459178-07:00", 
-"EndsAt": "2014-06-01T23:11:17.5479185-07:00", 
-"Duration": "PT3H", 
-"Description": "Client Meeting", 
+"@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1003)/PlanItems/$entity",
+"@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",
+"PlanItemId": 33,
+"ConfirmationCode": "4372899DD",
+"StartsAt": "2014-05-25T23:11:17.5459178-07:00",
+"EndsAt": "2014-06-01T23:11:17.5479185-07:00",
+"Duration": "PT3H",
+"Description": "Client Meeting",
 "OccursAt": {
-  "Address": "100 Church Street, 8th Floor, Manhattan, 10007", 
+  "Address": "100 Church Street, 8th Floor, Manhattan, 10007",
   "City": {
-    "CountryRegion": "United States", 
-    "Name": "New York City", 
+    "CountryRegion": "United States",
+    "Name": "New York City",
     "Region": "New York"
-    }, 
+    },
 "BuildingInfo": "Regus Business Center"
   }
 }
@@ -457,7 +461,7 @@ HTTP/1.1 201 Created
    "UserName":"teresa",
    "FirstName":"Teresa",
    "LastName":"Gilbert",
-   "Description": "Big fan for travelling", 
+   "Description": "Big fan for travelling",
    "Emails":["teresa@example.com","teresa@contoso.com"],
    "AddressInfo":[{"Address":"1 Suffolk Ln.","City":{"CountryRegion":"United States","Name":"Boise","Region":"ID"}}],
    "Gender":"Female"
