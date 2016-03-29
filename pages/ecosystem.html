@@ -26,7 +26,13 @@ permalink: /ecosystem/
 		{% assign producers = site.ecosys | where: "category", "producers" %}
 		{% for producer in producers %}
 			<tr>
-			<td width="200"><a href={{producer.link}}>{{producer.title}}</a></td>
+			<td width="200">
+				{% if producer.link == NULL %}
+					{{producer.title}}
+				{% else %}
+				<a href={{producer.link}}>{{producer.title}}</a>
+				{% endif %}
+				</td>
 			<td>{{producer.content}}</td>
 			</tr>
 		{% endfor %}
@@ -61,7 +67,13 @@ Live Services
 	{% assign liveservices = site.ecosys | where: "category", "liveservices" %}
 	{% for liveservice in liveservices %}
 		<tr>
-		<td width="200"><a href={{liveservice.link}}>{{liveservice.title}}</a></td>
+		<td width="200">
+			{% if liveservice.link == NULL %}
+				{{liveservice.title}}
+			{% else %}
+			<a href={{liveservice.link}}>{{liveservice.title}}</a>
+			{% endif %}
+		</td>
 		<td>{{liveservice.content}}</td>
 		</tr>
 	{% endfor %}
@@ -97,7 +109,13 @@ The OData SDK includes some sample code to show you how to do everything from cr
 	{% assign tutorials = site.ecosys | where: "category", "tutorials" %}
 	{% for tutorial in tutorials %}
 		<tr>
-		<td width="200"><a href={{tutorial.link}}>{{tutorial.title}}</a></td>
+		<td width="200">
+			{% if tutorial.link == NULL %}
+				{{tutorial.title}}
+			{% else %}
+			<a href={{tutorial.link}}>{{tutorial.title}}</a>
+			{% endif %}
+		</td>
 		<td>{{tutorial.content}}</td>
 		</tr>
 	{% endfor %}
