@@ -35,7 +35,13 @@ permalink: /libraries/
       {% assign nets = site.libraries | where: "category", "net" | sort: "version", 'first' | reverse %}
       {% for net in nets %}
       <tr>
-        <td>{{net.name}}</td>
+        <td>
+          {% if net.link %}
+          <a href={{net.link}}>{{net.name}}</a>
+          {% else %}
+          {{net.name}}
+          {% endif %}
+        </td>
         <td>{{net.content}}</td>
         <td>{{net.version}}</td>
         <td>{{net.object}}</td>

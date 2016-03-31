@@ -1,6 +1,7 @@
 ---
 category: net
 name: OData Client for .NET
+link: http://odata.github.io/odata.net/#04-01-basic-crud-operations
 version: V4
 object: Client
 downloads:

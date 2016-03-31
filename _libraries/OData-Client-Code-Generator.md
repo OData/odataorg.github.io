@@ -1,6 +1,7 @@
 ---
 category: net
 name: OData Client Code Generator <span class="label label-success">featured</span>
+link: http://odata.github.io/odata.net/#04-01-basic-crud-operations
 version: V4
 object: Client
 downloads:
