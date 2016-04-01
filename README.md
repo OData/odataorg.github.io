@@ -61,6 +61,7 @@ Description of your item
 ---
 category: your category
 name: your library name
+link: possible supported document link of this library
 version: supported OData version(s) of this library 
 object:  URL of your item
 downloads:
