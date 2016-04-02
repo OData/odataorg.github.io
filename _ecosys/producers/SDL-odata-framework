@@ -1,0 +1,7 @@
+---
+layout: default
+category: producers
+title: "SDL OData Framework"
+link: "http://sdl.github.io/#odata"
+---
+SDL has been using OData since 2011, and has now open sourced their java-based OData producer API. 
