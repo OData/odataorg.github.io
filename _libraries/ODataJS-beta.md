@@ -1,6 +1,7 @@
 ---
 category: javascript
 name: ODataJS beta <span class="label label-success">featured</span> 
+rownumber: 25
 version: V4 (4.0.0-beta-01)
 object: Client
 downloads:

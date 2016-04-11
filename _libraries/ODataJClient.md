@@ -1,6 +1,7 @@
 ---
 category: java
 name: ODataJClient
+rownumber: 4
 version: V3
 object: Client
 downloads:

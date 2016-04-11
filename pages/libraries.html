@@ -32,7 +32,7 @@ permalink: /libraries/
         <th width="10%">For server/client</th>
         <th width="10%">Download from</th>
       </tr>
-      {% assign nets = site.libraries | where: "category", "net" | sort: "version", 'first' | reverse %}
+      {% assign nets = site.libraries | where: "category", "net" | sort: "rownumber", 'first' | reverse %}
       {% for net in nets %}
       <tr>
         <td>
@@ -64,7 +64,7 @@ permalink: /libraries/
         <th width="10%">For server/client</th>
         <th width="10%">Download from</th>
       </tr>
-      {% assign items = library.items | sort: "version", 'first' | reverse %}
+      {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
       {% for item in items %}
       <tr>
         <td>{{item.name}}</td>

@@ -1,6 +1,7 @@
 ---
 category: net
 name: Microsoft.Spatial
+rownumber: 31
 link: http://odata.github.io/odata.net/#03-01-define-spatial-property
 version: V4
 object: Both

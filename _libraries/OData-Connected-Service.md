@@ -1,6 +1,7 @@
 ---
 category: net
-name: OData Connetcted Service <span class="label label-success">featured</span>
+name: OData Connetcted Service
+rownumber: 25
 link: http://odata.github.io/odata.net/#OData-Connected-Service ons
 version: V4
 object: Client

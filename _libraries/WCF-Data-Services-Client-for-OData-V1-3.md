@@ -1,6 +1,7 @@
 ---
 category: net
 name: WCF Data Services Client for OData V1-3
+rownumber: 7
 version: V1-V3
 object: Client
 downloads:
