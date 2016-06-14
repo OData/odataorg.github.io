@@ -5,6 +5,8 @@ rownumber: 19
 version: V3-V4
 object: Client
 downloads:
+  - source: NPM
+    link: https://www.npmjs.com/package/odata
   - source: GitHub
     link: https://github.com/janhommes/o.js
 ---
