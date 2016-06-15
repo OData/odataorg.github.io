@@ -5,7 +5,7 @@ date: 2016-02-22 23:14:00.000000000 +01:00
 author: Jan Hommes
 ---
 
-o.js is a small (minified 14.4 KB) client-side library for requesting data from an OData service. It is designed to run in a browser environment, however it also runs in node.js. In a browser environment it has no dependencies on other libraries and can be used standalone. The main goal of the library is, to provide a simple solution to query OData services from any browser. If you like to use it you can install it via `npm install o.js` or just download the o.min.js file from this [GitHub repository](https://github.com/janhommes/o.js) and add it to your webpage in a `<script>`-tag.
+o.js is a small (minified 14.4 KB) client-side library for requesting data from an OData service. It is designed to run in a browser environment, however it also runs in node.js. In a browser environment it has no dependencies on other libraries and can be used standalone. The main goal of the library is, to provide a simple solution to query OData services from any browser. If you like to use it you can install it via `npm install odata` or just download the o.min.js file from this [GitHub repository](https://github.com/janhommes/o.js) and add it to your webpage in a `<script>`-tag.
 
 In this tutorial I will show you how easy you can use it in your web application and explain to you [the example app](http://www.janhommes.de/o.js/example/). This application using some extended *routing* functionalities of o.js in combination with *knockout.js* to display detailed information about the OData TripPinService, a example service provided by odata.org.
 
