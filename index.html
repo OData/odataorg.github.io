@@ -2,59 +2,182 @@
 layout: default
 ---
 <div class="container">
-    <div class="row">
-        <div class="jumbotron transparent-background bottom-margin zero-bottom-padding">
+  <div id="myCarousel" class="carousel slide row" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner zero-side-margin" role="listbox">
+      <div class="item active">
+        <img src="/assets/homepage_1.jpg" alt="Home">
+        <div class="carousel-caption jumbotron transparent-background">
             <h1 class="text-center">OData - the best way to REST</h1>
             <p class="text-center">An <strong>open protocol</strong> to allow the creation and consumption of <strong>queryable</strong> and <strong>interoperable RESTful APIs</strong> in a <strong>simple</strong> and <strong>standard</strong> way.</p>
         </div>
+      </div>
+      <div class="item">
+        <img src="/assets/homepage_2.jpg" alt="Blog" style="opacity:1.0">
+        <div class="carousel-caption jumbotron" style="background-color: rgba(255,255,255,0.5)">
+            <h1 class="text-center bottom-margin">Recent Posts</h1>
+            <div class="row transparent-background">
+              {% for post in site.posts %}
+                {% if forloop.index < 5 %}
+                <div class="col-md-3 text-left">
+                  <h4><a href='{{post.url}}'>{{post.title}}</a></h4>
+                  By <em>{{ post.author }}</em>
+                </div>
+                  {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="row bottom-margin side-padding">
-        <div class="col-md-4">
-            <h3 class="text-center theme-font">For developers</h3>
-            <p class="text-center"><a href="http://www.odata.org/getting-started/">Tutorials</a>, <a href="http://www.odata.org/libraries/">libraries</a>, and everything else you need to build your first OData API today</p>
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <div class="row">
+      <div class="col-md-7">
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+      <p id="GeoResults"></p>
+      <script>
+        $.getJSON("http://ipinfo.io", function(data) {
+          if (data.country=="CN") {
+            $("#GeoResults").html('<embed src="http://player.youku.com/player.php/sid/XMTU5MzU2MDU0NA==/v.swf" allowFullScreen="true" quality="high" width=100% height="230" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>');
+          } else $("#GeoResults").html('<iframe width=100% height=230px src="https://www.youtube.com/embed/wH5TUwzlaWI"></iframe>');
+        });
+      </script>
+      </div>
+      <div class="col-md-5">
+          <p>OData (Open Data Protocol) is an <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata">OASIS standard</a> that defines a set of best practices for building and consuming RESTful APIs. OData helps you focus on your business logic while building RESTful APIs without having to worry about the various approaches to define request and response headers, status codes, HTTP methods, URL conventions, media types, payload formats, query options, etc. OData also provides guidance for tracking changes, defining functions/actions for reusable procedures, and sending asynchronous/batch requests.</p>
+          <p>OData RESTful APIs are easy to consume. The OData metadata, a machine-readable description of the data model of the APIs, enables the creation of powerful generic client proxies and tools. </p>
+      </div>
+  </div>
+
+<!--
+  <div id="CustomerQuotation" class="carousel slide row" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+
+      <div class="carousel-inner" role="listbox">
+        <div class="item active" style="background-color:orange; color:black; padding:50px;">
+                <h1>"Blah blah blah blah blah"</h1>
+                <h2 class="text-right">-- Author Name, author title, company</h2>
         </div>
-        <div class="col-md-4">
-            <h3 class="text-center theme-font">For business decision makers</h3>
-            <p class="text-center">Start realizing the benefits OData can bring to your business from the OData <a href="http://www.odata.org/ecosystem/">ecosystem</a></p>
+
+        <div class="item" style="background-color:orange; color:black; padding:50px;">
+          <h1>"Blah blah blah blah blah"</h1>
+          <h2 class="text-right">-- Author Name, author title, company</h2>
         </div>
-        <div class="col-md-4">
-            <h3 class="text-center theme-font">For RESTful API advocates</h3>
-            <p class="text-center"><a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata" target="_blank">OASIS approved </a>industry standard based on best practices of building RESTful APIs</p>
+
+        <div class="item" style="background-color:orange; color:black; padding:50px;">
+          <h1>"Blah blah blah blah blah blah blah blah"</h1>
+          <h2 class="text-right">-- Author Name, author title, company</h2>
         </div>
+
+      </div>
+  </div>
+  <div>
+      <h2 class="text-center">OData has a rich <strong>Ecosystem</strong>. <strong><a href='http://www.odata.org/ecosystem/'>Click Here</a></strong> to find more!</h2>
+  </div>
+-->
+  <!-- customer logos
+  <div class="row icon">
+    <div class="col-md-2">
+      <img src="/assets/ODataLogo-150.png" alt="Icon1">
     </div>
-
-    <div class="row bottom-border bottom-padding">
-        <div class="col-md-4"></div>
-        <div class="col-md-2">
-            <a href="https://twitter.com/odataorg" class="twitter-follow-button" data-show-count="false">Follow @odataorg</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        </div>
-        <div class="col-md-2">
-            <a href="https://twitter.com/intent/tweet?button_hashtag=OData" class="twitter-hashtag-button" data-related="odataorg">Tweet #OData</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        </div>
-        <div class="col-md-4"></div>
+    <div class="col-md-2">
+      <img src="/assets/ODataLogo-150.png" alt="Icon1">
     </div>
-
-    {% include odata-in-6-steps.html %}
-
-    <div class="row side-padding bottom-padding">
-        <div class="col-md-4">
-            <h3>Participate</h3>
-            <p class="text-justify">Participate or follow the standardization technical committee progress at OASIS.</p>
-            <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata">Participate</a>
-        </div>
-        <div class="col-md-4">
-            <h3>Contribute to OData.org</h3>
-            <p class="text-justify">Share your ideas, tools and any other information related to OData on OData.org.</p>
-            <a href="/contribution">Contribute</a>
-        </div>
-        <div class="col-md-4">
-            <h3>Join the mailing list</h3>
-            <p class="text-justify">Join the new mailing list for OData discussion. You can ask or answer questions about the OData protocol.</p>
-            <a href="/join-the-odata-discussion/">Join</a>
-        </div>
+    <div class="col-md-2">
+      <img src="/assets/ODataLogo-150.png" alt="Icon1">
     </div>
+    <div class="col-md-2">
+      <img src="/assets/ODataLogo-150.png" alt="Icon1">
+    </div>
+    <div class="col-md-2">
+      <img src="/assets/ODataLogo-150.png" alt="Icon1">
+    </div>
+    <div class="col-md-2">
+      <img src="/assets/ODataLogo-150.png" alt="Icon1">
+    </div>
+  </div>
+-->
+  <div class="row floating-box">
+    <div class="col-md-6 margin-bottom">
+      <h2 class="text-left theme-font">Tools</h2>
+      <table>
+        <tr>
+          <td width="40%"><img src="/assets/odata_validator.jpg" alt="odata_validator" width = 90%></td>
+          <td>
+            <h3><a href="http://services.odata.org/validation/">OData Validator</a></h3>
+            <p>A tool to enable OData service authors to ensure that their service interoperates well with any OData client. It also enables consumers to test OData services.</p>
+          </td>
+        </tr>
+        <tr>
+          <td width="40%"><img src="/assets/xodata_tool.jpg" alt="xodata" width="90%"></td>
+          <td>
+            <h3><a href="http://pragmatiqa.com/xodata/">XOData</a></h3>
+            <p>XOData is a generic online OData API/Service visualizer and explorer. It assists in rapid prototyping, verification, testing, and documentation of OData APIs. With XOData Chrome App it's also possible to explore OData Services deployed locally or on private networks.</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h2 class="text-left theme-font">Resources</h2>
 
+      <div class="row">
+        <div class="col-md-4">
+          <img src="/assets/howtouse-03.png" alt="Getting Started" width="120px">
+        </div>
+        <div class="col-md-8">
+          <h4><a href="http://www.odata.org/getting-started/"> Getting Started </a></h4>
+          <p>To get started, take a look at <a href="http://www.odata.org/getting-started/understand-odata-in-6-steps/">Understanding OData in 6 steps</a>. And then the <a href="http://www.odata.org/getting-started/basic-tutorial/">Basic Tutorial</a>, <a href="http://www.odata.org/getting-started/advanced-tutorial/">Advanced Tutorial</a> and <a href="http://www.odata.org/getting-started/learning-odata-on-postman/">Postman Tutorial</a> will provide practical samples to learn OData.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <img src="/assets/howtouse-01.png" alt="Documentation" width="120px">
+        </div>
+        <div class="col-md-8">
+          <h4><a href="http://www.odata.org/documentation/">Standard</a></h4>
+          <p>OData v4 is standardized by OASIS, including <a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html">Protocol Specification</a>, <a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">URL Conversions</a>, <a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html">Common Schema Definition Language</a>, <a href="">JSON Format Specification, <a href="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/">ABNF</a>, <a href="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/">Standardized Vocabularies</a>, and <a href="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">Aggregation Extension</a>.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <img src="/assets/howtouse-02.png" alt="Libraries" width="120px">
+        </div>
+        <div class="col-md-8">
+          <h4><a href="http://www.odata.org/libraries/">Libraries</a></h4>
+          <p>There are several of libraries to facilitate building and consuming OData service. <a href="http://odata.github.io/RESTier/">Restier</a> is the main library for .NET framework. <a href="http://olingo.apache.org/">Apache Olingo</a> is for Java platform to build OData service.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <img src="/assets/howtouse-04.png" alt="Presentations" width="120px">
+        </div>
+        <div class="col-md-8">
+          <h4><a href="/odata-services/">Sample Services</a></h4>
+          <p>There are several OData sample services to help you practice with OData API. <a href="http://services.odata.org/V4/(S(frp3ql3rlcjpvorgy0422buq))/TripPinServiceRW/">TripPin Service</a> is the main sample service.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
