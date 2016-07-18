@@ -1,6 +1,6 @@
-﻿---
+---
 layout: post
-title: Recap on OData session for SAP Business Objects Universe 
+title: Recap on OData session for SAP Business Objects Universe
 date: 2016-07-07 17:59:43.000000000 +08:00
 author: Sumit Sarkar
 ---
@@ -31,4 +31,3 @@ Sumit Sarkar, Chief Data Evangelist
 Progress Software
 
 @SAsInSumit
-
