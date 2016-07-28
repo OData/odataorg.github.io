@@ -128,12 +128,12 @@ author: OData.org Archive
 <h5>Geospatial Literals in URIs</h5>
 <p>Geospatial URL literals are represented using WKT, with a common extension. There are at least 3 common extensions to WKT (PostGIS, ESRI, and Sql Server). They disagree in many places, but those that allow including an SRID all use the same approach. As such, they all use (approximately) the same representation for values with 2d coordinates. Here are some examples:</p>
 <pre><code>/Stores$filter=Category/Name eq "coffee" and geo.distance(Location,
-        POINT(-127.89734578345 45.234534534)) lt 900.0</code></pre>
+        geography'POINT(-127.89734578345 45.234534534)') lt 900.0</code></pre>
 <pre><code>/Stores$filter=Category/Name eq "coffee" and geo.intersects(Location,
-        SRID=12345;POLYGON((-127.89734578345 45.234534534,-127.89734578345 45.234534534,-127.89734578345
-        45.234534534,-127.89734578345 45.234534534)))</code></pre>
-<pre><code>/Me/Friends$filter=geo.distance(PlannedLocations, SRID=12345;POINT(-127.89734578345
-        45.234534534) lt 900.0 and PlannedTime eq datetime'2011-12-12T13:36:00'</code></pre>
+        geography'SRID=12345;POLYGON((-127.89734578345 45.234534534,-127.89734578345 45.234534534,-127.89734578345
+        45.234534534,-127.89734578345 45.234534534))')</code></pre>
+<pre><code>/Me/Friends$filter=geo.distance(PlannedLocations, geography'SRID=12345;POINT(-127.89734578345
+        45.234534534)' lt 900.0 and PlannedTime eq datetime'2011-12-12T13:36:00'</code></pre>
 <h4>Not usable everywhere</h4>
 <p>Geospatial values are neither equality comparable nor partially-ordered. Therefore, the results of these operations would be undefined.</p>
 <p>Furthermore, geospatial types have very long literal representations. This would make it difficult to read a simple URL that navigates along a series of entities with geospatial keys.</p>
@@ -166,19 +166,19 @@ author: OData.org Archive
 <h4>Examples</h4>
 <h5>Find coffee shops near me</h5>
 <pre><code>/Stores$filter=/Category/Name eq "coffee" and geo.distance(Location,
-        POINT(-127.89734578345 45.234534534)) lt 0.5&amp;$orderby=geo.distance(Location, POINT-127.89734578345
-        45.234534534)&amp;$top=3</code></pre>
+        geography'POINT(-127.89734578345 45.234534534)') lt 0.5&amp;$orderby=geo.distance(Location, geography'POINT(-127.89734578345
+        45.234534534)')&amp;$top=3</code></pre>
 <h5>Find the nearest 3 coffee shops, by drive time</h5>
 <p>This is not directly supported by OData. However, it can be handled by an extension. For example:</p>
-<pre><code>/Stores$filter=/Category/Name eq "coffee"&amp;$orderby=MyNamespace.driving_time_to(POINT(-127.89734578345
-        45.234534534, Location)&amp;$top=3</code></pre>
+<pre><code>/Stores$filter=/Category/Name eq "coffee"&amp;$orderby=MyNamespace.driving_time_to(geography'POINT(-127.89734578345
+        45.234534534)', Location)&amp;$top=3</code></pre>
 <p>Note that while <code>geo.distance</code> is symmetric in its args, <code>MyNamespace.driving_time_to</code> might not be. For example, it might take one-way streets into account. This would be up to the data service that is defining the function.</p>
 <h5>Compute distance along routes</h5>
 <pre><code>/Me/Runs$orderby=geo.length(Route) desc&amp;$top=15</code></pre>
 <h5>Find all houses close enough to work</h5>
 <p>For this example, let's assume that there's one OData service that can tell you the drive time polygons around a point (via a service operation). There's another OData service that can search for houses. You want to mash them up to find you houses in your price range from which you can get to work in 15 minutes.</p>
 <p>First,</p>
-<pre><code>/DriveTime(to=POINT(-127.89734578345 45.234534534), maximum_duration=time'0:15:00')</code></pre>
+<pre><code>/DriveTime(to=geography'POINT(-127.89734578345 45.234534534)', maximum_duration=time'0:15:00')</code></pre>
 <p>returns</p>
 <pre><code>{ "d" : { "results": [ { "__metadata": { "uri":
         "http://services.odata.org/DriveTime(to=POINT(-127.89734578345 45.234534534),
@@ -191,16 +191,16 @@ author: OData.org Archive
         "1", } }</code></pre>
 <p>Then, you'd send the actual search query to the second endpoint:</p>
 <pre><code>/Houses$filter=Price gt 50000 and Price lt 250000 and geo.intersects(Location,
-        POLYGON((-127.0234534534 45.089734578345,-127.0234534534 45.389734578345,-127.3234534534
+        geography'POLYGON((-127.0234534534 45.089734578345,-127.0234534534 45.389734578345,-127.3234534534
         45.389734578345,-127.3234534534 45.089734578345,-127.0234534534 45.089734578345),(-127.1234534534
         45.189734578345,-127.1234534534 45.289734578345,-127.2234534534 45.289734578345,-127.2234534534
-        45.189734578345,-127.1234534534 45.289734578345)))</code></pre>
+        45.189734578345,-127.1234534534 45.289734578345))')</code></pre>
 <p>Is there any way to make that URL shorter? And perhaps do this in one query? Not yet.</p>
 <p>This is actually an overly-simple polygon for a case like this. This is just a square with a single hole in it. A real driving polygon would contain multiple holes and a lot more boundary points. So that polygon in the final query would realistically be 3-5 times as long in the URL.</p>
 <p>It would be really nice to support reference arguments in URLs (with cross-domain support). Then you could represent the entire example in a single query:</p>
 <pre><code>/Houses$filter=Price gt 50000 and Price lt 250000 and geo.intersects(Location,
-            Ref("http://drivetime.services.odata.org/DriveTime(to=POINT(-127.89734578345
-            45.234534534), maximum_duration=time'0:15:00')"))</code></pre>
+            Ref("http://drivetime.services.odata.org/DriveTime(to=geography'POINT(-127.89734578345
+            45.234534534)', maximum_duration=time'0:15:00')"))</code></pre>
 <p>However, this is not supported in OData today.</p>
 <h4>In Closing</h4>
 <p>This set of new primitive types for OData allows it to represent many types of geospatial data. It does not handle everything. Future versions may increase the set of values that can be represented in OData.</p>
