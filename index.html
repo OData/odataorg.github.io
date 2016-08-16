@@ -12,14 +12,14 @@ layout: default
     <!-- Wrapper for slides -->
     <div class="carousel-inner zero-side-margin" role="listbox">
       <div class="item active">
-        <img src="/assets/homepage_1.jpg" alt="Home">
+        <img src="{{ "/assets/homepage_1.jpg" | prepend: site.baseurl | prepend: site.url }}" alt="Home">
         <div class="carousel-caption jumbotron transparent-background">
             <h1 class="text-center">OData - the best way to REST</h1>
             <p class="text-center">An <strong>open protocol</strong> to allow the creation and consumption of <strong>queryable</strong> and <strong>interoperable RESTful APIs</strong> in a <strong>simple</strong> and <strong>standard</strong> way.</p>
         </div>
       </div>
       <div class="item">
-        <img src="/assets/homepage_2.jpg" alt="Blog" style="opacity:1.0">
+        <img src={{"/assets/homepage_2.jpg" | prepend: site.baseurl | prepend: site.url}} alt="Blog" style="opacity:1.0">
         <div class="carousel-caption jumbotron" style="background-color: rgba(255,255,255,0.5)">
             <h1 class="text-center bottom-margin">Recent Posts</h1>
             <div class="row transparent-background">
@@ -114,14 +114,14 @@ layout: default
       <h2 class="text-left theme-font">Tools</h2>
       <table>
         <tr>
-          <td width="40%"><img src="/assets/odata_validator.jpg" alt="odata_validator" width = 90%></td>
+          <td width="40%"><img src={{"/assets/odata_validator.jpg" | prepend: site.baseurl | prepend: site.url}} alt="odata_validator" width = 90%></td>
           <td>
             <h3><a href="http://services.odata.org/validation/">OData Validator</a></h3>
             <p>A tool to enable OData service authors to ensure that their service interoperates well with any OData client. It also enables consumers to test OData services.</p>
           </td>
         </tr>
         <tr>
-          <td width="40%"><img src="/assets/xodata_tool.jpg" alt="xodata" width="90%"></td>
+          <td width="40%"><img src={{"/assets/xodata_tool.jpg" | prepend: site.baseurl | prepend: site.url}} alt="xodata" width="90%"></td>
           <td>
             <h3><a href="http://pragmatiqa.com/xodata/">XOData</a></h3>
             <p>XOData is a generic online OData API/Service visualizer and explorer. It assists in rapid prototyping, verification, testing, and documentation of OData APIs. With XOData Chrome App it's also possible to explore OData Services deployed locally or on private networks.</p>
@@ -134,7 +134,7 @@ layout: default
 
       <div class="row">
         <div class="col-md-4">
-          <img src="/assets/howtouse-03.png" alt="Getting Started" width="120px">
+          <img src={{"/assets/howtouse-03.png" | prepend: site.baseurl | prepend: site.url}} alt="Getting Started" width="120px">
         </div>
         <div class="col-md-8">
           <h4><a href="http://www.odata.org/getting-started/"> Getting Started </a></h4>
@@ -143,7 +143,7 @@ layout: default
       </div>
       <div class="row">
         <div class="col-md-4">
-          <img src="/assets/howtouse-01.png" alt="Documentation" width="120px">
+          <img src={{"/assets/howtouse-01.png" | prepend: site.baseurl | prepend: site.url}} alt="Documentation" width="120px">
         </div>
         <div class="col-md-8">
           <h4><a href="http://www.odata.org/documentation/">Standard</a></h4>
@@ -152,7 +152,7 @@ layout: default
       </div>
       <div class="row">
         <div class="col-md-4">
-          <img src="/assets/howtouse-02.png" alt="Libraries" width="120px">
+          <img src={{"/assets/howtouse-02.png" | prepend: site.baseurl | prepend: site.url}} alt="Libraries" width="120px">
         </div>
         <div class="col-md-8">
           <h4><a href="http://www.odata.org/libraries/">Libraries</a></h4>
@@ -161,10 +161,10 @@ layout: default
       </div>
       <div class="row">
         <div class="col-md-4">
-          <img src="/assets/howtouse-04.png" alt="Presentations" width="120px">
+          <img src={{"/assets/howtouse-04.png" | prepend: site.baseurl | prepend: site.url}} alt="Presentations" width="120px">
         </div>
         <div class="col-md-8">
-          <h4><a href="/odata-services/">Sample Services</a></h4>
+          <h4><a href={{"/odata-services/" | prepend: site.baseurl | prepend: site.url}}>Sample Services</a></h4>
           <p>There are several OData sample services to help you practice with OData API. <a href="http://services.odata.org/V4/(S(frp3ql3rlcjpvorgy0422buq))/TripPinServiceRW/">TripPin Service</a> is the main sample service.</p>
         </div>
       </div>

@@ -7,6 +7,9 @@ permalink: /odata-services/
 
 <ul class="nav nav-pills">
   <li class="active">
+    <a href="#odata-v4" data-toggle="pill">OData v4</a>
+  </li>
+  <li class="hide">
     <a href="#v4" data-toggle="pill">OData v4</a>
   </li>
   <li>
@@ -18,7 +21,23 @@ permalink: /odata-services/
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="v4">
+  <div class="tab-pane active" id="odata-v4">
+    <table class="table table-striped table-condensed table-hover">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="http://services.odata.org/TripPinRESTierService">TripPin(read/write)</a></td>
+        <td>The new OData V4 service with <a href="http://odata.github.io/RESTier/">Restier</a> designed for real scenarios and covering most V4 features.</td>
+      </tr>
+    </table>
+    <div class="" id="service-usages">
+      {% capture my-include %}{% include_relative service-usages/basic-usages.md %}{% endcapture %}
+      {{ my-include | markdownify }}
+    </div>
+  </div>
+  <div class="tab-pane hide" id="v4">
     <table class="table table-striped table-condensed table-hover">
       <tr>
         <th>Name</th>
