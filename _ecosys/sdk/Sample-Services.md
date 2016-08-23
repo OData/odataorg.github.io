@@ -2,6 +2,6 @@
 layout: default
 category: sdk
 title: "Sample Services"
-download: "/assets/odatasampleservices.zip"
+github: "https://github.com/OData/ODataSamples"
 ---
-A copy of the code used in the sample services above.
+Github repository of ODataSamples, including code used in [here](http://www.odata.org/odata-services/).

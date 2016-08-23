@@ -96,7 +96,11 @@ The OData SDK includes some sample code to show you how to do everything from cr
 			{% endif %}
 			</td>
 			<td>{{sdk.content}}</td>
-			<td><a href={{sdk.download}}>Download</a></td>
+			{% if sdk.download != NULL %}
+				<td><a href={{sdk.download}}>Download</a></td>
+			{% elsif sdk.github != NULL %}
+				<td><a href={{sdk.github}}>Github</a></td>
+			{% endif %}
 		</tr>
 	{% endfor %}
 </tbody>
