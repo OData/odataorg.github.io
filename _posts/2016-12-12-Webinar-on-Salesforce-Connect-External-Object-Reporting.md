@@ -19,7 +19,7 @@ For a developer preview, below are screenshots of the [high level steps from the
 
 <img src="/assets/SalesforceWebinar1.png" width="623" height="348" />
 
-<img src="/assets/SalesforceWebinar12.png" width="623" height="310" />
+<img src="/assets/SalesforceWebinar2.png" width="623" height="310" />
 
 <img src="/assets/SalesforceWebinar3.png" width="624" height="350" />
 
