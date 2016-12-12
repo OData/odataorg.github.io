@@ -54,7 +54,7 @@ Time: 12:00 pm ET
 Resources
 ---------
 
--   Winter ’17 Release Notes
+-   [Winter ’17 Release Notes](https://releasenotes.docs.salesforce.com/en-us/winter17/release-notes/rn_forcecom_external_data_reports.htm)
 
 -   [Trailhead for Salesforce Connect](https://trailhead.salesforce.com/en/module/lightning_connect)
 
