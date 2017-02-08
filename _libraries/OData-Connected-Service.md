@@ -1,6 +1,6 @@
 ---
 category: net
-name: OData Connetcted Service
+name: OData Connected Service
 rownumber: 25
 link: http://odata.github.io/odata.net/#OData-Connected-Service ons
 version: V4
