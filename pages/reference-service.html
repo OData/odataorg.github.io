@@ -7,6 +7,9 @@ permalink: /odata-services/
 
 <ul class="nav nav-pills">
   <li class="active">
+    <a href="#odata-v4" data-toggle="pill">OData v4</a>
+  </li>
+  <li class="hide">
     <a href="#v4" data-toggle="pill">OData v4</a>
   </li>
   <li>
@@ -18,7 +21,28 @@ permalink: /odata-services/
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="v4">
+  <div class="tab-pane active" id="odata-v4">
+    <table class="table table-striped table-condensed table-hover">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="http://services.odata.org/TripPinRESTierService">TripPin(read/write)</a></td>
+        <td>
+			This OData V4 sample service is built with <a href="http://odata.github.io/RESTier/">Restier</a> 
+			which is a turn-key library for building RESTful services, 
+			it covers most V4 features and its source code is located at 
+			<a href="https://github.com/OData/RESTier/tree/master/test/ODataEndToEnd/Microsoft.OData.Service.Sample.TrippinInMemory">this link</a>.
+		</td>
+      </tr>
+    </table>
+    <div class="" id="service-usages">
+      {% capture my-include %}{% include_relative service-usages/basic-usages.md %}{% endcapture %}
+      {{ my-include | markdownify }}
+    </div>
+  </div>
+  <div class="tab-pane hide" id="v4">
     <table class="table table-striped table-condensed table-hover">
       <tr>
         <th>Name</th>

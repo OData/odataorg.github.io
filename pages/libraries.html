@@ -32,201 +32,30 @@ permalink: /libraries/
         <th width="10%">For server/client</th>
         <th width="10%">Download from</th>
       </tr>
+      {% assign nets = site.libraries | where: "category", "net" | sort: "rownumber", 'first' | reverse %}
+      {% for net in nets %}
       <tr>
-        <td>ODataLib</td>
-        <td>Classes to serialize, deserialize and validate OData JSON payloads.</td>
-        <td>V4</td>
-        <td>Both</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.OData.Core/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>EdmLib</td>
-        <td>Classes to represent, construct, parse, serialize and validate entity data models.</td>
-        <td>V4</td>
-        <td>Both</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.OData.Edm/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>OData Client for .NET</td>
-        <td>LINQ-enabled client API for issuing OData queries and consuming OData JSON payloads. It's the V4 version of the former WCF Data Services Client for OData v1-3.</td>
-        <td>V4</td>
-        <td>Client</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.OData.Client/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>OData Client Code Generator <span class="label label-success">featured</span></td>
-        <td>An item template that simplifies the process of accessing OData v4 services by generating C# and VB.Net client-side proxy classes.</td>
-        <td>V4</td>
-        <td>Client</td>
-        <td><a href="http://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">Visual Studio Gallery</a></td>
-      </tr>
-      <tr>
-        <td>ASP.NET Web API 2.2 <span class="label label-success">featured</span></td>
-        <td>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach a broad range of clients, including browsers and mobile devices. ASP.NET Web API is an ideal platform for building RESTful applications on the .NET Framework.</td>
-        <td>V4</td>
-        <td>Server</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.AspNet.OData/">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>Simple.OData.Client for OData V1-4</td>
-        <td>A multiplatform OData client library supporting .NET 4.x, Windows Store, Windows Phone 8, Silverlight 5, iOS and Android.</td>
-        <td>V1 – V4</td>
-        <td>Both</td>
-        <td><a href="https://github.com/object/Simple.OData.Client/wiki">NuGet Gallery Wiki Pages</a></td>
-      </tr>
-      <tr>
-        <td>Linq to QueryString</td>
-        <td>Linq to Querystring is an expression parser for .NET that aims to provide a lightweight subset of the OData URI Specification. We focus only on the query aspect of the specification which is one of the most useful and flexible elements of OData.</td>
-        <td></td>
-        <td>Server</td>
-        <td><a href="http://linqtoquerystring.net/">Linq to QueryString site</a>, <a href="https://www.nuget.org/packages/LinqToQuerystring.WebApi/">NuGet Gallery</a></td>
-      </tr>
-      <tr>
-        <td>Microsoft.Spatial</td>
-        <td>Contains classes and methods that facilitate geography and geometry spatial operations. It's the V4 version of the former System.Spatial for OData v1-3.</td>
-        <td>V4</td>
-        <td>Both</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.Spatial/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>ODataLib for OData V1-3</td>
-        <td>Classes to serialize, deserialize and validate OData JSON payloads.</td>
-        <td>V1 - V3</td>
-        <td>Both</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.Data.OData/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>EdmLib for OData V1-3</td>
-        <td>Classes to represent, construct, parse, serialize and validate entity data models.</td>
-        <td>V1 - V3</td>
-        <td>Both</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.Data.Edm/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>WCF Data Services Client for OData V1-3</td>
-        <td>LINQ-enabled client API for issuing OData queries and consuming OData payloads.</td>
-        <td>V1 - V3</td>
-        <td>Client</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.Data.Services.Client/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>WCF Data Services Server for OData V1-3</td>
-        <td>Fully-featured server API for responding to OData queries and consuming/producing OData payloads.</td>
-        <td>V1 - V3</td>
-        <td>Server</td>
-        <td><a href="http://www.nuget.org/packages/Microsoft.Data.Services/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>System.Spatial for OData V1-3</td>
-        <td>Contains classes and methods that facilitate geography and geometry spatial operations.</td>
-        <td>V1 - V3</td>
-        <td>Both</td>
-        <td><a href="http://www.nuget.org/packages/System.Spatial/" target="_blank">nuget gallery</a></td>
-      </tr>
-      <tr>
-        <td>AdaptiveLINQ</td>
-        <td>The AdaptiveLINQ .QueryByCube() extension method applying to any IQueryable collection helps you to build an analysis engine querybale using the OData protocol.</td>
-        <td>V1 - V3</td>
-        <td>Both</td>
-        <td><a href="http://www.adaptivelinq.com">AdaptiveLINQ </a></td>
-      </tr>
-    </table>
-  </div>
-  <div class="tab-pane table-responsive" id="java">
-    <table class="table table-striped table-condensed table-hover" style="width:100%">
-      <tr>
-        <th width="20%">Name</th>
-        <th width="50%">Description</th>
-        <th width="10%">Support OData version(s)</th>
-        <th width="10%">For server/client</th>
-        <th width="10%">Download from</th>
-      </tr>
-      <td>Apache Olingo <span class="label label-success">featured</span> </td>
-      <td>Apache Olingo is a Java library that implements the Open Data Protocol (OData).</td>
-      <td>V2 and V4</td>
-      <td>Both</td>
-      <td><a href="http://olingo.incubator.apache.org/" target="_blank">Apache Olingo </a></td>
-      <tr>
-        <td>odata4j</td>
-        <td>odata4j is a Java framework that implements the OData protocol for both consumers (client-side) and producers (server-side)</td>
-        <td>V1 - V3</td>
-        <td>Both</td>
-        <td><a href="http://odata4j.org/" target="_blank">odata4j.org</a></td>
-      </tr>
-      <tr>
-        <td>ODataJClient</td>
-        <td>ODataJClient is an Open Source (Apache License 2.0) library that enables Java applications to deal with OData 3.0 services.</td>
-        <td>V3</td>
-        <td>Client</td>
-        <td><a href="https://github.com/MSOpenTech/ODataJClient" target="_blank">GitHub</a></td>
-      </tr>
-      <tr>
-      </tr>
-    </table>
-  </div>
-  <div class="tab-pane table-responsive" id="javascript">
-    <table class="table table-striped table-condensed table-hover" style="width:100%">
-      <tr>
-        <th width="20%">Name</th>
-        <th width="50%">Description</th>
-        <th width="10%">Support OData version(s)</th>
-        <th width="10%">For server/client</th>
-        <th width="10%">Download from</th>
-      </tr>
-      <tr>
-        <td>ODataJS beta <span class="label label-success">featured</span></td>
-        <td>The Apache Olingo OData Client for JavaScript (ODataJS) is a library written in JavaScript that enables browser based front end applications to easily use the OData protocol for communication with application servers.</td>
-        <td>V4 (4.0.0-beta-01)</td>
-        <td>Client</td>
-        <td><a href="http://olingo.apache.org/doc/javascript/download.html">Apache Olingo Site</a>,<br />
-          <a href="https://www.nuget.org/packages/odatajs/">nuget gallery</a>
+        <td>
+          {% if net.link %}
+          <a href={{net.link}}>{{net.name}}</a>
+          {% else %}
+          {{net.name}}
+          {% endif %}
         </td>
+        <td>{{net.content}}</td>
+        <td>{{net.version}}</td>
+        <td>{{net.object}}</td>
+        <td>{% for download in net.downloads %}
+          {% if download.source != net.downloads[0].source %},&nbsp{% endif %}
+          <a href={{download.link}} target="_blank">{{download.source}}</a>
+        {% endfor %}</td>
       </tr>
-      <tr>
-        <td>datajs</td>
-        <td>datajs is a new cross-browser JavaScript library that enables data-centric web applications by leveraging modern protocols such as JSON and OData and HTML5-enabled browser features.</td>
-        <td>V1 - V3</td>
-        <td>Client</td>
-        <td><a href="http://www.nuget.org/packages/datajs">nuget gallery</a>, <a href="http://datajs.codeplex.com/">CodePlex</a></td>
-      </tr>
-      <tr>
-        <td>JayData</td>
-        <td>JayData is a unified data access library for JavaScript to work with online and offline data APIs like WebSQL, IndexedDB, Facebook or OData.</td>
-        <td>V1 - V3</td>
-        <td>Client</td>
-        <td><a href="http://jaydata.org/">jaydata.org</a></td>
-      </tr>
-      <tr>
-        <td>Breeze.js</td>
-        <td>Breeze is a JavaScript library that helps you manage data in rich client applications.</td>
-        <td>V1 - V3</td>
-        <td>Client</td>
-        <td><a href="http://www.breezejs.com/home" target="_blank">breeze.com</a></td>
-      </tr>
-      <tr>
-        <td>node-odata</td>
-        <td>Create awesome REST APIs abide by OData Protocol v4 use <b>NodeJS</b>. Its purpose is to easier to creating APIs, make you more focus on business logic. Currently only works with MongoDB.</td>
-        <td>V4</td>
-        <td>Server</td>
-        <td><a href="https://github.com/TossShinHwa/node-odata" target="_blank">GitHub</a></td>
-      </tr>
-      <tr>
-        <td>OpenUI5</td>
-        <td>OpenUI5 is a JavaScript library maintained by SAP SE that is designed for building interactive business aplications. It supports data binding using OData protocol.</td>
-        <td>V1-V3</td>
-        <td>Client</td>
-        <td><a href="http://openui5.org/">openui5.org</a></td>
-      </tr>
-      <tr>
-        <td>DevExtreme</td>
-        <td>DevExtreme is cross-platform HTML 5/JS tools for next-generation mobile and web development.</td>
-        <td>V1-V4</td>
-        <td>Both</td>
-        <td><a href="http://js.devexpress.com/">js.devexpress.com</a></td>
-      </tr>
+      {% endfor %}
     </table>
   </div>
-  <div class="tab-pane table-responsive" id="cpp">
+  {% assign libraries = site.libraries | group_by: "category" %}
+  {% for library in libraries %}
+  <div class="tab-pane table-responsive" id={{library.name}}>
     <table class="table table-striped table-condensed table-hover" style="width:100%">
       <tr>
         <th width="20%">Name</th>
@@ -235,63 +64,24 @@ permalink: /libraries/
         <th width="10%">For server/client</th>
         <th width="10%">Download from</th>
       </tr>
+      {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
+      {% for item in items %}
       <tr>
-        <td>ODataCpp <span class="label label-success">featured</span></td>
-        <td>ODataCpp is an open-source C++ library that implements the OData. It currently serves only client and client side proxy generation (code gen) aspects of OData. The server library is under development and will be included soon.</td>
-        <td>V4</td>
-        <td>Client</td>
-        <td><a href="https://github.com/OData/odatacpp">GitHub</a></td>
+        <td>{{item.name}}</td>
+        <td>{{item.content}}</td>
+        <td>{{item.version}}</td>
+        <td>{{item.object}}</td>
+        <td>{% for download in item.downloads %}
+          {% if download.source != item.downloads[0].source %},&nbsp{% endif %}
+          <a href={{download.link}} target="_blank">{{download.source}}</a>
+        {% endfor %}</td>
       </tr>
+      {% endfor %}
     </table>
   </div>
-  <div class="tab-pane table-responsive" id="other">
-    <table class="table table-striped table-condensed table-hover" style="width:100%">
-      <tr>
-        <th width="20%">Name</th>
-        <th width="50%">Description</th>
-        <th width="10%">Support OData version(s)</th>
-        <th width="10%">For server/client</th>
-        <th width="10%">Download from</th>
-      </tr>
-      <tr>
-        <td>OData4ObjC</td>
-        <td>This library makes it easy for iOS app developers to interact with data in any OData-compliant web service. It supports metadata-aware client-side code generation and full CRUD with query. If someone exposes a data model via OData, OData4ObjC makes it easy to get that model onto your iOS device.</td>
-        <td>V1-3</td>
-        <td>Client</td>
-        <td><a href="http://odata.github.io/OData4ObjC/">GitHub</a></td>
-      </tr>
-      <tr>
-        <td>ODataPy (Python)</td>
-        <td>ODataPy is an open-source <b>Python</b> library that implements the Open Data Protocol (OData). It supports the OData protocol version 4.0. It is built on top of ODataCpp using language binding. It is under development and currently serves only parts of client and client side proxy generation (code gen) aspects of OData.</td>
-        <td>V4</td>
-        <td>Client</td>
-        <td><a href="https://github.com/odata/odatapy-client">GitHub</a></td>
-      </tr>
-      <tr>
-        <td>ODataStore for CoreData</td>
-        <td>The ODataStore for CoreData is an static library and a Mac OS X Framework to use V3 OData services with the CoreData Framework from Apple. V4 OData services will be supported in the future. The development language is <b>Objective-C</b>.</td>
-        <td>V3</td>
-        <td>Both</td>
-        <td><a href="http://www.hwigmbh.de/hwi/produkte/odatastore-for-coredata/">Link</a></td>
-      </tr>
-      <tr>
-        <td>OData Client Library for Tcl/Tk</td>
-        <td>OData Client Library for Tcl/Tk</td>
-        <td>V4 only</td>
-        <td>Client</td>
-        <td><a href="https://chiselapp.com/user/gwlester/repository/ODataTclOO">Link</a></td>
-      </tr>
-      <tr>
-        <td>Pyslet Python Package</td>
-        <td>Pyslet is a <b>Python</b> package for Standards in Learning Education and Training. It implements a number of standards including OData v2 with both client and server capabilities.</td>
-        <td>V2</td>
-        <td></td>
-        <td><a href="http://www.pyslet.org/">Pyslet.org</a></td>
-      </tr>
-    </table>
-  </div>
+  {% endfor %}
 </div>
 <div>
   <h4>Contribute to OData Libraries</h4>
-  <p>Want to add/update information of an OData library? You can edit and submit changes to this page on its <a href="https://github.com/ODataOrg/libraries" target="_blank">Github repository</a>.</p>
+  <p>Want to add/update information of an OData library? You can edit and submit changes to this page on its <a href="https://github.com/ODataOrg/odataorg.github.io" target="_blank">Github repository</a>.</p>
 </div>

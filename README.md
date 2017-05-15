@@ -28,6 +28,58 @@ Contents of your blog post in Markdown syntax
 
 - Then create a pull request for your update, we will publish your blog post after a quick review.
 
+## Update ecosystem
+
+Information about ecosystem will be published at http://www.odata.org/ecosystem. Five categories under ecosystem is now available for contribution, including producers,  consumers, live services, sdk (sample-code) and tutorials. 
+
+To create a new item of one category : 
+
+- Create a **markdown** file under *_ecosys/category* folder. 
+- Name the file `your-item-title.md`
+- Inside the markdown file, follow the templates: 
+```
+---
+layout: default
+category: your category
+title: your item title 
+link:  URL of your item
+[for **SDK** category ONLY]download: download link of your item
+---
+Description of your item
+```
+
+## Update libraries
+
+ Information of OData libraries will be published at http://www.odata.org/libraries.
+ 
+ To create a new library: 
+
+- Create a **markdown** file under *_libraries* folder. 
+- Name the file `your-item-title.md`
+- Inside the markdown file, follow the templates: 
+```
+---
+category: your category
+name: your library name
+link: possible supported document link of this library
+version: supported OData version(s) of this library 
+object:  URL of your item
+downloads:
+	- source: source name1
+	  link: download link1
+	- source: source name2
+	  link: download link2
+---
+Description of your library
+```
+The category of the libraries is defined as follows:
+```
+ net ---> libraries information on the .NET platform
+ java ---> libraries information on the Java platform
+ javascript ---> libraries information on the JavaScript platform
+ cpp ---> libraries information on the C++ platform
+ other ---> libraries information on other platforms
+``` 
 
 ## Other improvements
 

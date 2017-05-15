@@ -3,15 +3,34 @@
 }
 .jumbotron {
   background-color: transparent;
-  margin-bottom: 20px;
-  padding-left: 60px;
-  padding-right: 60px;
 }
 .jumbotron h1{
   color: #dd4814;
 }
 .jumbotron .p{
   color: black;
+}
+.carousel {
+  margin-bottom: 20px;
+}
+.carousel img{
+  width: 100%;
+  max-height: 430px;
+  opacity:0.7;
+}
+.carousel-control {
+  width: 50px;
+}
+.carousel-caption {
+  position: absolute;
+  margin: 5% -10% 5% -10%;
+  max-width: 1200px;
+  max-height: 600px;
+}
+
+.table {
+  width: 100%;
+  font-size-adjust: auto;
 }
 #index-guide{
   padding-left: 60px;
@@ -22,6 +41,13 @@
     float: left;
     max-width: 100px;
     max-height: 100px;
+}
+.floating-box {
+    float: left;
+    width: auto;
+    height: auto;
+    margin: 0px -20px 10px -20px;
+    border: 3px solid #dd4814;
 }
 
 /* styles for basic tutorails*/
