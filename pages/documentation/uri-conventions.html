@@ -179,7 +179,7 @@ _______________________________________/ __________________/  _________________/
 </ul>
 <h3><a id="TopSystemQueryOption" name="TopSystemQueryOption"></a>4.3. Top System Query Option ($top)</h3>
 <hr />
-<p>A data service URI with a $top System Query Option identifies a subset of the Entries in the Collection of Entries identified by the Resource Path section of the URI. This subset is formed by selecting only the first N items of the set, where N is a positive integer specified by this query option. If a value less than 0 is specified, the URI should be considered malformed.</p>
+<p>A data service URI with a $top System Query Option identifies a subset of the Entries in the Collection of Entries identified by the Resource Path section of the URI. This subset is formed by selecting only the first N items of the set, where N is an integer greater than or equal to zero specified by this query option. If a value less than zero is specified, the URI should be considered malformed.</p>
 <p>If the data service URI contains a $top query option, but does not contain a $orderby option, then the Entries in the set needs to first be fully ordered by the data service. While no ordering semantics are mandated, to ensure repeatable results, a data service must always use the same semantics to obtain a full ordering across requests.</p>
 <p>Examples</p>
 <p><a href="http://services.odata.org/OData/OData.svc/Products?$top=5">http://services.odata.org/OData/OData.svc/Products?$top=5</a></p>
@@ -192,7 +192,7 @@ _______________________________________/ __________________/  _________________/
 </ul>
 <h3><a id="SkipSystemQueryOption" name="SkipSystemQueryOption"></a> 4.4. Skip System Query Option ($skip)</h3>
 <hr />
-<p>A data service URI with a $skip System Query Option identifies a subset of the Entries in the Collection of Entries identified by the Resource Path section of the URI. That subset is defined by seeking N Entries into the Collection and selecting only the remaining Entries (starting with Entry N+1). N is a positive integer as specified by this query option. If a value less than 0 is specified, the URI should be considered malformed.</p>
+<p>A data service URI with a $skip System Query Option identifies a subset of the Entries in the Collection of Entries identified by the Resource Path section of the URI. That subset is defined by seeking N Entries into the Collection and selecting only the remaining Entries (starting with Entry N+1). N is an integer greater than or equal to zero specified by this query option. If a value less than zero is specified, the URI should be considered malformed.</p>
 <p>If the data service URI contains a $skip query option, but does not contain a $orderby option, then the Entries in the Collection must first be fully ordered by the data service. While no ordering semantics are mandated, to ensure repeatable results a data service must always use the same semantics to obtain a full ordering across requests.</p>
 <p>Examples</p>
 <p><a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Products?$skip=2"> http://services.odata.org/OData/OData.svc/Categories(1)/Products?$skip=2</a></p>
