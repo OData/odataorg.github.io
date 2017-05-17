@@ -4,8 +4,7 @@ title: OData Published as an ISO Standard
 date: 2017-02-23 
 author: Michael Pizzo
 ---
-
-**OData Published as ISO/IEC Standard 20802**
+**OData 4.0 Published as ISO/IEC 20802** 
 
 For those that missed the announcement, I'm thrilled to report that OData 4.0 has been ratified and published as an ISO/IEC Standard.
 
