@@ -18,6 +18,7 @@
   // Fallback to loading jQuery from a local path if the CDN is unavailable
   (window.jQuery || document.write('<script src="/public/jquery-3.0.0.min.js"><\/script>'));
   </script>
+  <!--
   <script>
   $(document).ready(function(){
     $.getJSON("http://ipinfo.io/?callback=?", function(data) {
@@ -27,7 +28,8 @@
     });
   });
   </script>
-  <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.min.css"/>
+  -->
+  <link rel="stylesheet" href="http://www.odata.org/public/css/bootstrap.min.css"/>
   <link rel="stylesheet" href={{"/public/css/site.css" | prepend: site.baseurl | prepend: site.url}}>
   <link rel="stylesheet" href={{"/public/css/syntax.css" | prepend: site.baseurl | prepend: site.url}}>
   <!--Below is for the adopters page-->
