@@ -1,10 +1,10 @@
 ---
 layout: post
-title: OData 4.01 Committee Spec Draft 3
-date: 2017-12-18 17:59:43.000000000 +08:00
+title: OData 4.01 Committee Spec Approved
+date: 2018-2-1 17:59:43.000000000 +08:00
 author: Michael Pizzo
 ---
-The public review of [OData V4.01 Committee Specification Draft 3.0](http://docs.oasis-open.org/odata/odata/v4.01/csprd04/part1-protocol/odata-v4.01-csprd04-part1-protocol.html) concluded this week, marking the next step toward approval of the much anticipated extensions to OData V4.0.
+[OData V4.01 Committee Specification Draft 3.0](http://docs.oasis-open.org/odata/odata/v4.01/csprd04/part1-protocol/odata-v4.01-csprd04-part1-protocol.html) was officially approved as a Committee Specification this week, marking the next step toward final standardization of the much anticipated extensions to OData V4.0.
 
 OData v4.01 is a fully compatible extension of the OData V4.0 protocol that adopts many popular conventions, syntax and payload simplifications, and incorporates new functionality.
 
