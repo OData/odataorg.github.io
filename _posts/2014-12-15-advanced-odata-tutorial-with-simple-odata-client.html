@@ -21,11 +21,11 @@ author: Vagif Abilov
 <h3>Creating client instance</h3>
 <p>To communicate with OData service we need an instance of ODataClient. It can be created either from its URL string or using ODataClientSettings. Here's the simplest version:
 {% highlight csharp%}
-var client = new ODataClient('http://services.odata.org/V4/TripPinServiceRW/');
+var client = new ODataClient("http://services.odata.org/V4/TripPinServiceRW/");
 {% endhighlight %}
 And here is a slightly more complicated example where we instruct the client not to raise exceptions on 404 error and trace all requests so we can check the HTTP communication:
 {% highlight csharp%}
-var client = new ODataClient(new ODataClientSettings('http://services.odata.org/V4/TripPinServiceRW/')
+var client = new ODataClient(new ODataClientSettings("http://services.odata.org/V4/TripPinServiceRW/")
 {
     IgnoreResourceNotFoundException = true,
     OnTrace = (x, y) => Console.WriteLine(string.Format(x, y)),
@@ -62,7 +62,7 @@ while (annotations.NextPageLink != null)
 <p>If you look at TripPin service metadata, you will see that <strong>People</strong> collection refer to other collections: emails, addresses, friends, trips and photos. OData protocol is lazy, it doesn't fetch all associated data unless explicitly requested. Here how we can expand <strong>People</strong> key lookup result to include <strong>Trips</strong> and <strong>Friends</strong>:
 {% highlight csharp%}var person = await client
     .For<Person>()
-    .Key('russellwhyte')
+    .Key("russellwhyte")
     .Expand(x => new { x.Trips, x.Friends })
     .FindEntryAsync();
 {% endhighlight %}
@@ -71,7 +71,7 @@ In this example we expanded the result containing a single person data, but expa
 {% highlight csharp%}var x = ODataDynamic.Expression;
 var person = await client
     .For(x.People)
-    .Key('russellwhyte')
+    .Key("russellwhyte")
     .Expand(x.Trips, x.Friends)
     .FindEntryAsync();
 {% endhighlight %}
@@ -82,7 +82,7 @@ As you can see, the dynamic syntax is very similar and differs in the following:
 <p>Results expansions enrich results with associated information, but what if we only need that associated information and are not interested in the root level data. Continuing exploration of <strong>People</strong>, we will now lookup a person, navigate to one of his trips and then fetch all plan items registered on that trip. Here's how this can be achieved:
 {% highlight csharp%}var planItems = await client
     .For<Person>()
-    .Key('russellwhyte')
+    .Key("russellwhyte")
     .NavigateTo(x => x.Trips)
     .Key(1003)
     .NavigateTo(x => x.PlanItems)
@@ -122,7 +122,7 @@ Note that we didn't have to use different variables in different lambda-expressi
 <p>Singleton concept is a newcomer to OData. What if one particular element of the OData collection has a distinct role of being the one and only when it comes to certain quality? A company that runs a Web shop may be registered in the Company database together with its clients, but it might be convenient to expose its details in a way that makes it easy to refer to that company without hard-coding its ID in the client application. This can achieved using OData singletons.</p>
 <p>A singleton in OData is a top-level collection that contains only one item. You can't search for items within the singleton, it doesn't make sense. You can only grab that only record it contains.
 {% highlight csharp%}var person = await client
-    .For<Person>('Me')
+    .For<Person>("Me")
     .FindEntryAsync();
 {% endhighlight %}
 Note that we only had to specify a different collection name (<strong>"Me"</strong>) and the command doesn't have a query filter or key, otherwise it looks just like a request to <strong>People</strong> collection. And the singleton quality only applies to the top-level element - the <strong>"Me"</strong> person may refer to other collections that can be navigated in the same way like demonstrated earlier.</p>
@@ -131,7 +131,7 @@ Note that we only had to specify a different collection name (<strong>"Me"</stro
 <p>Suppose we want to retrieve the given persons's plan items but we also want to restrict the plan items by only flights and include flight details not exposed by the <strong>PlanItem</strong> collection. Simple.OData.Client has a clause <em>As</em> that serves exactly this purpose:
 {% highlight csharp%}var flights = await client
     .For<Person>()
-    .Key('russellwhyte')
+    .Key("russellwhyte")
     .NavigateTo(x => x.Trips)
     .Key(1003)
     .NavigateTo(x => x.PlanItems)
@@ -141,12 +141,12 @@ Note that we only had to specify a different collection name (<strong>"Me"</stro
 <strong>Flight</strong> definition includes additional fields like <strong>FlightNumber</strong> and <strong>Airline</strong> that don't exist in <strong>PlanItem</strong> definition, and these extra properties will be retrieved by the client as long as it uses <em>As</em> clause. And once we navigate to the subclass, we can write query expressions that include fields defined by that subclass, like in the example below where we lookup for a flight with the specific flight number among the given person's flights:
 {% highlight csharp%}var flights = await client
     .For<Person>()
-    .Key('russellwhyte')
+    .Key("russellwhyte")
     .NavigateTo(x => x.Trips)
     .Key(1003)
     .NavigateTo(x => x.PlanItems)
     .As<Flight>()
-    .Filter(x => x.FlightNumber == 'FM1930')
+    .Filter(x => x.FlightNumber == "FM1930")
     .FindEntriesAsync();
 {% endhighlight %}</p>
 <h3>Modifying derived collection entries</h3>
@@ -154,7 +154,7 @@ Note that we only had to specify a different collection name (<strong>"Me"</stro
 <p>Here is the syntax of the statement that inserts into person's <strong>PlanItems</strong> an entry of a type <strong>Event</strong>. <strong>Event</strong> type is derived from <strong>PlanItem</strong> and adds a couple of properties (<strong>Descrption</strong> and <strong>OccursAt</strong>).
 {% highlight csharp%}var tripEvent = client
     .For<Person>()
-    .Key('russellwhyte')
+    .Key("russellwhyte")
     .NavigateTo<Trip>()
     .Key(1003)
     .NavigateTo(x => x.PlanItems)
@@ -167,36 +167,36 @@ To make the code easier to read, I extracted the method <strong>CreateEventDetai
 {
     return new Event
     {
-        ConfirmationCode = '4372899DD',
-        Description = 'Client Meeting',
+        ConfirmationCode = "4372899DD",
+        Description = "Client Meeting",
         Duration = TimeSpan.FromHours(3),
-        EndsAt = DateTimeOffset.Parse('2014-06-01T23:11:17.5479185-07:00'),
+        EndsAt = DateTimeOffset.Parse("2014-06-01T23:11:17.5479185-07:00"),
         OccursAt = new EventLocation()
         {
-            Address = '100 Church Street, 8th Floor, Manhattan, 10007',
-            BuildingInfo = 'Regus Business Center',
+            Address = "100 Church Street, 8th Floor, Manhattan, 10007",
+            BuildingInfo = "Regus Business Center",
             City = new Location.LocationCity()
             {
-                CountryRegion = 'United States',
-                Name = 'New York City',
-                Region = 'New York',
+                CountryRegion = "United States",
+                Name = "New York City",
+                Region = "New York",
             }
         },
         PlanItemId = 33,
-        StartsAt = DateTimeOffset.Parse('2014-05-25T23:11:17.5459178-07:00'),
+        StartsAt = DateTimeOffset.Parse("2014-05-25T23:11:17.5459178-07:00"),
     };
 }
 {% endhighlight %}
 Updating the event uses the same technique:
 {% highlight csharp%}var tripEvent = client
     .For<Person>()
-    .Key('russellwhyte')
+    .Key("russellwhyte")
     .NavigateTo<Trip>()
     .Key(1003)
     .NavigateTo(x => x.PlanItems)
     .As<Event>()
     .Key(33)
-    .Set(new { Description = 'This is a new description' })
+    .Set(new { Description = "This is a new description" })
     .UpdateEntryAsync();
 {% endhighlight %}
 Note that the reason we need to navigate to <strong>PlanItems</strong> collection via <strong>Person</strong> is that plan items don't have a top-level collection - they are contained in their respective person's details. Otherwise we could start right from <strong>PlanItems</strong>.</p>
@@ -205,22 +205,22 @@ Note that the reason we need to navigate to <strong>PlanItems</strong> collectio
 <p>Here's how Simple.OData.Client can execute unbound function <strong>GetNearestAirport</strong> that takes geolocation as an input and returns the closest airport to the specified coordinates:
 {% highlight csharp%}var airport = await client
     .Unbound<Airport>()
-    .Function('GetNearestAirport')
+    .Function("GetNearestAirport")
     .Set(new { lat = 100d, lon = 100d })
     .ExecuteAsSingleAsync();
 {% endhighlight %}
 And this is an example for unbound action:
 {% highlight csharp%}await client
     .Unbound()
-    .Action('ResetDataSource')
+    .Action("ResetDataSource")
     .ExecuteAsync();
 {% endhighlight %}
 To execute a bound function or action, we need to specify the collection. In the following example we execute an action <strong>ShareTrip</strong> that shares the person's trip information with another person.
 {% highlight csharp%}await client
     .For<Person>()
-    .Key('russellwhyte')
-    .Action('ShareTrip')
-    .Set(new { userName = 'scottketchum', tripId = 1003 })
+    .Key("russellwhyte")
+    .Action("ShareTrip")
+    .Set(new { userName = "scottketchum", tripId = 1003 })
     .ExecuteAsSingleAsync();
 {% endhighlight %}
 Bounded function and actions don't need to be applied to top-level collection. The OData service metadata specifies only the type the function or action is bound to, not an entity set.</p>
@@ -235,7 +235,7 @@ batch += async c => airlines1 = await c
     .FindEntriesAsync();
     batch += c => c
     .For<Airline>()
-    .Set(new Airline() { AirlineCode = 'TT', Name = 'Test Airline'})
+    .Set(new Airline() { AirlineCode = "TT", Name = "Test Airline"})
     .InsertEntryAsync(false);
 batch += async c => airlines2 = await c
     .For<Airline>()
