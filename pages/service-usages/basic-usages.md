@@ -9,44 +9,44 @@ For usage of advanced scenarios, please refer to [Trippin Advanced Usages](servi
 #### Requesting EntitySet
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People
+GET https://services.odata.org/TripPinRESTierService/People
 ```
 
 #### Requesting Single Entity by ID
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People('russellwhyte')
+GET https://services.odata.org/TripPinRESTierService/People('russellwhyte')
 ```
 
 #### Requesting Single Property Value
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Airports('KSFO')/Name 
+GET https://services.odata.org/TripPinRESTierService/Airports('KSFO')/Name 
 ```
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Airports('KSFO')/Location/Address 
+GET https://services.odata.org/TripPinRESTierService/Airports('KSFO')/Location/Address 
 ```
 
 #### Requesting a Single Primitive or Enum Type Property Raw Value
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Airports('KSFO')/Name/$value
+GET https://services.odata.org/TripPinRESTierService/Airports('KSFO')/Name/$value
 ```
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People('russellwhyte')/Gender/$value
+GET https://services.odata.org/TripPinRESTierService/People('russellwhyte')/Gender/$value
 ```
 
 #### Requesting Complex Property
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Airports('KSFO')/Location
+GET https://services.odata.org/TripPinRESTierService/Airports('KSFO')/Location
 ```
 
 #### Requesting Collection of Complex Property
 ```
-GET http://services.odata.org/TripPinRESTierService/People('russellwhyte')/AddressInfo
+GET https://services.odata.org/TripPinRESTierService/People('russellwhyte')/AddressInfo
 ```
 
 ### Querying Data
@@ -54,73 +54,73 @@ GET http://services.odata.org/TripPinRESTierService/People('russellwhyte')/Addre
 #### System Query Option $filter
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People?$filter=FirstName eq 'Scott'
+GET https://services.odata.org/TripPinRESTierService/People?$filter=FirstName eq 'Scott'
 ```
 
 ##### Filter on Complex Type Property
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Airports?$filter=contains(Location/Address, 'San Francisco')
+GET https://services.odata.org/TripPinRESTierService/Airports?$filter=contains(Location/Address, 'San Francisco')
 ```
 
 ##### Filter on Enum Properties
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People?$filter=Gender eq Microsoft.OData.Service.Sample.TrippinInMemory.Models.PersonGender'Female' 
+GET https://services.odata.org/TripPinRESTierService/People?$filter=Gender eq Microsoft.OData.Service.Sample.TrippinInMemory.Models.PersonGender'Female' 
 ```
 
 ##### Filter on Collection
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Airports?$select=Name, IcaoCode
+GET https://services.odata.org/TripPinRESTierService/Airports?$select=Name, IcaoCode
 ```
 
 #### System Query Option $orderby
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People('scottketchum')/Trips?$orderby=EndsAt desc
+GET https://services.odata.org/TripPinRESTierService/People('scottketchum')/Trips?$orderby=EndsAt desc
 ```
 
 #### System Query Option $top and $skip
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People?$top=2 
+GET https://services.odata.org/TripPinRESTierService/People?$top=2 
 ```
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People?$skip=18
+GET https://services.odata.org/TripPinRESTierService/People?$skip=18
 ```
 
 #### System Query Option $count
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People/$count
+GET https://services.odata.org/TripPinRESTierService/People/$count
 ```
 
 #### Lambda Operators
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Me/Friends?$filter=Friends/any(f:f/FirstName eq 'Scott')
+GET https://services.odata.org/TripPinRESTierService/Me/Friends?$filter=Friends/any(f:f/FirstName eq 'Scott')
 ```
 
 #### System Query Option $expand
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People('keithpinckney')?$expand=Trips
+GET https://services.odata.org/TripPinRESTierService/People('keithpinckney')?$expand=Trips
 ```
 
 ##### Nested Filter in Expand
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People('russellwhyte')?$expand=Trips($top=1)
+GET https://services.odata.org/TripPinRESTierService/People('russellwhyte')?$expand=Trips($top=1)
 ```
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People('russellwhyte')?$expand=Trips($select=TripId, Name)
+GET https://services.odata.org/TripPinRESTierService/People('russellwhyte')?$expand=Trips($select=TripId, Name)
 ```
 
 ```
-GET http://services.odata.org/TripPinRESTierService/People('russellwhyte')?$expand=Trips($filter=Name eq 'Trip in US')
+GET https://services.odata.org/TripPinRESTierService/People('russellwhyte')?$expand=Trips($filter=Name eq 'Trip in US')
 ```
 
 ### Data Modification
@@ -131,7 +131,7 @@ Otherwise, the results of your actions are unpredictable. The way to request a k
 #### Create an Entity
 
 ```
-POST http://services.odata.org/TripPinRESTierService/People
+POST https://services.odata.org/TripPinRESTierService/People
 header:
 {
 	Content-Type: application/json
@@ -160,13 +160,13 @@ body:
 #### Remove an Entity
 
 ```
-DELETE http://services.odata.org/TripPinRESTierService/People('russellwhyte')
+DELETE https://services.odata.org/TripPinRESTierService/People('russellwhyte')
 ```
 
 #### Update an Entity
 
 ```
-PATCH http://services.odata.org/TripPinRESTierService/People('russellwhyte')
+PATCH https://services.odata.org/TripPinRESTierService/People('russellwhyte')
 header:
 {
 	Content-Type: application/json
@@ -183,25 +183,25 @@ body:
 #### Invoking Unbound Functions
 
 ```
-GET http://services.odata.org/TripPinRESTierService/GetNearestAirport(lat = 33, lon = -118)
+GET https://services.odata.org/TripPinRESTierService/GetNearestAirport(lat = 33, lon = -118)
 ```
 
 #### Invoking bound Functions
 
 ```
-Get http://services.odata.org/TripPinRESTierService/People('russellwhyte')/Trips(0)/Microsoft.OData.Service.Sample.TrippinInMemory.Models.GetInvolvedPeople
+Get https://services.odata.org/TripPinRESTierService/People('russellwhyte')/Trips(0)/Microsoft.OData.Service.Sample.TrippinInMemory.Models.GetInvolvedPeople
 ```
 
 #### Invoking Unbound Actions
 
 ```
-POST http://services.odata.org/TripPinRESTierService/ResetDataSource
+POST https://services.odata.org/TripPinRESTierService/ResetDataSource
 ```
 
 #### Invoking Bound Actions
 
 ```
-POST http://services.odata.org/TripPinRESTierService/People('russellwhyte')/Microsoft.OData.Service.Sample.TrippinInMemory.Models.ShareTrip
+POST https://services.odata.org/TripPinRESTierService/People('russellwhyte')/Microsoft.OData.Service.Sample.TrippinInMemory.Models.ShareTrip
 header:
 {
 	Content-Type: application/json
@@ -230,14 +230,14 @@ For more details, please refer to [Restier Documents #ETag](http://odata.github.
 * Request
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Airlines
+GET https://services.odata.org/TripPinRESTierService/Airlines
 ```
 
 * Response
 
 ```javascript
 {
-  "@odata.context": "http://services.odata.org/TripPinRESTierService/$metadata#Airlines",
+  "@odata.context": "https://services.odata.org/TripPinRESTierService/$metadata#Airlines",
   "value": [
     {
       "@odata.etag": "W/\"J0FtZXJpY2FuIEFpcmxpbmVzJw==\"",
@@ -263,7 +263,7 @@ GET http://services.odata.org/TripPinRESTierService/Airlines
 * Request
 
 ```
-GET http://services.odata.org/TripPinRESTierService/Airlines('AA')
+GET https://services.odata.org/TripPinRESTierService/Airlines('AA')
 ```
 
 * Response Header
@@ -279,7 +279,7 @@ ETag: W/"J0FtZXJpY2FuIEFpcmxpbmVzJw=="
 
 ```
 {
-  "@odata.context": "http://services.odata.org/TripPinRESTierService/$metadata#Airlines/$entity",
+  "@odata.context": "https://services.odata.org/TripPinRESTierService/$metadata#Airlines/$entity",
   "@odata.etag": "W/\"J0FtZXJpY2FuIEFpcmxpbmVzJw==\"",
   "AirlineCode": "AA",
   "Name": "American Airlines"
@@ -291,7 +291,7 @@ ETag: W/"J0FtZXJpY2FuIEFpcmxpbmVzJw=="
 #### Update Entity with ETag
 
 ```
-PATCH http://services.odata.org/TripPinRESTierService/Airlines('AA')
+PATCH https://services.odata.org/TripPinRESTierService/Airlines('AA')
 header:
 {
 	If-Match: W/"J0FtZXJpY2FuIEFpcmxpbmVzJw=="
@@ -305,7 +305,7 @@ body:
 #### Delete Entity with ETag
 
 ```
-DELETE http://services.odata.org/TripPinRESTierService/Airlines('AA')
+DELETE https://services.odata.org/TripPinRESTierService/Airlines('AA')
 header:
 {
 	If-Match: W/"J0FtZXJpY2FuIEFpcmxpbmVzJw=="

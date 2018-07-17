@@ -111,11 +111,11 @@ OData V2: {
   "d" : { 
     "results": [ { 
       "__metadata": { 
-        "uri": "http://services.odata.org/OData/OData.svc/Categories(0)",
+        "uri": "https://services.odata.org/OData/OData.svc/Categories(0)",
         "type": "DataServiceProviderDemo.Category" }, "ID": 0, "Name": "Food", 
         "Products": { 
           "__deferred": { 
-            "uri": "http://services.odata.org/OData/OData.svc/Categories(0)/Products"
+            "uri": "https://services.odata.org/OData/OData.svc/Categories(0)/Products"
           } 
         } 
       }, 
@@ -124,7 +124,7 @@ OData V2: {
       { /* another Category Entry */ } 
     ], 
     "__count": "3", 
-    "__next": "http://services.odata.org/OData/OData.svc$skiptoken=12"
+    "__next": "https://services.odata.org/OData/OData.svc$skiptoken=12"
   } 
 }{% endhighlight %}
 <h2><a id="RepresentingEntries" name="RepresentingEntries"></a>7. Representing Entries</h2>
@@ -162,14 +162,14 @@ OData V2: {
 {% highlight javascript %}OData V1: { 
   "d" : { 
     "__metadata": { 
-      "uri": "http://services.odata.org/OData/OData.svc/Categories(0)",
+      "uri": "https://services.odata.org/OData/OData.svc/Categories(0)",
       "type": "DataServiceProviderDemo.Category" 
     }, 
     "ID": 0, 
     "Name": "Food", 
     "Products": { 
       "__deferred": { 
-        "uri": "http://services.odata.org/OData/OData.svc/Categories(0)/Products"
+        "uri": "https://services.odata.org/OData/OData.svc/Categories(0)/Products"
       } 
     } 
   }
@@ -177,14 +177,14 @@ OData V2: {
 OData V2: { 
   "d" : { 
       "__metadata": { 
-        "uri": "http://services.odata.org/OData/OData.svc/Categories(0)",
+        "uri": "https://services.odata.org/OData/OData.svc/Categories(0)",
         "type": "DataServiceProviderDemo.Category" 
       }, 
       "ID": 0, 
       "Name": "Food", 
       "Products": { 
         "__deferred": { 
-          "uri": "http://services.odata.org/OData/OData.svc/Categories(0)/Products"
+          "uri": "https://services.odata.org/OData/OData.svc/Categories(0)/Products"
         } 
       } 
   } 
@@ -196,13 +196,13 @@ OData V2: {
 {% highlight javascript %}OData V1 and V2: { 
   "d" : { 
     "__metadata": { 
-      "uri": "http://services.odata.org/OData/OData.svc/Categories(0)",
+      "uri": "https://services.odata.org/OData/OData.svc/Categories(0)",
       "type": "DataServiceProviderDemo.Category" }, 
       "ID": 0,
       "Name": "Food", 
       "Products": [ { 
         "__metadata": { 
-          "uri": "http://services.odata.org/OData/OData.svc/Products(0)",
+          "uri": "https://services.odata.org/OData/OData.svc/Products(0)",
           "etag": "W/"0"", 
           "type": "DataServiceProviderDemo.Product" 
         }, 
@@ -216,12 +216,12 @@ OData V2: {
         "Concurrency": 0, 
         "Category": { 
           "__deferred": { 
-            "uri": "http://services.odata.org/OData/OData.svc/Products(0)/Category"
+            "uri": "https://services.odata.org/OData/OData.svc/Products(0)/Category"
           } 
         }, 
         "Supplier": { 
           "__deferred": { 
-            "uri": "http://services.odata.org/OData/OData.svc/Products(0)/Supplier"
+            "uri": "https://services.odata.org/OData/OData.svc/Products(0)/Supplier"
           } 
         } 
       } 
@@ -286,21 +286,21 @@ OData V2: {
   Food{% endhighlight %}
 <h2><a id="RepresentingLinks" name="RepresentingLinks"></a>15. Representing Links</h2>
 <p>A Link (or collection of Links) represents an associated Entry (or collection of associated Entries). As described in <a href="../operations">[OData-Operations]</a> Links can be retrieved and modified to change the associations between Entities. A single link is represented as a JSON object with a "uri" name/value pair with the value of the pair being the URI that identifies the Link. A collection of links is represented as a array of JSON objects with each object representing a Link. For example, a link with multiplicity 1 (ex. Product is related to a <em>single</em> Supplier) would be represented in a response as:</p>
-{% highlight javascript %}{ "d" : { "uri": "http://services.odata.org/OData/OData.svc/Suppliers(0)" } }{% endhighlight %}
+{% highlight javascript %}{ "d" : { "uri": "https://services.odata.org/OData/OData.svc/Suppliers(0)" } }{% endhighlight %}
 <p>For example, a link with multiplicity greater than 1 (ex. Supplier is related to <em>many</em> products) would be represented in a response as:</p>
 {% highlight javascript %}OData V1 Response Payload: { 
   "d" : [ 
-    { "uri": "http://services.odata.org/OData/OData.svc/Products(0)" }, 
-    { "uri": "http://services.odata.org/OData/OData.svc/Products(7)" }, 
-    { "uri": "http://services.odata.org/OData/OData.svc/Products(8)" } 
+    { "uri": "https://services.odata.org/OData/OData.svc/Products(0)" }, 
+    { "uri": "https://services.odata.org/OData/OData.svc/Products(7)" }, 
+    { "uri": "https://services.odata.org/OData/OData.svc/Products(8)" } 
   ]
 } 
 OData V2 Response Payload: { 
   "d" : { 
     "results": [ 
-      { "uri": "http://services.odata.org/OData/OData.svc/Products(0)" }, 
-      { "uri": "http://services.odata.org/OData/OData.svc/Products(7)" }, 
-      { "uri": "http://services.odata.org/OData/OData.svc/Products(8)" } 
+      { "uri": "https://services.odata.org/OData/OData.svc/Products(0)" }, 
+      { "uri": "https://services.odata.org/OData/OData.svc/Products(7)" }, 
+      { "uri": "https://services.odata.org/OData/OData.svc/Products(8)" } 
     ], 
     "__count": "3" 
   } 

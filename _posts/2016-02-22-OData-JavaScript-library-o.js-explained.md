@@ -18,7 +18,7 @@ The installation of o.js is simple. You just need to include the `o.js` file int
 o.js adds a `o()` function to the global namespace. This function can be used to define a query. It returns a oHandler, which then allows to retrive, change or push data to the service:
 
 {% highlight javascript %}
-var oHandler = o('http://services.odata.org/V4/(S(wptr35qf3bz4kb5oatn432ul))/TripPinServiceRW/People');
+var oHandler = o('https://services.odata.org/V4/(S(wptr35qf3bz4kb5oatn432ul))/TripPinServiceRW/People');
 oHandler.get(function(data) {
     console.log(data); // data of the TripPinService/People endpoint
 });
@@ -26,7 +26,7 @@ oHandler.get(function(data) {
 The example above shows how to get the data from the defined handler with the `get()` function. The `get()`-function accepts an success- and error-callback to get the return of the request. If you prefer to use promise, you can use [q.js](https://github.com/kriskowal/q). The following example shows how to get data from the endpoint and manipulate the result with promise:
 
 {% highlight javascript %}
-o('http://services.odata.org/V4/(S(wptr35qf3bz4kb5oatn432ul))/TripPinServiceRW/People(\'Russell Whyte\')').get().then(function(result) {
+o('https://services.odata.org/V4/(S(wptr35qf3bz4kb5oatn432ul))/TripPinServiceRW/People(\'Russell Whyte\')').get().then(function(result) {
 	result.data.FirstName = 'New Name';
 	return(result.save());
 }).then(function(result) {
@@ -38,7 +38,7 @@ If you include q.js you can call the `get()` function without a callback and it 
 As you can see the requested service URL is quite long. If you use o.js to query one endpoint often you can configure o.js to use the same endpoint all the time:
 {% highlight javascript %}
 o().config({
-	endpoint: 'http://services.odata.org/V4/(S(ms4wufavzmwsg3fjo3eqdgak))/TripPinServiceRW/'
+	endpoint: 'https://services.odata.org/V4/(S(ms4wufavzmwsg3fjo3eqdgak))/TripPinServiceRW/'
 });
 {% endhighlight %}
 
@@ -100,7 +100,7 @@ If you try the example you will see a top navigation point `People`. This is bas
 
 	// configure the endpoint and define what to do while loading
 	o().config({
-		endpoint:'http://services.odata.org/V4/%28S%28wptr35qf3bz4kb5oatn432ul%29%29/TripPinServiceRW/',
+		endpoint:'https://services.odata.org/V4/%28S%28wptr35qf3bz4kb5oatn432ul%29%29/TripPinServiceRW/',
 		start:function() {
 			self.isLoading(true);
 		},
