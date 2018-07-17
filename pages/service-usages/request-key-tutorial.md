@@ -7,15 +7,15 @@ permalink: odata-services/service-usages/request-key-tutorial/
 ## Request A Key To Identify Yourself to Trippin
 
 To request a key, you should firstly visit 
-[http://services.odata.org/TripPinRESTierService](http://services.odata.org/TripPinRESTierService), 
+[https://services.odata.org/TripPinRESTierService](https://services.odata.org/TripPinRESTierService), 
 and the key is returned in the address bar of your brower.
 
 For example, after you visit 
-[http://services.odata.org/TripPinRESTierService](http://services.odata.org/TripPinRESTierService), 
+[https://services.odata.org/TripPinRESTierService](https://services.odata.org/TripPinRESTierService), 
 the address bar will be replaced by 
 
 ```
-http://services.odata.org/TripPinRESTierService/(S(1iit5imcudlfb3hd1duwtznk))/
+https://services.odata.org/TripPinRESTierService/(S(1iit5imcudlfb3hd1duwtznk))/
 ```
 
 , and the `(S(1iit5imcudlfb3hd1duwtznk))` part is your unique key.
@@ -30,14 +30,14 @@ For example, if you are going to remove a person in Trippin,
 you will use the request payload as following,
 
 ```
-DELETE http://services.odata.org/TripPinRESTierService/People('russellwhyte')
+DELETE https://services.odata.org/TripPinRESTierService/People('russellwhyte')
 ```
 
 . But you need firstly insert your key between `TripPinRESTierService` and `People('russellwhyte')`. 
 Therefore, the real url you you will use will be 
 
 ```
-DELETE http://services.odata.org/TripPinRESTierService/(S(1iit5imcudlfb3hd1duwtznk))/People('russellwhyte')
+DELETE https://services.odata.org/TripPinRESTierService/(S(1iit5imcudlfb3hd1duwtznk))/People('russellwhyte')
 ```
 
 ### Usages in Postman

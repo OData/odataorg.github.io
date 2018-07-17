@@ -1,11 +1,11 @@
 # Introduction
 
-This repository is the source code for [www.odata.org](http://www.odata.org) built with Jekyll. Site admins regularly updates the contents to the site.
+This repository is the source code for [www.odata.org](https://www.odata.org) built with Jekyll. Site admins regularly updates the contents to the site.
 
 # Contribution Guide
 
 ## Create blogs
-OData lovers can write blogs to share their experiences with OData. Blogs will be published at [www.odata.org/blog](http://www.odata.org/blog). To create a blog post :
+OData lovers can write blogs to share their experiences with OData. Blogs will be published at [www.odata.org/blog](https://www.odata.org/blog). To create a blog post :
 
 -  Create a **markdown** file under *_posts* folder. 
 - Name the file `yyyy-mm-dd-your-blog-title.md`
@@ -30,7 +30,7 @@ Contents of your blog post in Markdown syntax
 
 ## Update ecosystem
 
-Information about ecosystem will be published at http://www.odata.org/ecosystem. Five categories under ecosystem is now available for contribution, including producers,  consumers, live services, sdk (sample-code) and tutorials. 
+Information about ecosystem will be published at https://www.odata.org/ecosystem. Five categories under ecosystem is now available for contribution, including producers,  consumers, live services, sdk (sample-code) and tutorials. 
 
 To create a new item of one category : 
 
@@ -50,7 +50,7 @@ Description of your item
 
 ## Update libraries
 
- Information of OData libraries will be published at http://www.odata.org/libraries.
+ Information of OData libraries will be published at https://www.odata.org/libraries.
  
  To create a new library: 
 
