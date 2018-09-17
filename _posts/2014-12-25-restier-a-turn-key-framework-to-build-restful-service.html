@@ -53,7 +53,7 @@ author: Qian Li
 <p>        public static async void RegisterNorthwind(HttpConfiguration config, HttpServer server)
         {
             await config.MapODataDomainRoute<NorthwindController>(
-               'NorthwindApi', 'api/Northwind',
+               "NorthwindApi", "api/Northwind",
                 new ODataDomainBatchHandler(server));
         }
     }
@@ -68,7 +68,7 @@ author: Qian Li
         {
             get
             {
-                return this.Source<Order>('Orders').Where(o => o.ShippedDate == null);
+                return this.Source<Order>("Orders").Where(o => o.ShippedDate == null);
             }
         }
         {% endhighlight %}
@@ -77,7 +77,7 @@ author: Qian Li
         {% highlight csharp%}
         private IQueryable<Customer> OnFilterCustomers(IQueryable<Customer> customers)
         {
-            return customers.Where(c => c.Country == 'France');
+            return customers.Where(c => c.Country == "France");
         }
         {% endhighlight %}
 <li style="font-size:18px;"><i>Customer C says he has some additional logic when he deletes an <code>Product</code></i></li>
@@ -93,10 +93,10 @@ author: Qian Li
         {% highlight csharp%}
         [EnableRoleBasedSecurity]
         // Grant ALL permission on other entity sets. Just put Customers here and omit others.
-        [Grant(DomainPermissionType.All, On = 'Customers')]
+        [Grant(DomainPermissionType.All, On = "Customers")]
         // Grant only read pemission on Suppliers
-        [Grant(DomainPermissionType.Inspect, On = 'Suppliers')]
-        [Grant(DomainPermissionType.Read, On = 'Suppliers')]
+        [Grant(DomainPermissionType.Inspect, On = "Suppliers")]
+        [Grant(DomainPermissionType.Read, On = "Suppliers")]
         public class NorthwindDomain : DbDomain<NorthwindContext>
         {
            // code
