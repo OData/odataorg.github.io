@@ -27,7 +27,7 @@ For the Geographic Point:</p>
 {% highlight csharp%}
 public class GeographyPointWrapper
 {
-public static CultureInfo defaultCulture = CultureInfo.GetCultureInfo('En-Us');
+public static CultureInfo defaultCulture = CultureInfo.GetCultureInfo("En-Us");
 // implicit Spatial Geography Point to GeographyPointWrapper conversion operator
 public static implicit operator GeographyPointWrapper(GeographyPoint gp)
 {
@@ -56,8 +56,8 @@ return GeographyPointWrapper.Create(l_lat, l_lon, l_alt);
 public static implicit operator DbGeography(GeographyPointWrapper p)
 {
 // has to be optimized !!
-return DbGeography.FromText('POINT(' + p.Latitude.ToString(defaultCulture)
-+ ' ' + p.Longitude.ToString(defaultCulture) + ')');
+return DbGeography.FromText("POINT(" + p.Latitude.ToString(defaultCulture)
++ " " + p.Longitude.ToString(defaultCulture) + ")");
 }
 public static GeographyPointWrapper Create(double lat, double lon, double? alt)
 {
@@ -82,8 +82,8 @@ public double? Altitude { get { return _alt; } set { _alt = value; } }
 <p>After this, we need to define a service model which deals with the Entity framework and WCF tools.</p>
 
 {% highlight csharp%}
-[IgnorePropertiesAttribute('location')]
- [DataServiceKey('THING_KEY')]
+[IgnorePropertiesAttribute("location")]
+ [DataServiceKey("THING_KEY")]
 public class IOfThings_Things
  {
  GeographyPointWrapper _w;
@@ -113,7 +113,7 @@ public IOfThings_Things()
 {% highlight csharp%}
 public partial class IOfThings_Context : DbContext
  {
-const string ds = 'your azure connection string ';
+const string ds = "your azure connection string ";
  public static IOfThings_Context defaultContext = new IOfThings_Context();
 public IOfThings_Context() : base(ds) { }
 public DbSet<IOfThings_Things> IOfThings_Things { get; set; }
@@ -160,7 +160,7 @@ public class IOfThings_Entity : IUpdatable
  object resource = query.Cast<IOfThings_Things>().SingleOrDefault();
 // fullTypeName can be null for deletes
  if (fullTypeName != null && resource.GetType().FullName != fullTypeName)
- throw new ApplicationException('Unexpected type for this resource.');
+ throw new ApplicationException("Unexpected type for this resource.");
  return resource;
  }
 // Resets the value of the object to its default value.
@@ -195,7 +195,7 @@ public class IOfThings_Entity : IUpdatable
  void IUpdatable.AddReferenceToCollection(object targetResource, string propertyName, object resourceToBeAdded)
  {
  PropertyInfo pi = targetResource.GetType().GetProperty(propertyName);
- if (pi == null) throw new Exception('Can't find property');
+ if (pi == null) throw new Exception("Can't find property");
  IList collection = (IList)pi.GetValue(targetResource, null);
  collection.Add(resourceToBeAdded);
  }
@@ -205,7 +205,7 @@ public class IOfThings_Entity : IUpdatable
  {
  PropertyInfo pi = targetResource.GetType().GetProperty(propertyName);
  if (pi == null)
- throw new Exception('Can't find property');
+ throw new Exception("Can't find property");
  IList collection = (IList)pi.GetValue(targetResource, null);
  collection.Remove(resourceToBeRemoved);
  }
@@ -246,8 +246,8 @@ public class IOfThings_Entity : IUpdatable
  // This method is called only once to initialize service-wide policies.
  public static void InitializeService(DataServiceConfiguration config)
  {
- config.SetEntitySetAccessRule('*', EntitySetRights.All);
- // config.SetServiceOperationAccessRule('MyServiceOperation', ServiceOperationRights.All);
+ config.SetEntitySetAccessRule("*", EntitySetRights.All);
+ // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
  config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
  config.DataServiceBehavior.AcceptProjectionRequests = true;
  config.DataServiceBehavior.AcceptCountRequests = true;

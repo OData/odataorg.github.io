@@ -90,9 +90,9 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </div>
 <h3><a id="ServiceDocuments" name="ServiceDocuments"></a>2.2. Service Documents</h3>
 <p>As described in <a href="../overview">[OData-Core]</a>, if a service exposes several Collections, then to aid discovery of those Collections by clients it is useful for the service to expose a Service Document which lists the available Collections. Service Documents are described in AtomPub <a href="http://tools.ietf.org/html/rfc5023#page-15"> [RFC5023], section 15</a>.</p>
-<p>For example, the URI <a href="http://services.odata.org/OData/OData.svc">http://services.odata.org/OData/OData.svc</a> identifies the Service Document of a sample OData service which exposes a Categories, Products and Suppliers Collection. For convenience, a sample Service Document is shown in the listing below.</p>
+<p>For example, the URI <a href="https://services.odata.org/OData/OData.svc">https://services.odata.org/OData/OData.svc</a> identifies the Service Document of a sample OData service which exposes a Categories, Products and Suppliers Collection. For convenience, a sample Service Document is shown in the listing below.</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
-<service xml:base="http://services.odata.org/OData/OData.svc/" 
+<service xml:base="https://services.odata.org/OData/OData.svc/" 
          xmlns:atom="http://www.w3.org/2005/Atom" 
          xmlns:app="http://www.w3.org/2007/app" 
          xmlns="http://www.w3.org/2007/app">
@@ -110,23 +110,23 @@ permalink: /documentation/odata-version-2-0/atom-format/
   </workspace>
 </service>{% endhighlight %}
 <h3><a id="RepresentingCollectionsofEntries" name="RepresentingCollectionsofEntries"></a>2.3. Representing Collections of Entries</h3>
-<p><a href="../terminology#Collection">Collections</a> represent a set of <a href="../terminology#Entry">Entries</a>. In OData, Collections are represented as Atom feeds ([RFC5023] ), with one Atom entry for each Entry within the Collection. For example, a Collection of product category Entries (that could be part of a product catalog) exposed by an OData service, as identified by the URI <a href="http://services.odata.org/OData/OData.svc/Categories">http://services.odata.org/OData/OData.svc/Categories</a>, is represented as shown below. The format of <atom:entry> elements within a feed is described in the <a href="../atom-format#RepresentingEntries">Representing Entries</a> section.</p>
+<p><a href="../terminology#Collection">Collections</a> represent a set of <a href="../terminology#Entry">Entries</a>. In OData, Collections are represented as Atom feeds ([RFC5023] ), with one Atom entry for each Entry within the Collection. For example, a Collection of product category Entries (that could be part of a product catalog) exposed by an OData service, as identified by the URI <a href="https://services.odata.org/OData/OData.svc/Categories">https://services.odata.org/OData/OData.svc/Categories</a>, is represented as shown below. The format of <atom:entry> elements within a feed is described in the <a href="../atom-format#RepresentingEntries">Representing Entries</a> section.</p>
 <p><strong>Note</strong>: The "m" and "d" prefixes represent the OData metadata and data namespaces. It is likely the next version of OData will generalize the namespace URI to use an odata.org based URI.</p>
 
 <strong>OData V1:</strong>
 {% highlight xml %}
 
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<feed xml:base=http://services.odata.org/OData/OData.svc/
+<feed xml:base=https://services.odata.org/OData/OData.svc/
      xmlns:d=http://schemas.microsoft.com/ado/2007/08/dataservices
      xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
      xmlns="http://www.w3.org/2005/Atom">
   <title type="text">Categories</title>
-  <id>http://services.odata.org/OData/OData.svc/Categories</id>
+  <id>https://services.odata.org/OData/OData.svc/Categories</id>
   <updated>2010-03-10T08:38:14Z</updated>
   <link rel="self" title="Categories" href="Categories" />
   <entry>
-    <id>http://services.odata.org/OData/OData.svc/Categories(0)</id>
+    <id>https://services.odata.org/OData/OData.svc/Categories(0)</id>
     <title type="text">Food</title>
     <updated>2010-03-10T08:38:14Z</updated>
     <author>
@@ -154,17 +154,17 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <strong>OData V2:</strong> 
 {% highlight xml %}
 
-<feed xml:base="http://services.odata.org/Northwind/Northwind.svc/"
+<feed xml:base="https://services.odata.org/Northwind/Northwind.svc/"
         xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
         xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
         xmlns="http://www.w3.org/2005/Atom">
   <title type="text">Customers</title> 
-  <id>http://services.odata.org/Northwind/Northwind.svc/Customers</id> 
+  <id>https://services.odata.org/Northwind/Northwind.svc/Customers</id> 
   <updated>2010-03-10T09:34:11Z</updated> 
   <link rel="self" title="Customers" href="Customers" /> 
   <strong><m:count>91</m:count></strong> 
   <entry>
-    <id>http://services.odata.org/Northwind/Northwind.svc/Customers('ALFKI')</id> 
+    <id>https://services.odata.org/Northwind/Northwind.svc/Customers('ALFKI')</id> 
     <title type="text" /> 
     <updated>2010-03-10T09:34:11Z</updated> 
     <author>
@@ -199,7 +199,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
   </entry>
   <!-- <entry> elements representing additional customers goes here -->
   <strong><link rel="next" 
-      href="http://services.odata.org/Northwind/Northwind.svc/Customers?
+      href="https://services.odata.org/Northwind/Northwind.svc/Customers?
     $inlinecount=allpages&amp;$skiptoken='ERNSH'" /> </strong>
 </feed>{% endhighlight %}
 <h3><a id="RepresentingEntries" name="RepresentingEntries"></a>2.4. Representing Entries</h3>
@@ -230,13 +230,13 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <li>An attribute in the OData Metadata Namespace whose value is the <a href="../operations#ConcurrencyControlAndETags"> concurrency token</a> associated with the Entry. The value is formatted as required by the ETag header in [RFC2616].</li>
 <li>This attribute should be present in a response from an OData service when returning a feed (i.e. multiple Entries in a single HTTP response), otherwise the HTTP ETag response header should be used to communicate the concurrency token of the resource returned to a client.</li>
 </ul>
-<p>For example, as shown in the following listing, the Category Entry identified by the URI <a href="http://services.odata.org/OData/OData.svc/Categories%280%29">http://services.odata.org/OData/OData.svc/Categories(0)</a>, has two primitive properties (ID &amp; Name) and one Navigation Property named â€œProductsâ€, which identifies a feed of Product Entries related to the Category.</p>
+<p>For example, as shown in the following listing, the Category Entry identified by the URI <a href="https://services.odata.org/OData/OData.svc/Categories%280%29">https://services.odata.org/OData/OData.svc/Categories(0)</a>, has two primitive properties (ID &amp; Name) and one Navigation Property named â€œProductsâ€, which identifies a feed of Product Entries related to the Category.</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
-<entry xml:base="http://services.odata.org/OData/OData.svc/" 
+<entry xml:base="https://services.odata.org/OData/OData.svc/" 
        xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
        xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
        xmlns="http://www.w3.org/2005/Atom">
-  <id>http://services.odata.org/OData/OData.svc/Categories(0)</id> 
+  <id>https://services.odata.org/OData/OData.svc/Categories(0)</id> 
   <title type="text">Food</title> 
   <updated>2010-03-10T10:43:51Z</updated> 
   <author>
@@ -263,11 +263,11 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <p>As described in the <a href="../uri-conventions#ExpandSystemQueryOption"> $expand System Query Option section</a> of the <a href="../uri-conventions">[OData-URI]</a> document, a request URI may include the $expand query option to explicitly request that a linked to Entry or collection of Entries be serialized inline, rather than deferred.</p>
 <p>In this case the related Entry or collection of Entries is represented as the child element of an <m:inline> element as an <atom:feed> or <atom:entry> respectively. For example, a single Category Entry with its related Product Entries serialized inline is represented as shown in the example below.</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<entry xml:base=http://services.odata.org/OData/OData.svc/"
+<entry xml:base=https://services.odata.org/OData/OData.svc/"
    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
    xmlns="http://www.w3.org/2005/Atom">
-  <id>http://services.odata.org/OData/OData.svc/Categories(0)</id>
+  <id>https://services.odata.org/OData/OData.svc/Categories(0)</id>
   <title type="text">Food</title>
   <updated>2010-03-11T06:40:04Z</updated>
   <author>
@@ -281,11 +281,11 @@ permalink: /documentation/odata-version-2-0/atom-format/
     <strong><m:inline></strong>
       <feed>
         <title type="text">Products</title>
-        <id>http://services.odata.org/OData/OData.svc/Categories(0)/Products</id>
+        <id>https://services.odata.org/OData/OData.svc/Categories(0)/Products</id>
         <updated>2010-03-11T06:40:04Z</updated>
         <link rel="self" title="Products" href="Categories(0)/Products" />
         <entry>
-          <id>http://services.odata.org/OData/OData.svc/Products(0)</id>
+          <id>https://services.odata.org/OData/OData.svc/Products(0)</id>
           <title type="text">Bread</title>
           <summary type="text">Whole grain bread</summary>
           <updated>2010-03-11T06:40:04Z</updated>
@@ -408,7 +408,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </tbody>
 </table>
 </div>
-<p>For example, the sample Service Metadata Document at http://services.odata.org/OData/OData.svc/$metadata states the Name Property of the Category Entry is represented as the value of the <atom:title> element. Since FC_KeepInContent is equals true for this mapping the value is duplicated within the <m:properties> element.</p>
+<p>For example, the sample Service Metadata Document at https://services.odata.org/OData/OData.svc/$metadata states the Name Property of the Category Entry is represented as the value of the <atom:title> element. Since FC_KeepInContent is equals true for this mapping the value is duplicated within the <m:properties> element.</p>
 {% highlight xml %}<strong>Snippet from Service Metadata Document</strong> 
 <EntityType Name="Category">
   <Key>
@@ -425,14 +425,14 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </EntityType>
 
 <strong>Category representation in Atom</strong> 
-(see http://services.odata.org/OData/OData.svc/Categories(0) )
+(see https://services.odata.org/OData/OData.svc/Categories(0) )
 
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<entry xml:base="http://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/"
+<entry xml:base="https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
     xmlns="http://www.w3.org/2005/Atom">
-  <id>http://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Categories(0)</id>
+  <id>https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Categories(0)</id>
   <strong><title type="text">Food</title></strong>
   <updated>2010-03-11T22:28:51Z</updated>
   <author>
@@ -494,11 +494,11 @@ permalink: /documentation/odata-version-2-0/atom-format/
 
 Supplier representation in Atom
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<entry xml:base="http://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/"
+<entry xml:base="https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
     m:etag="W/"0"" xmlns="http://www.w3.org/2005/Atom" Xmlns:c="http://customUri">
-  <id>http://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Suppliers(0)</id>
+  <id>https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Suppliers(0)</id>
   <title type="text">Exotic Liquids</title>
   <updated>2010-03-11T22:47:21Z</updated>
   <author>
@@ -567,17 +567,17 @@ Food{% endhighlight %}
 <p>For example, a link with multiplicity 1 (ex. Product is related to a <em>single</em> Supplier) would be represented in XML in a response as:</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <uri xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices">
-  http://services.odata.org/OData/OData.svc/Suppliers(1)
+  https://services.odata.org/OData/OData.svc/Suppliers(1)
 </uri>{% endhighlight %}
 <p>For example, a link with multiplicity greater than 1 (e.g. Supplier is related to <em>many</em> products) would be represented in a response as:</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <links xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices">
-  <uri>http://services.odata.org/OData/OData.svc/Products(1)</uri>
-  <uri>http://services.odata.org/OData/OData.svc/Products(2)</uri>
-  <uri>http://services.odata.org/OData/OData.svc/Products(3)</uri>
-  <uri>http://services.odata.org/OData/OData.svc/Products(4)</uri>
-  <uri>http://services.odata.org/OData/OData.svc/Products(5)</uri>
-  <uri>http://services.odata.org/OData/OData.svc/Products(6)</uri>
+  <uri>https://services.odata.org/OData/OData.svc/Products(1)</uri>
+  <uri>https://services.odata.org/OData/OData.svc/Products(2)</uri>
+  <uri>https://services.odata.org/OData/OData.svc/Products(3)</uri>
+  <uri>https://services.odata.org/OData/OData.svc/Products(4)</uri>
+  <uri>https://services.odata.org/OData/OData.svc/Products(5)</uri>
+  <uri>https://services.odata.org/OData/OData.svc/Products(6)</uri>
 </links>{% endhighlight %}
 <h3><a id="Representing Results from Service Operations" name="Representing Results from Service Operations"></a>3.3. Representing Results from Service Operations</h3>
 <p>As described in <a href="../operations">[OData-Operations]</a> OData services may expose custom behaviors via Service Operations, which may accept input parameters identified by the request URI (as described in <a href="../uri-conventions">[OData-URI]</a>). This section specifies how the results of a Service Operation are formatted using Atom or XML. Service operations support returning:</p>

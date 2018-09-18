@@ -302,7 +302,7 @@ Represents a collection of Geometry Values.</td>
 <p>Entity Instances, whether individual or within an ATOM feed, are represented as <a href="../atom-format#entitiesasatom:entryelements"><code>atom:entry</code></a> elements.</p>
 <p>For example, the following <code>atom:entry</code> element describes a Product:</p>
 {% highlight xml %}<code><entry>
-  <id>http://services.odata.org/OData/OData.svc/Products(0)</id> 
+  <id>https://services.odata.org/OData/OData.svc/Products(0)</id> 
   <title /> 
   <summary /> 
   <updated>2012-03-30T07:11:05Z</updated> 
@@ -502,7 +502,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>For example, the following element describes an “Order” action:</p>
 {% highlight xml %}<code><metadata:action
   metadata="#DemoService.OrderProduct"
-  target="http://services.odata.org/OData/OData.svc/Products(1)/OrderProduct"
+  target="https://services.odata.org/OData/OData.svc/Products(1)/OrderProduct"
   title="Order"
 />
 </code>{% endhighlight %}
@@ -523,7 +523,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>For example, the following element describes a “GetTopProducts” function:</p>
 {% highlight xml %}<code><metadata:function
   metadata="#DemoService.GetTopProducts"
-  target="http://services.odata.org/OData/OData.svc/Categories(0)/GetTopProducts()"
+  target="https://services.odata.org/OData/OData.svc/Categories(0)/GetTopProducts()"
   title="GetTopProducts"
 />
 </code>{% endhighlight %}
@@ -636,16 +636,16 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>A <code>data:link</code> element represents the set of references from one entity to all related entities according to a particular relationship.</p>
 <p>The reference for each related entity is represented as a <code>data:uri</code> element that appears as a direct child of the <code>data:links</code> element.</p>
 <p>For example, a query for links to Products within the Category with ID=1:</p>
-{% highlight xml %}<code>http://services.odata.org/OData/OData.svc/Categories(1)$links/Products
+{% highlight xml %}<code>https://services.odata.org/OData/OData.svc/Categories(1)$links/Products
 </code>{% endhighlight %}
 <p>might return the following XML response:</p>
 {% highlight xml %}<code><links xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices"> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(1)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(2)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(3)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(4)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(5)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(6)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(1)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(2)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(3)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(4)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(5)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(6)</uri> 
 </links>
 </code>{% endhighlight %}
 <h2 id="linkasadata:urielement">14.2. Link as a <code>data:uri</code> Element</h2>

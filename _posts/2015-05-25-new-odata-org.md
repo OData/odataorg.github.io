@@ -22,7 +22,7 @@ The website is built with the following target audiences in mind:
 OData.org is very important for OData community. We have been working hard on improving both the contents and performance of the site and we will continually improving it according to your feedback. Below are current content structure of OData.org, and for future plans, please check [issues on GitHub](https://github.com/odataorg/odataorg.github.io/issues)
 
 
-#### [Blog](http://www.odata.org/blog)
+#### [Blog](https://www.odata.org/blog)
 Posts including subjects (but not limited) below, and except for site announcements, most posts are written by contributors.
 
 - Site announcement
@@ -34,25 +34,25 @@ Posts including subjects (but not limited) below, and except for site announceme
 - Tools of OData
 - ...
 
-#### [Getting Started (for developers)](http://www.odata.org/getting-started)
+#### [Getting Started (for developers)](https://www.odata.org/getting-started)
 OData has specifications that cover almost every aspect of a RESTful API. But for starters, you don't need to go through all the details of OData specifications. In this part, we provide various tutorials for developers of OData.
 
-#### [Documentation](http://www.odata.org/documentation)
+#### [Documentation](https://www.odata.org/documentation)
 OData protocol specification. Including the latest OASIS standardized OData Version 4.0 as well as OData Version 3.0 and OData Version 2.0.
 
-#### [Libraries](http://www.odata.org/libraries)
+#### [Libraries](https://www.odata.org/libraries)
 Matrix of OData libraries of  different platforms (.Net, JAVA, JavaScript, C++, Python, Ruby and etc.) for server and client. You are warmly welcomed to add your OData libraries here.
 
-#### [Reference Services](http://www.odata.org/odata-services)
+#### [Reference Services](https://www.odata.org/odata-services)
 Services built to demonstrate the features of OData.
 
 #### Tools
 Tools that can help you better understand OData services
 
-#### [Ecosystem](http://www.odata.org/ecosystem)
+#### [Ecosystem](https://www.odata.org/ecosystem)
 Consumers, providers and use cases of OData in the industry. We will improve the page with better UI experience and more up-to-date contents.
 
-#### [Getting Involved](http://www.odata.org/contribution) 
+#### [Getting Involved](https://www.odata.org/contribution) 
 Guidelines of how to getting involved in the OData community.
 
 #### Search
@@ -60,7 +60,7 @@ Improved the search functionality in the navigation menu with full-text search.
 
 **Besides above, we are actively working on producing more contents for business decision makers and RESTfu API advocators and better organize contents for developers. Please let us know if you have any ideas.**
 
-# [Call to action](http://www.odata.org/contribution)
+# [Call to action](https://www.odata.org/contribution)
 
 ### Provide feedback
 As always, your feedback to OData.org is warmly welcomed. Please let us know your feedback either email to our mailing list or [create issues](https://github.com/odataorg/odataorg.github.io/issues) directly.
