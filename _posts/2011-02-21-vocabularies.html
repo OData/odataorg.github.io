@@ -86,7 +86,7 @@ xmlns:validation="http://odata.org/vocabularies/validation"&gt;</em></p>
 &lt;Property Name="Regex" Type="Edm.String" Nullable="false" /&gt;<br />
 &lt;Property Name="ErrorMessage" Type="Edm.String" Nullable="true" /&gt;<br />
 &lt;/ComplexType&gt;</em></p>
-<p>In fact if you execute an <a href="http://www.odata.org/documentation/odata-version-2-0/atom-format#RepresentingComplexTypesProperties"> OData request</a> that just retrieves an instance of this complex type the response would look like this:</p>
+<p>In fact if you execute an <a href="https://www.odata.org/documentation/odata-version-2-0/atom-format#RepresentingComplexTypesProperties"> OData request</a> that just retrieves an instance of this complex type the response would look like this:</p>
 <p><em>&lt;Constraint<br />
 p1:type="Namespace.Constraint"<br />
 xmlns:p1="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"<br />
@@ -95,8 +95,8 @@ xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices" &gt;<br />
 &lt;ErrorMessage&gt;Please enter a valid EmailAddress&lt;/ErrorMessage&gt;<br />
 &lt;/Constraint&gt;</em></p>
 <p>And this is almost identical to our original annotation, the only differences being around the xml namespaces.</p>
-<p>Which means it is not too much of a stretch to say if your annotation can be modeled as a ComplexType which - of course allow nested complex types properties and <a href="http://www.odata.org/blog/adding-support-for-bags">multi-value properties</a> too - then the Annotation is simply an OData value.</p>
-<p>This is very nice because it means when we do <a href="http://www.odata.org/blog/queryable-odata-metadata"> addressable metadata</a> you can in theory write a query like this to retrieve the annotations for a specific property:</p>
+<p>Which means it is not too much of a stretch to say if your annotation can be modeled as a ComplexType which - of course allow nested complex types properties and <a href="https://www.odata.org/blog/adding-support-for-bags">multi-value properties</a> too - then the Annotation is simply an OData value.</p>
+<p>This is very nice because it means when we do <a href="https://www.odata.org/blog/queryable-odata-metadata"> addressable metadata</a> you can in theory write a query like this to retrieve the annotations for a specific property:</p>
 <p><strong>~/$metadata.svc/Properties('Namespace.Type.PropertyName')/Annotations</strong></p>
 <p><strong>ISSUE:</strong> Actually this introduces a problem, since each annotation instance would have a different 'type' we would need to support either ComplexType inheritance (so we can define the annotation as an EntityType with a Value property of type AnnotationValue, but instances of Annotations would invariably have Values derived from the base AnnotationValue type) or mark Annotation as a OpenType or provide a way to specify a property without specifying the type.</p>
 <p>Of course today annotations are allowed that can't be modeled as ComplexTypes, so we would need to be able to distinguish those. Perhaps the easiest way is like this:</p>

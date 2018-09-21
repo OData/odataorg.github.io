@@ -522,7 +522,7 @@ _______________________________________/ __________________/  _________________/
 <ul>
 <li>In a response from an OData service, the Name property is included and Product Entries with all Properties are included; however, rather than including the fully expanded Supplier Entries referenced in the expand clause, each Product will contain a link that references the corresponding Collection of Supplier Entries.</li>
 </ul>
-<p>Note: The $select section of the <a href="http://www.odata.org/media/6655/[mc-apdsu][1].htm">normative OData specification</a> provides an ABNF grammar for the expression language supported by this query option.</p>
+<p>Note: The $select section of the <a href="https://www.odata.org/media/6655/[mc-apdsu][1].htm">normative OData specification</a> provides an ABNF grammar for the expression language supported by this query option.</p>
 <h3><a id="InlinecountSystemQueryOption" name="InlinecountSystemQueryOption"></a> 4.9. Inlinecount System Query Option ($inlinecount)</h3>
 <hr />
 <p>A URI with a $inlinecount System Query Option specifies that the response to the request includes a count of the number of Entries in the Collection of Entries identified by the <a href="../uri-conventions#ResourcePath">Resource Path</a> section of the URI. The count must be calculated after applying any <a href="../uri-conventions#FilterSystemQueryOption">$filter System Query Options</a> present in the URI. The set of valid values for the $inlinecount query option are shown in the table below. If a value other than one shown in Table 4 is specified the URI is considered malformed.</p>

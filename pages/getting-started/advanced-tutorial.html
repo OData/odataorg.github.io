@@ -7,15 +7,15 @@ permalink: /getting-started/advanced-tutorial/
 <div class="row">
 <div class="col-md-8">
 <p>
-            The Open Data Protocol (OData) is a data access protocol built on core protocols like HTTP and commonly accepted methodologies like REST for the web. There are various kinds of <a href="http://www.odata.org/libraries/">libraries</a> and <a href="http://www.odata.org/ecosystem/">tools</a>  can be used to consume OData services. But for beginners and those who want to write their own libraries, the pure HTTP requests and responses are also very important. This documentation will not cover every feature details for OData V4 services but will try to cover various typical scenarios.  If you want to have a more detailed understanding, please refer to <a href="http://www.odata.org/documentation/">OData Documentation</a>.
+            The Open Data Protocol (OData) is a data access protocol built on core protocols like HTTP and commonly accepted methodologies like REST for the web. There are various kinds of <a href="https://www.odata.org/libraries/">libraries</a> and <a href="https://www.odata.org/ecosystem/">tools</a>  can be used to consume OData services. But for beginners and those who want to write their own libraries, the pure HTTP requests and responses are also very important. This documentation will not cover every feature details for OData V4 services but will try to cover various typical scenarios.  If you want to have a more detailed understanding, please refer to <a href="https://www.odata.org/documentation/">OData Documentation</a>.
         </p>
 <h4>Please note</h4>
 <ul>
-<li>This is the advanced section. For topics like requesting data, query options, basic data modification, operations and etc, please refer to <a href="http://www.odata.org/getting-started/basic-tutorial/">Basic Section</a>.</li>
+<li>This is the advanced section. For topics like requesting data, query options, basic data modification, operations and etc, please refer to <a href="https://www.odata.org/getting-started/basic-tutorial/">Basic Section</a>.</li>
 <li>All these are based on OData V4 sample service <a href="https://services.odata.org/V4/TripPinServiceRW">TripPin</a>, please just replace the <code>serviceRoot</code> below with the URL <code>https://services.odata.org/V4/TripPinServiceRW</code>. TripPin now supports ETag, so for data modification topics, you should first using GET on TripPin (eg. GET serviceRoot/People) to get the section information in the payload then use the URL with section for data modification examples. (something looks like https://services.odata.org/V4/(S(flat4rgegiueineatspfdku1))/TripPinServiceRW)</li>
 <li>You may use <a href="http://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
-<li>In TripPin service, ETag is currently enabled on entity <em>Person</em>. We omit the ETag related headers in request headers for short, please go to the <a href="http://www.odata.org/getting-started/basic-tutorial/#etag">ETag Section</a> for detailed information.</li>
-<li>We will keep improving this by adding contents and fixing bugs. You can provide your feedbacks and ask questions using <a href="http://www.odata.org/join-the-odata-discussion/">OData Mailling List</a>.</li>
+<li>In TripPin service, ETag is currently enabled on entity <em>Person</em>. We omit the ETag related headers in request headers for short, please go to the <a href="https://www.odata.org/getting-started/basic-tutorial/#etag">ETag Section</a> for detailed information.</li>
+<li>We will keep improving this by adding contents and fixing bugs. You can provide your feedbacks and ask questions using <a href="https://www.odata.org/join-the-odata-discussion/">OData Mailling List</a>.</li>
 </ul>
 <div id="singleton">
 <h2 class="page-header">Singleton</h2>
