@@ -21,11 +21,11 @@ author: Vagif Abilov
 <h3>Creating client instance</h3>
 <p>To communicate with OData service we need an instance of ODataClient. It can be created either from its URL string or using ODataClientSettings. Here's the simplest version:
 {% highlight csharp%}
-var client = new ODataClient("http://services.odata.org/V4/TripPinServiceRW/");
+var client = new ODataClient("https://services.odata.org/V4/TripPinServiceRW/");
 {% endhighlight %}
 And here is a slightly more complicated example where we instruct the client not to raise exceptions on 404 error and trace all requests so we can check the HTTP communication:
 {% highlight csharp%}
-var client = new ODataClient(new ODataClientSettings("http://services.odata.org/V4/TripPinServiceRW/")
+var client = new ODataClient(new ODataClientSettings("https://services.odata.org/V4/TripPinServiceRW/")
 {
     IgnoreResourceNotFoundException = true,
     OnTrace = (x, y) => Console.WriteLine(string.Format(x, y)),

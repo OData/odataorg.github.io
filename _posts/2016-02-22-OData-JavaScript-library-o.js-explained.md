@@ -184,5 +184,5 @@ Links:
 * [o.js on Github](https://github.com/janhommes/o.js)
 * [The example souce code](https://github.com/janhommes/o.js/tree/master/example)
 * [The example to try it out](http://www.janhommes.de/o.js/example/)
-* [The example TripPinService](http://services.odata.org/V4/%28S%28temce5hlnkmezxe0zghrzv4p%29%29/TripPinServiceRW/)
+* [The example TripPinService](https://services.odata.org/V4/%28S%28temce5hlnkmezxe0zghrzv4p%29%29/TripPinServiceRW/)
 * [Knockout.js](http://www.knockoutjs.com)

@@ -45,7 +45,7 @@ author: OData.org Archive
 </ul>
 <p>It is important to note that our goal stops short of specifying how to define the vocabulary itself, or how to capture the semantics of the vocabulary, or how to enforce the vocabulary. Those concerns lay solely with vocabulary writers, and the producers and consumers that profess to understand the vocabulary. By staying out of this business it allows OData to reference many existing vocabularies and micro-formats, without being unnecessarily restrictive on how those vocabularies are defined or the types of semantics they might imply.</p>
 <h3>Exploration</h3>
-<p>Today if you ask for an OData services metadata (~/service/$metadata) you get back an EDMX document that contains a CSDL schema. Here is an <a href="http://services.odata.org/OData/OData.svc/$metadata">example</a>.</p>
+<p>Today if you ask for an OData services metadata (~/service/$metadata) you get back an EDMX document that contains a CSDL schema. Here is an <a href="https://services.odata.org/OData/OData.svc/$metadata">example</a>.</p>
 <p>CSDL already supports annotations, which we could use to refer to a vocabulary and its terms. For example this EntityType definition includes both a structural annotation (validation:Constraint) and a simple attribute annotation (display:Title):</p>
 <p><em>&lt;EntityType Name="Person" display:Title="Firstname Lastname"&gt;<br />
 &lt;Key&gt;<br />

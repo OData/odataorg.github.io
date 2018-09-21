@@ -44,12 +44,12 @@ permalink: /documentation/odata-version-2-0/operations/
 <pre><code>HTTP/1.1 200 OK Content-Length: 5685 Date: Sat, 27 Feb 2010 20:03:28 GMT Content-Type:
   application/atom+xml;charset=utf-8 DataServiceVersion: 1.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
-&lt;feed xml:base="http://services.odata.org/OData/OData.svc
+&lt;feed xml:base="https://services.odata.org/OData/OData.svc
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
     xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;Products&lt;/title&gt;
-  &lt;id&gt;http://services.odata.org/OData/OData.svc/Products&lt;/id&gt; 
+  &lt;id&gt;https://services.odata.org/OData/OData.svc/Products&lt;/id&gt; 
   &lt;updated&gt;2010-02-27T20:03:28Z&lt;/updated&gt;
   &lt;Link rel="self" title="Products" href="Products" /&gt; 
   &lt;Entry&gt; ... &lt;/Entry&gt;
@@ -74,24 +74,24 @@ permalink: /documentation/odata-version-2-0/operations/
 <pre><code>HTTP/1.1 200 OK Content-Length: 28735 Date: Fri, 12 Mar 2010 18:05:49 GMT Content-Type:
   application/atom+xml;charset=utf-8 DataServiceVersion: 2.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
-&lt;feed xml:base="http://services.odata.org/Northwind/Northwind.svc/"
+&lt;feed xml:base="https://services.odata.org/Northwind/Northwind.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
     xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;Customers&lt;/title&gt;
-  &lt;id&gt;http://services.odata.org/Northwind/Northwind.svc/Customers&lt;/id&gt;
+  &lt;id&gt;https://services.odata.org/Northwind/Northwind.svc/Customers&lt;/id&gt;
   &lt;updated&gt;2010-03-12T18:05:49Z&lt;/updated&gt; 
   &lt;link rel="self" title="Customers" href="Customers" /&gt; 
   &lt;entry&gt; ... &lt;/entry&gt; 
   &lt;entry&gt; ... &lt;/entry&gt;
   &lt;entry&gt; ... &lt;/entry&gt; 
   &lt;link rel="next"  
-    href="http://services.odata.org/Northwind/Northwind.svc/Customers?$skiptoken='ERNSH'"
+    href="https://services.odata.org/Northwind/Northwind.svc/Customers?$skiptoken='ERNSH'"
   /&gt; 
 &lt;/feed&gt;</code></pre>
 <p>There are no expectations about stability of the data across requests while traversing partial lists. Clients should be prepared to deal with missing or repeating entries.</p>
 <p>While in many cases clients will directly follow links provided externally or found in a service document to find and retrieve a feed for a Collection, often a client will want to further control how the feed is returned. OData provide a series of optional conventions to allow clients to filter, sort and page over data in Collections, we well as to request for a subset of the properties to be sent and to expand related entries inline. All these options are discussed in <a href="../uri-conventions">[OData-URI]</a>. An example on this would be (before escaping the URL):</p>
-<p>http://services.odata.org/OData/OData.svc/Products?$filter=Rating gt 2&amp;$orderby=Price&amp;$select=Rating,Price</p>
+<p>https://services.odata.org/OData/OData.svc/Products?$filter=Rating gt 2&amp;$orderby=Price&amp;$select=Rating,Price</p>
 <p>this requests all products with a Rating greater than 2, sorted by Price in ascending order, and asks the server to only retrieve the Rating and Price properties.</p>
 <h3><a id="Retrievingindividualproperties" name="Retrievingindividualproperties"></a> 2.2 Retrieving individual properties</h3>
 <p>Servers may support retrieval of individual properties within Entries. OData provides two ways of exposing individual properties, one that follows OData formats and another one that exposes the raw value of the property.</p>
@@ -143,14 +143,14 @@ permalink: /documentation/odata-version-2-0/operations/
 <p>Note that the client indicates both the content-type of the request body and the accept header to indicate the format of the response body, if any.</p>
 <p>The server processes the request by creating the resource, assigning default values to all the properties not indicated in the request that are optional, and sending the final state of the resource back to the client in the response, including a "location" header that contains the URL of the Entry that was created. HTTP status code 201 reflects that the Entry has been created. For example:</p>
 <pre><code>HTTP/1.1 201 Created Content-Length: 1072 Date: Sat, 27 Feb 2010 21:39:54 GMT
-  Location: http://services.odata.org/OData/OData.svc/Categories(10) Content-Type:
+  Location: https://services.odata.org/OData/OData.svc/Categories(10) Content-Type:
   application/atom+xml;charset=utf-8 DataServiceVersion: 1.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
-&lt;Entry xml:base="http://services.odata.org/OData/OData.svc/"
+&lt;Entry xml:base="https://services.odata.org/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
     xmlns="http://www.w3.org/2005/Atom"&gt; 
-  &lt;id&gt;http://services.odata.org/OData/OData.svc/Categories(10)&lt;/id&gt;
+  &lt;id&gt;https://services.odata.org/OData/OData.svc/Categories(10)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-27T21:39:54Z&lt;/updated&gt;
   &lt;author&gt; 
@@ -246,14 +246,14 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;/Entry&gt;</code></pre>
 <p>Response:</p>
 <pre><code>HTTP/1.1 201 Created Content-Length: 1072 Date: Sun, 28 Feb 2010 08:59:57 GMT
-  Location: http://services.odata.org/OData/OData.svc/Categories(10) 
+  Location: https://services.odata.org/OData/OData.svc/Categories(10) 
   Content-Type: application/atom+xml;charset=utf-8 DataServiceVersion: 1.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
-&lt;Entry xml:base="http://services.odata.org/OData/OData.svc/"
+&lt;Entry xml:base="https://services.odata.org/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
     xmlns="http://www.w3.org/2005/Atom"&gt; 
-  &lt;id&gt;http://services.odata.org/OData/OData.svc/Categories(10)&lt;/id&gt;
+  &lt;id&gt;https://services.odata.org/OData/OData.svc/Categories(10)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T08:59:57Z&lt;/updated&gt;
   &lt;author&gt; 
@@ -285,11 +285,11 @@ permalink: /documentation/odata-version-2-0/operations/
   1.0 MaxDataServiceVersion: 2.0 accept: application/atom+xml 
   content-type: application/atom+xml Content-Length: 1181 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
-&lt;Entry xml:base="http://services.odata.org/OData/OData.svc/" 
+&lt;Entry xml:base="https://services.odata.org/OData/OData.svc/" 
     xmlns:d=" http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
     xmlns="http://www.w3.org/2005/Atom"&gt; 
-  &lt;id&gt;http://services.odata.org/OData/OData.svc/Products(1)&lt;/id&gt;
+  &lt;id&gt;https://services.odata.org/OData/OData.svc/Products(1)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T10:23:02Z&lt;/updated&gt;
   &lt;author&gt; 
@@ -318,11 +318,11 @@ permalink: /documentation/odata-version-2-0/operations/
   DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 
   accept: application/atom+xml content-type: application/atom+xml Content-Length: 1181 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
-&lt;Entry xml:base="http://services.odata.org/OData/OData.svc/" 
+&lt;Entry xml:base="https://services.odata.org/OData/OData.svc/" 
     xmlns:d=" http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
     xmlns="http://www.w3.org/2005/Atom"&gt; 
-  &lt;id&gt;http://services.odata.org/OData/OData.svc/Products(1)&lt;/id&gt;
+  &lt;id&gt;https://services.odata.org/OData/OData.svc/Products(1)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T10:23:02Z&lt;/updated&gt;
   &lt;author&gt; 
@@ -373,7 +373,7 @@ permalink: /documentation/odata-version-2-0/operations/
   DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 Content-Length: 159 
   Content-Type:application/xml 
 &lt;uri xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;
-  http://services.odata.org/OData/OData.svc/Products(10) 
+  https://services.odata.org/OData/OData.svc/Products(10) 
 &lt;/uri&gt;</code></pre>
 <p>Response:</p>
 <pre><code>HTTP/1.1 204 No Content Date: Tue, 02 Mar 2010 08:59:32 GMT DataServiceVersion: 1.0;</code></pre>
@@ -395,7 +395,7 @@ permalink: /documentation/odata-version-2-0/operations/
   DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 
   accept: application/xml content-type: application/xml Content-Length: 158 
 &lt;uri xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;
-  http://services.odata.org/OData/OData.svc/Categories(2) 
+  https://services.odata.org/OData/OData.svc/Categories(2) 
 &lt;/uri&gt;</code></pre>
 <p>Response:</p>
 <pre><code>HTTP/1.1 204 No Content Date: Tue, 02 Mar 2010 19:54:52 GMT DataServiceVersion: 1.0;</code></pre>
@@ -404,7 +404,7 @@ permalink: /documentation/odata-version-2-0/operations/
 <pre><code>MERGE /OData/OData.svc/Products(1) HTTP/1.1 Host: services.odata.org 
     DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 
     content-type: application/atom+xml Content-Length:590 
-&lt;entry xml:base="http://services.odata.org/OData/OData.svc/" 
+&lt;entry xml:base="https://services.odata.org/OData/OData.svc/" 
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
     xmlns="http://www.w3.org/2005/Atom"&gt;
@@ -427,13 +427,13 @@ permalink: /documentation/odata-version-2-0/operations/
   Content-Type: application/atom+xml;charset=utf-8 DataServiceVersion: 1.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
 &lt;feed 
-    xml:base="http://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/OData/OData.svc/"
+    xml:base="https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
     xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;GetProductsByRating&lt;/title&gt;
   &lt;id&gt;
-http://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/odata/odata.svc/GetProductsByRating
+https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/odata/odata.svc/GetProductsByRating
   &lt;/id&gt;
   &lt;updated&gt;2010-03-02T20:59:21Z&lt;/updated&gt; 
   &lt;Link rel="self" title="GetProductsByRating" href="GetProductsByRating" /&gt; 

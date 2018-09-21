@@ -241,12 +241,12 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>For complex typed properties, the path MAY be further extended with the name of the individual property of the complex type.</p>
 <p>See <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> for details.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products(1)/Name
+<pre><code>https://services.odata.org/OData/OData.svc/Products(1)/Name
 </code></pre>
 <h4 id="requestingapropertysrawvalueusingvalue">10.2.2.1. Requesting a Property’s Raw Value using <code>$value</code></h4>
 <p>A service SHOULD support retrieving the raw value of a primitive type property. To retrieve this value, a client sends a GET request to the property value URL. See the <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> document for details.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products(1)/Name/$value
+<pre><code>https://services.odata.org/OData/OData.svc/Products(1)/Name/$value
 </code></pre>
 <p>The raw value of an Edm.Binary property MUST be serialized as an unencoded byte stream.</p>
 <p>The raw value of other properties SHOULD be represented using the <code>text/plain</code> media type. See <a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a> for details.</p>
@@ -258,7 +258,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h4 id="thefiltersystemqueryoption">10.2.3.1. The <code>$filter</code> System Query Option</h4>
 <p>The set of entities returned MAY be restricted through the use of the <code>$filter</code> System Query Option.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$filter=Price lt 10.00
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=Price lt 10.00
 </code></pre>
 <p>Returns all Products whose Price is less than $10.00.</p>
 <p>The value of the <code>$filter</code> option is a boolean expression as defined in <a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a>.</p>
@@ -506,17 +506,17 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The <code>$select</code> system query option requests that the service return only the properties, open properties, related properties, actions and functions explicitly requested by the client. The service MUST return the specified content, and MAY choose to return additional information.</p>
 <p>The value of the $select query option is a comma separated list of property paths, qualified action names, qualified function names, or the star operator (*), or the star operator prefixed with the name of the entity container in order to specify all operations within the container.</p>
 <p>For example, the following request returns just the Rating and ReleaseDate for the matching Products:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=Rating,ReleaseDate
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=Rating,ReleaseDate
 </code></pre>
 <p>It is also possible to request all properties, using a star request:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=*
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=*
 </code></pre>
 <p>A star request SHOULD NOT introduce actions or functions not otherwise requested.</p>
 <p>Properties of related entities MAY be specified by providing a property path in the select list. In order to select properties from related entities, the appropriate navigation property MUST be specified through the <code>$expand</code> query option:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=*,Category/Name&amp;$expand=Category
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=*,Category/Name&amp;$expand=Category
 </code></pre>
 <p>It is also possible to request all actions and functions available for each returned entity:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=DemoService.*
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=DemoService.*
 </code></pre>
 <p>For AtomPub formatted responses, the value of a <code>$select</code> clause applies only to the properties returned within the <code>m:properties</code> element. For example, if a property of an entity type is mapped to an Atom element, then that property MUST always be included in the response according to its customizable feed mapping.</p>
 <h4 id="theorderbysystemqueryoption">10.2.3.3 The <code>$orderby</code> System Query Option</h4>
@@ -525,31 +525,31 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>A type cast using the qualified entity type name is required to order by a property defined on a derived type.</p>
 <p>The property name MAY include the suffix “asc” for ascending or “desc” for descending, separated from the property name by one or more spaces. If “asc” or “desc” is not specified, the service MUST order by the specified property in ascending order.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$orderby=ReleaseDate asc, Rating desc
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$orderby=ReleaseDate asc, Rating desc
 </code></pre>
 <h4 id="thetopsystemqueryoption">10.2.3.4. The <code>$top</code> System Query Option</h4>
 <p>The <code>$top</code> System Query Option specifies that only the first n records SHOULD be returned, where n is a non-negative integer value specified by the <code>$top</code> query option.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$top=5
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$top=5
 </code></pre>
 <p>Would return only the first five Products in the Products entity set.</p>
 <p>If no unique ordering is imposed through an <a href="#theorderbysystemqueryoption"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$top</code>.</p>
 <h4 id="theskipsystemqueryoption">10.2.3.5. The <code>$skip</code> System Query Option</h4>
 <p>The <code>$skip</code> System Query Option specifies that the result MUST NOT include the first n entities, where n is a non-negative integer value specified by the <code>$skip</code> query option.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$skip=5
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$skip=5
 </code></pre>
 <p>Would return Products starting with the 6th Product in the Products entity set.</p>
 <p>Where [<code>$top</code>](thetopsystemqueryoption] and <code>$skip</code> are used together, the <code>$skip</code> MUST be applied before the <code>$top</code>, regardless of the order in which they appear in the request.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$top=5&amp;$skip=2
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$top=5&amp;$skip=2
 </code></pre>
 <p>Would return the third through seventh Products in the Products entity set.</p>
 <p>If no unique ordering is imposed through an <a href="#theorderbysystemqueryoption"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$skip</code>.</p>
 <h4 id="theinlinecountsystemqueryoption">10.2.3.6. The <code>$inlinecount</code> System Query Option</h4>
 <p>The <code>$inlinecount</code> System Query Option with a value of <code>allpages</code> specifies that the total count of entities matching the request MUST be returned along with the result.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages
 </code></pre>
 <p>Would return, along with the results, the total number of products in the set.</p>
 <p>An <code>$inlinecount</code> query option with a value of <code>none</code> (or not specified) hints that the service SHOULD NOT return a count.</p>
@@ -578,14 +578,14 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>On success, the response body MUST contain the URL for each related entity, formatted as a either a single link, or a collection of links, depending on the cardinality of the relationship.</p>
 <p>If the navigation property does not exist on the entity indicated by the request URL, the service SHOULD return <a href="#notfoundresponsecode"><code>404 Not Found</code></a>.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products(0)/$links/Orders
+<pre><code>https://services.odata.org/OData/OData.svc/Products(0)/$links/Orders
 </code></pre>
 <p>Returns the URLs of each Order related to the Product with <code>ID=0</code>.</p>
 <h3 id="requestingthecountofanentitycollection">10.2.5. Requesting the <code>$count</code> of an Entity Collection</h3>
 <p>To request only the count of an entity collection, the client issues a GET request with <code>/$count</code> appended to the path of the request URL.</p>
 <p>On success, the response body MUST contain the count of entities matching the request, formatted as a simple scalar integer value.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products/$count
+<pre><code>https://services.odata.org/OData/OData.svc/Products/$count
 </code></pre>
 <p>Returns the count of Products in the Products entity set.</p>
 <h2 id="datamodification">10.3. Data Modification</h2>
