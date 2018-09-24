@@ -13,7 +13,7 @@
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
   <meta name="keywords" content="odata, open data, open data protocol, rest, restful, rest api, rest apis, restful api, restful apis, rest service, rest services, restful service, restful services, http, oasis, oasis tc">
 
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.min.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.min.js"></script>
   <script>
   // Fallback to loading jQuery from a local path if the CDN is unavailable
   (window.jQuery || document.write('<script src="/public/jquery-3.0.0.min.js"><\/script>'));
@@ -30,8 +30,8 @@
   </script>
   -->
   <link rel="stylesheet" href="https://www.odata.org/public/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href={{"/public/css/site.css" | prepend: site.baseurl | prepend: site.url}}>
-  <link rel="stylesheet" href={{"/public/css/syntax.css" | prepend: site.baseurl | prepend: site.url}}>
+  <link rel="stylesheet" href="{{'/public/css/site.css' | prepend: site.baseurl | prepend: site.url}}">
+  <link rel="stylesheet" href="{{'/public/css/syntax.css' | prepend: site.baseurl | prepend: site.url}}">
   <!--Below is for the adopters page-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.7/css/swiper.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css">

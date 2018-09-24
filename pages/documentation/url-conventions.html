@@ -16,12 +16,12 @@ permalink: /documentation/odata-version-3-0/url-conventions/
 <p><a href="/assets/ODataUri.png" rel="attachment wp-att-9571"><img src="/assets/ODataUri.png" alt="ODataUri" width="714" height="32" class="wp-image-9571" /></a><br />
 &nbsp;<br />
 The following are two example URLs broken down into their component parts:</p>
-<pre><code>http://services.odata.org/OData/OData.svc 
+<pre><code>https://services.odata.org/OData/OData.svc 
 _______________________________________/
                | 
         service root URL 
 
-http://services.odata.org/OData/OData.svc/Category(1)/Products?$top=2&amp;$orderby=name
+https://services.odata.org/OData/OData.svc/Category(1)/Products?$top=2&amp;$orderby=name
 _______________________________________/ __________________/ __________________/
                |                                |                    |
          service root URL                  resource path        query options
@@ -46,16 +46,16 @@ _______________________________________/ __________________/ __________________/
 <p>Since OData has a uniform composable URL syntax and associated rules there are many ways to address a collection of entities, including, but not limited to:</p>
 <ul>
 <li>Via an entity set (see rule: entitySetName)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/Products
+<pre><code>For example: https://services.odata.org/OData/OData.svc/Products
 </code></pre>
 </li>
 <li>By invoking a function that returns a collection of entities (see rule: entityColFunctionCall)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/GetProductsByCategoryId(categoryId=2)
+<pre><code>For example: https://services.odata.org/OData/OData.svc/GetProductsByCategoryId(categoryId=2)
 </code></pre>
 </li>
 <li>By invoking an action that returns a collection of entities (see rule: actionCall)</li>
 <li>By invoking a service operation that returns a collection of entities (see rule: entityColServiceOpCall)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/ProductsByColor?color='red'
+<pre><code>For example: https://services.odata.org/OData/OData.svc/ProductsByColor?color='red'
 </code></pre>
 </li>
 </ul>
@@ -69,37 +69,37 @@ _______________________________________/ __________________/ __________________/
 <p>Often however a single entity is accessed by composing more path segments to a resourcePath that identifies a collection of entities, for example by:</p>
 <ul>
 <li>Using a entity key to select a single entity (see rules: collectionNavigation and keyPredicate)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/Categories(1)
+<pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)
 </code></pre>
 </li>
 <li>Invoking an action bound to a collection of entities that returns a single entity (see rule: boundOperation)</li>
 <li>Invoking an function bound to a collection of entities that returns a single entity (see rule: boundOperation)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/Products/MostExpensive
+<pre><code>For example: https://services.odata.org/OData/OData.svc/Products/MostExpensive
 </code></pre>
 </li>
 </ul>
 <p>These rules are recursive, so it is possible to address a single entity via another single entity, a collection via a single entity and even a collection via a collection, examples include, but are not limited to:</p>
 <ul>
 <li>By following a navigation from a single entity to another related entity (see rule: entityNavigationproperty)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/Products(1)/Supplier
+<pre><code>For example: https://services.odata.org/OData/OData.svc/Products(1)/Supplier
 </code></pre>
 </li>
 <li>By invoking a function bound to a single entity that returns a single entity (see rule: boundOperation)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/Products(1)/MostRecentOrder
+<pre><code>For example: https://services.odata.org/OData/OData.svc/Products(1)/MostRecentOrder
 </code></pre>
 </li>
 <li>By invoking an action bound to a single entity that returns a single entity (see rule: boundOperation)</li>
 <li>By following a navigation from a single entity to a related collection of entities (see rule: entityColNavigationproperty)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/Categories(1)/Products
+<pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/Products
 </code></pre>
 </li>
 <li>By invoking a function bound to a single entity that returns a collection of entities (see rule: boundOperation)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/Categories(1)/TopTenProducts
+<pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/TopTenProducts
 </code></pre>
 </li>
 <li>By invoking an action bound to a single entity that returns a collection of entities (see rule: boundOperation)</li>
 <li>By invoking a function bound to a collection of entities that returns a collection of entities (see rule: boundOperation)
-<pre><code>For example: http://services.odata.org/OData/OData.svc/Categories(1)/Products/AllOrders
+<pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/Products/AllOrders
 </code></pre>
 </li>
 <li>By invoking an action bound to a collection of entities that returns a collection of entities (see rule: boundOperation)</li>
@@ -107,7 +107,7 @@ _______________________________________/ __________________/ __________________/
 <p>Finally it is possible to compose path segments onto a resource path that identifies a primitive, complex instance, collection of primitives or collection of complex instances and bind an action or function that returns a entity or collections of entities.</p>
 <h3 id="url4.1.1">4.1.1. Canonical URL</h3>
 <p>For OData services conformant with the addressing conventions in this section, the canonical form of an absolute URL identifying a non contained entity is formed by adding a single path segment to the service root URL. The path segment is made up of the name of the entitySet associated with the entity followed by the key predicate identifying the entity within the collection.</p>
-<p>For example the URLs <a href="http://services.odata.org/OData/OData.svc/Categories%281%29/Products%281%29">http://services.odata.org/OData/OData.svc/Categories(1)/Products(1)</a> and <a href="http://services.odata.org/OData/OData.svc/Products%281%29">http://services.odata.org/OData/OData.svc/Products(1)</a> represent the same entity, but the canonical URL for the entity is <a href="http://services.odata.org/OData/OData.svc/Products%281%29">http://services.odata.org/OData/OData.svc/Products(1)</a>.</p>
+<p>For example the URLs <a href="https://services.odata.org/OData/OData.svc/Categories%281%29/Products%281%29">https://services.odata.org/OData/OData.svc/Categories(1)/Products(1)</a> and <a href="https://services.odata.org/OData/OData.svc/Products%281%29">https://services.odata.org/OData/OData.svc/Products(1)</a> represent the same entity, but the canonical URL for the entity is <a href="https://services.odata.org/OData/OData.svc/Products%281%29">https://services.odata.org/OData/OData.svc/Products(1)</a>.</p>
 <p>For contained entities the canonical URL begins with canonical URL of the parent, with further path segments that:</p>
 <ul>
 <li>Name and navigate through the containing navigation property</li>
@@ -120,7 +120,7 @@ _______________________________________/ __________________/ __________________/
                     ; examples include: an entitySet followed by a key or a function/serviceOperation that returns a single entity.
 links           =   entityURL "/$links/" navigationpropertyName   
 </code></pre>
-<p>For example: http://services.odata.org/OData/OData.svc/Category(1)/$links/Products addresses the links between Category(1) and Products.</p>
+<p>For example: https://services.odata.org/OData/OData.svc/Category(1)/$links/Products addresses the links between Category(1) and Products.</p>
 <h2 id="url4.3">4.3. Addressing Operations</h2>
 <h3 id="url4.3.1">4.3.1. Addressing Actions</h3>
 <p>The semantic rules for addressing and invoking actions are defined in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document. The grammar for addressing and invoking actions are defined by the following syntax grammar rules in Appendix A:</p>
@@ -146,7 +146,7 @@ links           =   entityURL "/$links/" navigationpropertyName
 <li>The resourcePath syntax rule defines the grammar for any additional composition of OData ResourcePath segments that rely on the results of calling the service operation.</li>
 <li>The sopParameterNameAndValue syntax rule defines the grammar for specifying any parameters to the service operation in the query part of the request URL.</li>
 </ul>
-<p>This example, illustrates a call to a service operation with subsequent resource path segments, that uses all three syntax rules: [http://services.odata.org/OData/OData.svc/GetProductsByRating?rating=3&amp;$filter=Price gt 20.0M](http://services.odata.org/OData/OData.svc/GetProductsByRating?rating=3&amp;$filter=Price gt 20.0M)</p>
+<p>This example, illustrates a call to a service operation with subsequent resource path segments, that uses all three syntax rules: [https://services.odata.org/OData/OData.svc/GetProductsByRating?rating=3&amp;$filter=Price gt 20.0M](https://services.odata.org/OData/OData.svc/GetProductsByRating?rating=3&amp;$filter=Price gt 20.0M)</p>
 <p>This invokes the GetProductsByRating service operation, with the rating parameter value set to 3, and then subsequently filters Products returned by the service operation call to include only those with a price greater than $20.</p>
 <h2 id="url4.4">4.4. Addressing a Property</h2>
 <p>To address an entity property clients compose the property name, to the url of the entity, in a new url segment. If the property has a complex type value, properties of that value can be addressed by further property name composition.</p>
@@ -186,23 +186,23 @@ links           =   entityURL "/$links/" navigationpropertyName
 <p>The Logical Negation Operator (or ‘not’) evaluates to true if the operand evaluates to false, otherwise it evalutes to false.</p>
 <h5 id="url5.1.2.1.10">5.1.2.1.10. Logical Operator Examples</h5>
 <p>The following examples illustrate the use and semantics of each of the logical operators:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$filter=Name eq 'Milk' (Requests all products with a Name equal to 'Milk').
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=Name eq 'Milk' (Requests all products with a Name equal to 'Milk').
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Name ne 'Milk' (Requests all products with a Name not equal to 'Milk').
+https://services.odata.org/OData/OData.svc/Products?$filter=Name ne 'Milk' (Requests all products with a Name not equal to 'Milk').
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Name gt 'Milk' (Requests all products with a Name greater than 'Milk'). 
+https://services.odata.org/OData/OData.svc/Products?$filter=Name gt 'Milk' (Requests all products with a Name greater than 'Milk'). 
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Name ge 'Milk' (Requests all products with a Name greater than or equal to 'Milk').
+https://services.odata.org/OData/OData.svc/Products?$filter=Name ge 'Milk' (Requests all products with a Name greater than or equal to 'Milk').
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Name lt 'Milk' (Requests all products with a Name less than 'Milk').
+https://services.odata.org/OData/OData.svc/Products?$filter=Name lt 'Milk' (Requests all products with a Name less than 'Milk').
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Name le 'Milk' (Requests all products with a Name less than or equal to 'Milk').
+https://services.odata.org/OData/OData.svc/Products?$filter=Name le 'Milk' (Requests all products with a Name less than or equal to 'Milk').
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Name eq 'Milk' and Price lt '2.55M' (Requests all products with the Name 'Milk' that also have a Price less than 2.55).
+https://services.odata.org/OData/OData.svc/Products?$filter=Name eq 'Milk' and Price lt '2.55M' (Requests all products with the Name 'Milk' that also have a Price less than 2.55).
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Name eq 'Milk' or Price lt '2.55M' (Requests all products that either have the Name 'Milk' or have a Price less than 2.55).
+https://services.odata.org/OData/OData.svc/Products?$filter=Name eq 'Milk' or Price lt '2.55M' (Requests all products that either have the Name 'Milk' or have a Price less than 2.55).
 
-http://services.odata.org/OData/OData.svc/Products?$filter=not endswith(Name, 'ilk') (Requests all products that do not have a Name that ends with 'ilk'). 
+https://services.odata.org/OData/OData.svc/Products?$filter=not endswith(Name, 'ilk') (Requests all products that do not have a Name that ends with 'ilk'). 
 </code></pre>
 <h4 id="url5.1.2.2">5.1.2.2. Arithmetic Operators</h4>
 <p>OData defines a set of arithmetic operators that require operands that evaluate to numeric types. Arithmetic Operators are typically used in the Filter System Query Option to filter the set of resources. However Servers MAY allow for the use of Arithmetic Operators with the OrderBy System Query Option.</p>
@@ -219,19 +219,19 @@ http://services.odata.org/OData/OData.svc/Products?$filter=not endswith(Name, 'i
 <p>The Modulo Operator (or ‘mod’) evaluates to the remainder when the left integral operand is divided by the right integral operand.</p>
 <h5 id="url5.1.2.2.6">5.1.2.2.6. Arithmetic Operator Examples</h5>
 <p>The following examples illustrate the use and semantics of each of the Arithmetic operators:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$filter=Price add 2.45M eq '5.00M' (Requests all products with a Price of 2.55M).
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=Price add 2.45M eq '5.00M' (Requests all products with a Price of 2.55M).
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Price sub 0.55M eq '2.00M' (Requests all products with a Price of 2.55M).
+https://services.odata.org/OData/OData.svc/Products?$filter=Price sub 0.55M eq '2.00M' (Requests all products with a Price of 2.55M).
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Price mul 2.0M eq '5.10M' (Requests all products with a Price of 2.55M).
+https://services.odata.org/OData/OData.svc/Products?$filter=Price mul 2.0M eq '5.10M' (Requests all products with a Price of 2.55M).
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Price div 2.55M eq '1M' (Requests all products with a Price of 2.55M).
+https://services.odata.org/OData/OData.svc/Products?$filter=Price div 2.55M eq '1M' (Requests all products with a Price of 2.55M).
 
-http://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Requests all products with a Rating exactly divisable by 5).
+https://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Requests all products with a Rating exactly divisable by 5).
 </code></pre>
 <h4 id="url5.1.2.3">5.1.2.3. Parenthesis Operator</h4>
 <p>he Parenthesis Operator (or ‘( )’) controls the evaluation order of an expression, so that Parenthesis Operator evaluates to the expression grouped inside the parenthesis. For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$filter=( 4 add 5 ) mod ( 4 sub 1 ) eq 0
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=( 4 add 5 ) mod ( 4 sub 1 ) eq 0
 </code></pre>
 <p>Requests all products, because 9 mod 3 is 0.</p>
 <h4 id="url5.1.2.4">5.1.2.4. Canonical Functions</h4>
@@ -243,7 +243,7 @@ http://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Re
 </code></pre>
 <p>If implemented the substringof canonical function MUST return true if, and only if, the first parameter is a substring of the second parameter string value. The substringOfMethodCallExpr syntax rule defines how the substringof function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substringof('Alfreds', CompanyName) eq true
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substringof('Alfreds', CompanyName) eq true
 </code></pre>
 <p>Returns all Customers with a CompanyName that contains ‘Alfreds’.</p>
 <h5 id="url5.1.2.4.2">5.1.2.4.2. endswith</h5>
@@ -252,7 +252,7 @@ http://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Re
 </code></pre>
 <p>If implemented the endswith canonical function MUST returns true if, and only if, the first parameter string value ends with the second parameter string value. The endsWithMethodCallExpr syntax rule defines how the endswith function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=endswith(CompanyName, 'Futterkiste')
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=endswith(CompanyName, 'Futterkiste')
 </code></pre>
 <p>Returns all Customers with a CompanyName that end with ‘Futterkiste’.</p>
 <h5 id="url5.1.2.4.3">5.1.2.4.3. startswith</h5>
@@ -261,7 +261,7 @@ http://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Re
 </code></pre>
 <p>If implemented the startswith canonical function MUST return true if, and only if, the first parameter string value starts with the second parameter string value. The startsWithMethodCallExpr syntax rule defines how the startswith function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=startswith(CompanyName, 'Alfr')
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=startswith(CompanyName, 'Alfr')
 </code></pre>
 <p>Returns all Customers with a CompanyName that starts with ‘Alfr’</p>
 <h5 id="url5.1.2.4.4">5.1.2.4.4. length</h5>
@@ -270,7 +270,7 @@ http://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Re
 </code></pre>
 <p>If implemented the length canonical function MUST return the number of characters in the parameter value. The lengthMethodCallExpr syntax rule defines how the length function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=length(CompanyName) eq 19
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=length(CompanyName) eq 19
 </code></pre>
 <p>Returns all Customers with a CompanyName that is 19 characters long.</p>
 <h5 id="url5.1.2.4.5">5.1.2.4.5. indexof</h5>
@@ -279,7 +279,7 @@ http://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Re
 </code></pre>
 <p>If implemented the indexof canonical function MUST return the zero based character position of the first occurrence of the second parameter value in the first parameter value. The indexOfMethodCallExpr syntax rule defines how the indexOf function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=indexof(CompanyName, 'lfreds') eq 1
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=indexof(CompanyName, 'lfreds') eq 1
 </code></pre>
 <p>Returns all Customers with a CompanyName containing ‘lfreds’ starting at the second character.</p>
 <h5 id="url5.1.2.4.6">5.1.2.4.6. replace</h5>
@@ -288,7 +288,7 @@ http://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Re
 </code></pre>
 <p>If implemented the replace canonical function MUST return the first parameter value, with all occurances of the second parameter value replaced by the third parameter value. The replaceMethodCallExpr syntax rule defines how the replace function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=replace(CompanyName, ' ', '') eq 'AlfredsFutterkiste'
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=replace(CompanyName, ' ', '') eq 'AlfredsFutterkiste'
 </code></pre>
 <p>Returns all Customers with a CompanyName that equals ‘AlfredsFutterkiste’ once ’ ’ has been replaced by ’’.</p>
 <h5 id="url5.1.2.4.7">5.1.2.4.7. substring</h5>
@@ -299,10 +299,10 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 <p>If implemented the two argument substring canonical function MUST return a substring of the first parameter string value, starting at the Nth character and finishing at the last character (where N is the second parameter integer value). If implemented the three argument substring canonical function MUST return a substring of the first parameter string value identified by selecting M characters starting at the Nth character (where N is the second parameter integer value and M is the third parameter integer value).</p>
 <p>The substringMethodCallExpr syntax rule defines how the substring canonical functions are invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring(CompanyName, 1) eq 'lfreds Futterkiste'
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring(CompanyName, 1) eq 'lfreds Futterkiste'
 </code></pre>
 <p>Returns all customers with a CompanyName of ‘lfreds Futterkiste’ once the first character has been removed.</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring(CompanyName, 1, 2) eq 'lf'
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring(CompanyName, 1, 2) eq 'lf'
 </code></pre>
 <p>Returns all customers with a CompanyName that has ‘lf’ as the second and third characters respectively.</p>
 <h5 id="url5.1.2.4.8">5.1.2.4.8. tolower</h5>
@@ -311,7 +311,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 </code></pre>
 <p>If implemented the tolower canonical function MUST return the input parameter string value with all uppercase characters converted to lowercase according to unicode rules. The toLowerMethodCallExpr syntax rule defines how the tolower function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
 </code></pre>
 <p>Returns all Customers with a CompanyName that equals ‘alfreds futterkiste’ once any uppercase characters have been converted to lowercase.</p>
 <h5 id="url5.1.2.4.9">5.1.2.4.9. toupper</h5>
@@ -320,7 +320,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 </code></pre>
 <p>If implemented the toupper canonical function MUST return the input parameter string value with all lowercase characters converted to uppercase according to unicode rules. The toUpperMethodCallExpr syntax rule defines how the tolower function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
 </code></pre>
 <p>Returns all Customers with a CompanyName that equals ‘ALFREDS FUTTERKISTE’ once any lowercase characters have been converted to uppercase.</p>
 <h5 id="url5.1.2.4.10">5.1.2.4.10. trim</h5>
@@ -329,7 +329,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 </code></pre>
 <p>If implemented the trim canonical function MUST return the input parameter string value with all leading and trailing whitespace characters, according to unicode rules, removed. The trimMethodCallExpr syntax rule defines how the trim function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=length(trim(CompanyName)) eq length(CompanyName)
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=length(trim(CompanyName)) eq length(CompanyName)
 </code></pre>
 <p>Returns all customers with a CompanyName without leading or trailing whitespace characters.</p>
 <h5 id="url5.1.2.4.11">5.1.2.4.11. concat</h5>
@@ -338,7 +338,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 </code></pre>
 <p>If implemented the concat canonical function MUST return a string that concatinates both input parameter string values together. The concatMethodCallExpr syntax rule defines how the concat function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Customers?$filter=concat(concat(City, ', '), Country) eq 'Berlin, Germany'
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=concat(concat(City, ', '), Country) eq 'Berlin, Germany'
 </code></pre>
 <p>Returns all customers with from the City of Berlin and the Country called Germany.</p>
 <h5 id="url5.1.2.4.12">5.1.2.4.12. year</h5>
@@ -348,7 +348,7 @@ Edm.Int32 year(Edm.DateTimeOffset)
 </code></pre>
 <p>If implemented the year canonical function MUST return the year component of the DateTime or DateTimeOffset parameter value. The yearMethodCallExpr syntax rule defines how the year function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=year(BirthDate) eq 1971
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=year(BirthDate) eq 1971
 </code></pre>
 <p>Returns all Employees who were born in 1971.</p>
 <h5 id="url5.1.2.4.13">5.1.2.4.13. years</h5>
@@ -363,7 +363,7 @@ Edm.Int32 month(Edm.DateTimeOffset)
 </code></pre>
 <p>If implemented the month canonical function MUST return the month component of the DateTime or DateTimeOffset parameter value. The monthMethodCallExpr syntax rule defines how the month function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=month(BirthDate) eq 5
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=month(BirthDate) eq 5
 </code></pre>
 <p>Returns all Employees who were born in May.</p>
 <h5 id="url5.1.2.4.15">5.1.2.4.15. day</h5>
@@ -373,7 +373,7 @@ Edm.Int32 day(Edm.DateTimeOffset)
 </code></pre>
 <p>If implemented the day canonical function MUST return the day component DateTime or DateTimeOffset parameter value. The dayMethodCallExpr syntax rule defines how the day function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=day(BirthDate) eq 8
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=day(BirthDate) eq 8
 </code></pre>
 <p>Returns all Employees who were born on the 8th day of a month.</p>
 <h5 id="url5.1.2.4.16">5.1.2.4.16. days</h5>
@@ -388,7 +388,7 @@ Edm.Int32 hour(Edm.DateTimeOffset)
 </code></pre>
 <p>If implemented the hour canonical function MUST return the hour component of the DateTime or DateTimeOffset parameter value. The hourMethodCallExpr syntax rule defines how the hour function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=hour(BirthDate) eq 4
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=hour(BirthDate) eq 4
 </code></pre>
 <p>Returns all Employees who were born in the 4th hour of a day.</p>
 <h5 id="url5.1.2.4.18">5.1.2.4.18. hours</h5>
@@ -403,7 +403,7 @@ Edm.Int32 minute(Edm.DateTimeOffset)
 </code></pre>
 <p>If implemented the minute canonical function MUST return the minute component of the DateTime or DateTimeOffset parameter value. The minuteMethodCallExpr syntax rule defines how the minute function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=minute(BirthDate) eq 40
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=minute(BirthDate) eq 40
 </code></pre>
 <p>Returns all Employees who were born in the 40th minute of any hour on any day.</p>
 <h5 id="url5.1.2.4.20">5.1.2.4.20. minutes</h5>
@@ -418,7 +418,7 @@ Edm.Int32 second(Edm.DateTimeOffset)
 </code></pre>
 <p>If implemented the second canonical function MUST return the second component of the DateTime or DateTimeOffset parameter value. The secondMethodCallExpr syntax rule defines how the second function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Employees?$filter=second(BirthDate) eq 40
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=second(BirthDate) eq 40
 </code></pre>
 <p>Returns all Employees who were born in the 40th second of any minute of any hour on any day.</p>
 <h5 id="url5.1.2.4.22">5.1.2.4.22. seconds</h5>
@@ -433,7 +433,7 @@ Edm.Decimal round(Edm.Decimal)
 </code></pre>
 <p>If implemented the round canonical function MUST return round the input numeric parameter value to the nearest numeric value with no decimal component. The roundMethodCallExpr syntax rule defines how the round function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round(Freight) eq 32
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round(Freight) eq 32
 </code></pre>
 <p>Returns all Orders that have a Freight cost that rounds to 32.</p>
 <h5 id="url5.1.2.4.24">5.1.2.4.24. floor</h5>
@@ -443,7 +443,7 @@ Edm.Decimal floor(Edm.Decimal)
 </code></pre>
 <p>If implemented the floor canonical function MUST return round the input numeric parameter down value to the nearest numeric value with no decimal component. The floorMethodCallExpr syntax rule defines how the floor function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=floor(Freight) eq 32
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=floor(Freight) eq 32
 </code></pre>
 <p>Returns all Orders that have a Freight cost that rounds down to 32.</p>
 <h5 id="url5.1.2.4.25">5.1.2.4.25. ceiling</h5>
@@ -453,7 +453,7 @@ Edm.Decimal ceiling(Edm.Decimal)
 </code></pre>
 <p>If implemented the ceiling canonical function MUST return round the input numeric parameter up value to the nearest numeric value with no decimal component. The ceilingMethodCallExpr syntax rule defines how the ceiling function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=ceiling(Freight) eq 32
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=ceiling(Freight) eq 32
 </code></pre>
 <p>Returns all Orders that have a Freight cost that rounds up to 32.</p>
 <h5 id="url5.1.2.4.26">5.1.2.4.26. isof</h5>
@@ -464,10 +464,10 @@ Edm.Boolean isof(expression, type)
 <p>If implemented the single parameter isof canonical function MUST return true if, and only if, the current instance is assignable to the type specified. If implemented the two parameter isof canonical function MUST return true if, and only if, the object referred to by the expression is assignable to the type specified.</p>
 <p>The isofMethodCallExpr syntax rule defines how the isof function is invoked.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof(NorthwindModel.BigOrder)
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof(NorthwindModel.BigOrder)
 </code></pre>
 <p>Returns only orders that are also BigOrders.</p>
-<pre><code>http://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof(Customer, NorthwindModel.MVPCustomer)
+<pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof(Customer, NorthwindModel.MVPCustomer)
 </code></pre>
 <p>Returns only orders that have a customer that is a MVPCustomer.</p>
 <h5 id="url5.1.2.4.27">5.1.2.4.27. cast</h5>
@@ -528,15 +528,15 @@ selectItem                  =   star /
                                 )
 </code></pre>
 <p>The selectClause MUST be interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URI, for example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=Rating,ReleaseDate
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=Rating,ReleaseDate
 </code></pre>
-<p>In this URI the “Rating,ReleaseDate” selectClause MUST be interpreted relative to the Product entity type which is the entity type of the resources identified by this http://services.odata.org/OData/OData.svc/Products URI.</p>
+<p>In this URI the “Rating,ReleaseDate” selectClause MUST be interpreted relative to the Product entity type which is the entity type of the resources identified by this https://services.odata.org/OData/OData.svc/Products URI.</p>
 <p>Each selectItem in the selectClause indicates that the response MUST include the properties, open properties, related properties, actions and functions identified by that selectClause.</p>
 <p>The simplest selectClause explicitly requests properties defined on the entity type of the resources identified by the resource path section of the URI, for example this URI requests just the Rating and ReleaseDate for the matching Products:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=Rating,ReleaseDate
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=Rating,ReleaseDate
 </code></pre>
 <p>It is also possible to request all properties, using a star request:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=*
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=*
 </code></pre>
 <p>If a selectClause consists of a single selectItem that is a star (i.e. *), then all properties and navigation properties on the matching resources MUST be returned.</p>
 <p>If a navigation property appears as the last segment of a selectItem and does not appear in an $expand query option, the entity or collection of entities identified by the navigation property MUST be represented as deferred content.</p>
@@ -545,7 +545,7 @@ selectItem                  =   star /
 </code></pre>
 <p>If a navigation property appears as the last segment of a selectItem and the same navigation property is specified as a segment of a path in an $expand query option, then all the properties of the expanded entity identified by the selectItem MUST be in the response. In addition, all the properties of the entities identified by segments in the $expand path after the segment that matched the selectedItem MUST also be included in the response.</p>
 <p>In order to select any nested properties of navigation properties the client MUST also include an expandClause for that navigation property. For example the following URI expands the Category navigation property so the Name of the Category can be selected.</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=Category/Name&amp;$expand=Category
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=Category/Name&amp;$expand=Category
 </code></pre>
 <p>If a property, open property, navigation property or operation is not requested as a selectItem (explicitly or via a star), it SHOULD NOT be included in the response.</p>
 <p>A star SHOULD NOT reintroduce actions or functions. Thus if any selectClause is specified, actions and functions SHOULD be omitted unless explicitly requested using a qualifiedActionName, a qualifiedFunctionName or the allOperationsInContainer clause.</p>

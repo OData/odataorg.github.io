@@ -24,9 +24,9 @@ author: OData.org Archive
 <h3>What (not) to write (or read)</h3>
 <p>If you take a quick look at an OData payload you can quickly guess where the redundancy is. However I wanted to have a bit more quantitative data on that so I ran some numbers (not exactly a scientific study, so take it kind of lightly). I used 3 cases for reference from the sample service that exposes the classic Northwind database as an OData service:</p>
 <ul>
-<li>1Customer: <a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$top=1" target="_blank">http://services.odata.org/Northwind/Northwind.svc/Customers?$top=1</a></li>
-<li>100CustomersAndOrders: <a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$expand=Orders" target="_blank">http://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$expand=Orders</a></li>
-<li>100NarrowCustomers: <a href="http://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$select=CustomerID,CompanyName" target="_blank">http://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$select=CustomerID,CompanyName</a></li>
+<li>1Customer: <a href="https://services.odata.org/Northwind/Northwind.svc/Customers?$top=1" target="_blank">https://services.odata.org/Northwind/Northwind.svc/Customers?$top=1</a></li>
+<li>100CustomersAndOrders: <a href="https://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$expand=Orders" target="_blank">https://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$expand=Orders</a></li>
+<li>100NarrowCustomers: <a href="https://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$select=CustomerID,CompanyName" target="_blank">https://services.odata.org/Northwind/Northwind.svc/Customers?$top=100&amp;$select=CustomerID,CompanyName</a></li>
 </ul>
 <p>So a really small data set, a larger and wider data set, and a larger but narrower data set.</p>
 <p>If you contrast the Atom versus the JSON size for these, JSON is somewhere between half and a third of the size of the Atom version. Most of it comes from the fact that JSON has less redundant/unneeded content (no closing tags, no empty required Atom elements, etc.), although some is actually less fidelity, such as lack of type annotations in values.</p>
@@ -37,7 +37,7 @@ author: OData.org Archive
 <p>From the data above it is clear that the encoding of structure (property names, entry metadata) and URLs both need serious work. A simple strategy would be to introduce two constructs into documents:</p>
 <ul>
 <li>"structural templates" that describe the shape of compound things such as records, nested records, metadata records, etc. Templates can be written once and then actual data can just reference them, avoiding having to repeat the names of properties on every row.</li>
-<li>"textual templates" that capture text patterns that repeat a lot throughout the document, with URLs being the primary candidates for this (e.g. you could imagine the template being something like " <a href="http://services.odata.org/Northwind/Northwind.svc/Customers%28%27%7b0%7d%27%29"> http://services.odata.org/Northwind/Northwind.svc/Customers('{0}')</a>" and then the per-row value would be just what is needed to replace "{0}").</li>
+<li>"textual templates" that capture text patterns that repeat a lot throughout the document, with URLs being the primary candidates for this (e.g. you could imagine the template being something like " <a href="https://services.odata.org/Northwind/Northwind.svc/Customers%28%27%7b0%7d%27%29"> https://services.odata.org/Northwind/Northwind.svc/Customers('{0}')</a>" and then the per-row value would be just what is needed to replace "{0}").</li>
 </ul>
 <p>We could inline these with the data as needed, so only the templates that are really needed would go into a particular document.</p>
 <h3>Actual wire format</h3>
