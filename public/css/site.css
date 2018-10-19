@@ -1,6 +1,9 @@
 .theme-font{
   color: #dd4814;
 }
+.navbar-default {
+	background-color: #d24714;
+}
 .jumbotron {
   background-color: transparent;
 }
@@ -29,9 +32,12 @@
 }
 
 a {
-	color: #d24614;
+	color: #d23714;
 }
 
+td > a {
+	color:#d23714;
+}
 .table {
   width: 100%;
   font-size-adjust: auto;
