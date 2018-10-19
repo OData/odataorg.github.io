@@ -28,6 +28,10 @@
   max-height: 600px;
 }
 
+a {
+	color: #d24614;
+}
+
 .table {
   width: 100%;
   font-size-adjust: auto;
