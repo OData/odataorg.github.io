@@ -30,13 +30,39 @@
   max-width: 1200px;
   max-height: 600px;
 }
-
-a {
-	color: #d23714;
+.alert-success {
+    background-color: #f1fced;
+    border-color: #d6e9c6;
+    color: #366b37;
 }
-
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: #706f6f;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+    cursor: default;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #ffffff;
+    background-color: #d23714;
+}
+.btn-primary {
+    color: #ffffff;
+    background-color: #d23714;
+    border-color: #d23714;
+}
+a {
+	color: #d23000;
+}
 td > a {
-	color:#d23714;
+	color:#d23000;
+}
+code {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #ce3512;
+    background-color: #f9f2f4;
+    border-radius: 4px;
 }
 .table {
   width: 100%;
