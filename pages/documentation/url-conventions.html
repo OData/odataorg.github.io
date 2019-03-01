@@ -558,19 +558,19 @@ selectItem                  =   star /
 <p>If an action or function is requested in a selectItem using a qualifiedActionName or a qualifiedFunctionName clause and that action or function cannot be bound to the entities requested, the service MUST ignore the selectItem clause.</p>
 <p>When multiple selectItems exist in a selectClause, then the total set of property, open property, navigation property, actions and functions to be returned is equal to the union of the set of those identified by each selectItem.</p>
 <p>Redundant selectClause rules on the same URI MAY be considered valid, but MUST NOT alter the meaning of the URI.</p>
-<h3 id="url5.1.4">5.1.4. OrderBy System Query Option</h3>
+<h3 id="url5.1.5">5.1.5. OrderBy System Query Option</h3>
 <p>The $orderby system query option allows clients to request resource in a particular order.</p>
 <p>The semantics of $orderby are covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> orderby syntax rule defines the formal grammar of the $orderby query option.</p>
-<h3 id="url5.1.5">5.1.5. Top and Skip System Query Options</h3>
+<h3 id="url5.1.6">5.1.6. Top and Skip System Query Options</h3>
 <p>The $top system query option allows clients a required number of resources, used in conjunction $skip query option which allows a client to ask the service to begin sending resource after skipping a required number of resource, a client can request a particular page of matching resources.</p>
 <p>The semantics of $top and $skip are covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> top and skip syntax rules define the formal grammar of the $top and $skip query options respectively.</p>
-<h3 id="url5.1.6">5.1.6. Inlinecount System Query Option</h3>
+<h3 id="url5.1.7">5.1.7. Inlinecount System Query Option</h3>
 <p>The $inlinecount system query option allows clients to request a count of the number of matching resources inline with the resources in the response. Typically this is most useful when a service implements server-side paging, as it allows clients to retrieve the number of matching resources even if the service decides to only response with a single page of matching resources.</p>
 <p>The semantics of $inlinecount is covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> inlinecount syntax rule define the formal grammar of the $inlinecount query option.</p>
-<h3 id="url5.1.7">5.1.7. Format System Query Option</h3>
+<h3 id="url5.1.8">5.1.8. Format System Query Option</h3>
 <p>The $format system query option if supported allows clients to request a response in a particular format. Generally requesting a particular format is done using standard content type negotiation, however occasionally the client has no access to request headers which makes standard content type negotiation not an option, it is in these situations that $format is generally used. Where present $format takes precedence over standard content type negotiation.</p>
 <p>The semantics of $format is covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> format syntax rule define the formal grammar of the $format query option.</p>
