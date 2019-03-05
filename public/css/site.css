@@ -30,12 +30,19 @@
   max-width: 1200px;
   max-height: 600px;
 }
+
+@media screen and (-ms-high-contrast: black-on-white) {
+  .brand
+  {
+	  background-color: #000000;
+  }
+}
 .label-success{
 	background-color: #277a33;
 }
 .brand{
 	padding-top: 1px !important;
-	padding-bottom: 1px !important;	
+	padding-bottom: 1px !important;
 }
 .alert-success {
     background-color: #f1fced;
