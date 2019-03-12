@@ -30,7 +30,12 @@
   max-width: 1200px;
   max-height: 600px;
 }
-
+.st-default-search-input::-webkit-input-placeholder{
+	color: #000000 !important; 
+}
+.st-default-search-input{
+	color: #000000 !important; 
+}
 @media screen and (-ms-high-contrast: black-on-white) {
   .brand
   {
