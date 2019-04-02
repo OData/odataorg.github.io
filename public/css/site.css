@@ -19,6 +19,7 @@
 .carousel img{
   width: 100%;
   max-height: 430px;
+  min-height:400px;
   opacity:0.7;
 }
 .carousel-control {
@@ -30,6 +31,7 @@
   max-width: 1200px;
   max-height: 600px;
 }
+
 .dropdown-toggle:focus {
   outline:dotted;
 }
