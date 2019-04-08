@@ -411,13 +411,13 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <h4 id="mediaentitiesasmedialinkentriesusingthesrcattribute">6.1.9.1. Media Entities As Media Link Entries using the <code>src</code> Attribute</h4>
 <p>The <code>atom:content</code> element MAY contain a <code>src</code> attribute, in which case the entry is a Media Link Entry, used to represent a Media Resource (for example, a photo). The value of the <code>src</code> attribute MUST be a URI that can be used to retrieve the content of the Media Resource.</p>
 <p>For Media Entities, the <code>atom:content</code> element MUST be empty. In this case, properties of the Media Resource (other than the stream) are represented by the <a href="../atom-format#entitypropertieswithinametadata:propertieselement"><code>metadata:properties</code></a> element as a sibling to, rather than a child of, the <code>atom:content</code> element.</p>
-<h3 id="atom:linkelementforupdatingmedialinkentries" aria-label="six point one point ten">6.1.10. <code>atom:link</code> element for Updating Media Link Entries</h3>
+<h3 id="atom:linkelementforupdatingmedialinkentries" aria-label="six point one point ten"><span aria-hidden="true">6.1.10.</span><code>atom:link</code> element for Updating Media Link Entries</h3>
 <p>A <a href="../atom-format#mediaentitiesasmedialinkentriesusingthesrcattribute">Media Link Entry</a> MAY contain an <code>atom:link</code> element with a <code>rel</code> attribute of <code>"edit-media"</code> to specify a URL that can be used to write to the BLOB associated with the entity.</p>
 <h4 id="therelattributeforwritingtomedialinkentries">6.1.10.1. The <code>rel</code> attribute for writing to Media Link Entries</h4>
 <p>Within an <code>atom:entry</code> representing a Media Link Entry, an <code>atom:link</code> element with a <code>rel</code> attribute of “edit-media” is used to identify a link that can be used to write to the BLOB associated with the entry.</p>
 <h4 id="thehrefattributeforwritingtomedialinkentries">6.1.10.2. The <code>href</code> attribute for writing to Media Link Entries</h4>
 <p>An atom:link element representing the link used to write to the BLOB associated with the entity MUST include an <code>href</code> attribute to specify the URI that can be used to write the stream. This URI may be relative or absolute.</p>
-<h3 id="entitypropertieswithinametadata:propertieselement" aria-label="six point one point eleven">6.1.11. Entity Properties within a <code>metadata:properties</code> Element</h3>
+<h3 id="entitypropertieswithinametadata:propertieselement" aria-label="six point one point eleven"><span aria-hidden="true">6.1.11.</span> Entity Properties within a <code>metadata:properties</code> Element</h3>
 <p>The <code>metadata:properties</code> element represents a subset of the property values for an entity that are not exclusively mapped to defined or custom elements, as described in <a href="../atom-format#custommappingtoatomelements">Custom Mapping to Atom Elements</a>.</p>
 <p>The <code>metadata:properties</code> element MUST be a direct child of the <code>atom:content</code> element EXCEPT for the case where the entry represents a <a href="../atom-format#mediaentitiesasmedialinkentriesusingthesrcattribute">media entity</a>, in which case the <code>metadata:properties</code> element MUST be a sibling of the <code>atom:content</code> element. In the case that all properties of the entity are exclusively mapped to defined or custom elements, an empty <code>metadata:properties</code> element MAY be present.</p>
 <h4 id="entitypropertyasadata:propertynameelement">6.1.11.1. Entity Property as a <code>data:[propertyName]</code> Element</h4>
@@ -465,14 +465,14 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
     </data:element>  
 </data:PhoneNumbers> 
 </code>{% endhighlight %}
-<h3 id="nullsrepresentedusingthemetadata:nullattribute" aria-label="six point one point twelve">6.1.12. Nulls represented using the metadata:null Attribute</h3>
+<h3 id="nullsrepresentedusingthemetadata:nullattribute" aria-label="six point one point twelve"><span aria-hidden="true">6.1.12.</span> Nulls represented using the metadata:null Attribute</h3>
 <p>Null valued properties are represented as empty elements with the <code>metadata:null="true"</code> attribute.</p>
 <p>The <code>metadata:null</code> attribute distinguishes null values from other empty content (such as an empty string).</p>
 <p>For example, the following represents an empty apartment number:</p>
 {% highlight xml %}<code><data:Apartment metadata:null="true"/>
 </code>{% endhighlight %}
 <p>The absence of the metadata:null attribute is equivalent to specifying <code>metadata:null="false"</code>.</p>
-<h3 id="datatyperepresentedusingthemetadata:typeattribute" aria-label="six point one point thirteen">6.1.13. Data Type represented using the metadata:type Attribute</h3>
+<h3 id="datatyperepresentedusingthemetadata:typeattribute" aria-label="six point one point thirteen"><span aria-hidden="true">6.1.13.</span> Data Type represented using the metadata:type Attribute</h3>
 <p>Primitive-valued properties and Complex-valued properties that are not part of a hierarchy MAY contain a metadata:type to specify the primitive type of the property.</p>
 <p>Complex-valued properties that are part of a hierarchy MUST contain a metadata:type attribute.</p>
 <p>For Complex-valued properties, the value of the attribute is the namespace-qualified name of the complex type.</p>
