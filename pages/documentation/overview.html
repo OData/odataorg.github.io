@@ -45,27 +45,27 @@ permalink: /documentation/odata-version-2-0/overview/
 </div>
 <p>OData is designed to be modular such that an OData implementation needs to implement only as much of an OData specification as required for its target scenario.</p>
 <p>A full list of terms used by the Open Data Protocol is available on the <a title="Terminology" href="../terminology">[OData: Terms]</a> page.</p>
-<h2><a id="RelationshipToOtherProtocols" name="RelationshipToOtherProtocols"></a> 1. Relationship to Other Protocols</h2>
+<h2>1. Relationship to Other Protocols</h2>
 <p>As shown in Figure 1, OData builds on the conventions defined in the <a href="http://tools.ietf.org/html/rfc5023"> Atom Publishing Protocol (AtomPub)</a> and applies additional Web technologies such as <a href="http://tools.ietf.org/html/rfc2616">HTTP</a> and <a href="http://tools.ietf.org/html/rfc4627"> JavaScript Object Notation (JSON)</a> to create a protocol that enables access to information from a variety of applications, services, and stores.</p>
 <div>
 <a href="/assets/RelToOtherProtocols.png"><img src="/assets/RelToOtherProtocols.png" alt="RelToOtherProtocols" width="345" height="143" class="aligncenter size-full wp-image-1841" /></a>
 </div>
-<h2><a id="ODataBasics" name="ODataBasics"></a>2. OData Basics</h2>
+<h2>2. OData Basics</h2>
 <p>At the core of OData are <strong>feeds</strong>, which are <strong>Collections</strong> of typed <strong>Entries</strong>. Each entry represents a structured record with a key that has a list of <strong>Properties</strong> of primitive or complex types. Entries can be part of a type hierarchy and may have related entries and related feeds through <strong>Links</strong>. For example the following URI represents a feed of Product entries: <a href="https://services.odata.org/OData/OData.svc/Products"> https://services.odata.org/OData/OData.svc/Products</a>.</p>
 <p>Some entries are special in that they describe a media element (typically a BLOB), becoming two related resources: the <strong>Media Link Entry</strong> containing the structured data that describes the BLOB and the <strong>Media Resource</strong> that is the BLOB itself.</p>
 <p>Simple OData services may consist of just a feed. More sophisticated services can have several feeds, and in that case it is useful to expose a service document that lists all the top-level feeds so clients can discover them and find out the addresses of each of them. For example, this URI <a href="https://services.odata.org/OData/OData.svc"> https://services.odata.org/OData/OData.svc</a>, identifies the service document for a sample OData service.</p>
 <p>In addition to feeds and entries, OData services can expose <strong>Service Operations</strong>, which are simple, service-specific functions that accept input parameters and return entries or complex/primitive values.</p>
 <p>As shown by the examples noted above, OData services expose all these constructs (feeds, entries, properties within entries, links, service documents, and metadata documents) via URIs in one or more representation formats, which can be acted upon (query, update, insert, delete, and so on) by clients using basic HTTP requests.</p>
 <p>In order to help clients discover the shape of an OData service, the structure of its resources, the known links between resources, and the Service Operations exposed, an OData service may also expose a <strong>Service Metadata Document</strong>. OData metadata documents describe the Entity Data Model (EDM) for a given service, which is the underlying abstract data model used by OData services to formalize the description of the resources it exposes. For example, the URI <a href="https://services.odata.org/OData/OData.svc/$metadata"> https://services.odata.org/OData/OData.svc/$metadata</a> identifies the metadata document for a sample OData service.</p>
-<h2><a id="MetadataForODataServices" name="MetadataForODataServices"></a> 3. Metadata for OData Services</h2>
+<h2> 3. Metadata for OData Services</h2>
 <p>OData services may provide two types of metadata documents to describe themselves.</p>
 <p>As described above in <a href="../overview#ODataBasics">OData Basics</a>, expose a <strong>Service Document</strong> that lists all the top-level feeds so clients can discover them and find out the addresses of each of them. The service document is typically available at the <a href="../uri-conventions#ServiceRootUri">Service Root URI</a> and may be formatted in Atom or JSON as described in <a title="Atom Format" href="../atom-format">[OData: Atom]</a> and <a title="JSON Format" href="../json-format">[OData: JSON]</a>.</p>
 <p>All data services may also expose a <a href="../overview#ServiceMetadataDocument">Service Metadata Document</a> that describes the data model (i.e. structure and organization of all the resources) exposed as HTTP endpoints by the service. The following sections describe the underlying data model used by OData services and its representation - the <a href="../overview#ServiceMetadataDocument">Service Metadata Document</a>.</p>
-<h2><a id="AbstractDataModel" name="AbstractDataModel"></a>4. Abstract Data Model</h2>
+<h2>4. Abstract Data Model</h2>
 <p>This section provides a high-level description of the EDM, which is the underlying abstract data model used by OData services.</p>
 <p>The use of the EDM as an underlying data model for the Open Data Protocol does not mandate that a particular data persistence format or implementation be used by an OData service. The only requirement to be an OData service is that the HTTP interface exposed by the service is consistent with the protocol described in this and the <a href="../overview#Introduction">associated documents</a>.</p>
 <p>An OData <a href="../overview#ServiceMetadataDocument">Service Metadata Document</a> describes its data in EDM terms using an XML language for describing models called the conceptual schema definition language (CSDL). The remainder of this section provides a brief description of the Entity Data Model and defines how EDM constructs are mapped to the resource types (feed, entry, media link entry, service operation, and so forth) described in the <a href="../overview#ODataBasics">OData Basics</a> section above.</p>
-<h3><a id="EntityDataModel" name="EntityDataModel"></a>4.1. Entity Data Model (EDM) Overview</h3>
+<h3>4.1. Entity Data Model (EDM) Overview</h3>
 <hr />
 <p>The central concepts in the EDM are entities and associations. <strong>Entities</strong> are instances of <strong>Entity Types</strong> (for example, Customer, Employee, and so on) which are structured records consisting of named and typed properties and with a key. <strong>Complex Types</strong> are structured types also consisting of a list of properties but with no key, and thus can only exist as a property of a containing entity or as a temporary value. An <strong>Entity Key</strong> is formed from a subset of properties of the Entity Type. The Entity Key (for example, CustomerId or OrderId) is a fundamental concept for uniquely identifying instances of Entity Types and allowing Entity Type instances to participate in relationships. Entities are grouped in <strong>Entity Sets</strong> (for example, Customers is a set of Customer Entity Type instances).</p>
 <p><strong>Associations</strong> define the relationship between two or more Entity Types (for example, Employee WorksFor Department). Instances of associations are grouped in <strong>Association Sets</strong>. <strong>Navigation Properties</strong> are special properties on Entity Types which are bound to a specific association and can be used to refer to associations of an entity.</p>
@@ -132,7 +132,7 @@ permalink: /documentation/odata-version-2-0/overview/
 </tbody>
 </table>
 </div>
-<h2><a id="ServiceMetadataDocument" name="ServiceMetadataDocument"></a> 5. Service Metadata Document</h2>
+<h2> 5. Service Metadata Document</h2>
 <p>A Service Metadata Document describes the <a href="../overview#AbstractDataModel">data model</a> (i.e. structure and organization of all the resources) exposed as HTTP endpoints by the service. A Service Metadata Document describes its data in <a href="../overview#EntityDataModel"> EDM</a> terms using an XML language for describing models called the Conceptual Schema Definition Language (CSDL). CSDL is fully described in <a href="https://www.odata.org/media/16348/[mc-csdl].pdf">[CSDL]</a>. When exposed by an OData service as a Service Metadata Document, the CSDL document is packed using the format described in <a href="https://www.odata.org/media/16343/[mc-edmx].pdf">[EDMX]</a>.</p>
 <p>An example Service Metadata Document that describes three Entity Types (Categories, Products and Suppliers), the relationships among them and one "ProductsByRating" Service Operation is accessible at <a href="https://services.odata.org/OData/OData.svc/$metadata"> https://services.odata.org/OData/OData.svc/$metadata</a> .</p>
 <p>CSDL annotations are used to describe OData specific extensions to CSDL. Those annotations (represented as attributes in the <a href="../terminology#ODataMetadataNS"> OData metadata namespace</a>) are described in the table below. Note: additional Atom format specific CSDL annotations are defined in <a title="Atom Format" href="../atom-format">[OData: Atom]</a>.</p>
@@ -166,7 +166,7 @@ permalink: /documentation/odata-version-2-0/overview/
 </tbody>
 </table>
 </div>
-<h2><a id="AbstractTypeSystem" name="AbstractTypeSystem"></a>6. Primitive Data Types</h2>
+<h2>6. Primitive Data Types</h2>
 <p>The Abstract Type System used to define the primitive types supported by OData is defined in detail in [MC-CSDL] (section 2.2.1). Table 2 summaries the set of primitive types supported as well as how each MUST be represented when used in an OData URI or HTTP header. Primitive type representations in request and response payloads are defined in the <a title="Atom Format" href="../atom-format"> [OData:Atom]</a> and <a title="JSON Format" href="../json-format"> [OData:JSON]</a> specifications.</p>
 <table border="1" cellspacing="0" cellpadding="0">
 <tbody>
@@ -274,22 +274,22 @@ Represents date and time as an Offset in minutes from GMT, with values ranging f
 </tr>
 </tbody>
 </table>
-<h2><a id="ProtocolVersioning" name="ProtocolVersioning"></a>7. Protocol Versioning</h2>
+<h2>7. Protocol Versioning</h2>
 <p>This document defines versions 1.0 and 2.0 of the Open Data Protocol (OData). Version 2.0 is a superset of the functionality available in Version 1.0. The majority of this document applies to both versions of OData. Any constructs or semantics that only exist in v2.0 are explicitly denoted as such.</p>
 <p>OData is comprised of URL conventions, payload conventions, and HTTP interaction semantics. The OData protocol rules governing these three areas are versioned in a single OData protocol version number. The OData versioning scheme ensures that clients and servers do not misinterpret a request/response and that servers work as seamlessly as possible with clients that support a lower version number of the protocol. OData does not require all clients and servers that wish to interact to speak the same version of the OData protocol.</p>
-<h3><a id="CapabilityNegotiation" name="CapabilityNegotiation"></a> 7.1. Capability Negotiation</h3>
+<h3> 7.1. Capability Negotiation</h3>
 <hr />
 <p>OData supports limited capability negotiation using the DataServiceVersion and MaxDataServiceVersion version request headers and the DataServiceVersion response header. While not mandated on each request/response, clients and servers are highly encouraged to include these headers with all requests and responses to ensure no misinterpretation occurs.</p>
-<h4><a id="RequestVersioning" name="RequestVersioning"></a>7.1.1. Request Versioning</h4>
+<h4>7.1.1. Request Versioning</h4>
 <hr />
 <p>On a request from the client to an OData service, the DataServiceVersion and MaxDataServiceVersion version headers may be specified. If present on the request, the DataServiceVersion header value states the version of the Open Data Protocol used by the client to generate the request. If no DataServiceVersion header is provided, then the server must assume a value equal to the maximum version number the server supports.</p>
 <p>If present on the request, the MaxDataServiceVersion header value specifies the maximum version number the client can accept in a response. A client should set this value to the maximum version number of the protocol it is able to interpret. If the header is not present in a request, the server must assume the same version number as that specified by the DataServiceVersion header. If a DataServiceVersion header is not present, then the server should assume the client can interpret the maximum version number that the server can interpret.</p>
 <p>When the server receives a request, it must validate that the version number specified in the DataServiceVersion header (or derived value if the header is not present) is less than or equal to the maximum version number it supports. If it is not, then the server must return a response with a 4xx response code. The server should also return a description of the error using the OData XML-based error format in or OData JSON error format, as described in <a title="Atom Format" href="../atom-format"> [OData:Atom]</a> and <a title="JSON Format" href="../json-format"> [OData:JSON]</a>.</p>
 <p>In addition, a server must validate that the version number specified in the MaxDataServiceVersion header (or derived value if the header is not present) is greater than or equal to the minimum version number the server needs to use to generate the response. If it is not, then the server must return an error response using the OData XML error format or OData JSON error format, as described in <a href="../atom-format"> [OData:Atom]</a> and <a href="../json-format">[OData:JSON]</a>.</p>
-<h4><a id="ResponseVersioning" name="ResponseVersioning"></a>7.1.2. Response Versioning</h4>
+<h4>7.1.2. Response Versioning</h4>
 <hr />
 <p>On a response from server to client, the DataServiceVersion header should be specified. The value states the OData version the server used to generate the request and that should be used by the client to determine if it can correctly interpret the response (that is, the value is not larger than the value of the MaxDataServiceVersion header sent in the associated request). The value of the header should be the lowest version of the protocol the server can use to fulfill the request.</p>
-<h2><a id="SecurityConsiderations" name="SecurityConsiderations"></a> 8. Security Considerations</h2>
+<h2> 8. Security Considerations</h2>
 <p>The Open Data Protocol is based on HTTP, AtomPub, and JSON and thus is subject to the security considerations applicable to each of those technologies. OData implementers are encouraged to review:</p>
 <ul>
 <li><a href="http://tools.ietf.org/html/rfc2616#section-15">HTTP [RFC 2616], Section 15</a></li>

@@ -19,6 +19,7 @@
 .carousel img{
   width: 100%;
   max-height: 430px;
+  min-height:400px;
   opacity:0.7;
 }
 .carousel-control {
@@ -29,6 +30,10 @@
   margin: 5% -10% 5% -10%;
   max-width: 1200px;
   max-height: 600px;
+}
+
+.dropdown-toggle:focus {
+  outline:dotted;
 }
 .st-default-search-input::-webkit-input-placeholder{
 	color: #000000 !important; 
@@ -171,7 +176,17 @@ code {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+@media (max-width: 991px) {
+  .affix {
+    position: static;
+	display: block;
+	float:right;
+  }
+}
+
 @media (min-width:992px) {
     .tutorial-sidebar .nav>.active>ul {
     display: block;
+	}
 }

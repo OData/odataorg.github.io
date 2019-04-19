@@ -1,6 +1,6 @@
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>
     {% if page.title %}
@@ -28,7 +28,22 @@
     });
   });
   </script>
+  
   -->
+  <script>
+  $(function(){
+    $('#myCarousel.slide').carousel({
+        interval: 5000,
+        pause: "hover"
+    });
+    $('input').focus(function(){
+       $("#myCarousel").carousel('pause');
+    }).blur(function() {
+       $("#myCarousel").carousel('cycle');
+    });
+});
+</script>
+
   <link rel="stylesheet" href="https://www.odata.org/public/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="{{'/public/css/site.css' | prepend: site.baseurl | prepend: site.url}}">
   <link rel="stylesheet" href="{{'/public/css/syntax.css' | prepend: site.baseurl | prepend: site.url}}">
