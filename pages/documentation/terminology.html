@@ -7,7 +7,7 @@ permalink: /documentation/odata-version-2-0/terminology/
 <h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 2.0. 
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
-<h2>Summary of References:</h2>
+<h2 role="heading">Summary of References:</h2>
 <div>
 <table border="1" cellspacing="0" cellpadding="0">
 <tbody>
@@ -42,10 +42,10 @@ permalink: /documentation/odata-version-2-0/terminology/
 </tbody>
 </table>
 </div>
-<h2>Glossary:</h2>
+<h2 role="heading">Glossary:</h2>
 <p><a id="BinaryLargeObject" name="BinaryLargeObject"></a><strong> Binary Large Object (BLOB)</strong>: binary data stored as a single entity. Blobs are often videos, images, documents, etc.</p>
 <p><a id="Collection" name="Collection"></a><strong>Collection</strong>: A Resource that contains a set of Member Resources as defined in [<a href="http://tools.ietf.org/html/rfc5023">RFC 5023</a>]. In OData, a Collection is represented as an Atom Feed or an array of JSON objects.</p>
-<p><a id="CSDL" name="CSDL"></a><strong>CSDL</strong>: An XML language for describing Entity Data Models. See [<a href="http://www.odata.org/media/6652/[mc-csdl][1].htm">CDSL</a>] for additional information.</p>
+<p><a id="CSDL" name="CSDL"></a><strong>CSDL</strong>: An XML language for describing Entity Data Models. See [<a href="https://www.odata.org/media/6652/[mc-csdl][1].htm">CDSL</a>] for additional information.</p>
 <p><a id="DeclaredProperty" name="DeclaredProperty"></a><strong>Declared Property</strong>: A statically declared Property on an Entity or Complex Type. The value of a declared property is a primitive or complex type.</p>
 <p><a id="DynamicProperty" name="DynamicProperty"></a><strong>Dynamic Property</strong>: An Entry may include additional (nullable) properties beyond its Declared Properties. The set of additional properties, and the type of each, may vary between Entry instances. Such additional properties are referred to as Dynamic Properties and do not have a representation in a Service Metadata Document. If an Entry does not include a value for a Dynamic Property named <em>N</em>, then the Entry must be treated as if it included <em>N</em> with a value of null. A Dynamic Property must not have the same name as a declared property on the same Entry.</p>
 <p><a id="EntityDataModel" name="EntityDataModel"></a><strong>Entity Data Model</strong>: The abstract data model used by OData services. See the Abstract Data Model section of [<a href="../overview">OData: Core</a>] additional information.</p>

@@ -3,4 +3,4 @@ Disallow:
 Disallow: /assets
 Disallow: /public
 
-Sitemap: http://www.odata.org/sitemap.xml
+Sitemap: https://www.odata.org/sitemap.xml

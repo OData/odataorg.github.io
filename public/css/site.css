@@ -1,6 +1,9 @@
 .theme-font{
   color: #dd4814;
 }
+.navbar-default {
+	background-color: #d24714;
+}
 .jumbotron {
   background-color: transparent;
 }
@@ -16,6 +19,7 @@
 .carousel img{
   width: 100%;
   max-height: 430px;
+  min-height:400px;
   opacity:0.7;
 }
 .carousel-control {
@@ -28,6 +32,67 @@
   max-height: 600px;
 }
 
+.dropdown-toggle:focus {
+  outline:dotted;
+}
+.st-default-search-input::-webkit-input-placeholder{
+	color: #000000 !important; 
+}
+.st-default-search-input{
+	color: #000000 !important; 
+}
+@media screen and (-ms-high-contrast: black-on-white) {
+  .brand
+  {
+	  background-color: #000000;
+  }
+}
+.btn-default {
+    color: #ffffff;
+    background-color: #d23714;
+    border-color: #d23714;
+}
+.label-success{
+	background-color: #277a33;
+}
+.brand{
+	padding-top: 1px !important;
+	padding-bottom: 1px !important;
+}
+.alert-success {
+    background-color: #f1fced;
+    border-color: #d6e9c6;
+    color: #366b37;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: #706f6f;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+    cursor: default;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #ffffff;
+    background-color: #d23714;
+}
+.btn-primary {
+    color: #ffffff;
+    background-color: #d23714;
+    border-color: #d23714;
+}
+a {
+	color: #d23000;
+}
+td > a {
+	color:#d23000;
+}
+code {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #ce3512;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
 .table {
   width: 100%;
   font-size-adjust: auto;
@@ -111,7 +176,17 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+@media (max-width: 991px) {
+  .affix {
+    position: static;
+	display: block;
+	float:right;
+  }
+}
+
 @media (min-width:992px) {
     .tutorial-sidebar .nav>.active>ul {
     display: block;
+	}
 }

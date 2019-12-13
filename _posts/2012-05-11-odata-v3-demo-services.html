@@ -16,37 +16,37 @@ author: OData.org Archive
 <p>The new services are hosted side by side with old demo services which we didn’t change. The new demo services are using the <a href="http://blogs.msdn.com/b/astoriateam/archive/2012/05/07/wcf-data-services-now-with-more-releases.aspx">WCF Data Services 5.0.1-rc</a> release currently, and we will update them to the newer version once it becomes available.</p>
 <p>There are 3 demo services:</p>
 <p>The read-only Demo service, which has an updated model to use some V3 features as described below, is hosted here:</p>
-<p><a title="http://services.odata.org/V3/OData/OData.svc/" href="http://services.odata.org/V3/OData/OData.svc/">http://services.odata.org/V3/OData/OData.svc/</a></p>
+<p><a title="https://services.odata.org/V3/OData/OData.svc/" href="https://services.odata.org/V3/OData/OData.svc/">https://services.odata.org/V3/OData/OData.svc/</a></p>
 <p>The read-write Demo service, which is the exact same model as the read-only Demo service including new V3 features, is hosted here:</p>
-<p><a title="http://services.odata.org/V3/(S(readwrite))/OData/OData.svc/" href="http://services.odata.org/V3/%28S%28readwrite%29%29/OData/OData.svc/">http://services.odata.org/V3/(S(readwrite))/OData/OData.svc/</a></p>
+<p><a title="https://services.odata.org/V3/(S(readwrite))/OData/OData.svc/" href="https://services.odata.org/V3/%28S%28readwrite%29%29/OData/OData.svc/">https://services.odata.org/V3/(S(readwrite))/OData/OData.svc/</a></p>
 <p>The read-only Northwind service, which is the exact same model as the existing Northwind service, is hosted here:</p>
-<p><a title="http://services.odata.org/V3/Northwind/Northwind.svc/" href="http://services.odata.org/V3/Northwind/Northwind.svc/">http://services.odata.org/V3/Northwind/Northwind.svc/</a></p>
+<p><a title="https://services.odata.org/V3/Northwind/Northwind.svc/" href="https://services.odata.org/V3/Northwind/Northwind.svc/">https://services.odata.org/V3/Northwind/Northwind.svc/</a></p>
 <p>Here are the V3 features we’ve enabled so far.</p>
 <h3>Actions</h3>
 <p>The Product type has a Discount action on it which takes a single parameter discountPercentage of type Edm.Int32. The action takes the Price of the product it’s applied to and decreases it by the percentage specified by the parameter. For example:</p>
-<p><span style="font-family: Courier New">  GET </span><a href="http://services.odata.org/V3/%28S%28plcxuejnllfvrrecpvqbehxz%29%29/OData/OData.svc/Products%281%29"><span style="font-family: Courier New">http://services.odata.org/V3/(S(plcxuejnllfvrrecpvqbehxz))/OData/OData.svc/Products(1)</span></a></p>
+<p><span style="font-family: Courier New">  GET </span><a href="https://services.odata.org/V3/%28S%28plcxuejnllfvrrecpvqbehxz%29%29/OData/OData.svc/Products%281%29"><span style="font-family: Courier New">https://services.odata.org/V3/(S(plcxuejnllfvrrecpvqbehxz))/OData/OData.svc/Products(1)</span></a></p>
 <p>Will return a product with Price: 3.5</p>
-<blockquote><p><span style="font-family: Courier New">  POST </span><a href="http://services.odata.org/V3/%28S%28plcxuejnllfvrrecpvqbehxz%29%29/OData/OData.svc/Products%281%29/Discount"><span style="font-family: Courier New">http://services.odata.org/V3/(S(plcxuejnllfvrrecpvqbehxz))/OData/OData.svc/Products(1)/Discount</span></a><span style="font-family: Courier New"> HTTP/1.1<br />
+<blockquote><p><span style="font-family: Courier New">  POST </span><a href="https://services.odata.org/V3/%28S%28plcxuejnllfvrrecpvqbehxz%29%29/OData/OData.svc/Products%281%29/Discount"><span style="font-family: Courier New">https://services.odata.org/V3/(S(plcxuejnllfvrrecpvqbehxz))/OData/OData.svc/Products(1)/Discount</span></a><span style="font-family: Courier New"> HTTP/1.1<br />
 Content-Type: application/json;odata=verbose</span></p>
 <p>{ "discountPercentage": 25 }</p></blockquote>
 <p>The response should be 204 No Content.</p>
 <p>And now again</p>
-<p><span style="font-family: Courier New">  GET </span><a href="http://services.odata.org/V3/%28S%28plcxuejnllfvrrecpvqbehxz%29%29/OData/OData.svc/Products%281%29"><span style="font-family: Courier New">http://services.odata.org/V3/(S(plcxuejnllfvrrecpvqbehxz))/OData/OData.svc/Products(1)</span></a></p>
+<p><span style="font-family: Courier New">  GET </span><a href="https://services.odata.org/V3/%28S%28plcxuejnllfvrrecpvqbehxz%29%29/OData/OData.svc/Products%281%29"><span style="font-family: Courier New">https://services.odata.org/V3/(S(plcxuejnllfvrrecpvqbehxz))/OData/OData.svc/Products(1)</span></a></p>
 <p>Returns a product with Price: 2.625</p>
 <h3>Spatial</h3>
 <p>The Supplier type has a property Location which is of type Edm.GeographyPoint. You can see it here:</p>
-<p><a title="http://services.odata.org/V3/OData/OData.svc/Suppliers(0)" href="http://services.odata.org/V3/OData/OData.svc/Suppliers%280%29">http://services.odata.org/V3/OData/OData.svc/Suppliers(0)</a></p>
+<p><a title="https://services.odata.org/V3/OData/OData.svc/Suppliers(0)" href="https://services.odata.org/V3/OData/OData.svc/Suppliers%280%29">https://services.odata.org/V3/OData/OData.svc/Suppliers(0)</a></p>
 <h3>Any and All</h3>
 <p>The service now supports any and all operators. For example:</p>
-<p><a href="http://services.odata.org/V3/OData/OData.svc/Categories?$filter=Products/any%28p:%20p/Rating%20ge%204%29">http://services.odata.org/V3/OData/OData.svc/Categories?$filter=Products/any(p: p/Rating ge 4)</a></p>
+<p><a href="https://services.odata.org/V3/OData/OData.svc/Categories?$filter=Products/any%28p:%20p/Rating%20ge%204%29">https://services.odata.org/V3/OData/OData.svc/Categories?$filter=Products/any(p: p/Rating ge 4)</a></p>
 <h3>Inheritance support</h3>
 <p>You can now address properties on derived types. The demo service doesn’t have a sample property like that yet, but you can try the new URL syntax with type cast anyway:</p>
-<p><a title="http://services.odata.org/V3/OData/OData.svc/Products/ODataDemo.Product" href="http://services.odata.org/V3/OData/OData.svc/Products/ODataDemo.Product">http://services.odata.org/V3/OData/OData.svc/Products/ODataDemo.Product</a></p>
+<p><a title="https://services.odata.org/V3/OData/OData.svc/Products/ODataDemo.Product" href="https://services.odata.org/V3/OData/OData.svc/Products/ODataDemo.Product">https://services.odata.org/V3/OData/OData.svc/Products/ODataDemo.Product</a></p>
 <h3>Patch support</h3>
 <p>You can send PATCH requests instead of MERGE. The behavior is identical otherwise.</p>
 <h3>Prefer header support</h3>
 <p>You can specify a Prefer header in create or update requests and ask the server to either omit or include the payload. For example:</p>
-<p><span style="font-family: Courier New">  PATCH </span><a href="http://services.odata.org/V3/%28S%28plcxuejnllfvrrecpvqbehxz%29%29/OData/OData.svc/Products%281%29"><span style="font-family: Courier New">http://services.odata.org/V3/(S(plcxuejnllfvrrecpvqbehxz))/OData/OData.svc/Products(1)</span></a><span style="font-family: Courier New"> HTTP/1.1<br />
+<p><span style="font-family: Courier New">  PATCH </span><a href="https://services.odata.org/V3/%28S%28plcxuejnllfvrrecpvqbehxz%29%29/OData/OData.svc/Products%281%29"><span style="font-family: Courier New">https://services.odata.org/V3/(S(plcxuejnllfvrrecpvqbehxz))/OData/OData.svc/Products(1)</span></a><span style="font-family: Courier New"> HTTP/1.1<br />
 Accept: application/json;odata=verbose<br />
 Content-Type: application/json;odata=verbose<br />
 Prefer: return-content<br />
