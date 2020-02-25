@@ -176,6 +176,11 @@ code {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.dropMenu .skip-nav-elements {
+	background:  #bf3e11;
+	left: 50px;
+	top: 50px;
+}
 
 @media (max-width: 991px) {
   .affix {
