@@ -1,7 +1,7 @@
 ---
 category: javascript
 name: OpenUI5
-version: V1-V3
+version: V2, V4
 object: Client
 downloads:
   - source: openui5.org
