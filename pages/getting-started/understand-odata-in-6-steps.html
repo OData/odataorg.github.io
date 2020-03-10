@@ -1354,7 +1354,7 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
 </p></div>
 <script>
     $(document).ready(function() {
-       $('#step-collection-modal,#step-individual-modal,#step-query-modal,#step-post-modal,#step-relationship-modal,#step-function-modal').on('shown.bs.modal', function () {
+       $('.modal').on('shown.bs.modal', function () {
             $('.btn-default').focus();
        });
     })
