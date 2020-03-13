@@ -76,7 +76,7 @@ permalink: /getting-started/understand-odata-in-6-steps/
 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></p>
 <h4 class="modal-title" id="step-collection-modal-label">Response</h4>
 </p></div>
-<div class="modal-body">
+<div class="modal-body sr-focusable">
 {% highlight js %}
 HTTP/1.1 200 OK
 Content-Length: 1007
@@ -1356,9 +1356,12 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
     $(document).ready(function() {
        $('.modal').on('shown.bs.modal', function () {
             $('.btn-default').focus();
+            $(this).find(".modal-body").attr("tabindex", 0);
        });
-    })
 
-    // make it possible to tab to response content inside popups
-    $(".modal-body").attr("tabindex", 0);
+       // make it possible to tab to response content inside popups
+       // and make accessible to screen readers
+        $(".modal-body pre").attr("tabindex", 0);
+        $(".modal-body").attr("aria-label", "Response body");
+    });
 </script>
