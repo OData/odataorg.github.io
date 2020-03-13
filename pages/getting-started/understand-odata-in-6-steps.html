@@ -64,7 +64,7 @@ permalink: /getting-started/understand-odata-in-6-steps/
     max-height: 100px;
 }
 #top-link-block.affix-top{
-    position: absolute; 
+    position: absolute;
 }
 </style>
 
@@ -1359,9 +1359,25 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
             $(this).find(".modal-body").attr("tabindex", 0);
        });
 
-       // make it possible to tab to response content inside popups
-       // and make accessible to screen readers
+        // make it possible to tab to response content inside popups for keyboard users
         $(".modal-body pre").attr("tabindex", 0);
         $(".modal-body").attr("aria-label", "Response body");
+        
+        // hack to get the screen reader to read the syntax-highlighted
+        // code section on Microsoft Edge
+        document.querySelectorAll(".modal-body").forEach((modalBody) => {
+            // extract plain code text form syntax-highlighted code section
+            let plainCode = "";
+            modalBody.querySelectorAll("pre span").forEach((span) => {
+                plainCode += `${span.textContent} `;
+            });
+            
+            // inject paragraph with plain code for screen readers
+            const screenReaderContent = document.createElement("p");
+            screenReaderContent.classList.add("sr-only");
+            screenReaderContent.tabIndex = 0;
+            screenReaderContent.textContent = plainCode;
+            modalBody.insertBefore(screenReaderContent, modalBody.firstChild);
+        });
     });
 </script>
