@@ -64,7 +64,7 @@ permalink: /getting-started/understand-odata-in-6-steps/
     max-height: 100px;
 }
 #top-link-block.affix-top{
-    position: absolute; 
+    position: absolute;
 }
 </style>
 
@@ -76,7 +76,7 @@ permalink: /getting-started/understand-odata-in-6-steps/
 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></p>
 <h4 class="modal-title" id="step-collection-modal-label">Response</h4>
 </p></div>
-<div class="modal-body">
+<div class="modal-body sr-focusable">
 {% highlight js %}
 HTTP/1.1 200 OK
 Content-Length: 1007
@@ -1356,6 +1356,28 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
     $(document).ready(function() {
        $('.modal').on('shown.bs.modal', function () {
             $('.btn-default').focus();
+            $(this).find(".modal-body").attr("tabindex", 0);
        });
-    })
+
+        // make it possible to tab to response content inside popups for keyboard users
+        $(".modal-body pre").attr("tabindex", 0);
+        $(".modal-body").attr("aria-label", "Response body");
+        
+        // hack to get the screen reader to read the syntax-highlighted
+        // code section on Microsoft Edge
+        $('.modal-body').each(function (i, modalBody) {
+            // extract plain code text form syntax-highlighted code section
+            var plainCode = "";
+            $(modalBody).find("pre span").each(function (spanIndex, span) {
+                plainCode += span.textContent + ' ';
+            });
+            
+            // inject paragraph with plain code for screen readers
+            var screenReaderContent = document.createElement("p");
+            screenReaderContent.classList.add("sr-only");
+            screenReaderContent.tabIndex = 0;
+            screenReaderContent.textContent = plainCode;
+            modalBody.insertBefore(screenReaderContent, modalBody.firstChild);
+        });
+    });
 </script>
