@@ -1365,15 +1365,15 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
         
         // hack to get the screen reader to read the syntax-highlighted
         // code section on Microsoft Edge
-        document.querySelectorAll(".modal-body").forEach((modalBody) => {
+        $('.modal-body').each(function (i, modalBody) {
             // extract plain code text form syntax-highlighted code section
-            let plainCode = "";
-            modalBody.querySelectorAll("pre span").forEach((span) => {
-                plainCode += `${span.textContent} `;
+            var plainCode = "";
+            $(modalBody).find("pre span").each(function (spanIndex, span) {
+                plainCode += span.textContent + ' ';
             });
             
             // inject paragraph with plain code for screen readers
-            const screenReaderContent = document.createElement("p");
+            var screenReaderContent = document.createElement("p");
             screenReaderContent.classList.add("sr-only");
             screenReaderContent.tabIndex = 0;
             screenReaderContent.textContent = plainCode;
