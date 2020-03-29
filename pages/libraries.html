@@ -25,7 +25,7 @@ permalink: /libraries/
 </div>
 <p></p>
 <div class="tab-content">
-  <div class="tab-pane active table-responsive" id="net1">
+  <div class="tab-pane active " id="net1">
     <table class="table table-striped table-condensed table-hover" style="width:100%">
       <tr>
         <th width="20%">Name</th>
@@ -57,7 +57,7 @@ permalink: /libraries/
   </div>
   {% assign libraries = site.libraries | group_by: "category" %}
   {% for library in libraries %}
-  <div class="tab-pane table-responsive" id={{library.name}}>
+  <div class="tab-pane " id={{library.name}}>
     <table class="table table-striped table-condensed table-hover" style="width:100%">
       <tr>
         <th width="20%">Name</th>
