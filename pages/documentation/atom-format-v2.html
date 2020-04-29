@@ -7,16 +7,16 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 2.0. 
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
-<h2 role="heading">Introduction</h2>
+<h2>Introduction</h2>
 <p>OData supports two formats for representing the resources (Collections, Entries, Links, etc) it exposes: the XML-based Atom format and the JSON format. This document describes how OData resources are represented in Atom (plus additional elements defined in AtomPub) and <a href="../json-format">[OData-JSON]</a> describes the JSON representation. The <a href="../operations#RepresentationFormatAndContentTypeNegotiation"> content type negotiation</a> section of the <a href="../operations">[OData-Operations]</a> document describes how clients can use standard HTTP content type negotiation to tell an OData service which format it wants to use.</p>
-<h2 role="heading">1. Background</h2>
+<h2>1. Background</h2>
 <p>As described in Atom <a href="http://tools.ietf.org/html/rfc4287">[RFC4287]</a>, Atom is an XML-based document format that describes Collections of related information known as "feeds". Feeds are composed of a number of items, known as Entries. AtomPub <a href="http://tools.ietf.org/html/rfc5023">[RFC5023]</a> defines additional format constructs for Entries and Feeds to enable the resources they represent to be easily categorized, grouped, edited and discovered. For the remainder of this document, the term Atom is used to represent the combination of the format/representation rules defined in Atom<a href="http://tools.ietf.org/html/rfc4287">[RFC4287]</a> and AtomPub <a href="http://tools.ietf.org/html/rfc5023">[RF5023]</a>.</p>
 <p>As noted in the OData Basics section of [OData:Core], OData services expose Collections of structured Entries, making Atom a natural fit for representing OData resources. Since Atom does not define how structured data is encoded with feeds, to enable transfers of structured content by OData services, this document defines a set of conventions for representing structured data in an Atom feed.</p>
 <p>It should be noted that feeds following the conventions defined in this document are valid AtomPub feeds and can be consumed by feed readers, tools, etc. which are only aware of the Atom standards ([RFC4287] &amp; [RFC5023]), but not the additional conventions defined in this document.</p>
-<h2 role="heading">2. Atom Representations</h2>
+<h2>2. Atom Representations</h2>
 <p>The following sections define how resources (Collection, Entries, etc) exposed by an OData service can be represented in requests and responses payloads using the Atom format. For details regarding how to create various request types (Retrieve, Create, etc) see <a href="../operations">[OData-Operations]</a> .</p>
 <p>Through out this section the notation <atom:elementName> is used to refer to the named element in the Atom <a href="http://tools.ietf.org/html/rfc4287">[RFC4287]</a> specification.</p>
-<h3 role="heading">2.1. Primitive Types</h3>
+<h3>2.1. Primitive Types</h3>
 <p>Values of OData primitive types are represented as values of XML elements/attributes as per the table below. Note: The type system used by OData services is described in full in the <a href="../overview#AbstractTypeSystem">primitive types</a> section of the <a href="../overview">[OData-Core]</a> document. In addition to the rules stated in the table, if the value of a primitive type is null, then it is represented as an empty XML element with an <strong>m:null="true"</strong> attribute ("m" identifies the OData metadata namespace).</p>
 <div>
 <table border="0">
@@ -88,7 +88,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </tbody>
 </table>
 </div>
-<h3 role="heading">2.2. Service Documents</h3>
+<h3>2.2. Service Documents</h3>
 <p>As described in <a href="../overview">[OData-Core]</a>, if a service exposes several Collections, then to aid discovery of those Collections by clients it is useful for the service to expose a Service Document which lists the available Collections. Service Documents are described in AtomPub <a href="http://tools.ietf.org/html/rfc5023#page-15"> [RFC5023], section 15</a>.</p>
 <p>For example, the URI <a href="https://services.odata.org/OData/OData.svc">https://services.odata.org/OData/OData.svc</a> identifies the Service Document of a sample OData service which exposes a Categories, Products and Suppliers Collection. For convenience, a sample Service Document is shown in the listing below.</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
@@ -109,7 +109,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
     </collection>
   </workspace>
 </service>{% endhighlight %}
-<h3 role="heading">2.3. Representing Collections of Entries</h3>
+<h3>2.3. Representing Collections of Entries</h3>
 <p><a href="../terminology#Collection">Collections</a> represent a set of <a href="../terminology#Entry">Entries</a>. In OData, Collections are represented as Atom feeds ([RFC5023] ), with one Atom entry for each Entry within the Collection. For example, a Collection of product category Entries (that could be part of a product catalog) exposed by an OData service, as identified by the URI <a href="https://services.odata.org/OData/OData.svc/Categories">https://services.odata.org/OData/OData.svc/Categories</a>, is represented as shown below. The format of <atom:entry> elements within a feed is described in the <a href="../atom-format#RepresentingEntries">Representing Entries</a> section.</p>
 <p><strong>Note</strong>: The "m" and "d" prefixes represent the OData metadata and data namespaces. It is likely the next version of OData will generalize the namespace URI to use an odata.org based URI.</p>
 
@@ -202,7 +202,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
       href="https://services.odata.org/Northwind/Northwind.svc/Customers?
     $inlinecount=allpages&amp;$skiptoken='ERNSH'" /> </strong>
 </feed>{% endhighlight %}
-<h3 role="heading">2.4. Representing Entries</h3>
+<h3>2.4. Representing Entries</h3>
 <p>In OData, Entries are represented as Atom <atom:entry> elements with all the <a href="../terminology#Property">Properties</a> of the Entry represented as elements within the <m:properties> element which is a direct child of the <atom:content> element. When using an OData v2 server, clients may indicate that they want a subset of the properties by using the Select System Query Option in the request.</p>
 <p>If the Entry being represented links to other Entries via <a href="../terminology#NavigationProperty"> Navigation Properties</a> (e.g. a Product is related to a Category), then the Links are represented as <atom:link rel= <a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/%5bNavigationPropertyName%5d"> http://schemas.microsoft.com/ado/2007/08/dataservices/related/[NavigationPropertyName]</a> href=â€â€¦"/> elements â€" one for each Navigation Property of the Entry.</p>
 <p>Metadata describing the Entry being represented can be specified using additional Atom-defined and OData-defined elements/attributes as defined by the following list.</p>
@@ -256,10 +256,10 @@ permalink: /documentation/odata-version-2-0/atom-format/
     </m:properties> 
   </content></strong>
 </entry>{% endhighlight %}
-<h4 role="heading">2.4.1. Deferred Content</h4>
+<h4>2.4.1. Deferred Content</h4>
 <p>To conserve resources (bandwidth, CPU, and so on), it is generally not a good idea for an OData service to return the full graph of Entries related to the Entry (or Collection of entries) identified in a request URI. For example, an OData service should defer sending related Entries unless the client explicitly asked for them using the <a href="../uri-conventions#ExpandSystemQueryOption">$expand System Query Option</a> which provides a way for a client to state related entities should be <a href="../atom-format#InlineRepresentationofAssociatedEntries">represented inline</a>.</p>
 <p>As shown in the example in the prior section, by default properties which represent <a href="../terminology#Link">Links</a> (the "Products" property in the example) are represented as a <link rel=" <strong> </strong> http://schemas.microsoft.com/ado/2007/08/dataservices/related/[NavigationPropertyName]" href="..." /> element to indicate the service deferred representing the related Entries. If needed, a client can then use the URI in the href attribute in a subsequent retrieve request to obtain the related Entries.</p>
-<h4 role="heading">2.4.2. Inline Representation of Associated Entries</h4>
+<h4>2.4.2. Inline Representation of Associated Entries</h4>
 <p>As described in the <a href="../uri-conventions#ExpandSystemQueryOption"> $expand System Query Option section</a> of the <a href="../uri-conventions">[OData-URI]</a> document, a request URI may include the $expand query option to explicitly request that a linked to Entry or collection of Entries be serialized inline, rather than deferred.</p>
 <p>In this case the related Entry or collection of Entries is represented as the child element of an <m:inline> element as an <atom:feed> or <atom:entry> respectively. For example, a single Category Entry with its related Product Entries serialized inline is represented as shown in the example below.</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
@@ -325,7 +325,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
     </m:properties>
   </content>
 </entry>{% endhighlight %}
-<h4 role="heading"> 2.4.3. Representing Media Link Entries</h4>
+<h4> 2.4.3. Representing Media Link Entries</h4>
 <p><a href="../terminology#MediaLinkEntry">Media Link Entries (MLE)</a> are represented in the same way as regular Entries as described in <a href="../atom-format#RepresentingEntries"> Representing Entries</a>; however, they also contain additional metadata per Entry that describes the Media Resource (MR) associated with the Entry and the <m:properties> element becomes a child of the <atom:entry> element. The <m:properties> element is moved out from under the <atom:content> element because in the case of an MLE, the content describes the MR.</p>
 <p>This additional MR-specific metadata is represented by the following constructs in the <atom:entry>:</p>
 <ul>
@@ -342,7 +342,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </ul>
 </li>
 </ul>
-<h4 role="heading">2.4.4. Customizing the Representation of an Entry</h4>
+<h4>2.4.4. Customizing the Representation of an Entry</h4>
 <p>Services may wish to have more flexibility over how Entries are represented within an <atom:entry> element. For example, a service may want to enable the value of a property of an Entry be represented as the value of one of the standard Atom elements (Title, Summary, etc) or as the value of a custom element within an Entry. OData supports services that need this kind of control over the Atom representations of an Entry.</p>
 <p>In general a service may choose to deviate from the conventions defined in Representing Entries section above and represent the value of a Property of an Entry as the value of a standard Atom element (Title, Summary, etc) or as the value of an element in a custom namespace. When a service does this form of customization it breaks the shared assumption between client and server regarding how Entries are encoded within an <atom:entry> element. OData services that deviate from the prescribed encoding should expose a <a href="../terminology#ServiceMetadataDocument"> Service Metadata Document</a> that include Feed Customization annotations which allow a client to discover how the server chose to encode a given Entry within the <atom:entry> element. The remainder of this section describes the set of Feed Customization annotations that may be used.</p>
 <p>The following table lists all the Feed Customization annotations defined in OData.</p>
@@ -527,22 +527,22 @@ Supplier representation in Atom
     </m:properties>
   </content>
 </entry>{% endhighlight %}
-<h3 role="heading">2.5. Representing Primitive Properties</h3>
+<h3>2.5. Representing Primitive Properties</h3>
 <p>When represented in a request/response payload as part of an Entry, Complex Type or a standalone construct in a request payload, primitive properties are represented in Atom as child elements of an <m:properties> element (see Representing Entities) with the name equal to the element equal to the property and value of the element set to the primitive type value formatted as described by the table in the <a href="../atom-format#PrimitiveTypes"> Primitive Types</a> section above.</p>
 <p>See <a href="../atom-format#RepresentingPropertyValues">section 3.1</a> for the format of Properties when they are represented independently from their defining Entry (i.e. outside the context of the defining Entry).</p>
-<h3 role="heading">2.6. Representing Complex Type Properties</h3>
+<h3>2.6. Representing Complex Type Properties</h3>
 <p>When represented as a property of an Entry or Complex Type (also within an Entry) in a request/response payload, a property whose type is a <a href="../overview#AbstractDataModel"> complex type</a> is represented as an XML element with each property of the complex type represented as a direct child element (as described in the prior section for primitive properties). For example, the Address Complex Type of a Supplier Entry is shown in the example below.</p>
 <p>See <a href="../atom-format#xml_RepresentingComplexTypesProperties">section 3.1.2</a> for the format of Complex Type Properties when they are represented independently from their defining Entry (i.e. outside the context of the defining Entry).</p>
-<h2 role="heading">3. XML Representations</h2>
+<h2>3. XML Representations</h2>
 <p>The smallest unit of information that can be represented in Atom is an Entry. In several application scenarios it is practical to be able to identify a specific piece of information within the Entry, particularly when the entry is mapped to an application-level construct on the server. For example, a Presentation Entry may have a Property that is the abstract describing the presentation.</p>
 <p>To enable this scenario, as described in the <a href="../uri-conventions#ResourcePath"> Resource Path</a> section in the <a href="../uri-conventions">[OData-URI]</a> document, OData supports directly addressing a Property of an Entry. Since there is not a natural mapping of a single Property (outside of the context of the defining Entry) to an Atom representation, OData represents the constituent parts of an Entry using a simple XML representation, which is described by the following subsections.</p>
-<h3 role="heading"> 3.1. Representing Property Values</h3>
+<h3> 3.1. Representing Property Values</h3>
 <p>As described in the <a href="../uri-conventions#ResourcePath">Resource Path</a> section in the <a href="../uri-conventions">[OData-URI]</a> document, OData supports directly addressing a Property of an Entry. The following subsections describe how each type of Property is represented in XML.</p>
-<h4 role="heading"> 3.1.1. Representing Primitive Properties</h4>
+<h4> 3.1.1. Representing Primitive Properties</h4>
 <p>When a primitive Property is represented as a standalone construct in a response from an OData service (such as when a retrieve request is made to a URI that identifies a single Property) it is represented as a single XML element where the element name equals the name of the Property and the value of the element is the value Property value. For example, the response payload to a retrieve request that identifies the Name property of a Category Entry is represented as shown below.</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Name xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices">Bread</Name>{% endhighlight %}
-<h4 role="heading">3.1.2. Representing Complex Types Properties</h4>
+<h4>3.1.2. Representing Complex Types Properties</h4>
 <p>When a Property whose type is a <a href="../overview#AbstractDataModel"> complex type</a> is represented as a standalone construct, such as when a retrieve request is made to a URI that identifies a single Property, it uses a single XML element with the name of the Property and child elements for each Property defined on the complex type (formatted as per this section of the prior â€œRepresenting Primitive Propertiesâ€ section). For example, the response payload to a retrieve request that identifies the Name property of a Category Entry is represented as shown below.</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Address p1:type="ODataDemo.Address" 
@@ -554,14 +554,14 @@ Supplier representation in Atom
   <ZipCode>98074</ZipCode>
   <Country>USA</Country>
 </Address>{% endhighlight %}
-<h4 role="heading">3.1.3. Representing the Raw value of a Property</h4>
+<h4>3.1.3. Representing the Raw value of a Property</h4>
 <p>OData services may support <a href="../uri-conventions#AddressingEntries"> addressing the entry value of a primitive Property</a> (see the description of the $value URI segment). In this case, the value is returned using the format (aka mime type) the OData service deems to be the entry format for the Property. For example, the HTTP response from the sample OData service when retrieving the Name string Property of a Category Entry is shown in the example below.</p>
 {% highlight xml %}HTTP/1.1 200 OK
 DataServiceVersion: 1.0;
 Content-Type: text/plain;charset=utf-8
 
 Food{% endhighlight %}
-<h3 role="heading">3.2. Representing Links</h3>
+<h3>3.2. Representing Links</h3>
 <p>A Link (or collection of Links) represents an associated Entry (or collection of associated Entries). As described in <a href="../operations">[OData-Operations]</a> Links can be retrieved and modified to change the associations between Entries. A single link is represented as a <d:uri> element with the value of the element set to the URI that identifies the Link. A collection of links is represented as a <d:links> element with zero or more child <d:uri> elements, where each <d:uri> element represents a Link.</p>
 <p>Note: in the paragraph above, "d" represents the <a href="../terminology#ODataDataNamespace"> OData Data Namespace</a>.</p>
 <p>For example, a link with multiplicity 1 (ex. Product is related to a <em>single</em> Supplier) would be represented in XML in a response as:</p>
@@ -579,7 +579,7 @@ Food{% endhighlight %}
   <uri>https://services.odata.org/OData/OData.svc/Products(5)</uri>
   <uri>https://services.odata.org/OData/OData.svc/Products(6)</uri>
 </links>{% endhighlight %}
-<h3 role="heading">3.3. Representing Results from Service Operations</h3>
+<h3>3.3. Representing Results from Service Operations</h3>
 <p>As described in <a href="../operations">[OData-Operations]</a> OData services may expose custom behaviors via Service Operations, which may accept input parameters identified by the request URI (as described in <a href="../uri-conventions">[OData-URI]</a>). This section specifies how the results of a Service Operation are formatted using Atom or XML. Service operations support returning:</p>
 <ul>
 <li>A single primitive value or collection of primitive values</li>

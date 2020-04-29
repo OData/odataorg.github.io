@@ -7,11 +7,11 @@ permalink: /documentation/odata-version-2-0/operations/
 <h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 2.0. 
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
-<h2 role="heading">Introduction</h2>
+<h2>Introduction</h2>
 <p>The OData protocol exposes a uniform service interface to operate on collections of structured and unstructured data. Most of the semantics of operations in OData come from the AtomPub protocol [RFC5023], which in turn builds on top of HTTP <a href="http://www.ietf.org/rfc/rfc2616.txt">[RFC2616]</a>.</p>
 <p>This document describes the operation model for the protocol, specifying the interactions between clients and servers for retrieving and manipulating data in an OData service. It builds on the <a href="../overview">[OData-Core]</a> document for core concepts, <a href="../uri-conventions">[OData-URI]</a> for URI conventions and on the formats specifications for Atom <a href="https://www.odata.org/developers/protocols/atom-format"> [OData-Atom]</a> and JSON <a href="../json-format">[OData-JSON]</a> for the description of data representations.</p>
-<h2 role="heading">1. Background</h2>
-<h3 role="heading">1.1 Representation formats and content type negotiation</h3>
+<h2>1. Background</h2>
+<h3>1.1 Representation formats and content type negotiation</h3>
 <p>OData supports two formats for representing resources, the XML-based Atom format and the JSON format. As described in the HTTP specification <a href="http://www.ietf.org/rfc/rfc2616.txt"> [RFC2616]</a>, clients can indicate their preference of resource representation by including an <em>accept</em> request header with a list of MIME types it can handle.</p>
 <p>A client that wants only JSON responses would set this header to "application/json". For example:</p>
 <pre><code>GET /OData/OData.svc/Products HTTP/1.1 host: services.odata.org accept: application/json</code></pre>
@@ -22,19 +22,19 @@ permalink: /documentation/odata-version-2-0/operations/
 <p>If a request does not have an <em>accept</em> header servers should default to the Atom representation.</p>
 <p>Since in certain scenarios it is not possible for clients to control request headers, OData also has an optional query string option called $format that can be used to override the value of the request header (e.g. $format=json or $format=atom). This option is further described in <a href="../uri-conventions">[OData-URI]</a>.</p>
 <p>When sending a resource as part of a request or a response body, clients and servers should set the corresponding MIME type in the <em>content-type</em> header.</p>
-<h3 role="heading">1.2 Additional considerations on the use of HTTP</h3>
+<h3>1.2 Additional considerations on the use of HTTP</h3>
 <p>OData heavily builds on HTTP for its interaction model. In addition to content-type negotiation clients and servers should use HTTP mechanisms for aspects such as character set negotiation (through accept-charset and content-type headers), caching and redirection.</p>
 <p>Similarly, while this specification uses specific status codes for specific outcomes for a request, clients should be prepared to handle all HTTP status codes and interpret them appropriately.</p>
-<h3 role="heading">1.3 Error Conditions</h3>
+<h3>1.3 Error Conditions</h3>
 <p>Error conditions are in general exposed as HTTP responses with error status codes (4xx and 5xx). Individual descriptions of operations in this specification do not call out error conditions. Servers should map error conditions to HTTP status codes. Common examples include using 404 (Not Found) when receiving requests against a URI not defined by this server, 400 for a general error in the request and 500 for a server-side error while processing the request.</p>
 <p>Clients should be prepared to handle HTTP error codes in all requests.</p>
 <p>In addition to the status code, servers should include a response body for error responses that includes more information about the error condition. The level of detail and nature of the information should be appropriate for the level of exposure of the service so as not to expose sensitive information to untrusted clients. The format for error messages is described in <a href="https://www.odata.org/developers/protocols/atom-format"> [OData-Atom]</a> and <a href="../json-format">[OData-JSON]</a>.</p>
-<h3 role="heading">1.4 Protocol Versioning</h3>
+<h3>1.4 Protocol Versioning</h3>
 <p>In order to provide a safe mechanism for evolution of the protocol OData has a versioning scheme. While OData is designed such that it can operate to certain extent without the use of version headers, clients and servers are strongly encouraged to follow the protocol versioning scheme. Details of OData versioning are covered in <a href="../overview">[OData-Core]</a>.</p>
 <p>All the examples in this document assume clients and servers that use version 2.0 of the protocol.</p>
-<h2 role="heading">2. Operations</h2>
+<h2>2. Operations</h2>
 <p>The OData service interface has a fixed number of operations that have uniform meaning across all the resources it can act on. These operations are retrieve, create, update and delete and they map to the GET, POST, PUT/MERGE and DELETE HTTP methods. Each of them acts on a resource that is indicated using a URI. In addition to the uniform interface operations, OData allows servers to expose custom operations (known as Service Operations) that can be invoked through GET or POST.</p>
-<h3 role="heading">2.1 Retrieving feeds, Entries and service document</h3>
+<h3>2.1 Retrieving feeds, Entries and service document</h3>
 <p>Clients retrieve a feed, Entry or service document by issuing an HTTP GET request against its URI. Servers respond with the feed, Entry or service document in the response body in the proper format. For example, to request the feed of products in the Atom-based format from an example product catalog OData service and its corresponding response:</p>
 <p>Request:</p>
 <pre><code>GET /OData/OData.svc/Products HTTP/1.1 Host: services.odata.org 
@@ -93,7 +93,7 @@ permalink: /documentation/odata-version-2-0/operations/
 <p>While in many cases clients will directly follow links provided externally or found in a service document to find and retrieve a feed for a Collection, often a client will want to further control how the feed is returned. OData provide a series of optional conventions to allow clients to filter, sort and page over data in Collections, we well as to request for a subset of the properties to be sent and to expand related entries inline. All these options are discussed in <a href="../uri-conventions">[OData-URI]</a>. An example on this would be (before escaping the URL):</p>
 <p>https://services.odata.org/OData/OData.svc/Products?$filter=Rating gt 2&amp;$orderby=Price&amp;$select=Rating,Price</p>
 <p>this requests all products with a Rating greater than 2, sorted by Price in ascending order, and asks the server to only retrieve the Rating and Price properties.</p>
-<h3 role="heading"> 2.2 Retrieving individual properties</h3>
+<h3> 2.2 Retrieving individual properties</h3>
 <p>Servers may support retrieval of individual properties within Entries. OData provides two ways of exposing individual properties, one that follows OData formats and another one that exposes the raw value of the property.</p>
 <p>When using the optional OData URL conventions, the former has an address that follows the containing Entry with the property name (e.g. Products(1)/Description to obtain the value of the "Description" property), and the latter uses a $value suffix (e.g. Products(1)/Description/$value). More details in the Resource Path section of the <a href="../uri-conventions">[OData-URI]</a> document.</p>
 <p>To retrieve a property value using one of the OData formats a client issues an HTTP request against the property URI, and uses content-type negotiation to indicate the expected format. Since sub-Entry elements such as properties aren't represented as whole Atom Entries, clients that use the Atom format should use "application/xml" as the content type and should be prepared to handle an XML response that is not an Atom feed or Entry. This is described in further detail in <a href="../atom-format">[OData-Atom]</a>. An example of a request to retrieve the "Description" property in a Product resource follows.</p>
@@ -114,10 +114,10 @@ permalink: /documentation/odata-version-2-0/operations/
 <p>Response:</p>
 <pre><code>HTTP/1.1 200 OK Content-Length: 12 Date: Sat, 27 Feb 2010 21:16:05 GMT Content-Type:
   text/plain;charset=utf-8 DataServiceVersion: 1.0; Low fat milk </code></pre>
-<h3 role="heading"> 2.3 Retrieving the metadata document</h3>
+<h3> 2.3 Retrieving the metadata document</h3>
 <p>Servers may expose a metadata document that describes the structure of the service and its resources. Conventionally this document is located at the /$metadata address relative to the service root URI of the service. OData metadata documents are discussed in <a href="../overview">[OData-Core]</a>.</p>
 <p>Clients can obtain the metadata document by issuing an HTTP GET request against the metadata URI. Since only an XML serialization of EDM schemas exist currently, no content-type negotiation is supported for this resource. Other HTTP aspects such as caching and character set encoding still apply.</p>
-<h3 role="heading">2.4 Creating new Entries</h3>
+<h3>2.4 Creating new Entries</h3>
 <p>Following the AtomPub protocol, new Entries are created by executing an HTTP POST request against the URI of the Collection where the Entry is to be created. The POST request includes the new Entry in its body, in one of the supported formats. For example:</p>
 <pre><code>POST /OData/OData.svc/Categories HTTP/1.1 Host: services.odata.org 
   DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 accept: application/atom+xml 
@@ -272,12 +272,12 @@ permalink: /documentation/odata-version-2-0/operations/
     &lt;/m:properties&gt; 
   &lt;/content&gt; 
 &lt;/Entry&gt;</code></pre>
-<h3 role="heading"> 2.5 Creating Media Link Entries (MLEs)</h3>
+<h3> 2.5 Creating Media Link Entries (MLEs)</h3>
 <p>Media Link Entries (MLEs) are created by issuing a POST request against the collection the MLE should be created in, with the request body containing the Media Resource (MR) and the Content-Type header indicating its media type.</p>
 <p>As described in AtomPub, servers should create both the MR and the MLE during the execution of the POST request, and return the URI of the MLE in the Location response header.</p>
 <p>OData servers usually initialize the structured data in the MLE by using server-generated values and information extracted from the MR. The MLE can optionally be included in the response body to update client state with server-generated information. Servers may return 201 (Created) or 200 (OK) when the MLE and MR were successfully created and a response body is returned, or 204 (No Content) if creation is successful but no response is returned.</p>
 <p>Use of the <em>slug</em> header as defined in AtomPub, section 9.7 is supported and has no further semantics than those defined in that specification.</p>
-<h3 role="heading">2.6 Updating Entries</h3>
+<h3>2.6 Updating Entries</h3>
 <p>To update the data in an Entry clients execute an HTTP PUT request against the Entry's URI, with a new Entry resource included in the request body.</p>
 <p>According to the AtomPub protocol specification, the PUT request replaces the existing Entry, so all property values in the Entry either take the values indicated in the request body, or are reset to their default value if not mentioned in the request. For example, to update a product in the sample OData service:</p>
 <p>Request:</p>
@@ -341,7 +341,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;/Entry&gt;</code></pre>
 <p>While there is a distinction between PUT and MERGE for properties, the Links of an Entry are not directly considered part of the structured data portion of an Entry and thus are not reset on PUT. Servers should use MERGE semantics for Links for both PUT and MERGE requests.</p>
 <p>NOTE: there is active discussion in the community about the introduction of a PATCH method in HTTP. Once PATCH is an official part of the HTTP specification OData will support PATCH and phase out the custom MERGE method over time.</p>
-<h3 role="heading"> 2.7 Updating individual properties</h3>
+<h3> 2.7 Updating individual properties</h3>
 <p>It is also possible to update individual properties using the same addresses a client can use to retrieve them. Clients may use the PUT method to update the value of a property. Similarly for the retrieve case, clients can choose to use URIs that point to the property in its OData format or in raw form.</p>
 <p>For example, to update only the rating of a product:</p>
 <pre><code>PUT /OData/OData.svc/Products(1)/Rating HTTP/1.1 Host: services.odata.org DataServiceVersion:
@@ -358,14 +358,14 @@ permalink: /documentation/odata-version-2-0/operations/
   content-type: text/plain Content-Length: 1 5</code></pre>
 <p>In either case servers should update the property and return 204 (No Content) and no response body or 200 (OK) and an update of the property as appropriate.</p>
 <p>Since properties are considered atomic elements (no sub-property operations exist) the MERGE method is not defined for individual properties and servers should fail requests with this method with status code 405 (Method Not Allowed).</p>
-<h3 role="heading">2.8 Deleting Entries</h3>
+<h3>2.8 Deleting Entries</h3>
 <p>Entries are deleted by executing an HTTP DELETE request against a URI that points at the Entry. If the operation executed successfully servers should return 200 (OK) with no response body.</p>
 <p>If the Entry has dependent Entries such as Entries Linked to it, it is up to the server whether deletion should be cascaded, the operation should fail because of the presence of dependent Entries, or if Links are left dangling after the Entry is deleted. This largely depends on the server, storage model and the actual application the OData service is a part of.</p>
 <p>In the case of Media Link Entries, deleting the Media Link Entry also deletes the Media Resource.</p>
-<h3 role="heading">2.9 Manipulating Links</h3>
+<h3>2.9 Manipulating Links</h3>
 <p>OData provides two ways to manipulate Links: through Link constructs in Entries and by operating on the Link resources directly.</p>
 <p>While manipulating Links by updating the Entries at either end can be simpler, this mechanism is less expressive and it is sometimes required to use Link addresses directly. For example, to add or remove a Link between two existing Entries where the Link has a cardinality of "many" on both ends (modeling a many-to-many relationship) requires the use of operations on Links directly.</p>
-<h3 role="heading"> 2.10 Creating Links between Entries</h3>
+<h3> 2.10 Creating Links between Entries</h3>
 <p>A new Link between two Entries can be established by referencing one Entry during creation or modification of another Entry (as described in <a href="../operations#CreatingnewEntries"> Creating new Entries</a> and <a href="../operations#UpdatingEntries">Updating Entries</a> ) or by explicitly issuing a POST request against the URL of the Link resource. The request must have the new URI in the request body following the appropriate format for stand-alone Links in XML or JSON as described in <a href="../atom-format">[OData-Atom]</a> and <a href="../json-format">[OData-JSON]</a>.</p>
 <p>Servers acknowledge the creation of the Link by returning a status code of 204 (No Content) and no response body. For example, to add a Link to an existing product to the list of products (through the "products" Link) of a given product category:</p>
 <p>Request:</p>
@@ -379,7 +379,7 @@ permalink: /documentation/odata-version-2-0/operations/
 <pre><code>HTTP/1.1 204 No Content Date: Tue, 02 Mar 2010 08:59:32 GMT DataServiceVersion: 1.0;</code></pre>
 <p>If using the OData URI conventions described in <a href="../uri-conventions">[OData-URI]</a>, the Link resource address can be derived by using the convention; otherwise it needs to be obtained from the Entry itself.</p>
 <p>Adding a Link using POST may result in only the new Link being added or it may have further side-effects. In particular, if the other end of the Link has a cardinality of 1, then the server may remove a previously existing Link (if any) in order to create this one and still satisfy the cardinality constrain.</p>
-<h3 role="heading"> 2.11 Removing Links between Entries</h3>
+<h3> 2.11 Removing Links between Entries</h3>
 <p>Existing Links may be removed by executing a DELETE request against the Link URI. Servers respond with the success status code of 204 (No Content) and no response body. For example, to delete the Link between a product and it's containing product category:</p>
 <p>Request:</p>
 <pre><code>DELETE /OData/OData.svc/Categories(1)/$links/Products(10) HTTP/1.1 Host: services.odata.org
@@ -388,7 +388,7 @@ permalink: /documentation/odata-version-2-0/operations/
 <pre><code>HTTP/1.1 204 No Content Date: Tue, 02 Mar 2010 09:09:02 GMT DataServiceVersion: 1.0;</code></pre>
 <p>Removing Links may cause further side-effects on the server. For example servers may cascade the deletion to the Entry or Entries the Link pointed to.</p>
 <p>Besides regular failures due to request correctness or permissions, the server may fail a DELETE request against a Link if deleting the Link would put the service data set in an inconsistent state (i.e. a state that is not allowed by the service schema).</p>
-<h3 role="heading"> 2.12 Replacing Links between Entries</h3>
+<h3> 2.12 Replacing Links between Entries</h3>
 <p>Clients may replace a Link with a new Link by issuing an HTTP PUT request against the Link resource URI, with the new URI in the request body following the appropriate format for stand-alone Links in XML or JSON as described in <a href="../atom-format">[OData-Atom]</a> and <a href="../json-format">[OData-JSON]</a>. Servers should update the Link if the service constraints allow it and return 204 (No Content). For example, to move a product from the product category with key "1" to the category with key "2":</p>
 <p>Request:</p>
 <pre><code>PUT /OData/OData.svc/Products(1)/$links/Category HTTP/1.1 Host: services.odata.org
@@ -416,7 +416,7 @@ permalink: /documentation/odata-version-2-0/operations/
 <p>Response:</p>
 <pre><code>HTTP/1.1 204 No Content Date: Tue, 02 Mar 2010 20:06:12 GMT DataServiceVersion: 1.0;</code></pre>
 <p>Since this is a merge operation and no actual properties are mentioned, the server should only update the Links included in the request body.</p>
-<h3 role="heading"> 2.13 Invoking Service Operations</h3>
+<h3> 2.13 Invoking Service Operations</h3>
 <p>Service Operations expose custom behaviors that do not map to the uniform interface. Service operations can be defined to take parameters, which are simple scalar values of one of the EDM primitive types as defined in <a href="../overview">[OData-Core]</a>.</p>
 <p>Clients may invoke a Service Operation by issuing an HTTP GET or POST request against their URI. If a particular Service Operation takes parameters they should be included as part of the query string in the request URI as described in the Addressing Service Operations section of <a href="../uri-conventions">[OData-URI]</a>. The name of each parameter is used as the name of the query string parameter, and its value should be in OData literal form. No "$" prefix should be used in parameters ("$" is reserved for OData parameters). For example:</p>
 <p>Request:</p>
@@ -441,8 +441,8 @@ https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/odata/odata.svc/GetProd
 &lt;/feed&gt;</code></pre>
 <p>Server implementations should only allow invocation of Service Operations through GET when the operations will not cause side-effects in the system.</p>
 <p>Service authors can choose to enable query composition in Service Operations if the operation returns a Collection of Entries. When that is the case, clients may use the URI conventions defined in <a href="../uri-conventions">[OData-URI]</a> treating the URI to the Service Operation as the URI to the initial collection, and then applying the convention from there.</p>
-<h2 role="heading">3. Additional Interaction Model Considerations</h2>
-<h3 role="heading"> 3.1 Concurrency control and ETags</h3>
+<h2>3. Additional Interaction Model Considerations</h2>
+<h3> 3.1 Concurrency control and ETags</h3>
 <p>OData uses HTTP ETags for optimistic concurrency control. A few special considerations apply for ETags:</p>
 <ul>
 <li>When retrieving an Entry the server returns an opaque ETag value
@@ -460,11 +460,11 @@ https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/odata/odata.svc/GetProd
 </li>
 </ul>
 <p>OData servers will use weak ETags often as a way of indicating that two resources may be semantically equivalent but a particular request may see a different representation of it. Clients should be prepared to handle weak and strong ETags.</p>
-<h3 role="heading"> 3.2 Method Tunneling through POST</h3>
+<h3> 3.2 Method Tunneling through POST</h3>
 <p>In many scenarios clients are limited to the HTTP GET and POST methods only. In order to help work-around this limitation, OData servers can support method tunneling through POST. The methods that can be executed through tunneling are MERGE, PUT and DELETE.</p>
 <p>To issue a request with method tunneling a client sets up a request with body and headers as needed, but uses POST as the HTTP method instead of the actual required one. It then adds one more header, "X-HTTP-Method", and gives it the value MERGE, PUT or DELETE.</p>
 <p>Servers must check if POST requests have the X-HTTP-Method header set to one of the valid values and if so execute the rest of the request as if the header value was the actual HTTP method for it.</p>
-<h3 role="heading"> 3.3 Processing entries of open types</h3>
+<h3> 3.3 Processing entries of open types</h3>
 <p>As discussed in <a href="../overview">[OData-Core]</a> the OData data model supports open types for Entries. An entry of an open type may have extra properties (dynamic properties) in addition to those statically declared in metadata.</p>
 <p>In general servers should treat dynamic properties and static properties as uniformly as possible.</p>
 <p>For data retrieval servers should include dynamic and static properties in entries and should use the same format for both, as discussed in <a href="../atom-format">[OData-Atom]</a> and <a href="../json-format">[OData-JSON]</a>.</p>

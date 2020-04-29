@@ -4,18 +4,18 @@ title: JSON Format (OData Version 2.0)
 date: 2014-02-28 03:36:01.000000000 +08:00
 permalink: /documentation/odata-version-2-0/json-format/
 ---
-<h5 role="heading" class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 2.0. 
+<h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 2.0. 
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
-<h2 role="heading">Introduction</h2>
+<h2>Introduction</h2>
 <p>OData supports two formats for representing the resources (Collections, Entries, Links, etc) it exposes: the XML-based AtomPub format and the JSON format. This document describes how OData resources are represented in JSON and <a href="../atom-format">[OData-Atom]</a> describes the AtomPub representation. The <a href="../operations#ContentTypeNegotation">content type negotiation</a> section of the <a href="../operations">[OData-Operations]</a> document describes how clients can use standard HTTP content type negotiation to tell an OData service which format it wants to use.</p>
-<h2 role="heading">1. Background</h2>
+<h2>1. Background</h2>
 <p><a href="http://www.json.org">JavaScript Object Notation (JSON)</a> is a lightweight data interchange format based on a subset of the JavaScript Programming Language standard, as specified in <a href="http://go.microsoft.com/fwlink/?LinkId=115082"> [ECMA-262]</a>. JSON is a text format that is language independent, but uses conventions that are familiar to programmers of the C-family of languages (C, C++, JavaScript, and so on). OData supports the JSON format to make consuming OData services from Javascript applications simple since JSON can be easily be turned into JavaScript objects for programmatic manipulation using the Javascript eval( ) function.</p>
-<h2 role="heading">2. Terminology</h2>
+<h2>2. Terminology</h2>
 <p>A full list of terms used by the Open Data Protocol is available on the <a href="../terminology">OData Glossary of Terms</a> page.</p>
-<h2 role="heading">3. JSON Representations</h2>
+<h2>3. JSON Representations</h2>
 <p>The following sections define how resources exposed by an OData service can be represented in requests and/or responses payloads using the JSON format. For details regarding how to create various request types (Retrieve, Create, etc) see <a href="../operations">[OData-Operations]</a> . <strong>Security Note</strong>: In responses payloads (not request payloads) all the JSON representations described in this section are wrapped by an outer most object that includes a single name/value pair. The name of the name/value pair is always "d" and the value is the JSON representation of an OData resource as described by the subsections of this document. This pattern ensures JSON payloads returned from OData services are valid JSON statements, but not valid JavaScript statements. This prevents an OData JSON response from being executed as the result of a cross site scripting (XSS) attack.</p>
-<h2 role="heading">4. Primitive Types</h2>
+<h2>4. Primitive Types</h2>
 <p>Values of an OData primitive type are represented as JSON literal values as per the table below. Note: The type system used by OData services is described in full in the <a href="../overview#AbstractTypeSystem">Abstract Type System</a> section of the <a href="../overview">[OData-Core]</a> document.</p>
 <table border="1" cellspacing="0" cellpadding="0">
 <tbody>
@@ -85,10 +85,10 @@ permalink: /documentation/odata-version-2-0/json-format/
 </tr>
 </tbody>
 </table>
-<h2 role="heading">5. Service Documents</h2>
+<h2>5. Service Documents</h2>
 <p>As described in <a href="../overview">[OData-Core]</a>, if a service exposes several Collections, then to aid discovery of those Collections by clients it is useful for the service to expose a Service Document which lists the available Collections. Service Documents are represented in JSON by an object with a single name/value pair with the name equal to "EntitySets" and the value being an array of Collection names. For example a service document with three collections would be formatted as:</p>
 {% highlight javascript %}{ "d" : { "EntitySets": ["Products", "Categories", "Suppliers"] } }{% endhighlight %}
-<h2 role="heading">6. Representing Collections of Entries</h2>
+<h2>6. Representing Collections of Entries</h2>
 <p><a href="../terminology">Collections</a> represent a set of <a href="../terminology">Entries</a>. In OData v1, Collections are represented as an array of objects, with one object for each Entry within the Collection. For example, a collection of Entries would be represented as shown below. The format of each object in the array is described in the <a href="../json-format#RepresentingEntries">Representing Entries</a> section. In OData v2, Collections are still represented as arrays, however to enable representing Collection-level metadata, the array of objects representing the set of Entries is included as the value of a "results" name/value pair.</p>
 {% highlight javascript %}OData V1: { 
   "d" : [ 
@@ -127,7 +127,7 @@ OData V2: {
     "__next": "https://services.odata.org/OData/OData.svc$skiptoken=12"
   } 
 }{% endhighlight %}
-<h2 role="heading">7. Representing Entries</h2>
+<h2>7. Representing Entries</h2>
 <p>In OData v1, Entries are represented as JSON objects with all the <a href="../terminology">properties</a> of the Entry represented as name/value pairs of the object. Alternatively, if the Entry is being represented was identified with a URI that includes a Select System Query Option, then the prior rule is relaxed such that only the properties identified by the $select query option are represented as name/value pairs. OData v2 represents Entries the same way as V1. An optional "__metadata" name/value pair is the only pair that should be included on the object that does not directly represent a Property of the Entry being represented. This name/value pair is not data, but instead, by convention defined in this document, specifies the metadata for the Entry being represented. The value of the "__metadata" name/value pair is a JSON object that contains the name/value pairs described in the table below.</p>
 <table border="1" cellspacing="0" cellpadding="0">
 <tbody>
@@ -189,9 +189,9 @@ OData V2: {
       } 
   } 
 }{% endhighlight %}
-<h2 role="heading">8. Deferred Content</h2>
+<h2>8. Deferred Content</h2>
 <p>To conserve resources (bandwidth, CPU, and so on), it is generally not a good idea for an OData service to return the full graph of Entries related to an Entry or Collection of entries as identified in a request URI. For example, an OData service should defer sending related Entries unless the client explicitly asked for them using the <a href="../uri-conventions">$expand System Query Option</a> which provides a way for a client to state related entities should be <a href="../json-format#InlineRepresentationofAssociatedEntries"> represented inline</a>. As shown in the example above, by default properties which represent <a href="../terminology">Links</a> (the "Products" property in the example) are represented as an object with a "__deferred" name/value pair to indicate the service deferred representing the related Entries. The uri name/value pair within the "__deferred" object must be provided and can be used to retrieve the deferred content.</p>
-<h2 role="heading">9. Inline Representation of Associated Entries</h2>
+<h2>9. Inline Representation of Associated Entries</h2>
 <p>As described in the <a href="../uri-conventions">$expand System Query Option section</a> of the <a href="../uri-conventions">[OData-URI]</a> document, a request URI may include the $expand query option to explicitly request that a linked to Entry or collection of Entries be serialized inline, rather than deferred. For example, a single Category Entry with its related Product Entries serialized inline as shown in the example below.</p>
 {% highlight javascript %}OData V1 and V2: { 
   "d" : { 
@@ -228,7 +228,7 @@ OData V2: {
     ] 
   } 
 } {% endhighlight %}
-<h2 role="heading">10. Representing Media Link Entries</h2>
+<h2>10. Representing Media Link Entries</h2>
 <p><a href="../terminology">Media Link Entries (MLE)</a> are represented in the same way as "plain" Entries as described in <a href="../json-format#RepresentingEntries"> Representing Entries</a>; however, they also contain additional metadata per Entry that describes the Media Resource (MR) associated with the Entry. This additional MR metadata is represented as name/value pairs of the "__metadata" object associated with the Entry.</p>
 <table border="1" cellspacing="0" cellpadding="0">
 <tbody>
@@ -259,12 +259,12 @@ OData V2: {
 </tr>
 </tbody>
 </table>
-<h2 role="heading">11. Representing Property Values</h2>
+<h2>11. Representing Property Values</h2>
 <p>As described in the <a href="../uri-conventions#ResourcePath">Resource Path</a> section in the <a href="../uri-conventions">[OData-URI]</a> document, OData supports directly addressing a Property of an Entry. The following subsections describe how each type of Property is represented in JSON.</p>
-<h2 role="heading">12. Representing Primitive Properties</h2>
+<h2>12. Representing Primitive Properties</h2>
 <p>When represented in a request/response payload as part of an Entry, Complex Type or a standalone construct in a request payload, <a href="../terminology">primitive properties</a> are represented in JSON as a name/value pair, with the name equal to the name of the property and primitive type value formatted as described by the table in the <a href="../terminology">Primitive Types</a> section above. Starting with OData V2, when a primitive property is represented as a standalone construct in a response from an OData service (such as when a retrieve request is made to a URI that identifies a single property) it is represented as the value of a "results" name/value pair. For example, the response payload to a retrieve request that identifies the Name property of a Category Entry is represented as shown below.</p>
 {% highlight javascript %}OData V2 Response Payload: { "d" : { "results": { "Name": "Bread" }{% endhighlight %}
-<h2 role="heading">13. Representing Complex Types Properties</h2>
+<h2>13. Representing Complex Types Properties</h2>
 <p>When represented as a property of an Entry or Complex Type in a request/response payload, a property whose type is a <a href="../terminology">complex type</a> is represented as a JSON object with each property of the complex type represented as a name/value pair (as described in the prior section for primitive properties). For example, the Address Complex Type of a Supplier Entry is shown in the example below. Starting with OData V2, in response payloads only, when a property whose type is a <a href="../terminology">complex type</a> is represented as a standalone construct, such as when a retrieve request is made to a URI that identifies a single property, it is represented as the value of a "results" name/value pair. For example, the response payload to a retrieve request that identifies the Name property of a Category Entry is represented as shown below.</p>
 {% highlight javascript %}OData V2 Response Payload: { 
   "d" : { 
@@ -280,11 +280,11 @@ OData V2: {
     } 
   } 
 }{% endhighlight %}
-<h2 role="heading">14. Representing the Raw value of a Property</h2>
+<h2>14. Representing the Raw value of a Property</h2>
 <p>OData services may support addressing the "raw" value of a primitive property (see the description of the $value URI segment). In this case the value is returned using the format (aka mime type) the OData service deems to be the "raw" format for the property. For example, the HTTP response from the sample OData service when retrieving the Name string property of a Category entry is shown in the example below.</p>
 {% highlight javascript %}HTTP/1.1 200 OK DataServiceVersion: 1.0; Content-Type: text/plain;charset=utf-8
   Food{% endhighlight %}
-<h2 role="heading">15. Representing Links</h2>
+<h2>15. Representing Links</h2>
 <p>A Link (or collection of Links) represents an associated Entry (or collection of associated Entries). As described in <a href="../operations">[OData-Operations]</a> Links can be retrieved and modified to change the associations between Entities. A single link is represented as a JSON object with a "uri" name/value pair with the value of the pair being the URI that identifies the Link. A collection of links is represented as a array of JSON objects with each object representing a Link. For example, a link with multiplicity 1 (ex. Product is related to a <em>single</em> Supplier) would be represented in a response as:</p>
 {% highlight javascript %}{ "d" : { "uri": "https://services.odata.org/OData/OData.svc/Suppliers(0)" } }{% endhighlight %}
 <p>For example, a link with multiplicity greater than 1 (ex. Supplier is related to <em>many</em> products) would be represented in a response as:</p>
@@ -305,7 +305,7 @@ OData V2 Response Payload: {
     "__count": "3" 
   } 
 }{% endhighlight %}
-<h2 role="heading">16. Representing Results from Service Operations</h2>
+<h2>16. Representing Results from Service Operations</h2>
 <p>As described in <a href="../operations">[OData-Operations]</a> OData service may expose custom behaviors via Service Operations. As described in <a href="../uri-conventions">[OData-URI]</a> the input parameters to Service Operations are identified by the request URI. This section specifies how the results of a Service Operation are formatted using JSON. Service operations support returning:</p>
 <ul>
 <li>A single primitive value or collection of primitive values</li>
