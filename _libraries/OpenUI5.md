@@ -7,4 +7,4 @@ downloads:
   - source: openui5.org
     link: http://openui5.org/
 ---
-OpenUI5 is a JavaScript library maintained by SAP SE that is designed for building interactive business aplications. It supports data binding using OData protocol.
+OpenUI5 is a JavaScript library maintained by SAP SE that is designed for building interactive business applications. It supports data binding using OData protocol.
