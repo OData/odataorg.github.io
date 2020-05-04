@@ -7,12 +7,12 @@ permalink: /documentation/odata-version-2-0/uri-conventions/
 <h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 2.0. 
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
-<h2 role="heading">Introduction</h2>
+<h2>Introduction</h2>
 <p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Identifiers (URIs) and defined in a <a href="../overview#ODataBasics">data model</a>, to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URIs to identify the data and metadata exposed by an OData server as well as a set of reserved URI query string operators, which if accepted by an OData server, MUST be implemented as required by this document.</p>
 <p>The <a href="../atom-format">[OData:Atom]</a> and <a href="../json-format">[OData:JSON]</a> documents specify the format of the resource representations that are exchanged using OData and the <a href="../operations">[OData:Operations]</a> document describes the actions that can be performed on the URIs (optionally constructed following the conventions defined in this document) embedded in those representations.</p>
 <p>It is encouraged that servers follow the URI construction conventions defined in this specification when possible as such consistency promotes an ecosystem of reusable client components and libraries.</p>
 <p>The terms used in this document are defined in the <a href="../terminology">[OData:Terms]</a> document.</p>
-<h2 role="heading">1. URI Components</h2>
+<h2>1. URI Components</h2>
 <p>A URI used by an OData service has up to three significant parts: the <a href="../uri-conventions#ServiceRootUri"> service root URI</a>, <a href="../uri-conventions#ResourcePath">resource path</a> and <a href="../uri-conventions#QueryStringOptions"> query string options</a>. Additional URI constructs (such as a fragment) MAY be present in a URI used by an OData service; however, this specification applies no further meaning to such additional constructs.</p>
 <p><a href="/assets/ODataUri.png"><img src="/assets/ODataUri.png" alt="ODataUri" width="714" height="32" class="aligncenter size-full wp-image-1831" /></a></p>
 <p>The following are two example URIs broken down into their component parts:</p>
@@ -22,7 +22,7 @@ https://services.odata.org/OData/OData.svc/Category(1)/Products?$top=2&amp;$orde
 _______________________________________/ __________________/  _________________/
                    |                                |                    |
              service root URI                  resource path        query options</pre>
-<h2 role="heading">2. Service Root URI</h2>
+<h2>2. Service Root URI</h2>
 <p>The service root URI identifies the root of an OData service. The resource identified by this URI MUST be an AtomPub Service Document (as specified in [RFC5023]) and follow the OData conventions for AtomPub Service Documents (or an alternate representation of an Atom Service Document if a different format is requested). OData: JSON Format specifies such an alternate JSON-based representation of a service document. The service document is required to be returned from the root of an OData service to provide clients with a simple mechanism to enumerate all of the collections of resources available for the data service.</p>
 <div>
 <table border="1" cellspacing="0" cellpadding="0">
@@ -42,10 +42,10 @@ _______________________________________/ __________________/  _________________/
 </tbody>
 </table>
 </div>
-<h2 role="heading">3. Resource Path</h2>
+<h2>3. Resource Path</h2>
 <p>The resource path construction rules defined in this section are optional. OData servers are encouraged to follow the URI path construction rules (in addition to the required query string rules) as such consistency promotes a rich ecosystem of reusable client components and libraries.</p>
 <p>The resource path section of a URI identifies the resource to be interacted with (such as Customers, a single Customer, Orders related to Customers in London, and so forth). The resource path enables any aspect of the data model (Collections of Entries, a single Entry, Properties, Links, Service Operations, and so on) exposed by an OData service to be addressed.</p>
-<h3 role="heading">3.1. Addressing Entries</h3>
+<h3>3.1. Addressing Entries</h3>
 <hr />
 <p>The basic rules for addressing a Collection (of Entries), a single Entry within a Collection, as well as a property of an Entry are illustrated in the figure below.</p>
 <p><a href="/assets/ResourcePath.png" rel="attachment wp-att-9621"><img class="wp-image-9621" alt="ResourcePath" src="/assets/ResourcePath.png" width="1154" height="101" /></a></p>
@@ -97,7 +97,7 @@ _______________________________________/ __________________/  _________________/
 <ul>
 <li>Same as the URI above, but identifies the "raw value" of the City property.</li>
 </ul>
-<h3 role="heading"> 3.2. Addressing Links between Entries</h3>
+<h3> 3.2. Addressing Links between Entries</h3>
 <hr />
 <p>Much like the use of links on Web pages, the data model used by OData services supports relationships as a first class construct. For example, an OData service could expose a Collection of Products Entries each of which are related to a Category Entry.</p>
 <p>Associations between Entries are addressable in OData just like Entries themselves are (as described above). The basic rules for addressing relationships are shown in the following figure.</p>
@@ -117,7 +117,7 @@ _______________________________________/ __________________/  _________________/
 <li>Identifies the Category related to Product 1.</li>
 <li>Is described by the Navigation Property named "Category" on the "Product" Entity Type in the associated service metadata document.</li>
 </ul>
-<h3 role="heading"> 3.3. Addressing Service Operations</h3>
+<h3> 3.3. Addressing Service Operations</h3>
 <hr />
 <p>OData services can expose Service Operations which, like Entries, are identified using a URI. Service Operations are simple functions exposed by an OData service whose semantics are defined by the author of the function. A Service Operation can accept primitive type input parameters and can be defined to return a single primitive, single complex type, collection of primitives, collection of complex types, a single Entry, a Collection of Entries, or void. The basic rules for constructing URIs to address Service Operations and to pass parameters to them are illustrated in the following figure.</p>
 <p><a href="/assets/addressingServiceOperations.png" rel="attachment wp-att-9871"><img class="wp-image-9871" alt="addressingServiceOperations" src="/assets/addressingServiceOperations.png" width="644" height="48" /></a></p>
@@ -154,13 +154,13 @@ _______________________________________/ __________________/  _________________/
 <li>Identifies the ProductColors Service Operation that accepts no parameters.</li>
 <li>Is described by the Function Import named "ProductColors" in the service metadata document. This function returns a collection of strings.</li>
 </ul>
-<h2 role="heading">4. Query String Options</h2>
+<h2>4. Query String Options</h2>
 <p>The Query Options section of an OData URI specifies three types of information: <a href="../uri-conventions#SystemQueryOptions">System Query Options</a>, <a href="../uri-conventions#CustomerQueryOptions"> Custom Query Options</a>, and <a href="../uri-conventions#ServiceOperationParameters">Service Operation Parameters</a>. All OData services must follow the query string parsing and construction rules defined in this section and its subsections.</p>
-<h3 role="heading">4.1. System Query Options</h3>
+<h3>4.1. System Query Options</h3>
 <hr />
 <p>System Query Options are query string parameters a client may specify to control the amount and order of the data that an OData service returns for the resource identified by the URI. The names of all System Query Options are prefixed with a "$" character.</p>
 <p>An OData service may support some or all of the System Query Options defined. If a data service does not support a System Query Option, it must reject any requests which contain the unsupported option as defined by the request processing rules in <a href="../operations">[OData:Operations]</a>.</p>
-<h3 role="heading"> 4.2. Orderby System Query Option ($orderby)</h3>
+<h3> 4.2. Orderby System Query Option ($orderby)</h3>
 <hr />
 <p>A data service URI with a $orderby System Query Option specifies an expression for determining what values are used to order the collection of Entries identified by the Resource Path section of the URI. This query option is only supported when the resource path identifies a Collection of Entries.</p>
 <p>The $orderby section of the normative OData specification outlines the full expression syntax supported by this query option. The examples below represent the most commonly supported subset of that expression syntax.</p>
@@ -177,7 +177,7 @@ _______________________________________/ __________________/  _________________/
 <ul>
 <li>Same as the URI above except the set of Products is subsequently sorted (in descending order) by the Name property of the related Category Entry.</li>
 </ul>
-<h3 role="heading">4.3. Top System Query Option ($top)</h3>
+<h3>4.3. Top System Query Option ($top)</h3>
 <hr />
 <p>A data service URI with a $top System Query Option identifies a subset of the Entries in the Collection of Entries identified by the Resource Path section of the URI. This subset is formed by selecting only the first N items of the set, where N is an integer greater than or equal to zero specified by this query option. If a value less than zero is specified, the URI should be considered malformed.</p>
 <p>If the data service URI contains a $top query option, but does not contain a $orderby option, then the Entries in the set needs to first be fully ordered by the data service. While no ordering semantics are mandated, to ensure repeatable results, a data service must always use the same semantics to obtain a full ordering across requests.</p>
@@ -190,7 +190,7 @@ _______________________________________/ __________________/  _________________/
 <ul>
 <li>The first 5 Product Entries returned in descending order when sorted by the Name property.</li>
 </ul>
-<h3 role="heading"> 4.4. Skip System Query Option ($skip)</h3>
+<h3> 4.4. Skip System Query Option ($skip)</h3>
 <hr />
 <p>A data service URI with a $skip System Query Option identifies a subset of the Entries in the Collection of Entries identified by the Resource Path section of the URI. That subset is defined by seeking N Entries into the Collection and selecting only the remaining Entries (starting with Entry N+1). N is an integer greater than or equal to zero specified by this query option. If a value less than zero is specified, the URI should be considered malformed.</p>
 <p>If the data service URI contains a $skip query option, but does not contain a $orderby option, then the Entries in the Collection must first be fully ordered by the data service. While no ordering semantics are mandated, to ensure repeatable results a data service must always use the same semantics to obtain a full ordering across requests.</p>
@@ -203,7 +203,7 @@ _______________________________________/ __________________/  _________________/
 <ul>
 <li>The third and fourth Product Entry from the collection of all products when the collection is sorted by Rating (ascending).</li>
 </ul>
-<h3 role="heading"> 4.5. Filter System Query Option ($filter)</h3>
+<h3> 4.5. Filter System Query Option ($filter)</h3>
 <hr />
 <p>A URI with a $filter System Query Option identifies a subset of the Entries from the Collection of Entries identified by the <a href="../uri-conventions#ResourcePath">Resource Path</a> section of the URI. The subset is determined by selecting only the Entries that satisfy the predicate expression specified by the query option.</p>
 <p>The expression language that is used in $filter operators supports references to properties and literals. The literal values can be strings enclosed in single quotes, numbers and boolean values (true or false) or any of the additional literal representations shown in the <a href="../overview#AbstractDataModel">Abstract Type System</a> section.</p>
@@ -431,7 +431,7 @@ _______________________________________/ __________________/  _________________/
 </tbody>
 </table>
 </div>
-<h3 role="heading"> 4.6. Expand System Query Option ($expand)</h3>
+<h3> 4.6. Expand System Query Option ($expand)</h3>
 <hr />
 <p>A URI with a $expand System Query Option indicates that Entries associated with the Entry or Collection of Entries identified by the Resource Path section of the URI must be represented inline (i.e. eagerly loaded). For example, if you want to identify a category and its products, you could use two URIs (and execute two requests), one for /Categories(1) and one for /Categories(1)/Products. The '$expand' option allows you to identify related Entries with a single URI such that a graph of Entries could be retrieved with a single HTTP request.</p>
 <p>The syntax of a $expand query option is a comma-separated list of Navigation Properties. Additionally each Navigation Property can be followed by a forward slash and another Navigation Property to enable identifying a multi-level relationship.</p>
@@ -452,7 +452,7 @@ _______________________________________/ __________________/  _________________/
 <li>Identifies the set of Products as well as the category and suppliers associated with each product.</li>
 <li>Is described by the Entity Set named "Products" as well as the "Category" and "Suppliers" Navigation Property on the "Product" Entity Type in the service metadata document.</li>
 </ul>
-<h3 role="heading"> 4.7. Format System Query Option ($format)</h3>
+<h3> 4.7. Format System Query Option ($format)</h3>
 <hr />
 <p>A URI with a $format System Query Option specifies that a response to the request MUST use the media type specified by the query option. If the $format query option is present in a request URI it takes precedence over the value(s) specified in the Accept request header. Valid values for the $format query string option are listed in the following table.</p>
 <div>
@@ -494,7 +494,7 @@ _______________________________________/ __________________/  _________________/
 <ul>
 <li>Identifies all Product Entries represented using the JSON format as defined in <a href="../json-format">[OData:JSON]</a></li>
 </ul>
-<h3 role="heading"> 4.8. Select System Query Option ($select)</h3>
+<h3> 4.8. Select System Query Option ($select)</h3>
 <hr />
 <p>A data service URI with a $select System Query Option identifies the same set of Entries as a URI without a $select query option; however, the value of $select specifies that a response from an OData service should return a subset of the Properties which would have been returned had the URI not included a $select query option.</p>
 <p>Version Note: This query option is only supported in OData version 2.0 and above.</p>
@@ -523,7 +523,7 @@ _______________________________________/ __________________/  _________________/
 <li>In a response from an OData service, the Name property is included and Product Entries with all Properties are included; however, rather than including the fully expanded Supplier Entries referenced in the expand clause, each Product will contain a link that references the corresponding Collection of Supplier Entries.</li>
 </ul>
 <p>Note: The $select section of the <a href="https://www.odata.org/media/6655/[mc-apdsu][1].htm">normative OData specification</a> provides an ABNF grammar for the expression language supported by this query option.</p>
-<h3 role="heading"> 4.9. Inlinecount System Query Option ($inlinecount)</h3>
+<h3> 4.9. Inlinecount System Query Option ($inlinecount)</h3>
 <hr />
 <p>A URI with a $inlinecount System Query Option specifies that the response to the request includes a count of the number of Entries in the Collection of Entries identified by the <a href="../uri-conventions#ResourcePath">Resource Path</a> section of the URI. The count must be calculated after applying any <a href="../uri-conventions#FilterSystemQueryOption">$filter System Query Options</a> present in the URI. The set of valid values for the $inlinecount query option are shown in the table below. If a value other than one shown in Table 4 is specified the URI is considered malformed.</p>
 <p>Version Note: This query option is only supported in OData version 2.0 and above</p>
@@ -554,19 +554,19 @@ _______________________________________/ __________________/  _________________/
 <ul>
 <li>Identifies the first 10 Product Entries that cost more than 200 and includes a count of the total number of Product Entries that cost more than 200.</li>
 </ul>
-<h2 role="heading">5. Custom Query Options</h2>
+<h2>5. Custom Query Options</h2>
 <p>Custom Query Options provide an extension point for OData service-specific information to be placed in the query string portion of a URI. A Custom Query String option is defined as any name/value pair query string parameter where the name of the parameter does not begin with the "$" character. Any URI exposed by an OData service may include one or more Custom Query Options.</p>
 <p>Examples</p>
 <p><a href="https://services.odata.org/OData/OData.svc/Products?x=y">https://services.odata.org/OData/OData.svc/Products?x=y</a></p>
 <ul>
 <li>Identifies all Product entities. Includes a Custom Query Option "x" whose meaning is service specific.</li>
 </ul>
-<h2 role="heading"> 6. Service Operation Parameters</h2>
+<h2> 6. Service Operation Parameters</h2>
 <p>Service Operations represent functions exposed by an OData service. These functions may accept zero or more primitive type parameters. If a Service Operation requires an input parameter those parameters are passed via query string name/value pairs appended to the URI which identify the Service Operation as described in the <a href="../uri-conventions#AddressingServiceOperations"> Addressing Service Operations</a> section. For nullable type parameters, a null value may be specified by not including the parameter in the query string of the URI.</p>
 <p>Examples</p>
 <p><a href="https://services.odata.org/OData/OData.svc/GetProductsByRating?rating=5">https://services.odata.org/OData/OData.svc/GetProductsByRating?rating=5</a></p>
 <ul>
 <li>Identifies the "GetProductsByRating" Service Operation and specifies a value of 5 for the "rating" input parameter.</li>
 </ul>
-<h2 role="heading">7. URI Equivalence</h2>
+<h2>7. URI Equivalence</h2>
 <p>When determining if two URIs are equivalent, each URI SHOULD be normalized using the rules specified in <a href="http://tools.ietf.org/html/rfc3987">[RFC3987]</a> and <a href="http://tools.ietf.org/html/rfc3986">[RFC3986]</a> and then compared for equality using the equivalence rules specified in <a href="http://tools.ietf.org/html/rfc2616#section-3.2.3"> HTTP [RFC 2616], Section 3.2.3</a>.</p>
