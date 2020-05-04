@@ -160,10 +160,10 @@
     var controls = tab.getAttribute('aria-controls');
 
     // Remove hidden attribute from tab panel to make it visible
-	if(document.getElementById(controls))
-	{
-		document.getElementById(controls).removeAttribute('hidden');
-	}
+    if(document.getElementById(controls))
+    {
+      document.getElementById(controls).removeAttribute('hidden');
+    }
 
     // Set focus when required
     if (setFocus) {
