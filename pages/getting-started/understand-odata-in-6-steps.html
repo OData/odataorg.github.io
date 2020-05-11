@@ -1355,10 +1355,10 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
 <script>
     $(document).ready(function() {
        $('.modal').on('shown.bs.modal', function () {
-            $('.btn-default').focus();
+            $('.close').focus();
+            trapFocus(this)
             $(this).find(".modal-body").attr("tabindex", 0);
        });
-
         // make it possible to tab to response content inside popups for keyboard users
         $(".modal-body pre").attr("tabindex", 0);
         $(".modal-body").attr("aria-label", "Response body");
@@ -1380,4 +1380,37 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
             modalBody.insertBefore(screenReaderContent, modalBody.firstChild);
         });
     });
+
+    function trapFocus(element) {
+        var focusableElements = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'),
+        firstFocusableElement = focusableElements[0];  
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+        KEYCODE_TAB = 9;
+
+        element.addEventListener('keydown', function(e) {
+            var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
+
+            if (!isTabPressed) { 
+                return; 
+            }
+
+            if ( e.shiftKey )
+            {
+                if (document.activeElement === firstFocusableElement) 
+                {
+                    lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } 
+                else
+                {
+                    if (document.activeElement === lastFocusableElement) 
+                    {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+
+            });
+        }
 </script>
