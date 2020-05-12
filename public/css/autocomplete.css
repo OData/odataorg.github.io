@@ -8,6 +8,12 @@ form input.st-search-input {
     outline: none;
     background: #fcfcfc url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUFJREFUeNqU0j0oRWEcx/Hj3ifvlMHL7C1lY7mDwUBKkoksBjKJxWIQu7xlOybDLVGukhhMZDFbxGBS8nIjKR3E96nf0dPjuuVfn+6tc35P//P8/yYMw8CpbgygGQlcYw8H+Ai8MvotxQImgt81hk1M4cEPF2IV43jCGo7wjk5MYhhlGMKbG+7BKO4wiGPn8DO1vIN+jGA9fpjQaUksecG4zjGPL3VQ5IZb9OAw+LtO1FkjatxwUuEoTzjSbRu9/xO+0W97nnArqvXuoxve1/9p1OUIlmNGU7EX9+KGt3GKNuyiC5WoQAe2NJFP3PpzzmoR0khpxle6h3pnkeKJPCPjbtglerVFfWhSVxfqJtK4qrChTMY4XdjVm9O21aIA92LrFcv6HHtAsclxQVnxa0WfsqgDUib4X9muStCA2W8BBgDJ0EeGeFZ8WAAAAABJRU5ErkJggg==) no-repeat 7px 7px;
 }
+.autocomplete-result__title{
+    color: #ff9900;
+}
+.autocomplete-result__description{
+    color: #6c757d;
+}
 
 .swiftype-widget .autocomplete {
     font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -43,6 +49,9 @@ form input.st-search-input {
     text-align: left;
 }
 
+.swiftype-widget .autocomplete li > a:hover {
+    text-decoration: none;
+}
 .swiftype-widget .autocomplete li {
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #fff;

@@ -5,24 +5,6 @@
 <script src="{{'/public/site.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 
 <script src="{{'/public/skipto.min.js' | prepend: site.baseurl | prepend: site.url}}" type="text/javascript"></script>
-
-<script type="text/javascript">
-    var SkipToConfig = {
-        settings: {
-            skipTo: {
-                headings: "h1, h2, h3, h4",
-                main: "main, [role=main]",
-                landmarks: "[role=navigation], [role=search]",
-                sections: "nav",
-                accesskey: "0",
-                wrap: "true",
-                visibility: "onfocus",
-                attachElement: ".skip-nav-elements"
-            }
-        }
-    };
-</script>
-<script src="{{'/public/skipto.min.js' | prepend: site.baseurl | prepend: site.url}}" type="text/javascript"></script>
 <script type="text/javascript"
         src="{{'/public/jquery.swiftype.search.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 <script type="text/javascript"
@@ -44,7 +26,8 @@
                 }
             }
         });
-        var segementedAutocompleteDropDown = function (ctx, data) {
+
+        var renderResults = function (ctx, data) {
             var results = [];
 
             $.each(data, function (docType, opts) {
@@ -53,7 +36,7 @@
                     results.push(result);
                 });
             });
-            var segment_two_list = $(
+            var dropdown = $(
                 '<div class="autocomplete__segment">' +
                 '<ul id="search-results" class="autocomplete__segment-header"  role="listbox"\n' +
                 '      aria-label="Search Results"></ul>' +
@@ -71,19 +54,19 @@
                 }
 
                 return $(
-                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + title + '"><a href="' + url + '">' +
-                    '<span\n        class="autocomplete-result__title">' + title + '</span> <br>' +
-                    '<small class="autocomplete-result__description muted" aria-label="' + section + '">' + section + '</small>' +
+                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + section + '"><a href="' + url + '">' +
+                    '<span\n        class="autocomplete-result__title">' + section + '</span> <br>' +
+                    '<small class="autocomplete-result__description muted" aria-label="' + title + '">' + title + '</small>' +
                     '</a>\n</li>'
                 );
             }
 
             $.each(results, function (idx, item) {
-                ctx.registerResult(renderResult(item).appendTo(segment_two_list), item);
+                ctx.registerResult(renderResult(item).appendTo(dropdown), item);
             });
 
             if (results.length > 0) {
-                segment_two_list.appendTo(ctx.list);
+                dropdown.appendTo(ctx.list);
             }
 
             $('#search').attr('aria-expanded', true);
@@ -99,11 +82,10 @@
             $('#search-results > li> a').on('click', function () {
                 $('#search').attr('aria-expanded', false);
             });
-            console.log(results, data);
         };
 
         $('#search').swiftype({
-            resultRenderFunction: segementedAutocompleteDropDown,
+            resultRenderFunction: renderResults,
             suggestionListType: 'div',
             resultLimit: 10,
             resultListSelector: '.autocomplete-result',
