@@ -1380,40 +1380,38 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
             modalBody.insertBefore(screenReaderContent, modalBody.firstChild);
         });
     });
-
+       
+    //function to trap focus within the pop up window.
     function trapFocus(element) {
         var focusableElements = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'),
-        if(focusableElements.length != 0)
-        {
-            firstFocusableElement = focusableElements[0];  
-            lastFocusableElement = focusableElements[focusableElements.length - 1];
-            KEYCODE_TAB = 9;
+        firstFocusableElement = focusableElements[0];  
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+        KEYCODE_TAB = 9;
 
-            element.addEventListener('keydown', function(e) {
-                var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
+        element.addEventListener('keydown', function(e) {
+            var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
 
-                if (!isTabPressed) { 
-                    return; 
-                }
+            if (!isTabPressed) { 
+                return; 
+            }
 
-                if ( e.shiftKey )
+            if ( e.shiftKey )
+            {
+                if (document.activeElement === firstFocusableElement) 
                 {
-                    if (document.activeElement === firstFocusableElement) 
-                    {
-                        lastFocusableElement.focus();
-                        e.preventDefault();
-                    }
-                } 
-                else
-                {
-                    if (document.activeElement === lastFocusableElement) 
-                    {
-                        firstFocusableElement.focus();
-                        e.preventDefault();
-                    }
+                    lastFocusableElement.focus();
+                    e.preventDefault();
                 }
+            } 
+            else
+            {
+                if (document.activeElement === lastFocusableElement) 
+                {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
 
-            });
-        }
+        });
     }
 </script>
