@@ -4,12 +4,12 @@ title: JSON Verbose Format (OData Version 3.0)
 date: 2014-02-20 08:15:04.000000000 +08:00
 permalink: /documentation/odata-version-3-0/json-verbose-format/
 ---
-<h5 class="alert alert-success" role="heading">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
+<h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
 <p>OData is released under the <a href="http://www.microsoft.com/openspecifications/en/us/programs/osp/default.aspx">Open Specification Promise</a> to allow anyone to freely interoperate with OData implementations.<br />
 Current Revision: 4/27/2012</p>
-<h1 id="overview" role="heading">Overview</h1>
+<h1 id="overview">Overview</h1>
 <p>The OData protocol is comprised of a set of specifications for representing and interacting with structured content. The core specification for the protocol is in core; this document is an extension of the core protocol. This document defines representations for the OData requests and responses using a verbose JSON format.</p>
 <p>An OData JSON payload may represent:</p>
 <ul>
@@ -25,20 +25,20 @@ Current Revision: 4/27/2012</p>
 <li>a set of responses returned from a batch request</li>
 </ul>
 <p>Most payloads are represented identically in requests and responses. There are some differences. This document first defines the common formats, then discusses details that are specific to request or response.</p>
-<h1 id="notationalconventions" role="heading">2. Notational Conventions</h1>
+<h1 id="notationalconventions">2. Notational Conventions</h1>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [<a title="Key words for use in RFCs to Indicate Requirement Levels" href="http://tools.ietf.org/html/rfc2119">RFC2119</a>].</p>
-<h2 id="normativereferences" role="heading">2.1 Normative References</h2>
+<h2 id="normativereferences">2.1 Normative References</h2>
 <ul>
 <li>Normative reference to the OData core document</li>
 <li>Normative reference to the ABNF for OData</li>
 <li>Normative reference to the JSON specification</li>
 </ul>
-<h2 id="informationalexamples" role="heading">2.2 Informational Examples</h2>
+<h2 id="informationalexamples">2.2 Informational Examples</h2>
 <p>This document contains many example JSON payloads or partial JSON payloads. These examples are informative only. The text shall be taken as the normative specification.</p>
-<h1 id="requestingverbosejsonformat" role="heading">3 Requesting Verbose JSON Format</h1>
+<h1 id="requestingverbosejsonformat">3 Requesting Verbose JSON Format</h1>
 <p>Verbose JSON is not the default OData format. To receive responses in Verbose JSON, the client MUST explicitly ask for them.</p>
 <p>To request this format using $format, use the value <code>jsonverbose</code>. To request this format using the Accept header, use the MIME type <code>application/json;odata=verbose</code>.</p>
-<h2 id="clientserviceformatcompatibilityandversions" role="heading">3.1 Client/Service Format Compatibility and Versions</h2>
+<h2 id="clientserviceformatcompatibilityandversions">3.1 Client/Service Format Compatibility and Versions</h2>
 <p>Prior to version 3.0, Verbose JSON format was simply the only OData JSON format. In version 3.0 and later, JSON is the default JSON format.</p>
 <p>A request with Accept header <code>application/json</code> or with a $format value of <code>json</code> MUST be treated as a request for the service’s default JSON format.</p>
 <p>Therefore, such a request on a version 1.0 or 2.0 service, or if specified with a MaxDataServiceVersion header of 1.0 or 2.0 will result in Verbose JSON. However, a request for default JSON on a version 3.0 or higher service with a MaxDataServiceVersion of 3.0 or higher will result in JSON</p>
@@ -56,15 +56,15 @@ Accept: application/json;odata=verbose
 Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 {% endhighlight %}
 <p>Optionally, Atom can be added as a further fallback in case the service supports neither JSON format.</p>
-<h1 id="commonpayloadformat" role="heading">4 Common Payload Format</h1>
+<h1 id="commonpayloadformat">4 Common Payload Format</h1>
 <p>This section describes the representation for OData values in Verbose JSON. A request or response body consists of several parts. It contains OData values as part of a larger document. See Request Formats and Response Formats for the specification of request and response bodies.</p>
-<h2 id="representinganentity" role="heading">4.1 Representing an Entity</h2>
+<h2 id="representinganentity">4.1 Representing an Entity</h2>
 <p>An instance of an entity type MUST be serialized as a JSON object.</p>
 <p>Each Property to be transmitted MUST be represented as a name/value pair within the object. See <a href="../json-verbose-format#representingapropertyinarequest">Representing a Property</a> for details. The order Properties appear within the object MUST be considered insignificant. Name/value pairs not representing a property defined on the entity type SHOULD NOT be included.</p>
 <p>An entity in a payload MAY be a complete entity, a projected entity (see <code>$select</code>), or a partial entity update (see Patch). A complete entity MUST transmit every property, including navigation properties. A projected entity MUST transmit the requested properties and MAY transmit other properties. A partial entity MUST transmit the properties that it intends to change; it MUST NOT transmit any other properties.</p>
 <p>The name in a property’s name/value MUST NOT be <code>__metadata</code>. There is no JSON Verbose representation for a property named <code>__metadata</code>.</p>
 <p>An entity JSON object MAY include a name/value pair named <code>__metadata</code>. This name/value pair does not represent a property. It specifies the metadata for the entity. The ordering of this name/value pair with respect to name/value pairs that represent properties MUST be considered insignificant.</p>
-<h3 id="entitymetadata" role="heading">4.1.1 Entity Metadata</h3>
+<h3 id="entitymetadata">4.1.1 Entity Metadata</h3>
 <p>The value of the <code>__metadata</code> property MUST be a JSON object.</p>
 <p>In OData 1.0 and OData 2.0, the value of the <code>__metadata</code> property contains up to seven name/value pairs: <code>uri</code>, <code>type</code>, <code>etag</code>, <code>edit_media</code>, <code>media_src</code>, <code>media_etag</code>, and <code>content_type</code>. In OData 3.0, four more name/value pairs are added: <code>properties</code>, <code>actions</code>, <code>functions</code>, and <code>id</code>. The order of these name/value pairs MUST be considered insignificant.</p>
 <p>If the entity is not a Media Link Entry, then the <code>edit_media</code>, <code>media_src</code>, <code>media_etag</code>, and <code>content_type</code> name/value pairs MUST NOT be included.</p>
@@ -76,24 +76,24 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 <p>The <code>actions</code> name/value pair MAY be included in a response if the service is advertising actions. See <a href="../json-verbose-format#entitymetadataforactions">Entity Metadata for Actions</a> for details.</p>
 <p>The <code>functions</code> name/value pair MAY be included in a response if the service is advertising functions. See <a href="../json-verbose-format#entitymetadataforfunctions">Entity Metadata for Functions</a> for details.</p>
 <p>The <code>actions</code> and <code>functions</code> name/value pairs MAY be included in request payloads. In requests they are without meaning and MUST be ignored by the service.</p>
-<h4 id="entitymetadataformedialinkentries" role="heading">4.1.1.1 Entity Metadata for Media Link Entries</h4>
+<h4 id="entitymetadataformedialinkentries">4.1.1.1 Entity Metadata for Media Link Entries</h4>
 <p>If the entity is a media link entity, the <code>media_src</code> name/value pair MUST be included and the <code>edit_media</code>, <code>content_type</code>, and <code>media_etag</code> name/value pairs MAY be included.</p>
 <p>The value of the <code>media_src</code> name/value pair MUST be the source URI for the data corresponding to this MLE.</p>
 <p>The value of the <code>content_type</code> name/value pair SHOULD be the MIME type of the data corresponding to this MLE. This is only a hint. The actual content type will be included in a header when the resource is requested.</p>
 <p>The value of the <code>edit_media</code> name/value pair MUST be the edit URI for the data corresponding to this MLE.</p>
 <p>The value of the <code>media_etag</code> name/value pair MUST be the concurrency token for the data corresponding to this MLE.</p>
-<h4 id="entitymetadataforactions" role="heading">4.1.1.2 Entity Metadata for Actions</h4>
+<h4 id="entitymetadataforactions">4.1.1.2 Entity Metadata for Actions</h4>
 <p>Starting in the OData 3.0 protocol, the <code>actions</code> name/value pair MAY be included in <code>__metadata</code>. The value is a JSON object that contains action advertisement name/value pairs. See <a href="../json-verbose-format#advertisementforafunctionoraction">Advertisement for a Function or Action</a> for details.</p>
-<h4 id="entitymetadataforfunctions" role="heading">4.1.1.3 Entity Metadata for Functions</h4>
+<h4 id="entitymetadataforfunctions">4.1.1.3 Entity Metadata for Functions</h4>
 <p>Starting in the OData 3.0 protocol, the <code>functions</code> name/value pair MAY be included in <code>__metadata</code>. The value is a JSON object that contains function advertisement name/value pairs. See <a href="../json-verbose-format#advertisementforafunctionoraction">Advertisement for a Function or Action</a> for details.</p>
 <p>The name MUST only identify functions that are bindable to the current entity type. If overloads exist that cannot be bound to the current entity type, the name SHOULD address a specific function overload.</p>
 <p>If all function overloads can be bound to the current entity type, the service SHOULD advertise a single function Metadata URL that identifies all of the overloads.</p>
-<h2 id="representinganavigationproperty" role="heading">4.2 Representing a Navigation Property</h2>
+<h2 id="representinganavigationproperty">4.2 Representing a Navigation Property</h2>
 <p>A navigation property represents a reference from a source entity to zero or more other entities.</p>
 <p>There are two representations for a navigation property: deferred and expanded. The deferred representation represents each related entity with a URI. The expanded representation represents each related entity with its expanded contents.</p>
 <p>By default, a service SHOULD represent each navigation property in the deferred format. This conserves resources.</p>
 <p>A client MAY request that a navigation property be expanded, using a combination of $expand and $select. The service MUST represent each navigation property so requested in the expanded format.</p>
-<h3 id="exampledeferrednavigationproperty" role="heading">4.2.1 Example Deferred Navigation Property</h3>
+<h3 id="exampledeferrednavigationproperty">4.2.1 Example Deferred Navigation Property</h3>
 {% highlight javascript %}{
     "CustomerID": "ALFKI",
     "Orders":  {
@@ -110,7 +110,7 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
     }
 }
 {% endhighlight %}
-<h3 id="exampleexpandednavigationproperty" role="heading">4.2.2 Example Expanded Navigation Property</h3>
+<h3 id="exampleexpandednavigationproperty">4.2.2 Example Expanded Navigation Property</h3>
 {% highlight javascript %}{
     "CustomerID": "ALFKI",
     "Orders": {
@@ -132,21 +132,21 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
     }
 }
 {% endhighlight %}
-<h3 id="representingadeferrednavigationproperty" role="heading">4.2.3 Representing a Deferred Navigation Property</h3>
+<h3 id="representingadeferrednavigationproperty">4.2.3 Representing a Deferred Navigation Property</h3>
 <p>A deferred navigation property is represented as a name/value pair. The name MUST be the name of the property. The value must be a JSON object.</p>
 <p>The value must contain a single name/value pair. This name MUST be <code>__deferred</code>. The inner value MUST be another JSON object.</p>
 <p>The inner JSON Object must contain a single name/value pair. The name must be <code>uri</code>. The value must be the URI for the navigation property (this is not the NavigationLink URI).</p>
 <p>See <a href="../json-verbose-format#exampledeferrednavigationproperty">Example Deferred Navigation Property</a> for an example.</p>
-<h3 id="representinganexpandednavigationproperty" role="heading">4.2.4 Representing an Expanded Navigation Property</h3>
+<h3 id="representinganexpandednavigationproperty">4.2.4 Representing an Expanded Navigation Property</h3>
 <p>An expanded navigation property is represented as a name/value pair. The name MUST be the name of the property.</p>
 <p>The value MUST be the correct representation of the related entity or entity set. See <a href="../json-verbose-format#representinganentity">Representing an Entity</a>, <a href="../json-verbose-format#representingmultipleentitiesinaresponse">Representing Multiple Entities in a Response</a>, or <a href="../json-verbose-format#representingmultipleentitiesinarequest">Representing Multiple Entities in a Request</a> for details.</p>
 <p>See <a href="../json-verbose-format#exampleexpandednavigationproperty">Example Expanded Navigation Property</a> for an example.</p>
-<h2 id="representingnavigationpropertymetadata" role="heading">4.3 Representing Navigation Property Metadata</h2>
+<h2 id="representingnavigationpropertymetadata">4.3 Representing Navigation Property Metadata</h2>
 <p>Metadata for a navigation property is represented as a name/value pair.</p>
 <p>The name MUST be the property’s name.</p>
 <p>The value MUST be a JSON object containing a single name/value pair. The name must be <code>associationuri</code>. The value must be a string containing the NavigationLink URI for that property.</p>
 <p>See <a href="../json-verbose-format#exampledeferrednavigationproperty">Example Deferred Navigation Property</a> for an example.</p>
-<h2 id="representinganamedresourcestreamvalue" role="heading">4.4 Representing a Named Resource Stream Value</h2>
+<h2 id="representinganamedresourcestreamvalue">4.4 Representing a Named Resource Stream Value</h2>
 <p>The value of a named resource stream property is represented like in the following example.</p>
 {% highlight javascript %}{
     "__mediaresource": {
@@ -175,9 +175,9 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 <p>The <code>content_type</code> name/value pair MUST be included. If the <code>edit_media</code> name/value pair is present the value of the <code>content_type</code> name/value pair MUST specify the content type of the binary stream represented by the <code>edit_media</code> URI. The value of the <code>content_type</code> name/value pair MAY match the content type of the binary stream represented by the <code>media_src</code> URI.</p>
 <p>The <code>edit_media</code> name/value pair MAY be included. This name/value pair MUST be supplied if the named resource stream instance can be updated. The value of the <code>edit_media</code> name/value pair MUST be a URI that can be used to replace the existing stream with a HTTP PUT request.</p>
 <p>The <code>media_etag</code> name/value pair MAY be included. When included, the value MUST be the value of the ETag for the named resource stream last PUT to the `edit_media URI.</p>
-<h2 id="representingaprimitivevalue" role="heading">4.4 Representing a Primitive Value</h2>
+<h2 id="representingaprimitivevalue">4.4 Representing a Primitive Value</h2>
 <p>The representation for primitives in JSON Verbose is specified in the ABNF.</p>
-<h2 id="representingacomplextypevalue" role="heading">4.5 Representing a Complex Type Value</h2>
+<h2 id="representingacomplextypevalue">4.5 Representing a Complex Type Value</h2>
 <p>In the following example, Address is a property with a complex type value.</p>
 {% highlight javascript %}{
     "CustomerID": "ALFKI",
@@ -186,7 +186,7 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 {% endhighlight %}
 <p>A complex type value MUST be represented as a single JSON object. It MUST have one name/value pair for each Property that makes up the complex type. Each property MUST be formatted as appropriate for the property. See <a href="../json-verbose-format#representingapropertyinarequest">Representing a Property</a> for details.</p>
 <p>The object representing a complex type value SHOULD NOT contain any other name/value pairs.</p>
-<h2 id="representingasetoflinks" role="heading">4.6 Representing a Set of Links</h2>
+<h2 id="representingasetoflinks">4.6 Representing a Set of Links</h2>
 <p>A set of links expresses a relation from one entity to zero or more related entities.</p>
 <p>The following example shows a set of links represented as appropriate for a request.</p>
 {% highlight javascript %}[
@@ -197,7 +197,7 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 <p>A set of links MUST be represented as a single JSON array. This array MUST contain one item per link.</p>
 <p>Each link item MUST be represented as a single JSON object. This object MUST contain a single name/value pair. The name MUST be <code>uri</code>. The value MUST be a URI for the related entity.</p>
 <p>There are additional considerations for representing a set of links in a response. See <a href="../json-verbose-format#representingasetoflinksinaresponse">Representing a Set of Links in a Response</a> for details.</p>
-<h2 id="representingannotations" role="heading">4.7 Representing Annotations</h2>
+<h2 id="representingannotations">4.7 Representing Annotations</h2>
 <p>Annotations MAY be applied to any name/value pair in a JSON payload that represents a value of any type from the EDM.</p>
 <p>The following example shows annotations applied to many different constructs.</p>
 {% highlight javascript %}{
@@ -224,43 +224,43 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 {% endhighlight %}
 <p>In general, it is possible to express an annotation internally or externally to a value. However, an annotation is always a name/value pair. Therefore, it can only be expressed within a JSON object. Some EDM constructs are not represented with JSON objects. Therefore some types may only be annotated externally.</p>
 <p>See the specific subsections of this section for normative rules abuot how to represent annotations on various types.</p>
-<h3 id="annotateavaluerepresentedasajsonobject" role="heading">4.7.1 Annotate a Value Represented as a JSON Object</h3>
+<h3 id="annotateavaluerepresentedasajsonobject">4.7.1 Annotate a Value Represented as a JSON Object</h3>
 <p>This section applies when annotating a name/value pair for which the value is represented as a JSON object.</p>
 <p>Each annotation MUST be applied internally. Each annotation MUST be represented as a single name/value pair.</p>
 <p>The name MUST be the fully-scoped name of the annotation. This name MUST include namespace and name, separated by a period (<code>.</code>).</p>
 <p>The value MUST be the appropriate value for the annotation.</p>
-<h3 id="annotateavaluerepresentedasajsonarrayorprimitive" role="heading">4.7.2 Annotate a Value Represented as a JSON Array or Primitive</h3>
+<h3 id="annotateavaluerepresentedasajsonarrayorprimitive">4.7.2 Annotate a Value Represented as a JSON Array or Primitive</h3>
 <p>This section applies when annotating a name/value pair for which the value is not represented as a JSON object.</p>
 <p>The set of all annotations that apply to this name/value pair MUST be applied externally. This set of annotations is represented as a single name/value pair.</p>
 <p>The name MUST be the same as the name of the name/value pair being annotated, prefixed with the at sign (<code>@</code>).</p>
 <p>The value MUST be a JSON object. Each annotation in the set MUST be represented as a single name/value pair within this object.</p>
 <p>The name MUST be the fully-scoped name of the annotation. This name MUST include namespace and name, separated by a period (<code>.</code>).</p>
 <p>The value MUST be the appropriate value for the annotation.</p>
-<h2 id="advertisementforafunctionoraction" role="heading">4.8 Advertisement for a Function or Action</h2>
+<h2 id="advertisementforafunctionoraction">4.8 Advertisement for a Function or Action</h2>
 <p>A function or action is advertised via a name/value pair. The name MUST be a Metadata URL. The value MUST be an array of JSON objects.</p>
 <p>Any number of JSON objects is allowed in this array. Each object in this array MUST have at least two name/value pairs: <code>title</code> and <code>target</code>. The order of these name/value pairs MUST be considered insignificant.</p>
 <p>The <code>target</code> name/value pair MUST contain a bound action target URL.</p>
 <p>The <code>title</code> name/value pair MUST contain the action title as a string.</p>
-<h1 id="requestspecifics" role="heading">5 Request Specifics</h1>
+<h1 id="requestspecifics">5 Request Specifics</h1>
 <p>This section describes additional payload semantics that only apply to request payloads.</p>
-<h2 id="representingapropertyinarequest" role="heading">5.1 Representing a Property in a Request</h2>
+<h2 id="representingapropertyinarequest">5.1 Representing a Property in a Request</h2>
 <p>A Property is represented as a name/value pair. The name is the Property’s name.</p>
 <p>The value for a primitive, complex type, collection, or named stream property is the property’s value. It MUST be formatted appropriately for its type.</p>
 <p>A property’s representation is always contained within a JSON object. If the request does not already contain a wrapping JSON object, then one is wrapped around the described name/value pair.</p>
-<h2 id="representingmultipleentitiesinarequest" role="heading">5.2 Representing Multiple Entities in a Request</h2>
+<h2 id="representingmultipleentitiesinarequest">5.2 Representing Multiple Entities in a Request</h2>
 <p>A collection of entities MUST be represented as a JSON array. Each element MUST be a correctly formatted entity (see <a href="../json-verbose-format#representinganentity">Representing an Entity</a>).</p>
 <p>An empty entity set or collection of entities (one that contains no entity type instances) MUST be represented as an empty JSON array.</p>
-<h2 id="representingacollectionofcomplextypeorprimitivevaluesinarequest" role="heading">5.3 Representing a Collection of Complex Type or Primitive Values in a Request</h2>
+<h2 id="representingacollectionofcomplextypeorprimitivevaluesinarequest">5.3 Representing a Collection of Complex Type or Primitive Values in a Request</h2>
 <p>A collection of complex type or primitive values MUST be represented as a JSON array. Each element in the array MUST be the representation for a value. See <a href="../json-verbose-format#representingaprimitivevalue">Representing a Primitive Value</a> or <a href="../json-verbose-format#representingacomplextypevalue">Representing a Complex Type Value</a> for details.</p>
-<h1 id="responsespecifics" role="heading">6 Response Specifics</h1>
+<h1 id="responsespecifics">6 Response Specifics</h1>
 <p>This section describes additional payload semantics that only apply to response payloads.</p>
-<h2 id="responsebody" role="heading">6.1 Response body</h2>
+<h2 id="responsebody">6.1 Response body</h2>
 <p>All JSON Verbose responses are wrapped in a single object for security reasons.</p>
 <p>Each response body MUST be represented as a single JSON object. This object contains a single name/value pair. The name MUST be <code>d</code>. The value MUST be the correct representation for the data being returned.</p>
-<h2 id="mimetype" role="heading">6.2 MIME Type</h2>
+<h2 id="mimetype">6.2 MIME Type</h2>
 <p>Verbose JSON is represented with a Content-Type of “application/json;odata=verbose”.</p>
 <p>In OData 1.0 and 2.0, it was also represented with a Content-Type of “applicaton/json”. However, in OData 3.0, “application/json” has been redefined to mean JSON.</p>
-<h2 id="representingapropertyinaresponse" role="heading">6.3 Representing a Property in a Response</h2>
+<h2 id="representingapropertyinaresponse">6.3 Representing a Property in a Response</h2>
 <p>In OData 1.0, a property in a response is formatted just like in a request. See <a href="../json-verbose-format#representingapropertyinarequest">Representing a Property in a Request</a> for details.</p>
 <p>Additionally, any property that is being represented as part of a larger item is represented as in a request.</p>
 <p>The rest of this section applies only to representing a top-level property in OData 2.0 and 3.0.</p>
@@ -273,7 +273,7 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 {% endhighlight %}
 <p>A property is represented as a JSON object with a single name/value pair. The name is <code>results</code>. The value is a JSON object.</p>
 <p>The object contains the representation that would be used for this property in a request. See <a href="../json-verbose-format#representingapropertyinarequest">Representing a Property in a Request</a> for details.</p>
-<h2 id="representingmultipleentitiesinaresponse" role="heading">6.3 Representing Multiple Entities in a Response</h2>
+<h2 id="representingmultipleentitiesinaresponse">6.3 Representing Multiple Entities in a Response</h2>
 <p>In OData 1.0, a collection of entities in a response is formatted just like in a request. See <a href="../json-verbose-format#representingmultipleentitiesinarequest">Representing Multiple Entities in a Request</a> for details.</p>
 <p>The rest of this section applies to OData 2.0 and 3.0 only.</p>
 <p>A collection of entities is represented as in the following example.</p>
@@ -294,15 +294,15 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 <p>The <code>__next</code> name/value pair MAY be included. If provided, its value MUST be a string containing a URL. If provided, then the response MUST be interpreted as a partial result. The client MAY request this URL if it wishes to receive the next part of the collection or entity set.</p>
 <p>The <code>__metadata</code> name/value pair MAY be included. If provided, its value MUST be a JSON object. This object represents the metadata for the set of entities.</p>
 <p>An empty collection of entities (one that contains no entity type instances) MUST be represented as a JSON object with a <code>results</code> name/value pair. The <code>results</code> name/value pair MUST be an empty JSON array.</p>
-<h2 id="representingactionsboundtomultipleentities" role="heading">6.3.1 Representing Actions Bound to Multiple Entities</h2>
+<h2 id="representingactionsboundtomultipleentities">6.3.1 Representing Actions Bound to Multiple Entities</h2>
 <p>In the ODATA 3.0 protocol, it is possible to advertise actions that are bound to the definition of a set of entities.</p>
 <p>Actions are advertised in the metadata for a set of entities. The metadata object MAY contain an <code>actions</code> name/value pair. The value is a JSON object that contains action advertisement name/value pairs. See <a href="../json-verbose-format#advertisementforafunctionoraction">Advertisement for a Function or Action</a> for details.</p>
-<h2 id="representingfunctionsboundtomultipleentities" role="heading">6.3.2 Representing Functions Bound to Multiple Entities</h2>
+<h2 id="representingfunctionsboundtomultipleentities">6.3.2 Representing Functions Bound to Multiple Entities</h2>
 <p>In the ODATA 3.0 protocol, it is possible to advertise functions that are bound to the definition of a set of entities.</p>
 <p>Functions are advertised in the metadata for a set of entities. The metadata object MAY contain a <code>functions</code> name/value pair. The value is a JSON object that contains function advertisement name/value pairs. See <a href="../json-verbose-format#advertisementforafunctionoraction">Advertisement for a Function or Action</a> for details.</p>
 <p>The function metadata URL MUST identify only functions that are bindable to the current feed definition. If overloads exist that cannot be bound to the current feed definition, the name SHOULD address a specific function overload.</p>
 <p>If all function overloads can be bound to the current feed definition, the service SHOULD advertise a single function metadata URL that identifies all of the overloads.</p>
-<h2 id="representingasetoflinksinaresponse" role="heading">6.4 Representing a Set of Links in a Response</h2>
+<h2 id="representingasetoflinksinaresponse">6.4 Representing a Set of Links in a Response</h2>
 <p>In OData 1.0 responses, a set of Links is represented exactly as described in <a href="../json-verbose-format#representingasetoflinks">Representing a Set of Links</a>.</p>
 <p>In OData 2.0 and 3.0 responses, a set of Links is represented as shown in the following example.</p>
 {% highlight javascript %}{
@@ -314,14 +314,14 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 {% endhighlight %}
 <p>A set of Links MUST be formatted as a single JSON object. This object MUST contain a name/value pair. The name MUST be <code>results</code>. The value MUST be the JSON array used to represent that set of Links in a request. See <a href="../json-verbose-format#representingasetoflinks">Representing a Set of Links</a> for details.</p>
 <p>The outer JSON object MAY contain additional name/value pairs. One such example is the <a href="../json-verbose-format#representingmultipleentitiesinaresponse">Inline Count</a>.</p>
-<h2 id="representingacollectionofcomplextypeorprimitivevaluesinaresponse" role="heading">6.5 Representing a Collection of Complex Type or Primitive Values in a Response</h2>
+<h2 id="representingacollectionofcomplextypeorprimitivevaluesinaresponse">6.5 Representing a Collection of Complex Type or Primitive Values in a Response</h2>
 <p>In OData 1.0, collection of complex type or primitive values in a response is formatted just like in a request. See <a href="../json-verbose-format#representingacollectionofcomplextypeorprimitivevaluesinaresponse">Representing a Collection of Complex Type or Primitive Values in a Response</a> for details.</p>
 <p>The rest of this section applies to OData 2.0 and 3.0 only.</p>
 <p>An collection of complex type or primitive values MUST be represented as a JSON object. This object MUST contain a <code>results</code> name/value pair. It MAY contain a <code>__metadata</code> name/value pair.</p>
 <p>The <code>results</code> value MUST be a JSON array. Each element MUST be a correctly formatted value (see <a href="../json-verbose-format#representingacomplextypevalue">Representing a Complex Type Value</a> or <a href="../json-verbose-format#representingaprimitivevalue">Representing a Primitive Value</a>).</p>
 <p>The <code>__metadata</code> name/value pair MAY be included. If provided, its value MUST be a JSON object. This object represents the metadata for the collection of complex type values.</p>
 <p>An empty collection (one that contains no instances) MUST be represented as a JSON object with a <code>results</code> name/value pair. The <code>results</code> name/value pair MUST be an empty JSON array.</p>
-<h2 id="representingerrorsinaresponse" role="heading">6.6 Representing Errors in a Response</h2>
+<h2 id="representingerrorsinaresponse">6.6 Representing Errors in a Response</h2>
 <p>Top-level errors in JSON Verbose responses MUST be represented as in the following example.</p>
 {% highlight javascript %}{
     "error": {
@@ -342,7 +342,7 @@ Accept: application/json;odata=light;q=1,application/json;odata=verbose;q=0.5
 <p>The value for the <code>code</code> name/value pair MUST be a string. Its value MUST be a service-defined error code. This code serves as a sub-status for the HTTP error code specified in the response.</p>
 <p>The value for the <code>message</code> name/value pair MUST be an object. This object MUST have two name/value pairs, with names <code>lang</code> and <code>message</code>. The <code>message</code> name/value pair MUST contain a human-readable representation of the error. The <code>lang</code> name/value pair MUST contain the language code from [[RFC 4646]][] corresponding to the language in which the value for <code>message</code> is written.</p>
 <p>The value for the <code>innererror</code> name/value pair MUST be an object. The contents of this object are service-defined. Usually this object contains information that will help debug the service.</p>
-<h2 id="representingtheservicedocument" role="heading">6.7 Representing the Service Document</h2>
+<h2 id="representingtheservicedocument">6.7 Representing the Service Document</h2>
 <p>The root URL of an OData service MUST identify a service document. This document is represented as show in the following example.</p>
 {% highlight javascript %}{
     "EntitySets": [

@@ -1,42 +1,102 @@
 <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
- <script src="{{'/public/tabs.js' | prepend: site.baseurl | prepend: site.url}}"></script>
+<script src="{{'/public/tabs.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 
 <script src="{{'/public/site.js' | prepend: site.baseurl | prepend: site.url}}"></script>
-<script type="text/javascript">
-(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
 
-_st('install','23hsA6tEyP4R5VmqqdcD','2.0.0');
-</script>
-<!--
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-55977038-1', 'auto');
-ga('send', 'pageview');
-</script>
--->
-
-<script type="text/javascript">
-var SkipToConfig = {
-	settings: {
-		skipTo: {
-			headings: "h1, h2, h3, h4",
-			main: "main, [role=main]",
-			landmarks: "[role=navigation], [role=search]",
-			sections: "nav",
-			accesskey: "0",
-			wrap: "true",
-			visibility: "onfocus",
-			attachElement: ".skip-nav-elements"
-		}
-	}
-};
-</script>
 <script src="{{'/public/skipto.min.js' | prepend: site.baseurl | prepend: site.url}}" type="text/javascript"></script>
+<script type="text/javascript"
+        src="{{'/public/jquery.swiftype.search.js' | prepend: site.baseurl | prepend: site.url}}"></script>
+<script type="text/javascript"
+        src="{{'/public/jquery.swiftype.autocomplete.js' | prepend: site.baseurl | prepend: site.url}}"></script>
+<script>
+    $(document).ready(function () {
+
+        skipToMenuInit({
+            settings: {
+                skipTo: {
+                    headings: "h1, h2, h3, h4",
+                    main: "main, [role=main]",
+                    landmarks: "[role=navigation], [role=search]",
+                    sections: "nav",
+                    accesskey: "0",
+                    wrap: "true",
+                    visibility: "onfocus",
+                    attachElement: ".skip-nav-elements"
+                }
+            }
+        });
+
+        var renderResults = function (ctx, data) {
+            var results = [];
+
+            $.each(data, function (docType, opts) {
+                $.each(opts, function (idx, result) {
+                    // Specify a valid Swiftype field/meta tag. results.FIELD == VALUE
+                    results.push(result);
+                });
+            });
+            var dropdown = $(
+                '<div class="autocomplete__segment">' +
+                '<ul id="search-results" class="autocomplete__segment-header"  role="listbox"\n' +
+                '      aria-label="Search Results"></ul>' +
+                '</div>');
+
+            // Create a reusable function to render results.
+            function renderResult(result) {
+                var title = result.title,
+                    section = result.sections[0],
+                    url = result['url'];
+
+                if (result.title == null || title === undefined) {
+                    title = result.highlight.sections;
+                    section = result.sections[1] || '';
+                }
+
+                return $(
+                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + section + '"><a href="' + url + '">' +
+                    '<span\n        class="autocomplete-result__title">' + section + '</span> <br>' +
+                    '<small class="autocomplete-result__description muted" aria-label="' + title + '">' + title + '</small>' +
+                    '</a>\n</li>'
+                );
+            }
+
+            $.each(results, function (idx, item) {
+                ctx.registerResult(renderResult(item).appendTo(dropdown), item);
+            });
+
+            if (results.length > 0) {
+                dropdown.appendTo(ctx.list);
+            }
+
+            $('#search').attr('aria-expanded', true);
+            $('#search').attr('aria-activedescendant', '#search-result');
+            $('#search-results >li').on('focusin', function () {
+                $(this).attr('aria-selected', true)
+            });
+
+            $('#search-results >li').on('focusoff', function () {
+                $(this).attr('aria-selected', false);
+            });
+
+            $('#search-results > li> a').on('click', function () {
+                $('#search').attr('aria-expanded', false);
+            });
+        };
+
+        $('#search').swiftype({
+            resultRenderFunction: renderResults,
+            suggestionListType: 'div',
+            resultLimit: 10,
+            resultListSelector: '.autocomplete-result',
+            resultContainingElement: '#st-results-container', // Points to our results content division element.
+            engineKey: 'Xk5RQZP53Ry3gEkcFvYK',
+            fetchFields: ['url', 'title', 'type', 'body']
+        });
+
+        $('#search').swiftypeSearch({
+            engineKey: 'Xk5RQZP53Ry3gEkcFvYK',
+            resultLimit: 10,
+        });
+    });
+</script>

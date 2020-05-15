@@ -4,21 +4,20 @@ title: Reference Services
 date: 2014-02-20 06:56:35.000000000 +08:00
 permalink: /odata-services/
 ---
-<div role="tablist" aria-label="Versions">
-<ul class="nav nav-pills">
+<div id="services-tab">
+<ul class="nav nav-pills" role="tablist" aria-label="Versions"> 
   <li role="presentation" class="active">
-    <a role="tab" href="#odata-v4" aria-controls="odata-v4" data-toggle="pill">OData v4</a>
+    <a href="#odata-v4" aria-controls="odata-v4" data-toggle="tab">OData v4</a>
   </li>
   <li role="presentation">
-    <a role="tab" href="#v3" data-toggle="pill" aria-controls="v3" tabindex="-1">OData v3</a>
+    <a   href="#v3" data-toggle="tab" aria-controls="v3" tabindex="-1">OData v3</a>
   </li>
   <li role="presentation">
-    <a role="tab" href="#v2" data-toggle="pill" aria-controls="v2" tabindex="-1">OData v2</a>
+    <a href="#v2" data-toggle="tab" aria-controls="v2" tabindex="-1">OData v2</a>
   </li>
 </ul>
-</div>
 
-<div>
+<div class="tab-content">
   <div id="odata-v4" tabindex="0" class="tab-pane active" role="tabpanel">
     <table class="table table-striped table-condensed table-hover">
       <tr>
@@ -100,6 +99,9 @@ permalink: /odata-services/
       </tr>
     </table>
   </div>
+</div>
+</div>
+
   <div class="" id="service-usages">
       {% capture my-include %}{% include_relative service-usages/basic-usages.md %}{% endcapture %}
       {{ my-include | markdownify }}
