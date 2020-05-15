@@ -17,7 +17,7 @@ permalink: /documentation/odata-version-2-0/json-format/
 <p>The following sections define how resources exposed by an OData service can be represented in requests and/or responses payloads using the JSON format. For details regarding how to create various request types (Retrieve, Create, etc) see <a href="../operations">[OData-Operations]</a> . <strong>Security Note</strong>: In responses payloads (not request payloads) all the JSON representations described in this section are wrapped by an outer most object that includes a single name/value pair. The name of the name/value pair is always "d" and the value is the JSON representation of an OData resource as described by the subsections of this document. This pattern ensures JSON payloads returned from OData services are valid JSON statements, but not valid JavaScript statements. This prevents an OData JSON response from being executed as the result of a cross site scripting (XSS) attack.</p>
 <h2>4. Primitive Types</h2>
 <p>Values of an OData primitive type are represented as JSON literal values as per the table below. Note: The type system used by OData services is described in full in the <a href="../overview#AbstractTypeSystem">Abstract Type System</a> section of the <a href="../overview">[OData-Core]</a> document.</p>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Primitive Types Representation">
 <tbody>
 <tr>
 <th valign="bottom" width="148">Primitive Type</th>
@@ -129,7 +129,7 @@ OData V2: {
 }{% endhighlight %}
 <h2>7. Representing Entries</h2>
 <p>In OData v1, Entries are represented as JSON objects with all the <a href="../terminology">properties</a> of the Entry represented as name/value pairs of the object. Alternatively, if the Entry is being represented was identified with a URI that includes a Select System Query Option, then the prior rule is relaxed such that only the properties identified by the $select query option are represented as name/value pairs. OData v2 represents Entries the same way as V1. An optional "__metadata" name/value pair is the only pair that should be included on the object that does not directly represent a Property of the Entry being represented. This name/value pair is not data, but instead, by convention defined in this document, specifies the metadata for the Entry being represented. The value of the "__metadata" name/value pair is a JSON object that contains the name/value pairs described in the table below.</p>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Entries Representation">
 <tbody>
 <tr>
 <th valign="top" width="136"><strong>"__metadata" object name/value pairs</strong></th>
@@ -230,7 +230,7 @@ OData V2: {
 } {% endhighlight %}
 <h2>10. Representing Media Link Entries</h2>
 <p><a href="../terminology">Media Link Entries (MLE)</a> are represented in the same way as "plain" Entries as described in <a href="../json-format#RepresentingEntries"> Representing Entries</a>; however, they also contain additional metadata per Entry that describes the Media Resource (MR) associated with the Entry. This additional MR metadata is represented as name/value pairs of the "__metadata" object associated with the Entry.</p>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Media Link Entries Representation">
 <tbody>
 <tr>
 <th valign="top" width="136"><strong>"__metadata" object name/value pairs for MLEs</strong></th>

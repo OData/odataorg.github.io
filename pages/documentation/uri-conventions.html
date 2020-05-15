@@ -25,7 +25,7 @@ _______________________________________/ __________________/  _________________/
 <h2>2. Service Root URI</h2>
 <p>The service root URI identifies the root of an OData service. The resource identified by this URI MUST be an AtomPub Service Document (as specified in [RFC5023]) and follow the OData conventions for AtomPub Service Documents (or an alternate representation of an Atom Service Document if a different format is requested). OData: JSON Format specifies such an alternate JSON-based representation of a service document. The service document is required to be returned from the root of an OData service to provide clients with a simple mechanism to enumerate all of the collections of resources available for the data service.</p>
 <div>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Service Root URIs Examples">
 <tbody>
 <tr>
 <th>Example Request URI</th>
@@ -210,7 +210,7 @@ _______________________________________/ __________________/  _________________/
 <p>Note: The $filter section of the normative OData specification provides an ABNF grammar for the expression language supported by this query option.</p>
 <p>The operators supported in the expression language are shown in the following table.</p>
 <div>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Filter Query Option Operators">
 <tbody>
 <tr>
 <th>Operator</th>
@@ -306,7 +306,7 @@ _______________________________________/ __________________/  _________________/
 </div>
 <p>In addition to operators, a set of functions are also defined for use with the filter query string operator. The following table lists the available functions. Note: ISNULL or COALESCE operators are not defined. Instead, there is a null literal which can be used in comparisons.</p>
 <div>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Functions for use with Filter Query Option">
 <tbody>
 <tr>
 <th valign="top">Function</th>
@@ -456,7 +456,7 @@ _______________________________________/ __________________/  _________________/
 <hr />
 <p>A URI with a $format System Query Option specifies that a response to the request MUST use the media type specified by the query option. If the $format query option is present in a request URI it takes precedence over the value(s) specified in the Accept request header. Valid values for the $format query string option are listed in the following table.</p>
 <div>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Valid values for Format Query Option">
 <tbody>
 <tr>
 <th>$format Value</th>
@@ -528,7 +528,7 @@ _______________________________________/ __________________/  _________________/
 <p>A URI with a $inlinecount System Query Option specifies that the response to the request includes a count of the number of Entries in the Collection of Entries identified by the <a href="../uri-conventions#ResourcePath">Resource Path</a> section of the URI. The count must be calculated after applying any <a href="../uri-conventions#FilterSystemQueryOption">$filter System Query Options</a> present in the URI. The set of valid values for the $inlinecount query option are shown in the table below. If a value other than one shown in Table 4 is specified the URI is considered malformed.</p>
 <p>Version Note: This query option is only supported in OData version 2.0 and above</p>
 <div>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Valid values for Inlinecount Query Option">
 <tbody>
 <tr>
 <th valign="top">$inlinecount value</th>
