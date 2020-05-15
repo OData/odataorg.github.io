@@ -10,7 +10,7 @@ permalink: /documentation/odata-version-2-0/overview/
 <p>The Open Data Protocol (OData) enables the creation of HTTP-based data services, which allow resources identified using Uniform Resource Identifiers (URIs) and defined in an abstract data model, to be published and edited by Web clients using simple HTTP messages. OData is intended to be used to expose and access information from a variety of sources including, but not limited to, relational databases, file systems, content management systems, and traditional Web sites.</p>
 <p>OData is made up of a group of specifications. This specification describes OData's core concepts and the following specifications define optional extensions to the foundations defined in this document:</p>
 <div>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="OData Specifications">
 <tbody>
 <tr>
 <th>Specification</th>
@@ -73,7 +73,7 @@ permalink: /documentation/odata-version-2-0/overview/
 <p>Putting the above paragraphs into OData terms, the feeds exposed by an OData service are represented by <strong>Entity Sets</strong> or a Navigation Property on an Entity Type that identifies a collection of entities. For example, the Entity Set identified by the URI https://services.odata.org/OData/OData.svc/Products or the collection of entities identified by the "Products" navigation property in https://services.odata.org/OData/OData.svc/Categories(1)/Products identifies a feed of entries exposed by the OData service.</p>
 <p>Each Entry of an OData feed is described in the EDM by an <strong>Entity Type</strong> and each link between entries are described by a <strong>Navigation Property</strong>. OData resources are described in the table below.</p>
 <div>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="OData Resources">
 <tbody>
 <tr>
 <th>OData Resource</th>
@@ -137,7 +137,7 @@ permalink: /documentation/odata-version-2-0/overview/
 <p>An example Service Metadata Document that describes three Entity Types (Categories, Products and Suppliers), the relationships among them and one "ProductsByRating" Service Operation is accessible at <a href="https://services.odata.org/OData/OData.svc/$metadata"> https://services.odata.org/OData/OData.svc/$metadata</a> .</p>
 <p>CSDL annotations are used to describe OData specific extensions to CSDL. Those annotations (represented as attributes in the <a href="../terminology#ODataMetadataNS"> OData metadata namespace</a>) are described in the table below. Note: additional Atom format specific CSDL annotations are defined in <a title="Atom Format" href="../atom-format">[OData: Atom]</a>.</p>
 <div>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="CSDL Annotations">
 <tbody>
 <tr>
 <th>Annotation</th>
@@ -168,7 +168,7 @@ permalink: /documentation/odata-version-2-0/overview/
 </div>
 <h2>6. Primitive Data Types</h2>
 <p>The Abstract Type System used to define the primitive types supported by OData is defined in detail in [MC-CSDL] (section 2.2.1). Table 2 summaries the set of primitive types supported as well as how each MUST be represented when used in an OData URI or HTTP header. Primitive type representations in request and response payloads are defined in the <a title="Atom Format" href="../atom-format"> [OData:Atom]</a> and <a title="JSON Format" href="../json-format"> [OData:JSON]</a> specifications.</p>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Primitive Data Types">
 <tbody>
 <tr>
 <th>Primitive Types</th>
