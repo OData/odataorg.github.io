@@ -11,7 +11,7 @@
   generateArrays();
 
   function generateArrays () {
-    tabs = document.querySelectorAll('[role="tab"]');
+    tabs = document.querySelectorAll('[data-toggle="tab"]');
     panels = document.querySelectorAll('[role="tabpanel"]');
   };
 
