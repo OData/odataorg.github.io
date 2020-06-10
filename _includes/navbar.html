@@ -1,49 +1,63 @@
 <a class="skip-nav-elements" aria-labelledby="Keyboard menu"></a>
 <nav class="navbar navbar-default" role="navigation" aria-label="Main Navigation">
 
-  <div class="container container-fluid">
+    <div class="container container-fluid">
 
-    <div class="navbar-header">
-	  	<ul class="nav navbar-nav">
-			<li><a class="brand" href="/"><img class="img-responsive" alt="OData logo"src="{{'/assets/OData-logo-e1393393068350.png' | prepend: site.baseurl | prepend: site.url}}"></a></li>
-		</ul>
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#odata-navbar-collapse">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <li><a class="brand" href="/"><img class="img-responsive" alt="OData logo"
+                                                   src="{{'/assets/OData-logo-e1393393068350.png' | prepend: site.baseurl | prepend: site.url}}"></a>
+                </li>
+            </ul>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#odata-navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <div class="collapse navbar-collapse" id="odata-navbar-collapse">
-
-      <ul class="nav navbar-nav" role="navigation">
-        <li><a aria-label="Blog menuitem" href="/blog">Blog</a></li>
-        <li class="dropdown" role="menuitem">
-          <a class="dropdown-toggle" role="menuitem" data-toggle="dropdown" aria-label="Developers dropdown" data-target="#" href="#">Developers <b class="caret"></b></a>
-          <ul class="dropdown-menu" role="menu">
-            <li role="menuitem"><a role="menuitem" href="/getting-started">Getting Started</a></li>
-            <li role="menuitem"><a role="menuitem" href="/documentation">Documentation</a></li>
-            <li role="menuitem"><a role="menuitem" href="/libraries">Libraries</a></li>
-            <li role="menuitem"><a role="menuitem" href="/odata-services">Reference Services</a></li>
-            <li role="menuitem"><a role="menuitem" href="/odata-icon-usage-guidelines/">Icon Usage</a></li>
-          </ul>
-        </li>
-        <li class="dropdown" role="menuitem">
-          <a class="dropdown-toggle" role="menuitem" data-toggle="dropdown" aria-label="Tools dropdown" data-target="#" href="#">Tools <b class="caret"></b></a>
-          <ul class="dropdown-menu" role="menu">
-            <li role="menuitem"><a role="menuitem" href="https://marketplace.visualstudio.com/items?itemName=stansw.vscode-odata " target="_blank">OData for Visual Studio Code</a></li>
-            <li role="menuitem"><a role="menuitem" href="https://pragmatiqa.com/xodata/" target="_blank">XOData</a></li>
-          </ul>
-        </li>
-        <li><a aria-label="Ecosystem menuitem" href="/ecosystem">Ecosystem</a></li>
-        <li><a aria-label="Getting Involved menuitem" href="/contribution">Getting Involved</a></li>
-      </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input id="search" type="text" aria-label="Search" class="form-control st-default-search-input" placeholder="Search" role="combobox" aria-autocomplete="list" aria-controls="search-results">
+            </button>
         </div>
-      </form>
+
+        <div class="collapse navbar-collapse" id="odata-navbar-collapse">
+
+            <ul class="nav navbar-nav" role="navigation">
+                <li><a aria-label="Blog menuitem" href="/blog">Blog</a></li>
+                <li class="dropdown" role="menuitem">
+                    <a class="dropdown-toggle" role="menuitem" data-toggle="dropdown" aria-label="Developers dropdown"
+                       data-target="#" href="#">Developers <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="menuitem"><a role="menuitem" href="/getting-started">Getting Started</a></li>
+                        <li role="menuitem"><a role="menuitem" href="/documentation">Documentation</a></li>
+                        <li role="menuitem"><a role="menuitem" href="/libraries">Libraries</a></li>
+                        <li role="menuitem"><a role="menuitem" href="/odata-services">Reference Services</a></li>
+                        <li role="menuitem"><a role="menuitem" href="/odata-icon-usage-guidelines/">Icon Usage</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown" role="menuitem">
+                    <a class="dropdown-toggle" role="menuitem" data-toggle="dropdown" aria-label="Tools dropdown"
+                       data-target="#" href="#">Tools <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="menuitem"><a role="menuitem"
+                                               href="https://marketplace.visualstudio.com/items?itemName=stansw.vscode-odata "
+                                               target="_blank">OData for Visual Studio Code</a></li>
+                        <li role="menuitem"><a role="menuitem" href="https://pragmatiqa.com/xodata/" target="_blank">XOData</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a aria-label="Ecosystem menuitem" href="/ecosystem">Ecosystem</a></li>
+                <li><a aria-label="Getting Involved menuitem" href="/contribution">Getting Involved</a></li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group combobox combobox-list">
+                    <input id="search" type="text" aria-label="Search" class="form-control st-default-search-input"
+                           placeholder="Search" role="combobox" aria-autocomplete="list" aria-controls="search-results">
+                    <button hidden aria-hidden="true" id="cb1-button"
+                            class="fa-search"
+                            tabindex="-1"
+                            aria-expanded="false"
+                            aria-controls="search-results">
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </nav>
