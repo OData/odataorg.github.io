@@ -1,6 +1,7 @@
 <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="{{'/public/tabs.js' | prepend: site.baseurl | prepend: site.url}}"></script>
+<script src="{{'/public/combobox-autocomplete.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 
 <script src="{{'/public/site.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 
@@ -26,6 +27,7 @@
                 }
             }
         });
+        var search = $('#search');
 
         var renderResults = function (ctx, data) {
             var results = [];
@@ -54,37 +56,30 @@
                 }
 
                 return $(
-                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + section + '"><a href="' + url + '">' +
+                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + title+ '"><a href="' + url + '">' +
                     '<span\n        class="autocomplete-result__title">' + section + '</span> <br>' +
                     '<small class="autocomplete-result__description muted" aria-label="' + title + '">' + title + '</small>' +
                     '</a>\n</li>'
                 );
             }
-
+            // append the items to the first child which is the search-results
+            var child = dropdown.children()[0];
             $.each(results, function (idx, item) {
-                ctx.registerResult(renderResult(item).appendTo(dropdown), item);
+                ctx.registerResult(renderResult(item).appendTo(child), item);
             });
 
             if (results.length > 0) {
                 dropdown.appendTo(ctx.list);
             }
 
-            $('#search').attr('aria-expanded', true);
-            $('#search').attr('aria-activedescendant', '#search-result');
-            $('#search-results >li').on('focusin', function () {
-                $(this).attr('aria-selected', true)
-            });
-
-            $('#search-results >li').on('focusoff', function () {
-                $(this).attr('aria-selected', false);
-            });
-
-            $('#search-results > li> a').on('click', function () {
-                $('#search').attr('aria-expanded', false);
-            });
+           search.attr('aria-expanded', true);
+            var button= document.getElementById('cb1-button');
+            var cba = new ComboboxAutocomplete(document.getElementById('search'), button, document.getElementById('search-results'));
+            cba.init();
+            button.click();
         };
 
-        $('#search').swiftype({
+       search.swiftype({
             resultRenderFunction: renderResults,
             suggestionListType: 'div',
             resultLimit: 10,
@@ -94,7 +89,7 @@
             fetchFields: ['url', 'title', 'type', 'body']
         });
 
-        $('#search').swiftypeSearch({
+        search.swiftypeSearch({
             engineKey: 'Xk5RQZP53Ry3gEkcFvYK',
             resultLimit: 10,
         });
