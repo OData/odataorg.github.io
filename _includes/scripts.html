@@ -4,8 +4,6 @@
 <script src="{{'/public/combobox-autocomplete.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 
 <script src="{{'/public/site.js' | prepend: site.baseurl | prepend: site.url}}"></script>
-
-<script src="{{'/public/skipto.min.js' | prepend: site.baseurl | prepend: site.url}}" type="text/javascript"></script>
 <script type="text/javascript"
         src="{{'/public/jquery.swiftype.search.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 <script type="text/javascript"
@@ -13,20 +11,6 @@
 <script>
     $(document).ready(function () {
 
-        skipToMenuInit({
-            settings: {
-                skipTo: {
-                    headings: "h1, h2, h3, h4",
-                    main: "main, [role=main]",
-                    landmarks: "[role=navigation], [role=search]",
-                    sections: "nav",
-                    accesskey: "0",
-                    wrap: "true",
-                    visibility: "onfocus",
-                    attachElement: ".skip-nav-elements"
-                }
-            }
-        });
         var search = $('#search');
 
         var renderResults = function (ctx, data) {
