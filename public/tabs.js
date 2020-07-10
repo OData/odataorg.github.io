@@ -11,7 +11,7 @@
   generateArrays();
 
   function generateArrays () {
-    tabs = document.querySelectorAll('[data-toggle="tab"]');
+    tabs = document.querySelectorAll('[role="tab"]');
     panels = document.querySelectorAll('[role="tabpanel"]');
   };
 
@@ -40,7 +40,6 @@
   };
 
   function addListeners (index) {
-    tabs[index].addEventListener('click', clickEventListener);
     tabs[index].addEventListener('keydown', keydownEventListener);
     tabs[index].addEventListener('keyup', keyupEventListener);
 
@@ -94,7 +93,7 @@
     };
   };
 
-  // When a tablist’s aria-orientation is set to vertical,
+  // When a tablist's aria-orientation is set to vertical,
   // only up and down arrow should function.
   // In all other cases only left and right arrow function.
   function determineOrientation (event) {
@@ -151,19 +150,22 @@
     deactivateTabs();
 
     // Remove tabindex attribute
-    tab.removeAttribute('tabindex');
+    tab.setAttribute('tabindex', '0');
 
     // Set the tab as selected
+    tab.classList.add('active');
+    tab.parentElement.classList.add('active');
     tab.setAttribute('aria-selected', 'true');
 
     // Get the value of aria-controls (which is an ID)
     var controls = tab.getAttribute('aria-controls');
 
     // Remove hidden attribute from tab panel to make it visible
-    if(document.getElementById(controls))
-    {
-      document.getElementById(controls).removeAttribute('hidden');
-    }
+    var tabContent = document.getElementById(controls);
+    tabContent.removeAttribute('hidden');
+    tabContent.setAttribute('tabindex', '0');
+    tabContent.setAttribute('aria-hidden', 'false');
+    tabContent.classList.add('active');
 
     // Set focus when required
     if (setFocus) {
@@ -176,11 +178,16 @@
     for (t = 0; t < tabs.length; t++) {
       tabs[t].setAttribute('tabindex', '-1');
       tabs[t].setAttribute('aria-selected', 'false');
+      tabs[t].classList.remove('active');
+      tabs[t].parentElement.classList.remove('active');
       tabs[t].removeEventListener('focus', focusEventHandler);
     };
 
     for (p = 0; p < panels.length; p++) {
       panels[p].setAttribute('hidden', 'hidden');
+      panels[p].setAttribute('tabindex', '-1');
+      panels[p].setAttribute('aria-hidden', 'true');
+      panels[p].classList.remove('active');
     };
   };
 
