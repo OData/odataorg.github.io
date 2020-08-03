@@ -64,7 +64,7 @@ permalink: /getting-started/understand-odata-in-6-steps/
     max-height: 100px;
 }
 #top-link-block.affix-top{
-    position: absolute; 
+    position: absolute;
 }
 </style>
 
@@ -76,7 +76,7 @@ permalink: /getting-started/understand-odata-in-6-steps/
 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></p>
 <h4 class="modal-title" id="step-collection-modal-label">Response</h4>
 </p></div>
-<div class="modal-body">
+<div class="modal-body sr-focusable">
 {% highlight js %}
 HTTP/1.1 200 OK
 Content-Length: 1007
@@ -800,7 +800,7 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
 <div class="bottom-border">
 <h3 class="top-margin bottom-margin">Step 4: Creating a new resource
         </h3>
-<p class="text-justify bottom-margin">REST principles require the using of simple and uniform interfaces. With that regard, OData clients can expect unified interfaces of the resources. The stateless tranfer of representations in REST are carried out by using different HTTP methods in the requests. After having gone through the first 3 steps, Russell thinks the system is useful. He wants to add his best friend Lewis to the system. He finds out that all he needs to do is to send a POST request containing a JSON representation of Lewis' information to the same interface from which he requested the people information.</p>
+<p class="text-justify bottom-margin">REST principles require the using of simple and uniform interfaces. With that regard, OData clients can expect unified interfaces of the resources. The stateless transfer of representations in REST are carried out by using different HTTP methods in the requests. After having gone through the first 3 steps, Russell thinks the system is useful. He wants to add his best friend Lewis to the system. He finds out that all he needs to do is to send a POST request containing a JSON representation of Lewis' information to the same interface from which he requested the people information.</p>
 <div class="code-row bottom-margin">
 <ul class="nav nav-tabs" role="tablist">
 <li role="presentation" class="active"><a href="#http4" aria-controls="http4"  data-toggle="tab">HTTP request</a></li>
@@ -1352,3 +1352,66 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
 </p></div>
 </p></div>
 </p></div>
+<script>
+    $(document).ready(function() {
+       $('.modal').on('shown.bs.modal', function () {
+            $('.close').focus();
+            trapFocus(this)
+            $(this).find(".modal-body").attr("tabindex", 0);
+       });
+        // make it possible to tab to response content inside popups for keyboard users
+        $(".modal-body pre").attr("tabindex", 0);
+        $(".modal-body").attr("aria-label", "Response body");
+        
+        // hack to get the screen reader to read the syntax-highlighted
+        // code section on Microsoft Edge
+        $('.modal-body').each(function (i, modalBody) {
+            // extract plain code text form syntax-highlighted code section
+            var plainCode = "";
+            $(modalBody).find("pre span").each(function (spanIndex, span) {
+                plainCode += span.textContent + ' ';
+            });
+            
+            // inject paragraph with plain code for screen readers
+            var screenReaderContent = document.createElement("p");
+            screenReaderContent.classList.add("sr-only");
+            screenReaderContent.tabIndex = 0;
+            screenReaderContent.textContent = plainCode;
+            modalBody.insertBefore(screenReaderContent, modalBody.firstChild);
+        });
+    });
+       
+    //function to trap focus within the pop up window.
+    function trapFocus(element) {
+        var focusableElements = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'),
+        firstFocusableElement = focusableElements[0];  
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+        KEYCODE_TAB = 9;
+
+        element.addEventListener('keydown', function(e) {
+            var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
+
+            if (!isTabPressed) { 
+                return; 
+            }
+
+            if ( e.shiftKey )
+            {
+                if (document.activeElement === firstFocusableElement) 
+                {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } 
+            else
+            {
+                if (document.activeElement === lastFocusableElement) 
+                {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+
+        });
+    }
+</script>

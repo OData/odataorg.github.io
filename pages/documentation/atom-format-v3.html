@@ -50,7 +50,7 @@ permalink: /documentation/odata-version-3-0/atom-format/
 <h1 id="primitivetypesinatom">4. Primitive Types in Atom</h1>
 <p>OData Atom and XML payloads serialize primitive types as shown in the table below.</p>
 <p>For full syntax rules, see <a href="../abnf">OData:ABNF</a>:</p>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Primitive Types in Atom">
 <tbody>
 <tr>
 <th>Primitive Type</th>
@@ -359,7 +359,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>The <code>title</code> attribute on an <a href="../atom-format#streampropertiesasatom:linkelements"><code>atom:link</code></a> element describing an OData relationship provides human-readable, possibly language-dependent, and not necessarily unique information about the link. It has no implied semantics in OData.</p>
 <h3 id="relationshipsasatom:linkelements">6.1.5. Relationships as <code>atom:link</code> Elements</h3>
 <p>OData uses <code>atom:link</code> elements to represent relationships between entities.</p>
-<p>For example, the set of related products for a particular catagory may be represented through an <code>atom:link</code> element as a child of a category <code>entry</code> element as follows:</p>
+<p>For example, the set of related products for a particular category may be represented through an <code>atom:link</code> element as a child of a category <code>entry</code> element as follows:</p>
 {% highlight xml %}<code><atom:link 
     rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products" 
     href="Categories(0)/Products"
@@ -546,7 +546,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>Custom ValueTerms and Custom TypeTerms MUST be defined in a namespace other than the <a href="../atom-format#atomnamespace">Atom Namespace</a>, <a href="../atom-format#atompublishingprotocolnamespace">AtomPub Namespace</a>, <a href="../atom-format#odatadatanamespace">OData Data Namespace</a>, or <a href="../atom-format#odatametadatanamespace">OData Metadata Namespace</a>. Annotations corresponding to custom terms add additional information about the item being annotated and SHOULD be designed in such a way that they can be safely ignored by the client.</p>
 <p>TypeAnnotations and ValueAnnotations specify a target, which represents the collection, entry, property, function, action, navigation link, error, or named stream being annotated. The target is specified relative to the parent of the ValueAnnotation or TypeAnnotation, and is either the parent itself (“.”) or the name of the sibling element being annotated.</p>
 <p>If more than one sibling exists with the same unqualifed name, then the namespace qualified element named MUST be used.</p>
-<h2 id="valueannotationsascustomelements">9.1. ValueAnnotations as custom Elements</h2>
+<h2 id="valueannotationsascustomelements">9.1. ValueAnnotations as Custom Elements</h2>
 <p>A ValueAnnotation is specified by a single element containing the <code>metadata:target</code> attribute, whose element name is the namespace-qualified ValueTerm.</p>
 <p>The content of the ValueAnnotation element is the value of the ValueTerm, formatted as per <a href="../atom-format#primitivetypesinatom">Primitive Types In Atom</a>.</p>
 <p>For example; the following specifies a value of “Home” for the “PhoneNumberType” ValueTerm applied to the “PhoneNumber” property of a customer:</p>
@@ -557,7 +557,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
     <contact:PhoneNumberType metadata:target="Phone">Home</contact:PhoneNumberType>
   </metadata:properties>
 </code>{% endhighlight %}
-<h3 id="themetadata:targetattribute">9.1.1. The <code>metadata:target</code> attribute</h3>
+<h3 id="themetadata:targetattributeforavalueannotation">9.1.1. The <code>metadata:target</code> attribute</h3>
 <p>The <code>metadata:target</code> attribute MUST be present on a ValueAnnotation and identifies the target of the annotation as described in <a href="../atom-format#annotations">Annotations</a>.</p>
 <h3 id="themetadata:typeattribute">9.1.2. The <code>metadata:type</code> attribute</h3>
 <p>If the type of the annotation value being specified is <code>Edm.String</code>, then the ValueAnnotation element MAY contain the <code>metadata:type</code> attribute specifying “Edm.String”, otherwise the ValueAnnotation element MUST contain the <code>metadata:type</code> attribute specifying the appropriate primitive type.</p>
@@ -578,7 +578,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
     </contact:Address>
   </metadata:properties>
 </code>{% endhighlight %}
-<h3 id="themetadata:targetattribute">9.2.1. The <code>metadata:target</code> attribute</h3>
+<h3 id="themetadata:targetattributeforatypeannotation">9.2.1. The <code>metadata:target</code> attribute</h3>
 <p>The <code>metadata:target</code> attribute MUST be present on a TypeAnnotation and identifies the target of the annotation as described in <a href="../atom-format#annotations">Annotations</a>.</p>
 <h1 id="custommappingtoatomelements">10. Custom Mapping to Atom Elements</h1>
 <p>Individual property values MAY be mapped to predefined atom elements or custom content within the entry. The mapping is described through attributes in the metadata.</p>

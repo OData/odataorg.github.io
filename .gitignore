@@ -1,3 +1,4 @@
 _site
 .sass-cache
 _config.yml
+.jekyll-cache

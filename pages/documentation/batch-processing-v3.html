@@ -39,12 +39,11 @@ Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e7
 <p>The example below shows a sample batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Query request</li>
-<li>A Change Set that contains the following requests:
+<li>A Change Set that contains the following requests:</li>
 <ul>
 <li>Insert entity</li>
 <li>Update request</li>
 </ul>
-</li>
 <li>Second query request</li>
 </ul>
 <pre><code>POST /service/$batch HTTP/1.1 
@@ -101,12 +100,11 @@ Host: host
 <p>If a MIME part representing an Insert request within a ChangeSet includes a Content-ID header, then the new entity represented by that part may be referenced by subsequent requests within the same ChangeSet by referring to the Content-ID value prefixed with a “$” character. When used in this way, $&lt;contentIdValue&gt; acts as an alias for the URI that identifies the new entity.</p>
 <p>The example below shows a sample batch request that contains the following operations in the order listed:</p>
 <ul>
-<li>A ChangeSet that contains the following requests:
+<li>A ChangeSet that contains the following requests:</li>
 <ul>
 <li>Insert a new entity (with Content-ID = 1)</li>
 <li>Insert a second new entity (references request with Content-ID = 1)</li>
 </ul>
-</li>
 </ul>
 <pre><code>POST /service/$batch HTTP/1.1 
 Host: host 
@@ -144,7 +142,7 @@ Content-Length: ###
 </code></pre>
 <h1 id="respondingtoabatchrequest">3. Responding to a Batch Request</h1>
 <p>Requests within a batch MUST be evaluated according to the same semantics used when the request appears outside the context of a batch.</p>
-<p>The order of ChangeSets and query operations in a Batch request is significant as a service MUST process the components of the Batch in the order recieved. The order of requests within a ChangeSet is not significant as a service MAY process the requests within a ChangeSet in any order.</p>
+<p>The order of ChangeSets and query operations in a Batch request is significant as a service MUST process the components of the Batch in the order received. The order of requests within a ChangeSet is not significant as a service MAY process the requests within a ChangeSet in any order.</p>
 <p>All operations in a ChangeSet represent a single change unit so a service MUST successfully process and apply all the requests in the ChangeSet or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within a ChangeSet that may have been applied before another request in that same ChangeSet failed and thereby honor this all-or-nothing requirement.</p>
 <p>If the set of request headers of a Batch request are valid (the Content-Type is set to multipart/mixed, etc) the service MUST return a 202 Accepted HTTP response code to indicate that the request was accepted for processing, but the processing yet to be completed. The requests within the body of the batch may subsequently fail or be malformed; however, this enables batch implementatios to stream the results.</p>
 <p>If the service receives a Batch request with an invalid set of headers it MUST return a 4xx response code and perform no further processing of the request.</p>
