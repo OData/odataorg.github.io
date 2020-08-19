@@ -114,7 +114,7 @@ author: OData.org Archive
 <p>Furthermore, "type" SHOULD be ordered first in the GeoJSON object, followed by coordinates, then the optional properties. This allows recipients to more easily distinguish geospatial values from complex type values when, for example, reading a dynamic property on an open type.</p>
 <p>This looks like:</p>
 <pre><code>{ "d" : { "results": [ { "__metadata":
-        { "uri": "http://services.odata.org/Foursquare.svc/Users('Neco447')",
+        { "uri": "https://services.odata.org/Foursquare.svc/Users('Neco447')",
         "type": "Foursquare.User" }, "ID": "Neco447",
         "Name": "Neco Fogworthy", "FavoriteLocation": { "type": "Point",
             "coordinates": [-127.892345987345, 45.598345897] }, "LastKnownLocation":
@@ -181,7 +181,7 @@ author: OData.org Archive
 <pre><code>/DriveTime(to=geography'POINT(-127.89734578345 45.234534534)', maximum_duration=time'0:15:00')</code></pre>
 <p>returns</p>
 <pre><code>{ "d" : { "results": [ { "__metadata": { "uri":
-        "http://services.odata.org/DriveTime(to=POINT(-127.89734578345 45.234534534),
+        "https://services.odata.org/DriveTime(to=POINT(-127.89734578345 45.234534534),
         maximum_duration=time'0:15:00')", "type": "Edm.Polygon"
         }, "type": "Polygon", "coordinates": [[[-127.0234534534,
         45.089734578345], [-127.0234534534, 45.389734578345], [-127.3234534534, 45.389734578345],

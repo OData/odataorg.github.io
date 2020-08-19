@@ -11,7 +11,7 @@ published: true
 author: OData.org Archive
 ---
 <p>OData is released under the Microsoft Open Specification promise. This allows anyone to create OData services that implement the specification and to freely interoperate with OData implementations.</p>
-<p>Currently there are several OData service <a href="http://www.odata.org/ecosystem">producers</a> and <a href="assets/odata-sdk">server libraries</a> including .Net Framework, Java, Rails and several <a href="http://www.odata.org/developers/odata-sdk">client libraries</a> across a range of platforms such as Objective-C, Javascript, PHP, and Java. The fact that an OData service can be consumed by a wide range of applications and libraries makes interoperability a key requirement.</p>
+<p>Currently there are several OData service <a href="https://www.odata.org/ecosystem">producers</a> and <a href="assets/odata-sdk">server libraries</a> including .Net Framework, Java, Rails and several <a href="https://www.odata.org/developers/odata-sdk">client libraries</a> across a range of platforms such as Objective-C, Javascript, PHP, and Java. The fact that an OData service can be consumed by a wide range of applications and libraries makes interoperability a key requirement.</p>
 <p>Today we are announcing the <a href="http://validator.odata.org/">OData Service Validation Tool</a> to address that requirement. The goal with this tool is to enable OData service authors ensure that their service interoperates well with any OData client. Consumers of the OData protocol can also benefit from this tool by testing OData service implementations that they are building an experience for to pinpoint potential issues.</p>
 <p>The tool can currently validate the following types of OData endpoints:</p>
 <ul>
@@ -26,12 +26,12 @@ author: OData.org Archive
 <li>Endpoint URIs pointing to payloads larger than 1 MB</li>
 <li>Authenticated feeds</li>
 </ul>
-<p>The screenshot below shows validation of a <a href="http://services.odata.org/Northwind/Northwind.svc/$metadata">Metadata document</a>. It can be seen that 7 rules that are related to Metadata document were executed and the metadata document passed all these checks.</p>
+<p>The screenshot below shows validation of a <a href="https://services.odata.org/Northwind/Northwind.svc/$metadata">Metadata document</a>. It can be seen that 7 rules that are related to Metadata document were executed and the metadata document passed all these checks.</p>
 <p><a href="/assets/screenshot1.png"><img class="alignnone size-full wp-image-340" alt="screenshot1" src="/assets/screenshot1.png" width="474" height="578" /></a></p>
 <p>Did you notice that the payload that was validated is displayed in the Source section? This is especially useful when the validation results in errors or warnings since the line in the payload highlighted in such cases. Screenshots below demonstrate this using a service with a metadata document which has errors:</p>
 <p><a href="/assets/screenshot2.png"><img class="alignnone size-full wp-image-341" alt="screenshot2" src="/assets/screenshot2.png" width="475" height="582" /></a></p>
 <p><a href="/assets/screenshot3.png"><img class="alignnone size-full wp-image-342" alt="screenshot3" src="/assets/screenshot3.png" width="475" height="612" /></a></p>
-<p>The current (alpha) release of this tool runs a small representative set of rules derived from the specification. You can see a current list of rules <a href="http://services.odata.org/validation/roadmap.htm#rules">here</a>.</p>
+<p>The current (alpha) release of this tool runs a small representative set of rules derived from the specification. You can see a current list of rules <a href="https://services.odata.org/validation/roadmap.htm#rules">here</a>.</p>
 <p>We are actively working on adding more rules to increase the coverage across the specification so that compliance can be determined with a much more exhaustive set of rules. The goal is to add new rules to the service on a regular cadence.</p>
-<p>Please go ahead and try the tool either with a service of your own or using one of many <a href="http://www.odata.org/ecosystem">public OData services</a>.</p>
-<p>Let us know if you have any questions or comments about this service or if there is a feature that you would like to see added. This tool is in the very early stages of development and you can help shape its evolution by providing feedback. Please join the OData <a href="http://www.odata.org/join-the-odata-discussion/">mailing list</a> to provide feedback or report issues.</p>
+<p>Please go ahead and try the tool either with a service of your own or using one of many <a href="https://www.odata.org/ecosystem">public OData services</a>.</p>
+<p>Let us know if you have any questions or comments about this service or if there is a feature that you would like to see added. This tool is in the very early stages of development and you can help shape its evolution by providing feedback. Please join the OData <a href="https://www.odata.org/join-the-odata-discussion/">mailing list</a> to provide feedback or report issues.</p>

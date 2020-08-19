@@ -12,7 +12,7 @@ permalink: /documentation/odata-version-3-0/batch-processing/
 <p>The OData protocol defines a way to query and manipulate data (described using an EDM model) using a simple set of operations. This document builds on the ‘Interaction Semantics’ section of the core OData specification document and describes how an OData implementation MAY support executing multiple operations sent in a single HTTP request through the use of Batching. This document covers both how Batch operations are represented and processed.</p>
 <p>Unless otherwise specified, the contents of this document is defined as part of OData version 1.</p>
 <h1 id="sendingabatchrequest">2. Sending a Batch Request</h1>
-<p>Batch requests allow grouping multiple operations, as described in [<a href="../odata-version-3-0-core-protocol">OData:Core</a>], into a single HTTP request payload. A batch request MUST be represented as a Multipart MIME v1.0 message [<a href="http://www.rfc-editor.org/rfc/rfc2046.txt">RFC2046</a>], a standard format allowing the representation of multiple parts, each of which may have a different content type (as described in [<a href="../atom">OData:Atom</a>], [<a href="http://www.odata.org/media/30002/json">OData:JSON</a>] and [<a href="../json-verbose-format/">OData:JSONVerbose</a>]), within a single request.</p>
+<p>Batch requests allow grouping multiple operations, as described in [<a href="../odata-version-3-0-core-protocol">OData:Core</a>], into a single HTTP request payload. A batch request MUST be represented as a Multipart MIME v1.0 message [<a href="http://www.rfc-editor.org/rfc/rfc2046.txt">RFC2046</a>], a standard format allowing the representation of multiple parts, each of which may have a different content type (as described in [<a href="../atom">OData:Atom</a>], [<a href="https://www.odata.org/media/30002/json">OData:JSON</a>] and [<a href="../json-verbose-format/">OData:JSONVerbose</a>]), within a single request.</p>
 <h2 id="batchrequestheaders">2.1 Batch Request Headers</h2>
 <p>Batch requests MUST be submitted as a single HTTP POST request to the batch endpoint of a service, which MUST be located at the URI &lt;Service Root URI&gt;/$batch. Service Root URIs are defined in [<a href="../odata-version-3-0-core-protocol">OData:Core</a>].</p>
 <p>The batch request MUST contain a Content-Type header specifying a content type of “multipart/mixed” and a boundary specification as defined in [<a href="http://www.rfc-editor.org/rfc/rfc2046.txt">RFC2046</a>]. &lt;Batch Request Body&gt; is defined in the Batch Request Body section below.</p>
@@ -39,12 +39,11 @@ Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e7
 <p>The example below shows a sample batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Query request</li>
-<li>A Change Set that contains the following requests:
+<li>A Change Set that contains the following requests:</li>
 <ul>
 <li>Insert entity</li>
 <li>Update request</li>
 </ul>
-</li>
 <li>Second query request</li>
 </ul>
 <pre><code>POST /service/$batch HTTP/1.1 
@@ -101,12 +100,11 @@ Host: host
 <p>If a MIME part representing an Insert request within a ChangeSet includes a Content-ID header, then the new entity represented by that part may be referenced by subsequent requests within the same ChangeSet by referring to the Content-ID value prefixed with a “$” character. When used in this way, $&lt;contentIdValue&gt; acts as an alias for the URI that identifies the new entity.</p>
 <p>The example below shows a sample batch request that contains the following operations in the order listed:</p>
 <ul>
-<li>A ChangeSet that contains the following requests:
+<li>A ChangeSet that contains the following requests:</li>
 <ul>
 <li>Insert a new entity (with Content-ID = 1)</li>
 <li>Insert a second new entity (references request with Content-ID = 1)</li>
 </ul>
-</li>
 </ul>
 <pre><code>POST /service/$batch HTTP/1.1 
 Host: host 
@@ -144,7 +142,7 @@ Content-Length: ###
 </code></pre>
 <h1 id="respondingtoabatchrequest">3. Responding to a Batch Request</h1>
 <p>Requests within a batch MUST be evaluated according to the same semantics used when the request appears outside the context of a batch.</p>
-<p>The order of ChangeSets and query operations in a Batch request is significant as a service MUST process the components of the Batch in the order recieved. The order of requests within a ChangeSet is not significant as a service MAY process the requests within a ChangeSet in any order.</p>
+<p>The order of ChangeSets and query operations in a Batch request is significant as a service MUST process the components of the Batch in the order received. The order of requests within a ChangeSet is not significant as a service MAY process the requests within a ChangeSet in any order.</p>
 <p>All operations in a ChangeSet represent a single change unit so a service MUST successfully process and apply all the requests in the ChangeSet or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within a ChangeSet that may have been applied before another request in that same ChangeSet failed and thereby honor this all-or-nothing requirement.</p>
 <p>If the set of request headers of a Batch request are valid (the Content-Type is set to multipart/mixed, etc) the service MUST return a 202 Accepted HTTP response code to indicate that the request was accepted for processing, but the processing yet to be completed. The requests within the body of the batch may subsequently fail or be malformed; however, this enables batch implementatios to stream the results.</p>
 <p>If the service receives a Batch request with an invalid set of headers it MUST return a 4xx response code and perform no further processing of the request.</p>

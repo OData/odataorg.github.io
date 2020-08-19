@@ -50,7 +50,7 @@ permalink: /documentation/odata-version-3-0/atom-format/
 <h1 id="primitivetypesinatom">4. Primitive Types in Atom</h1>
 <p>OData Atom and XML payloads serialize primitive types as shown in the table below.</p>
 <p>For full syntax rules, see <a href="../abnf">OData:ABNF</a>:</p>
-<table border="1" cellspacing="0" cellpadding="0">
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Primitive Types in Atom">
 <tbody>
 <tr>
 <th>Primitive Type</th>
@@ -302,7 +302,7 @@ Represents a collection of Geometry Values.</td>
 <p>Entity Instances, whether individual or within an ATOM feed, are represented as <a href="../atom-format#entitiesasatom:entryelements"><code>atom:entry</code></a> elements.</p>
 <p>For example, the following <code>atom:entry</code> element describes a Product:</p>
 {% highlight xml %}<code><entry>
-  <id>http://services.odata.org/OData/OData.svc/Products(0)</id> 
+  <id>https://services.odata.org/OData/OData.svc/Products(0)</id> 
   <title /> 
   <summary /> 
   <updated>2012-03-30T07:11:05Z</updated> 
@@ -359,7 +359,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>The <code>title</code> attribute on an <a href="../atom-format#streampropertiesasatom:linkelements"><code>atom:link</code></a> element describing an OData relationship provides human-readable, possibly language-dependent, and not necessarily unique information about the link. It has no implied semantics in OData.</p>
 <h3 id="relationshipsasatom:linkelements">6.1.5. Relationships as <code>atom:link</code> Elements</h3>
 <p>OData uses <code>atom:link</code> elements to represent relationships between entities.</p>
-<p>For example, the set of related products for a particular catagory may be represented through an <code>atom:link</code> element as a child of a category <code>entry</code> element as follows:</p>
+<p>For example, the set of related products for a particular category may be represented through an <code>atom:link</code> element as a child of a category <code>entry</code> element as follows:</p>
 {% highlight xml %}<code><atom:link 
     rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products" 
     href="Categories(0)/Products"
@@ -411,13 +411,13 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <h4 id="mediaentitiesasmedialinkentriesusingthesrcattribute">6.1.9.1. Media Entities As Media Link Entries using the <code>src</code> Attribute</h4>
 <p>The <code>atom:content</code> element MAY contain a <code>src</code> attribute, in which case the entry is a Media Link Entry, used to represent a Media Resource (for example, a photo). The value of the <code>src</code> attribute MUST be a URI that can be used to retrieve the content of the Media Resource.</p>
 <p>For Media Entities, the <code>atom:content</code> element MUST be empty. In this case, properties of the Media Resource (other than the stream) are represented by the <a href="../atom-format#entitypropertieswithinametadata:propertieselement"><code>metadata:properties</code></a> element as a sibling to, rather than a child of, the <code>atom:content</code> element.</p>
-<h3 id="atom:linkelementforupdatingmedialinkentries">6.1.10. <code>atom:link</code> element for Updating Media Link Entries</h3>
+<h3 id="atom:linkelementforupdatingmedialinkentries" aria-label="six point one point ten"><span aria-hidden="true">6.1.10.</span><code>atom:link</code> element for Updating Media Link Entries</h3>
 <p>A <a href="../atom-format#mediaentitiesasmedialinkentriesusingthesrcattribute">Media Link Entry</a> MAY contain an <code>atom:link</code> element with a <code>rel</code> attribute of <code>"edit-media"</code> to specify a URL that can be used to write to the BLOB associated with the entity.</p>
 <h4 id="therelattributeforwritingtomedialinkentries">6.1.10.1. The <code>rel</code> attribute for writing to Media Link Entries</h4>
 <p>Within an <code>atom:entry</code> representing a Media Link Entry, an <code>atom:link</code> element with a <code>rel</code> attribute of “edit-media” is used to identify a link that can be used to write to the BLOB associated with the entry.</p>
 <h4 id="thehrefattributeforwritingtomedialinkentries">6.1.10.2. The <code>href</code> attribute for writing to Media Link Entries</h4>
 <p>An atom:link element representing the link used to write to the BLOB associated with the entity MUST include an <code>href</code> attribute to specify the URI that can be used to write the stream. This URI may be relative or absolute.</p>
-<h3 id="entitypropertieswithinametadata:propertieselement">6.1.11. Entity Properties within a <code>metadata:properties</code> Element</h3>
+<h3 id="entitypropertieswithinametadata:propertieselement" aria-label="six point one point eleven"><span aria-hidden="true">6.1.11.</span> Entity Properties within a <code>metadata:properties</code> Element</h3>
 <p>The <code>metadata:properties</code> element represents a subset of the property values for an entity that are not exclusively mapped to defined or custom elements, as described in <a href="../atom-format#custommappingtoatomelements">Custom Mapping to Atom Elements</a>.</p>
 <p>The <code>metadata:properties</code> element MUST be a direct child of the <code>atom:content</code> element EXCEPT for the case where the entry represents a <a href="../atom-format#mediaentitiesasmedialinkentriesusingthesrcattribute">media entity</a>, in which case the <code>metadata:properties</code> element MUST be a sibling of the <code>atom:content</code> element. In the case that all properties of the entity are exclusively mapped to defined or custom elements, an empty <code>metadata:properties</code> element MAY be present.</p>
 <h4 id="entitypropertyasadata:propertynameelement">6.1.11.1. Entity Property as a <code>data:[propertyName]</code> Element</h4>
@@ -465,14 +465,14 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
     </data:element>  
 </data:PhoneNumbers> 
 </code>{% endhighlight %}
-<h3 id="nullsrepresentedusingthemetadata:nullattribute">6.1.12. Nulls represented using the metadata:null Attribute</h3>
+<h3 id="nullsrepresentedusingthemetadata:nullattribute" aria-label="six point one point twelve"><span aria-hidden="true">6.1.12.</span> Nulls represented using the metadata:null Attribute</h3>
 <p>Null valued properties are represented as empty elements with the <code>metadata:null="true"</code> attribute.</p>
 <p>The <code>metadata:null</code> attribute distinguishes null values from other empty content (such as an empty string).</p>
 <p>For example, the following represents an empty apartment number:</p>
 {% highlight xml %}<code><data:Apartment metadata:null="true"/>
 </code>{% endhighlight %}
 <p>The absence of the metadata:null attribute is equivalent to specifying <code>metadata:null="false"</code>.</p>
-<h3 id="datatyperepresentedusingthemetadata:typeattribute">6.1.13. Data Type represented using the metadata:type Attribute</h3>
+<h3 id="datatyperepresentedusingthemetadata:typeattribute" aria-label="six point one point thirteen"><span aria-hidden="true">6.1.13.</span> Data Type represented using the metadata:type Attribute</h3>
 <p>Primitive-valued properties and Complex-valued properties that are not part of a hierarchy MAY contain a metadata:type to specify the primitive type of the property.</p>
 <p>Complex-valued properties that are part of a hierarchy MUST contain a metadata:type attribute.</p>
 <p>For Complex-valued properties, the value of the attribute is the namespace-qualified name of the complex type.</p>
@@ -502,7 +502,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>For example, the following element describes an “Order” action:</p>
 {% highlight xml %}<code><metadata:action
   metadata="#DemoService.OrderProduct"
-  target="http://services.odata.org/OData/OData.svc/Products(1)/OrderProduct"
+  target="https://services.odata.org/OData/OData.svc/Products(1)/OrderProduct"
   title="Order"
 />
 </code>{% endhighlight %}
@@ -523,7 +523,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>For example, the following element describes a “GetTopProducts” function:</p>
 {% highlight xml %}<code><metadata:function
   metadata="#DemoService.GetTopProducts"
-  target="http://services.odata.org/OData/OData.svc/Categories(0)/GetTopProducts()"
+  target="https://services.odata.org/OData/OData.svc/Categories(0)/GetTopProducts()"
   title="GetTopProducts"
 />
 </code>{% endhighlight %}
@@ -546,7 +546,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>Custom ValueTerms and Custom TypeTerms MUST be defined in a namespace other than the <a href="../atom-format#atomnamespace">Atom Namespace</a>, <a href="../atom-format#atompublishingprotocolnamespace">AtomPub Namespace</a>, <a href="../atom-format#odatadatanamespace">OData Data Namespace</a>, or <a href="../atom-format#odatametadatanamespace">OData Metadata Namespace</a>. Annotations corresponding to custom terms add additional information about the item being annotated and SHOULD be designed in such a way that they can be safely ignored by the client.</p>
 <p>TypeAnnotations and ValueAnnotations specify a target, which represents the collection, entry, property, function, action, navigation link, error, or named stream being annotated. The target is specified relative to the parent of the ValueAnnotation or TypeAnnotation, and is either the parent itself (“.”) or the name of the sibling element being annotated.</p>
 <p>If more than one sibling exists with the same unqualifed name, then the namespace qualified element named MUST be used.</p>
-<h2 id="valueannotationsascustomelements">9.1. ValueAnnotations as custom Elements</h2>
+<h2 id="valueannotationsascustomelements">9.1. ValueAnnotations as Custom Elements</h2>
 <p>A ValueAnnotation is specified by a single element containing the <code>metadata:target</code> attribute, whose element name is the namespace-qualified ValueTerm.</p>
 <p>The content of the ValueAnnotation element is the value of the ValueTerm, formatted as per <a href="../atom-format#primitivetypesinatom">Primitive Types In Atom</a>.</p>
 <p>For example; the following specifies a value of “Home” for the “PhoneNumberType” ValueTerm applied to the “PhoneNumber” property of a customer:</p>
@@ -557,7 +557,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
     <contact:PhoneNumberType metadata:target="Phone">Home</contact:PhoneNumberType>
   </metadata:properties>
 </code>{% endhighlight %}
-<h3 id="themetadata:targetattribute">9.1.1. The <code>metadata:target</code> attribute</h3>
+<h3 id="themetadata:targetattributeforavalueannotation">9.1.1. The <code>metadata:target</code> attribute</h3>
 <p>The <code>metadata:target</code> attribute MUST be present on a ValueAnnotation and identifies the target of the annotation as described in <a href="../atom-format#annotations">Annotations</a>.</p>
 <h3 id="themetadata:typeattribute">9.1.2. The <code>metadata:type</code> attribute</h3>
 <p>If the type of the annotation value being specified is <code>Edm.String</code>, then the ValueAnnotation element MAY contain the <code>metadata:type</code> attribute specifying “Edm.String”, otherwise the ValueAnnotation element MUST contain the <code>metadata:type</code> attribute specifying the appropriate primitive type.</p>
@@ -578,7 +578,7 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
     </contact:Address>
   </metadata:properties>
 </code>{% endhighlight %}
-<h3 id="themetadata:targetattribute">9.2.1. The <code>metadata:target</code> attribute</h3>
+<h3 id="themetadata:targetattributeforatypeannotation">9.2.1. The <code>metadata:target</code> attribute</h3>
 <p>The <code>metadata:target</code> attribute MUST be present on a TypeAnnotation and identifies the target of the annotation as described in <a href="../atom-format#annotations">Annotations</a>.</p>
 <h1 id="custommappingtoatomelements">10. Custom Mapping to Atom Elements</h1>
 <p>Individual property values MAY be mapped to predefined atom elements or custom content within the entry. The mapping is described through attributes in the metadata.</p>
@@ -636,21 +636,21 @@ type="img/jpg" title="Photo" href="Categories(0)/Photo"/>
 <p>A <code>data:link</code> element represents the set of references from one entity to all related entities according to a particular relationship.</p>
 <p>The reference for each related entity is represented as a <code>data:uri</code> element that appears as a direct child of the <code>data:links</code> element.</p>
 <p>For example, a query for links to Products within the Category with ID=1:</p>
-{% highlight xml %}<code>http://services.odata.org/OData/OData.svc/Categories(1)$links/Products
+{% highlight xml %}<code>https://services.odata.org/OData/OData.svc/Categories(1)$links/Products
 </code>{% endhighlight %}
 <p>might return the following XML response:</p>
 {% highlight xml %}<code><links xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices"> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(1)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(2)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(3)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(4)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(5)</uri> 
-    <uri>http://services.odata.org/OData/OData.svc/Products(6)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(1)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(2)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(3)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(4)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(5)</uri> 
+    <uri>https://services.odata.org/OData/OData.svc/Products(6)</uri> 
 </links>
 </code>{% endhighlight %}
 <h2 id="linkasadata:urielement">14.2. Link as a <code>data:uri</code> Element</h2>
 <p>Each related entity is represented as a <code>data:uri</code> element, which appears as a direct child of a <a href="../atom-format#collectionoflinksasadata:linkselement"><code>data:link</code></a> element.</p>
-<p>The content of the <code>data:uri</code> element is the <a href="http://www.odata.org/OData.html#canonicalurl">Canonical URL</a> for the related entity.</p>
+<p>The content of the <code>data:uri</code> element is the <a href="https://www.odata.org/OData.html#canonicalurl">Canonical URL</a> for the related entity.</p>
 <h1 id="errorsasxml">15. Errors as XML</h1>
 <p>In the case of an error being generated in response to a request specifying an <code>Accept</code> header of <code>application/xml</code> or <code>application/atom+xml</code>, or that does not specify an <code>Accept</code> header, the service MUST respond with with an error formatted as XML.</p>
 <p>When formatting error responses as XML, servers SHOULD include a <code>Content-Type</code> response header with the value <code>"application/xml"</code>.</p>

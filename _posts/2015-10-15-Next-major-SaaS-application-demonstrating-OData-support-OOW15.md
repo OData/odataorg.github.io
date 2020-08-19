@@ -4,11 +4,11 @@ title: Next major SaaS application will be demonstrating OData support at OOW15
 date: 2015-10-15 17:59:43.000000000 +08:00
 author: Sumit Sarkar
 ---
-I am very excited about co-presenting an “ecosystem-changing” session around OData at Oracle OpenWorld 2015 this year.  This development represents the next major SaaS vendor to support accessing external data as an OData consumer.  One of the early OData consumers in the SaaS space was Salesforce with the [introduction of Lightning Connect](http://www.odata.org/blog/salesforce-external-object-integration-using-lightning-connect-with-odata/), and I had the privilege of presenting a session at Dreamforce on, “Lightning Connect: Lessons Learned”.  
+I am very excited about co-presenting an “ecosystem-changing” session around OData at Oracle OpenWorld 2015 this year.  This development represents the next major SaaS vendor to support accessing external data as an OData consumer.  One of the early OData consumers in the SaaS space was Salesforce with the [introduction of Lightning Connect](https://www.odata.org/blog/salesforce-external-object-integration-using-lightning-connect-with-odata/), and I had the privilege of presenting a session at Dreamforce on, “Lightning Connect: Lessons Learned”.  
 
 ![OData conference session](/assets/lightningconnectdf15.png)
 
-Lightning Connect is the new external data strategy for the Salesforce platform powered by OData and you can find the [latest news here](http://www.odata.org/blog/Lightning-Connect-New-in-OData-DF15/).
+Lightning Connect is the new external data strategy for the Salesforce platform powered by OData and you can find the [latest news here](https://www.odata.org/blog/Lightning-Connect-New-in-OData-DF15/).
 
 One month later on a different stage at Moscone Center, I get to co-present with Roderick Peace in a session titled, “Get Ahead: Oracle Service Cloud Integration Strategy—Spectrum of Integrations”. Learn more about the spectrum of integration strategies to external data from Oracle Service Cloud, including OData read/w
 rite support.

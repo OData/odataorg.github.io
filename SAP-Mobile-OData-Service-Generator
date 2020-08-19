@@ -1,0 +1,7 @@
+---
+layout: default
+category: producers
+title: "SAP Mobile OData Service Generator"
+link: "https://blogs.sap.com/2018/09/28/introducing-additional-mobile-app-development-tools/"
+---
+As part of SAP Cloud Platform Mobile Service, the Mobile OData Service Generator enables you to quickly build a mobile enabled OData service that constitutes your mobile back-end service for mobile applications. As a very useful capability for mobile consumers, service generated with this tool will support OData Delta Tokens for efficient offline applications.

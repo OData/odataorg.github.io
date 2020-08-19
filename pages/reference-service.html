@@ -4,31 +4,28 @@ title: Reference Services
 date: 2014-02-20 06:56:35.000000000 +08:00
 permalink: /odata-services/
 ---
-
-<ul class="nav nav-pills">
-  <li class="active">
-    <a href="#odata-v4" data-toggle="pill">OData v4</a>
+<div id="services-tab">
+<ul class="nav nav-tabs" role="tablist" aria-label="Versions"> 
+  <li role="presentation" class="active">
+    <a href="#odata-v4" role="tab" aria-controls="odata-v4" data-toggle="tab">OData v4</a>
   </li>
-  <li class="hide">
-    <a href="#v4" data-toggle="pill">OData v4</a>
+  <li role="presentation">
+    <a  href="#v3" role="tab" data-toggle="tab" aria-controls="v3" tabindex="-1">OData v3</a>
   </li>
-  <li>
-    <a href="#v3" data-toggle="pill">OData v3</a>
-  </li>
-  <li>
-    <a href="#v2" data-toggle="pill">OData v2</a>
+  <li role="presentation">
+    <a href="#v2" role="tab" data-toggle="tab" aria-controls="v2" tabindex="-1">OData v2</a>
   </li>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="odata-v4">
-    <table class="table table-striped table-condensed table-hover">
+  <div id="odata-v4" tabindex="0" class="tab-pane active" role="tabpanel">
+    <table class="table table-striped table-condensed table-hover" role="presentation" aria-label="OData v4 Reference Services">
       <tr>
         <th>Name</th>
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/TripPinRESTierService">TripPin(read/write)</a></td>
+        <td><a href="https://services.odata.org/TripPinRESTierService">TripPin(read/write)</a></td>
         <td>
 			This OData V4 sample service is built with <a href="http://odata.github.io/RESTier/">Restier</a> 
 			which is a turn-key library for building RESTful services, 
@@ -37,57 +34,53 @@ permalink: /odata-services/
 		</td>
       </tr>
     </table>
-    <div class="" id="service-usages">
-      {% capture my-include %}{% include_relative service-usages/basic-usages.md %}{% endcapture %}
-      {{ my-include | markdownify }}
-    </div>
   </div>
-  <div class="tab-pane hide" id="v4">
+  <div class="tab-pane hide" id="v4" role="tabpanel" hidden>
     <table class="table table-striped table-condensed table-hover">
       <tr>
         <th>Name</th>
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V4/TripPinServiceRW">TripPin (read/write)</a></td>
+        <td><a href="https://services.odata.org/V4/TripPinServiceRW">TripPin (read/write)</a></td>
         <td>The new OData V4 service designed for real scenarios and covering most V4 features.</td>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V4/OData/OData.svc">OData (read only)</a></td>
+        <td><a href="https://services.odata.org/V4/OData/OData.svc">OData (read only)</a></td>
         <td>A simple OData v4 service optimized for quick browser demos.</td>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V4/(S(readwrite))/OData/OData.svc/">OData (read/write)</a></td>
+        <td><a href="https://services.odata.org/V4/(S(readwrite))/OData/OData.svc/">OData (read/write)</a></td>
         <td>A simple OData v4 service optimized for quick browser demos.</td>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V4/Northwind/Northwind.svc">Northwind (read only)</a></td>
+        <td><a href="https://services.odata.org/V4/Northwind/Northwind.svc">Northwind (read only)</a></td>
         <td>A simple OData v4 service optimized for quick browser demos.</td>
       </tr>
     </table>
   </div>
-  <div class="tab-pane" id="v3">
-    <table class="table table-striped table-condensed table-hover">
+  <div class="tab-pane" id="v3" role="tabpanel" hidden>
+    <table class="table table-striped table-condensed table-hover" role="presentation" aria-label="OData v3 Reference Services">
       <tr>
         <th>Name</th>
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V3/OData/OData.svc">OData (read only)</a></td>
+        <td><a href="https://services.odata.org/V3/OData/OData.svc">OData (read only)</a></td>
         <td>A simple OData v3 service optimized for quick browser demos.</td>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V3/(S(readwrite))/OData/OData.svc/">OData (read/write)</a></td>
+        <td><a href="https://services.odata.org/V3/(S(readwrite))/OData/OData.svc/">OData (read/write)</a></td>
         <td>A simple OData v3 service optimized for quick browser demos.</td>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V3/Northwind/Northwind.svc">Northwind (read only)</a></td>
+        <td><a href="https://services.odata.org/V3/Northwind/Northwind.svc">Northwind (read only)</a></td>
         <td>A simple OData v3 service optimized for quick browser demos.</td>
       </tr>
     </table>
   </div>
-  <div class="tab-pane" id="v2">
-    <table class="table table-striped table-condensed table-hover">
+  <div class="tab-pane" id="v2" role="tabpanel" hidden>
+    <table class="table table-striped table-condensed table-hover" role="presentation" aria-label="OData v2 Reference Services">
       <tr>
         <th>Name</th>
         <th>Description</th>
@@ -97,14 +90,19 @@ permalink: /odata-services/
         <td>Open data portal of the Italian Ministry of Health running on OGDI DataLab and Windows Azure.</td>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V2/(S(readwrite))/OData/OData.svc/">OData (read/write)</a></td>
+        <td><a href="https://services.odata.org/V2/(S(readwrite))/OData/OData.svc/">OData (read/write)</a></td>
         <td>A simple OData v2 service optimized for quick browser demos.</td>
       </tr>
       <tr>
-        <td><a href="http://services.odata.org/V2/Northwind/Northwind.svc">Northwind (read only)</a></td>
+        <td><a href="https://services.odata.org/V2/Northwind/Northwind.svc">Northwind (read only)</a></td>
         <td>A simple OData v2 service optimized for quick browser demos.</td>
       </tr>
     </table>
   </div>
+</div>
+</div>
 
+<div class="" id="service-usages">
+    {% capture my-include %}{% include_relative service-usages/basic-usages.md %}{% endcapture %}
+    {{ my-include | markdownify }}
 </div>

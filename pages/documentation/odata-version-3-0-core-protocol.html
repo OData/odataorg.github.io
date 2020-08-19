@@ -40,7 +40,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>Entity sets and operations are grouped in a named <em>entity container</em>. This container represents a service’s model.</p>
 <p><em>Structural elements</em> are composed of other model elements. Entity types, complex types, association types, and row types are all structural elements. <em>Row types</em> are unnamed structural elements.</p>
 <p>An OData <em>resource</em> is anything in the model that can be addressed (an entity set, entity, property, or operation).</p>
-<p>Refer to <a href="http://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> for more information on the OData entity data model.</p>
+<p>Refer to <a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> for more information on the OData entity data model.</p>
 <h2 id="annotations">2.1 Annotations</h2>
 <p>Model and instance elements may be annotated with type annotations or value annotations.</p>
 <p><em>Type Annotations</em> are defined in metadata as entity types or complex types, and are generally used to define a common concept, such as a person or a movie.</p>
@@ -71,12 +71,12 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h2 id="normativereferences">4.1. Normative References</h2>
 <p>This document references the following related documents:</p>
 <ul>
-<li><a href="http://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>. Detailed description of the OData Entity Data Model.</li>
-<li><a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>. Conventions for constructing OData requests.</li>
-<li><a href="http://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a> Full ABNF rules for OData requests.</li>
-<li><a href="http://www.odata.org/documentation/odata-version-3-0/atom-format">OData:ATOM</a> ATOM encoding for OData payloads. OData Services MUST support the ATOM encoding.</li>
-<li><a href="http://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> A JSON encoding for OData payloads. OData services SHOULD support a JSON encoding.</li>
-<li><a href="http://www.odata.org/documentation/odata-version-3-0/batch-processing">OData:Batch</a> Support for grouping multiple OData requests in a single batch.</li>
+<li><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>. Detailed description of the OData Entity Data Model.</li>
+<li><a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>. Conventions for constructing OData requests.</li>
+<li><a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a> Full ABNF rules for OData requests.</li>
+<li><a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:ATOM</a> ATOM encoding for OData payloads. OData Services MUST support the ATOM encoding.</li>
+<li><a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> A JSON encoding for OData payloads. OData services SHOULD support a JSON encoding.</li>
+<li><a href="https://www.odata.org/documentation/odata-version-3-0/batch-processing">OData:Batch</a> Support for grouping multiple OData requests in a single batch.</li>
 <li><a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a> HTTP 1.1 Specification</li>
 <li><a href="http://tools.ietf.org/html/rfc5023">RFC5023</a> The Atom Publishing Protocol</li>
 <li><a href="http://tools.ietf.org/html/rfc2119">RFC2119</a> Keywords for use in RFCs to Indicate Requirement Levels</li>
@@ -124,12 +124,12 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>OData defines semantics around certain HTTP request and response headers. Services that support a version of OData MUST understand and comply with the headers defined by that version. Compliance means either honoring the semantics of the header field or failing the request.</p>
 <p>Individual services MAY define custom headers. These headers MUST NOT begin with <code>OData-</code>. Custom headers SHOULD be optional when making requests to the service. A service MUST NOT require a client to understand custom headers to accurately interpret the response.</p>
 <h2 id="formatextensibility">6.6. Format Extensibility</h2>
-<p>An OData Service MUST support at least the <a href="http://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a> format, and MAY support additional formats for both request and response bodies.</p>
+<p>An OData Service MUST support at least the <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a> format, and MAY support additional formats for both request and response bodies.</p>
 <h1 id="formats">7. Formats</h1>
 <p>The client may request a particular response format through the <code>Accept</code> header, as specified in <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, or through the <a href="#theformatsystemqueryoption"><code>$format</code> System Query Option</a>.</p>
 <p>In the case that both the <code>Accept</code> header and the <code>$format</code> query option are specified on a request, the value specified in the <code>$format</code> query option SHOULD be used.</p>
 <p>If the service does not support the requested format, it SHOULD reply with a <code>406 Not Acceptable</code> error response.</p>
-<p>See the format-specific specifications (<a href="http://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a>, <a href="http://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a>) for details.</p>
+<p>See the format-specific specifications (<a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a>, <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a>) for details.</p>
 <h1 id="headerfields">8. Header Fields</h1>
 <p>OData defines semantics around the following request and response headers. Additional headers MAY be specified, but have no unique semantics defined in OData.</p>
 <h2 id="commonheaders">8.1. Common Headers</h2>
@@ -142,7 +142,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>For more details see <a href="#versioning">Versioning</a>.</p>
 <h3 id="thecontent-typeheader">8.1.2. The <code>Content-Type</code> Header</h3>
 <p>The format of an individual request or response body MUST be specified in the <code>Content-Type</code> header of the request or response.</p>
-<p>See the format-specific specifications (<a href="http://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a>, <a href="http://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a>) for details.</p>
+<p>See the format-specific specifications (<a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a>, <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a>) for details.</p>
 <h2 id="commonrequestheaders">8.2. Common Request Headers</h2>
 <p>In addition to the <a href="#commonheaders">Common Headers</a>, a client MAY specify any combination of the following request headers.</p>
 <h3 id="themaxdataserviceversionrequestheader">8.2.1. The <code>MaxDataServiceVersion</code> Request Header</h3>
@@ -223,33 +223,33 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The format of the Service Document is dependent upon the format selected. For example, in Atom the Service Document is an AtomPub Service Document (as specified in <a href="http://tools.ietf.org/html/rfc5023">RFC5023</a>).</p>
 <h3 id="metadatadocumentrequest">10.1.2. Metadata Document Request</h3>
 <p>An OData <em>Metadata Document</em> is a representation of the <a href="#DataModel">data model</a> that describes the data and operations exposed by an OData service.</p>
-<p><a href="http://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> describes an XML representation for OData Metadata Documents and provides an XSD to validate their contents. The media type of the XML representation of an OData Metadata Document is ‘application/xml’.</p>
+<p><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> describes an XML representation for OData Metadata Documents and provides an XSD to validate their contents. The media type of the XML representation of an OData Metadata Document is ‘application/xml’.</p>
 <p>OData services MUST expose a Metadata Document which defines all data exposed by the service. The <em>Metadata Document URL</em> SHOULD be the root URL of the service with “/$metadata” appended. To retrieve this document a client issues a GET request to the Metadata Document URL.</p>
 <p>If a request for metadata does not specify a format preference (via <a href="#theacceptrequestheader"><code>Accept</code></a> header or <a href="#theformatsystemqueryoption">$format</a>) then the XML representation MUST be returned.</p>
 <h2 id="requestingdata">10.2. Requesting Data</h2>
 <p>OData services support requesting data through the use of HTTP GET requests.</p>
 <p>The path of the URL specifies the target of the request (for example; the collection of entities, entity, navigation property, scalar property, or operation). Additional query operators, such as filter, sort, page, and projection operations are specified through query options.</p>
 <p>The format of the returned data is dependent upon the request and the format specified by the client, either in the <a href="#theacceptrequestheader"><code>Accept</code></a> header or using the <a href="#theformatsystemqueryoption">$format</a> query option.</p>
-<p>This section describes the types of data requests defined by OData. For complete details on the syntax for building requests, see <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
+<p>This section describes the types of data requests defined by OData. For complete details on the syntax for building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 <h3 id="requestingindividualentities">10.2.1. Requesting Individual Entities</h3>
 <p>To retrieve an individual entity, a client makes a GET request to an <em>entity request URL</em>.</p>
-<p>The entity request URL MAY be returned in a response payload containing that instance (for example, as a self-link in an <a href="http://www.odata.org/documentation/odata-version-3-0/atom-format">Atom Payload</a>).</p>
-<p>Services MAY support conventions for constructing an entity request URL using the entity’s Key Value(s), as described in <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
+<p>The entity request URL MAY be returned in a response payload containing that instance (for example, as a self-link in an <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">Atom Payload</a>).</p>
+<p>Services MAY support conventions for constructing an entity request URL using the entity’s Key Value(s), as described in <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 <h3 id="requestingindividualproperties">10.2.2. Requesting Individual Properties</h3>
 <p>A service SHOULD support retrieving an individual property value.</p>
 <p>To retrieve an individual property, a client issues a GET request to the property URL. The property URL is the entity request URL with “<code>/</code>” and the property name appended.</p>
 <p>For complex typed properties, the path MAY be further extended with the name of the individual property of the complex type.</p>
-<p>See <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> for details.</p>
+<p>See <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> for details.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products(1)/Name
+<pre><code>https://services.odata.org/OData/OData.svc/Products(1)/Name
 </code></pre>
 <h4 id="requestingapropertysrawvalueusingvalue">10.2.2.1. Requesting a Property’s Raw Value using <code>$value</code></h4>
-<p>A service SHOULD support retrieving the raw value of a primitive type property. To retrieve this value, a client sends a GET request to the property value URL. See the <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> document for details.</p>
+<p>A service SHOULD support retrieving the raw value of a primitive type property. To retrieve this value, a client sends a GET request to the property value URL. See the <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> document for details.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products(1)/Name/$value
+<pre><code>https://services.odata.org/OData/OData.svc/Products(1)/Name/$value
 </code></pre>
 <p>The raw value of an Edm.Binary property MUST be serialized as an unencoded byte stream.</p>
-<p>The raw value of other properties SHOULD be represented using the <code>text/plain</code> media type. See <a href="http://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a> for details.</p>
+<p>The raw value of other properties SHOULD be represented using the <code>text/plain</code> media type. See <a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a> for details.</p>
 <p>A <code>$value</code> request for a property that is <code>NULL</code> SHOULD result in a <code>404 Not Found</code>. response.</p>
 <h3 id="queryingcollections">10.2.3. Querying Collections</h3>
 <p>OData services support querying collections of entities.</p>
@@ -258,14 +258,13 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h4 id="thefiltersystemqueryoption">10.2.3.1. The <code>$filter</code> System Query Option</h4>
 <p>The set of entities returned MAY be restricted through the use of the <code>$filter</code> System Query Option.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$filter=Price lt 10.00
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=Price lt 10.00
 </code></pre>
 <p>Returns all Products whose Price is less than $10.00.</p>
-<p>The value of the <code>$filter</code> option is a boolean expression as defined in <a href="http://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a>.</p>
+<p>The value of the <code>$filter</code> option is a boolean expression as defined in <a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a>.</p>
 <h5 id="built-infilteroperations">10.2.3.1.1. Built-in Filter Operations</h5>
-<p>OData supports a set of built-in filter operations, as described in this section. For a full description of the syntax used when building requests, see <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
-<p>l</p>
-<table border="1">
+<p>OData supports a set of built-in filter operations, as described in this section. For a full description of the syntax used when building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
+<table border="1" aria-label="Filter Query Option Operators">
 <tbody>
 <tr>
 <th>Operator</th>
@@ -359,9 +358,9 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </tbody>
 </table>
 <h5 id="built-inqueryfunctions">10.2.3.1.2. Built-in Query Functions</h5>
-<p>OData supports a set of built-in functions that can be used within <code>$filter</code> operations. The following table lists the available functions. For a full description of the syntax used when building requests, see <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
+<p>OData supports a set of built-in functions that can be used within <code>$filter</code> operations. The following table lists the available functions. For a full description of the syntax used when building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 <p>OData does note define an ISNULL or COALESCE operator. Instead, there is a <code>null</code> literal which can be used in comparisons.</p>
-<table border="1">
+<table border="1" aria-label="Functions for use with Filter Query Option">
 <tbody>
 <tr>
 <th>Function</th>
@@ -489,7 +488,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The presence of the <code>$expand</code> system query option indicates that entities related to the entity, or collection of entities, identified by the resource path section of the URL MUST be represented inline.</p>
 <p>The value of the <code>$expand</code> query option MUST be a comma separated list of navigation property paths.</p>
 <p>The service MUST include any actions or functions that are bound to the associated entities that are introduced via <code>$expand</code>, unless a <code>$select</code> System Query Option is also included in the request and that <code>$select</code> requests that the actions/functions be omitted.</p>
-<p>For a full description of the syntax used when building requests, see <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
+<p>For a full description of the syntax used when building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 <p>Examples</p>
 <pre><code>http://host/service.svc/Customers?$expand=Orders
 </code></pre>
@@ -506,17 +505,17 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The <code>$select</code> system query option requests that the service return only the properties, open properties, related properties, actions and functions explicitly requested by the client. The service MUST return the specified content, and MAY choose to return additional information.</p>
 <p>The value of the $select query option is a comma separated list of property paths, qualified action names, qualified function names, or the star operator (*), or the star operator prefixed with the name of the entity container in order to specify all operations within the container.</p>
 <p>For example, the following request returns just the Rating and ReleaseDate for the matching Products:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=Rating,ReleaseDate
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=Rating,ReleaseDate
 </code></pre>
 <p>It is also possible to request all properties, using a star request:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=*
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=*
 </code></pre>
 <p>A star request SHOULD NOT introduce actions or functions not otherwise requested.</p>
 <p>Properties of related entities MAY be specified by providing a property path in the select list. In order to select properties from related entities, the appropriate navigation property MUST be specified through the <code>$expand</code> query option:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=*,Category/Name&amp;$expand=Category
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=*,Category/Name&amp;$expand=Category
 </code></pre>
 <p>It is also possible to request all actions and functions available for each returned entity:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$select=DemoService.*
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$select=DemoService.*
 </code></pre>
 <p>For AtomPub formatted responses, the value of a <code>$select</code> clause applies only to the properties returned within the <code>m:properties</code> element. For example, if a property of an entity type is mapped to an Atom element, then that property MUST always be included in the response according to its customizable feed mapping.</p>
 <h4 id="theorderbysystemqueryoption">10.2.3.3 The <code>$orderby</code> System Query Option</h4>
@@ -525,31 +524,31 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>A type cast using the qualified entity type name is required to order by a property defined on a derived type.</p>
 <p>The property name MAY include the suffix “asc” for ascending or “desc” for descending, separated from the property name by one or more spaces. If “asc” or “desc” is not specified, the service MUST order by the specified property in ascending order.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$orderby=ReleaseDate asc, Rating desc
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$orderby=ReleaseDate asc, Rating desc
 </code></pre>
 <h4 id="thetopsystemqueryoption">10.2.3.4. The <code>$top</code> System Query Option</h4>
 <p>The <code>$top</code> System Query Option specifies that only the first n records SHOULD be returned, where n is a non-negative integer value specified by the <code>$top</code> query option.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$top=5
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$top=5
 </code></pre>
 <p>Would return only the first five Products in the Products entity set.</p>
 <p>If no unique ordering is imposed through an <a href="#theorderbysystemqueryoption"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$top</code>.</p>
 <h4 id="theskipsystemqueryoption">10.2.3.5. The <code>$skip</code> System Query Option</h4>
 <p>The <code>$skip</code> System Query Option specifies that the result MUST NOT include the first n entities, where n is a non-negative integer value specified by the <code>$skip</code> query option.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$skip=5
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$skip=5
 </code></pre>
 <p>Would return Products starting with the 6th Product in the Products entity set.</p>
 <p>Where [<code>$top</code>](thetopsystemqueryoption] and <code>$skip</code> are used together, the <code>$skip</code> MUST be applied before the <code>$top</code>, regardless of the order in which they appear in the request.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$top=5&amp;$skip=2
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$top=5&amp;$skip=2
 </code></pre>
 <p>Would return the third through seventh Products in the Products entity set.</p>
 <p>If no unique ordering is imposed through an <a href="#theorderbysystemqueryoption"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$skip</code>.</p>
 <h4 id="theinlinecountsystemqueryoption">10.2.3.6. The <code>$inlinecount</code> System Query Option</h4>
 <p>The <code>$inlinecount</code> System Query Option with a value of <code>allpages</code> specifies that the total count of entities matching the request MUST be returned along with the result.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages
+<pre><code>https://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages
 </code></pre>
 <p>Would return, along with the results, the total number of products in the set.</p>
 <p>An <code>$inlinecount</code> query option with a value of <code>none</code> (or not specified) hints that the service SHOULD NOT return a count.</p>
@@ -578,14 +577,14 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>On success, the response body MUST contain the URL for each related entity, formatted as a either a single link, or a collection of links, depending on the cardinality of the relationship.</p>
 <p>If the navigation property does not exist on the entity indicated by the request URL, the service SHOULD return <a href="#notfoundresponsecode"><code>404 Not Found</code></a>.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products(0)/$links/Orders
+<pre><code>https://services.odata.org/OData/OData.svc/Products(0)/$links/Orders
 </code></pre>
 <p>Returns the URLs of each Order related to the Product with <code>ID=0</code>.</p>
 <h3 id="requestingthecountofanentitycollection">10.2.5. Requesting the <code>$count</code> of an Entity Collection</h3>
 <p>To request only the count of an entity collection, the client issues a GET request with <code>/$count</code> appended to the path of the request URL.</p>
 <p>On success, the response body MUST contain the count of entities matching the request, formatted as a simple scalar integer value.</p>
 <p>For example:</p>
-<pre><code>http://services.odata.org/OData/OData.svc/Products/$count
+<pre><code>https://services.odata.org/OData/OData.svc/Products/$count
 </code></pre>
 <p>Returns the count of Products in the Products entity set.</p>
 <h2 id="datamodification">10.3. Data Modification</h2>
@@ -635,7 +634,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>To delete an existing entity, send a DELETE request to that entity’s edit URL. The request body SHOULD be empty.</p>
 <p>On success, the response MUST be <code>204 No Content</code>.</p>
 <h3 id="modifyingrelationshipsbetweenentities">10.3.5. Modifying Relationships Between Entities</h3>
-<p>Relationships between entities are represented by navigation properties as described in <a href="#datamodel">Data Model</a>. URL conventions for navigation properties are described in <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
+<p>Relationships between entities are represented by navigation properties as described in <a href="#datamodel">Data Model</a>. URL conventions for navigation properties are described in <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 <h4 id="createanewlinkbetweentwoexistingentitiesinaonetomanynavigationproperty">10.3.5.1. Create a New Link Between Two Existing Entities in a One to Many Navigation Property</h4>
 <p>To relate an existing entity to another entity, send a POST request to the URL for the appropriate navigation property’s links collection. The request body MUST contain a URL that identifies the entity to be added.</p>
 <p>The body MUST be formatted as a single link. See the appropriate format document for details.</p>
@@ -672,7 +671,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The request MUST contain a <a href="#thecontent-typeheader"><code>Content-Type</code></a> header, set to the correct value.</p>
 <p>The body of the request MUST be the binary data that will be the new value for the stream.</p>
 <h3 id="managingvaluesandpropertiesdirectly">10.3.8. Managing Values and Properties Directly</h3>
-<p>Values and properties can be explicitly addressed with URLs. This allows them to be individually modified. See <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> for details on addressing.</p>
+<p>Values and properties can be explicitly addressed with URLs. This allows them to be individually modified. See <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> for details on addressing.</p>
 <h4 id="updateaprimitiveproperty">10.3.8.1. Update a Primitive Property</h4>
 <p>To update a value, the client MAY send a PUT, MERGE, or PATCH request to an edit URL for a primitive property. The message body MUST contain the new value, formatted as a single property according to the specified format.</p>
 <p>Primitive properties do not support differential update. Regardless of which verb is used the service MUST replace the entire value with the value supplied in the request body.</p>
@@ -692,9 +691,9 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The service MUST replace the entire value with the value supplied in the request body.</p>
 <p>On success, the response MUST be a valid update <a href="#successresponsecodes">response</a>.</p>
 <h2 id="operations">10.4. Operations</h2>
-<p>Services MAY support custom operations. Operations (actions, functions and legacy service operations) are represented as function import elements in <a href="http://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>.</p>
+<p>Services MAY support custom operations. Operations (actions, functions and legacy service operations) are represented as function import elements in <a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>.</p>
 <h3 id="commonrulesforalloperations">10.4.1 Common rules for all operations</h3>
-<p>All operations MUST follow the rules outlined in <a href="http://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>.</p>
+<p>All operations MUST follow the rules outlined in <a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>.</p>
 <h4 id="entitysetpathexpression">10.4.1.1. Entity Set Path Expression</h4>
 <p>For functions or actions that return an entity or collection of entities, the entity set associated with the returned entity or collection of entities MAY depend upon the entity set of one of the parameter values used to invoke the operation.</p>
 <p>When such a dependency exists an <em>entity set path expression</em> is used. An entity set path expression MUST begin with the name of a parameter to the operation, and optionally includes a series of navigation properties (and occasional type casts) as a succinct way to describe the series of entity set transitions.</p>
@@ -718,7 +717,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>Actions are operations exposed by an OData service that MAY have side effects when invoked. Actions MAY return data and are not composable.</p>
 <h4 id="declaringactionsinmetadata">10.4.1.1. Declaring Actions in Metadata</h4>
 <p>Actions SHOULD be declared in <code>$metadata</code> using a <code>FunctionImport</code> element that indicates the signature (name, return type and parameters) of the action.</p>
-<p><a href="http://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> specifies how functions are syntactically defined in CSDL.</p>
+<p><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> specifies how functions are syntactically defined in CSDL.</p>
 <p>For example this <code>FunctionImport</code> represents an action that creates an order for a customer using the specified quantity and discount code. This action can be bound to any resource path that represents a <code>Customer</code> entity:</p>
 <pre><code>&lt;FunctionImport Name="CreateOrder" IsBindable="true" IsSideEffecting="true" 
                 metadata:IsAlwaysBindable="true"&gt;
@@ -728,7 +727,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 &lt;/FunctionImport&gt;
 </code></pre>
 <h4 id="advertisingcurrentlyavailableactions">10.4.1.2. Advertising Currently Available Actions</h4>
-<p><a href="http://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a> and <a href="http://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> formats require all actions that are available for the current entity or current collection of entities to be advertised inside any representation of the entity or collection entities returned from the service.</p>
+<p><a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a> and <a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> formats require all actions that are available for the current entity or current collection of entities to be advertised inside any representation of the entity or collection entities returned from the service.</p>
 <p>A service SHOULD advertise only those actions that are available for a given entity or collection of entities. The service MAY advertise all actions for a given entity or collection of entities. The service MAY fail later if the client attempts to invoke the action and it is found to be not available.</p>
 <p>The following information MUST be included, as defined within the appropriate format, when an action is advertised:</p>
 <ul>
@@ -779,7 +778,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>Functions are operations exposed by an OData service that MUST return data and MUST have no observable side effects.</p>
 <h4 id="declaringfunctionsinmetadata">10.4.2.1. Declaring Functions in Metadata</h4>
 <p>Functions SHOULD be declared in <code>$metadata</code>. Function declarations indicate the signature (Name, ReturnType and Parameters) and semantics (composability, bindability and result entity set) of the Function.</p>
-<p><a href="http://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> specifies how functions are syntactically defined in CSDL.</p>
+<p><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> specifies how functions are syntactically defined in CSDL.</p>
 <p>For Example: The following <code>FunctionImport</code> describes a Function called MostRecent that returns the most recent Order within a collection of Orders:</p>
 <pre><code>&lt;FunctionImport Name="MostRecent" EntitySet="Orders" ReturnType="SampleModel.Order" 
     IsBindable="true" IsSideEffecting="false" metadata:IsAlwaysBindable="true"&gt;
@@ -884,7 +883,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <dt>entity</dt>
 <dd>An instance of an <strong>entity type</strong> that has a unique identity and an independent existence. An entity is an operational unit of consistency.</dd>
 <dt>entity request URL</dt>
-<dd>A URL for requesting a single entity as a top-level object (as opposed to a collection containing a single entity). An entity request URL MAY be obtained from a response payload containing that instance (for example, as a self-link in an <a href="http://www.odata.org/media/30002/ODataAtomPayload">Atom Payload</a>). Services MAY support conventions for constructing an entity request URL using the entity’s Key Value(s), as described in <a href="http://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</dd>
+<dd>A URL for requesting a single entity as a top-level object (as opposed to a collection containing a single entity). An entity request URL MAY be obtained from a response payload containing that instance (for example, as a self-link in an <a href="https://www.odata.org/media/30002/ODataAtomPayload">Atom Payload</a>). Services MAY support conventions for constructing an entity request URL using the entity’s Key Value(s), as described in <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</dd>
 <dt>Entity Data Model (EDM)</dt>
 <dd>A set of concepts that describes the structure of data, regardless of its stored form, as described in the Introduction (section 1).</dd>
 <dt>enumeration type</dt>
