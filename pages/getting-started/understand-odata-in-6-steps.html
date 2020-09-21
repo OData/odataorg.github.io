@@ -1359,10 +1359,11 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
             trapFocus(this)
             $(this).find(".modal-body").attr("tabindex", -1);
        });
-
+       
         // make it possible to tab to response content inside popups for keyboard users
         $(".modal-body pre").attr("tabindex", 0);
-                
+        $(".modal-title").attr("tabindex", 0);
+        
         // hack to get the screen reader to read the syntax-highlighted
         // code section on Microsoft Edge
         $('.modal-body').each(function (i, modalBody) {
