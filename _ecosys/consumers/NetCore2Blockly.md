@@ -3,7 +3,6 @@ layout: default
 category: consumers
 title: NetCore2Blockly 
 link:  https://github.com/ignatandrei/netcoreblockly
-
 ---
 
  NetCore2Blockly is a way to interact with API via blocks of data . It is easy to integrate in any .NET Core 3+ project.
