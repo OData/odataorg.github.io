@@ -76,7 +76,7 @@ permalink: /getting-started/understand-odata-in-6-steps/
 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></p>
 <h4 class="modal-title" id="step-collection-modal-label">Response</h4>
 </p></div>
-<div class="modal-body sr-focusable">
+<div class="modal-body">
 {% highlight js %}
 HTTP/1.1 200 OK
 Content-Length: 1007
@@ -1357,11 +1357,12 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
        $('.modal').on('shown.bs.modal', function () {
             $('.close').focus();
             trapFocus(this)
-            $(this).find(".modal-body").attr("tabindex", 0);
+            $(this).find(".modal-body").attr("tabindex", -1);
        });
+       
         // make it possible to tab to response content inside popups for keyboard users
         $(".modal-body pre").attr("tabindex", 0);
-        $(".modal-body").attr("aria-label", "Response body");
+        $(".modal-title").attr("tabindex", 0);
         
         // hack to get the screen reader to read the syntax-highlighted
         // code section on Microsoft Edge
@@ -1371,13 +1372,13 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
             $(modalBody).find("pre span").each(function (spanIndex, span) {
                 plainCode += span.textContent + ' ';
             });
-            
-            // inject paragraph with plain code for screen readers
-            var screenReaderContent = document.createElement("p");
-            screenReaderContent.classList.add("sr-only");
-            screenReaderContent.tabIndex = 0;
-            screenReaderContent.textContent = plainCode;
-            modalBody.insertBefore(screenReaderContent, modalBody.firstChild);
+                   
+            var codeBlock= $(modalBody).find("pre");
+            codeBlock.attr('aria-label', plainCode);
+
+            // first child will be the figure with the <pre> tag inside. Make it non-focusable.
+            var firstChild = modalBody.firstChild;
+            firstChild.attr('tabindex', -1)
         });
     });
        
