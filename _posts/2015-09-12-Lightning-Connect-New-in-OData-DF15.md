@@ -5,7 +5,7 @@ date: 2015-09-23 17:59:43.000000000 +08:00
 author: Sumit Sarkar
 ---
 
-Salesforce introduced support for [Lightning Connect External Objects at Dreamforce '14](https://www.odata.org/blog/salesforce-external-object-integration-using-lightning-connect-with-odata/) powered by OData.  Salesforce's Lightning Connect was initially released as an OData 2.0 read-only consumer.  And new OData functionality is being added in each release based on demand from data hungry Salesforce applications. At Dreamforce '15, I learned about several large organizations running Lightning Connect in production including [Intuit](http://diginomica.com/2015/07/09/how-intuit-integrated-their-user-experience-with-progress/), [Warranty Group](https://success.salesforce.com/ev_sessions#/session/a2q30000001B6ilAAC), [Farmers Insurance](https://success.salesforce.com/ev_sessions#/session/a2q30000001B6ilAAC), to name a few.
+Salesforce introduced support for [Lightning Connect External Objects at Dreamforce '14](https://www.odata.org/blog/salesforce-external-object-integration-using-lightning-connect-with-odata/) powered by OData.  Salesforce's Lightning Connect was initially released as an OData 2.0 read-only consumer.  And new OData functionality is being added in each release based on demand from data hungry Salesforce applications. At Dreamforce '15, I learned about several large organizations running Lightning Connect in production including [Intuit](https://diginomica.com/2015/07/09/how-intuit-integrated-their-user-experience-with-progress/), [Warranty Group](https://success.salesforce.com/ev_sessions#/session/a2q30000001B6ilAAC), [Farmers Insurance](https://success.salesforce.com/ev_sessions#/session/a2q30000001B6ilAAC), to name a few.
 
 For my friends in the OData tribe, this is the most interesting OData consumer among SaaS applications and it's very exciting to track the evolution of its OData support.
 
@@ -23,9 +23,9 @@ Maximum OData result set size (16MB)
 ##Winter '16 (available in sandboxes as of this blog's publish date)
 * OData 4.0 support
 * Full CRUD support via OData
-![Full OData CRUD support](http://docs.releasenotes.salesforce.com/en-us/winter16/release-notes/release_notes/images/external_data_source_writeable_198.png)
+![Full OData CRUD support](https://docs.releasenotes.salesforce.com/en-us/winter16/release-notes/release_notes/images/external_data_source_writeable_198.png)
 
-[See Release Notes for complete details](http://docs.releasenotes.salesforce.com/en-us/winter16/release-notes/salesforce_release_notes.htm)
+[See Release Notes for complete details](https://docs.releasenotes.salesforce.com/en-us/winter16/release-notes/salesforce_release_notes.htm)
 
 These features represent growing adoption and demand for Lightning Connect, and I've worked with many of the organizations driving each one.
 
