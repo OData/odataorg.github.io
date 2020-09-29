@@ -1362,7 +1362,7 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
        
         // make it possible to tab to response content inside popups for keyboard users
         $(".modal-body pre").attr("tabindex", 0);
-        $(".modal-title").attr("tabindex", 0);
+        $(".modal-title").attr("tabindex", -1);
         
         // hack to get the screen reader to read the syntax-highlighted
         // code section on Microsoft Edge
