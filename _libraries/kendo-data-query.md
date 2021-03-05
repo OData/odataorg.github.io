@@ -1,7 +1,7 @@
 ---
 category: javascript
 name: Kendo UI 
-version: V1-V4
+version: V4
 object: Client
 downloads:
   - source: telerik.com
