@@ -195,3 +195,75 @@ code {
     display: block;
 	}
 }
+
+
+/* URL styling */
+    /* specific for IE10 & 11, they do not support these declarations with "a" or ".wrapped" selector
+      also, must use "word-wrap" property rather than "overflow-wrap" */
+    
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+* {
+  word-wrap: break-word;
+}
+}
+
+/* for all Edge, does not support these declarations with "a" or ".wrapped" selector, so must use "*" selector */
+@supports (-ms-ime-align:auto) {
+ * {
+word-wrap: break-word;
+ overflow-wrap: break-word;
+}
+}
+/* all other browsers long url styling */
+
+.wrapped {
+  word-wrap:break-word;
+  overflow-wrap: break-word;
+}
+
+table.reflows{
+  width: 100%;
+}
+
+table.reflows th{
+  text-align: left;
+  border-bottom: 1px dashed silver;
+}
+
+table.reflows.cell-label {
+    display: none;
+  }
+
+@media screen and (max-width: 640px) {
+  table.reflows th {
+        display: none;
+      }
+
+   table.reflows tr td {
+        float: left;
+        clear: left;
+        display: block;
+        width: 100%;
+      }
+
+  table.reflows tr td:last-child {
+        padding-bottom: 20px;
+        border-bottom: 0;
+      }
+
+  table.reflows .cell-label {
+        display: block;
+        float:left;
+      }
+  table.reflows .cell-content {
+        display: block;
+        float:right;
+      }
+
+  table.reflows tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.25);
+  }
+  table.reflows tr:nth-child(odd) {
+        background-color: #F9F9F9;
+  }
+}
