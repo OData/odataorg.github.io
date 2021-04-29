@@ -196,7 +196,6 @@ code {
 	}
 }
 
-
 /* URL styling */
     /* specific for IE10 & 11, they do not support these declarations with "a" or ".wrapped" selector
       also, must use "word-wrap" property rather than "overflow-wrap" */
