@@ -199,19 +199,19 @@ code {
 /* URL styling */
     /* specific for IE10 & 11, they do not support these declarations with "a" or ".wrapped" selector
       also, must use "word-wrap" property rather than "overflow-wrap" */
-    
+  
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-* {
-  word-wrap: break-word;
-}
+  * {
+    word-wrap: break-word;
+  }
 }
 
 /* for all Edge, does not support these declarations with "a" or ".wrapped" selector, so must use "*" selector */
 @supports (-ms-ime-align:auto) {
- * {
-word-wrap: break-word;
- overflow-wrap: break-word;
-}
+  * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
 }
 /* all other browsers long url styling */
 
@@ -230,8 +230,8 @@ table.reflows th{
 }
 
 table.reflows.cell-label {
-    display: none;
-  }
+  display: none;
+}
 
 @media screen and (max-width: 640px) {
   table.reflows th {

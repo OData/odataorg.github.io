@@ -104,7 +104,7 @@
       }
 
       // Zoom < 300%
-      if (isReflowed && window.innerWidth > 640){
+      else if (isReflowed && window.innerWidth > 640){
         isReflowed = false;
         $("b.cell-label").remove();
         $("span.cell-content").contents().unwrap();
