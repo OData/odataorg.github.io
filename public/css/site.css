@@ -164,7 +164,6 @@ code {
 }
 .tutorial-sidebar.affix {
     position: fixed;
-    top: 20px;
 }
 .tutorial-sidebar.affix-bottom {
     position: absolute;
@@ -183,14 +182,14 @@ code {
 	top: 50px;
 }
 
-/*@media (max-width: 991px) {
+@media (max-width: 991px) {
   .affix {
     position: static;
-	display: block;
-	float:right;
-    top: 50px;
+  	display: block;
+  	float:right;
+    top: 50%;
   }
-}*/
+}
 
  @media (min-width:992px) {
     .tutorial-sidebar .nav>.active>ul {
@@ -200,12 +199,12 @@ code {
 
 
 
-@media (max-height: 480px) {
+/*@media (max-height: 480px) {
   .affix {
     position: fixed;
     top: 50px;
   }
-}
+}*/
 
 /*@media (max-height: 360px) {
   .affix {
