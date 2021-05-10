@@ -78,4 +78,36 @@
             resultLimit: 10,
         });
     });
+
+    // Listen for "resize" events and also check if the page is loaded when already zoomed.
+    window.addEventListener( "resize", handleResizeEvent );
+    window.addEventListener( "load", handleResizeEvent );
+    // --------------------------------------------------------------------------- //
+
+    var isReflowed = false;
+    // Handle window resize events.
+    function handleResizeEvent( event ) {
+      // Zoom >= 300%
+      if (window.innerWidth <= 640 && !isReflowed){
+
+        // Transpose the headers
+        $('table.reflows').find('th').each(function(index, value){
+
+            var $this = $(this),
+              title = '<b class="cell-label">' + $this.html() + '</b>';
+
+            // add titles to cells
+            $('table.reflows')
+              .find('tr').find('td:eq('+index+')').wrapInner('<span class="cell-content"></span>').prepend( title );
+        });
+        isReflowed = true;
+      }
+
+      // Zoom < 300%
+      else if (isReflowed && window.innerWidth > 640){
+        isReflowed = false;
+        $("b.cell-label").remove();
+        $("span.cell-content").contents().unwrap();
+      }
+    }
 </script>
