@@ -303,3 +303,7 @@ body {
 .col-3-8 {
   width: 37.5%;
 }
+
+pre {
+  border: 1px solid #424242;
+}
