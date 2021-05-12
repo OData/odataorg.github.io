@@ -191,7 +191,7 @@ code {
   }
 }
 
- @media (min-width:992px) {
+@media (min-width:992px) {
     .tutorial-sidebar .nav>.active>ul {
     display: block;
 	}
