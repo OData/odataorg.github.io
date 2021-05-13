@@ -4,27 +4,29 @@ title: OData Version 3.0 Core Protocol
 date: 2014-02-20 07:50:09.000000000 +08:00
 permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 ---
-<h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
-<br><br>
-<a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
+<h5 class="alert alert-success">
+    OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0.
+    <br><br>
+    <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a>
+</h5>
 <h1 id="overview">1. Overview</h1>
 <p>The OData Protocol is an application-level protocol for interacting with data via RESTful web services. The protocol supports the description of data models and the editing and querying of data according to those models. It provides facilities for:</p>
 <ul>
-<li>Metadata: a machine-readable description of the data model exposed by a particular data provider.</li>
-<li>Data: sets of data entities and the relationships between them.</li>
-<li>Querying: requesting that the service perform a set of filtering and other transformations to its data, then return the results.</li>
-<li>Editing: creating, editing, and deleting data.</li>
-<li>Operations: invoking custom logic</li>
-<li>Vocabularies: attaching custom semantics</li>
+    <li>Metadata: a machine-readable description of the data model exposed by a particular data provider.</li>
+    <li>Data: sets of data entities and the relationships between them.</li>
+    <li>Querying: requesting that the service perform a set of filtering and other transformations to its data, then return the results.</li>
+    <li>Editing: creating, editing, and deleting data.</li>
+    <li>Operations: invoking custom logic</li>
+    <li>Vocabularies: attaching custom semantics</li>
 </ul>
 <p>The OData Protocol is different from other REST-based web service approaches in that it provides a uniform way to describe both the data and the data model. This improves semantic interoperability between systems and allows an ecosystem to emerge.</p>
 <p>Towards that end, the OData Protocol follows these design principles:</p>
 <ul>
-<li>Prefer mechanisms that work on a variety of data stores. In particular, do not assume a relational data model.</li>
-<li>Backwards compatibility is paramount. Clients and services which speak different versions of the OData Protocol should interoperate, supporting everything allowed in lower versions.</li>
-<li>Follow REST principles unless there is a good and specific reason not to.</li>
-<li>OData should degrade gracefully. It should be easy to build a very basic but compliant OData service, with additional work necessary only to support additional capabilities.</li>
-<li>Keep it simple. Address the common cases and provide extensibility where necessary.</li>
+    <li>Prefer mechanisms that work on a variety of data stores. In particular, do not assume a relational data model.</li>
+    <li>Backwards compatibility is paramount. Clients and services which speak different versions of the OData Protocol should interoperate, supporting everything allowed in lower versions.</li>
+    <li>Follow REST principles unless there is a good and specific reason not to.</li>
+    <li>OData should degrade gracefully. It should be easy to build a very basic but compliant OData service, with additional work necessary only to support additional capabilities.</li>
+    <li>Keep it simple. Address the common cases and provide extensibility where necessary.</li>
 </ul>
 <h1 id="datamodel">2. Data Model</h1>
 <p>This section provides a high-level description of the <em>Entity Data Model (EDM)</em>: the abstract data model that MUST be used to describe the data exposed by an OData service. An <a href="#metadatadocumentrequest">OData Metadata Document</a> is a representation of a service’s data model exposed for client consumption.</p>
@@ -56,12 +58,12 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The rest of an OData service consists of dynamic resources. The URLs for many of these resources can be computed from the information in the metadata document.</p>
 <p>A typical OData interaction proceeds as follows:</p>
 <ol>
-<li>Client has an intent</li>
-<li>Client asks for and parses the metadata document.</li>
-<li>Client uses metadata to determine how to form a request for its intent.</li>
-<li>Client performs request(s) to interact with data.</li>
-<li>Each response provides additional options to the client, in terms of both links and instance metadata.</li>
-<li>Client can follow links or combine instance metadata with service metadata to determine new entry points.</li>
+    <li>Client has an intent</li>
+    <li>Client asks for and parses the metadata document.</li>
+    <li>Client uses metadata to determine how to form a request for its intent.</li>
+    <li>Client performs request(s) to interact with data.</li>
+    <li>Each response provides additional options to the client, in terms of both links and instance metadata.</li>
+    <li>Client can follow links or combine instance metadata with service metadata to determine new entry points.</li>
 </ol>
 <p>In this way, the service always remains in control. It defines what is allowed at any moment and how that will be requested.</p>
 <p>However, the service can describe those operations in terms of composable chunks. This allows the client wide flexibility in how it composes resources to achieve its intent.</p>
@@ -71,16 +73,16 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h2 id="normativereferences">4.1. Normative References</h2>
 <p>This document references the following related documents:</p>
 <ul>
-<li><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>. Detailed description of the OData Entity Data Model.</li>
-<li><a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>. Conventions for constructing OData requests.</li>
-<li><a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a> Full ABNF rules for OData requests.</li>
-<li><a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:ATOM</a> ATOM encoding for OData payloads. OData Services MUST support the ATOM encoding.</li>
-<li><a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> A JSON encoding for OData payloads. OData services SHOULD support a JSON encoding.</li>
-<li><a href="https://www.odata.org/documentation/odata-version-3-0/batch-processing">OData:Batch</a> Support for grouping multiple OData requests in a single batch.</li>
-<li><a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a> HTTP 1.1 Specification</li>
-<li><a href="http://tools.ietf.org/html/rfc5023">RFC5023</a> The Atom Publishing Protocol</li>
-<li><a href="http://tools.ietf.org/html/rfc2119">RFC2119</a> Keywords for use in RFCs to Indicate Requirement Levels</li>
-<li><a href="http://tools.ietf.org/html/rfc5789">RFC5789</a> Patch Method for HTTP</li>
+    <li><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>. Detailed description of the OData Entity Data Model.</li>
+    <li><a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>. Conventions for constructing OData requests.</li>
+    <li><a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a> Full ABNF rules for OData requests.</li>
+    <li><a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:ATOM</a> ATOM encoding for OData payloads. OData Services MUST support the ATOM encoding.</li>
+    <li><a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> A JSON encoding for OData payloads. OData services SHOULD support a JSON encoding.</li>
+    <li><a href="https://www.odata.org/documentation/odata-version-3-0/batch-processing">OData:Batch</a> Support for grouping multiple OData requests in a single batch.</li>
+    <li><a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a> HTTP 1.1 Specification</li>
+    <li><a href="http://tools.ietf.org/html/rfc5023">RFC5023</a> The Atom Publishing Protocol</li>
+    <li><a href="http://tools.ietf.org/html/rfc2119">RFC2119</a> Keywords for use in RFCs to Indicate Requirement Levels</li>
+    <li><a href="http://tools.ietf.org/html/rfc5789">RFC5789</a> Patch Method for HTTP</li>
 </ul>
 <h2 id="examplepayloads">4.2. Example Payloads</h2>
 <p>Some sections of this specification are illustrated with non-normative example OData request and response payloads. However, the text of this specification provides the definition of conformance.</p>
@@ -108,9 +110,9 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h2 id="actionfunctionextensibility">6.3. Action/Function Extensibility</h2>
 <p>Actions and functions extend the set of operations that can be performed on or with a service or resource. Actions MAY have side-effects. For example actions may be used to extend CUD operations or to invoke custom operations. Functions MUST NOT have side-effects. Functions can be invoked:</p>
 <ul>
-<li>directly from the service root</li>
-<li>from an url that addresses a resource</li>
-<li>inside a predicate to a <code>$filter</code> or <code>$orderby</code> system query option.</li>
+    <li>directly from the service root</li>
+    <li>from an url that addresses a resource</li>
+    <li>inside a predicate to a <code>$filter</code> or <code>$orderby</code> system query option.</li>
 </ul>
 <p>Fully qualified action and function names include a namespace prefix. The <code>odata</code> and <code>geo</code> namespaces are reserved for the use of this specification.</p>
 <p>An OData service MUST fail any request that contains actions or functions that it does not understand.</p>
@@ -264,226 +266,282 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The value of the <code>$filter</code> option is a boolean expression as defined in <a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a>.</p>
 <h5 id="built-infilteroperations">10.2.3.1.1. Built-in Filter Operations</h5>
 <p>OData supports a set of built-in filter operations, as described in this section. For a full description of the syntax used when building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
-<table border="1" aria-label="Filter Query Option Operators">
-<tbody>
-<tr>
-<th>Operator</th>
-<th>Description</th>
-<th>Example</th>
-</tr>
-<tr>
-<td colspan="3"><strong>Logical Operators</strong></td>
-</tr>
-<tr>
-<td>eq</td>
-<td>Equal</td>
-<td>/Suppliers?$filter=Address/City eq 'Redmond'</td>
-</tr>
-<tr>
-<td>ne</td>
-<td>Not equal</td>
-<td>/Suppliers?$filter=Address/City ne 'London'</td>
-</tr>
-<tr>
-<td>gt</td>
-<td>Greater than</td>
-<td>/Products?$filter=Price gt 20</td>
-</tr>
-<tr>
-<td>ge</td>
-<td>Greater than or equal</td>
-<td>/Products?$filter=Price ge 10</td>
-</tr>
-<tr>
-<td>lt</td>
-<td>Less than</td>
-<td>/Products?$filter=Price lt 20</td>
-</tr>
-<tr>
-<td>le</td>
-<td>Less than or equal</td>
-<td>/Products?$filter=Price le 100</td>
-</tr>
-<tr>
-<td>and</td>
-<td>Logical and</td>
-<td>/Products?$filter=Price le 200 and Price gt 3.5</td>
-</tr>
-<tr>
-<td>or</td>
-<td>Logical or</td>
-<td>/Products?$filter=Price le 3.5 or Price gt 200</td>
-</tr>
-<tr>
-<td>not</td>
-<td>Logical negation</td>
-<td>/Products?$filter=not endswith(Description,'milk')</td>
-</tr>
-<tr>
-<td colspan="3"><strong>Arithmetic Operators</strong></td>
-</tr>
-<tr>
-<td>add</td>
-<td>Addition</td>
-<td>/Products?$filter=Price add 5 gt 10</td>
-</tr>
-<tr>
-<td>sub</td>
-<td>Subtraction</td>
-<td>/Products?$filter=Price sub 5 gt 10</td>
-</tr>
-<tr>
-<td>mul</td>
-<td>Multiplication</td>
-<td>/Products?$filter=Price mul 2 gt 2000</td>
-</tr>
-<tr>
-<td>div</td>
-<td>Division</td>
-<td>/Products?$filter=Price div 2 gt 4</td>
-</tr>
-<tr>
-<td>mod</td>
-<td>Modulo</td>
-<td>/Products?$filter=Price mod 2 eq 0</td>
-</tr>
-<tr>
-<td colspan="3"><strong>Grouping Operators</strong></td>
-</tr>
-<tr>
-<td>( )</td>
-<td>Precedence grouping</td>
-<td>/Products?$filter=(Price sub 5) gt 10</td>
-</tr>
-</tbody>
-</table>
+
+<div aria-label="Filter Query Option Operators">
+    <table border="1">
+        <caption><strong>Logical Operators</strong></caption>
+        <thead>
+            <tr>
+                <th scope="col">Operator</th>
+                <th scope="col">Description</th>
+                <th scope="col">Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>eq</td>
+                <td>Equal</td>
+                <td>/Suppliers?$filter=Address/City eq 'Redmond'</td>
+            </tr>
+            <tr>
+                <td>ne</td>
+                <td>Not equal</td>
+                <td>/Suppliers?$filter=Address/City ne 'London'</td>
+            </tr>
+            <tr>
+                <td>gt</td>
+                <td>Greater than</td>
+                <td>/Products?$filter=Price gt 20</td>
+            </tr>
+            <tr>
+                <td>ge</td>
+                <td>Greater than or equal</td>
+                <td>/Products?$filter=Price ge 10</td>
+            </tr>
+            <tr>
+                <td>lt</td>
+                <td>Less than</td>
+                <td>/Products?$filter=Price lt 20</td>
+            </tr>
+            <tr>
+                <td>le</td>
+                <td>Less than or equal</td>
+                <td>/Products?$filter=Price le 100</td>
+            </tr>
+            <tr>
+                <td>and</td>
+                <td>Logical and</td>
+                <td>/Products?$filter=Price le 200 and Price gt 3.5</td>
+            </tr>
+            <tr>
+                <td>or</td>
+                <td>Logical or</td>
+                <td>/Products?$filter=Price le 3.5 or Price gt 200</td>
+            </tr>
+            <tr>
+                <td>not</td>
+                <td>Logical negation</td>
+                <td>/Products?$filter=not endswith(Description,'milk')</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table border="1">
+        <caption><strong>Arithmetic Operators</strong></caption>
+        <thead>
+            <tr>
+                <th scope="col">Operator</th>
+                <th scope="col">Description</th>
+                <th scope="col">Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>add</td>
+                <td>Addition</td>
+                <td>/Products?$filter=Price add 5 gt 10</td>
+            </tr>
+            <tr>
+                <td>sub</td>
+                <td>Subtraction</td>
+                <td>/Products?$filter=Price sub 5 gt 10</td>
+            </tr>
+            <tr>
+                <td>mul</td>
+                <td>Multiplication</td>
+                <td>/Products?$filter=Price mul 2 gt 2000</td>
+            </tr>
+            <tr>
+                <td>div</td>
+                <td>Division</td>
+                <td>/Products?$filter=Price div 2 gt 4</td>
+            </tr>
+            <tr>
+                <td>mod</td>
+                <td>Modulo</td>
+                <td>/Products?$filter=Price mod 2 eq 0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table border="1">
+        <caption><strong>Grouping Operators</strong></caption>
+        <thead>
+            <tr>
+                <th scope="col">Operator</th>
+                <th scope="col">Description</th>
+                <th scope="col">Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>( )</td>
+                <td>Precedence grouping</td>
+                <td>/Products?$filter=(Price sub 5) gt 10</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
 <h5 id="built-inqueryfunctions">10.2.3.1.2. Built-in Query Functions</h5>
 <p>OData supports a set of built-in functions that can be used within <code>$filter</code> operations. The following table lists the available functions. For a full description of the syntax used when building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 <p>OData does note define an ISNULL or COALESCE operator. Instead, there is a <code>null</code> literal which can be used in comparisons.</p>
-<table border="1" aria-label="Functions for use with Filter Query Option">
-<tbody>
-<tr>
-<th>Function</th>
-<th>Example</th>
-</tr>
-<tr>
-<td colspan="3"><strong>String Functions</strong></td>
-</tr>
-<tr>
-<td>bool substringof(string searchString, string searchInString)</td>
-<td>substringof('Alfreds',CompanyName)</td>
-</tr>
-<tr>
-<td>bool endswith(string string, string suffixString)</td>
-<td>endswith(CompanyName,'Futterkiste')</td>
-</tr>
-<tr>
-<td>bool startswith(string string, string prefixString)</td>
-<td>startswith(CompanyName,'Alfr')</td>
-</tr>
-<tr>
-<td>int length(string string)</td>
-<td>length(CompanyName) eq 19</td>
-</tr>
-<tr>
-<td>int indexof(string searchInString, string searchString)</td>
-<td>indexof(CompanyName,'lfreds') eq 1</td>
-</tr>
-<tr>
-<td>string replace(string searchInString, string searchString, string replaceString)</td>
-<td>replace(CompanyName,' ', '') eq 'AlfredsFutterkiste'</td>
-</tr>
-<tr>
-<td>string substring(string string, int pos)</td>
-<td>substring(CompanyName,1) eq 'lfreds Futterkiste'</td>
-</tr>
-<tr>
-<td>string substring(string string, int pos, int length)</td>
-<td>substring(CompanyName,1, 2) eq 'lf'</td>
-</tr>
-<tr>
-<td>string tolower(string string)</td>
-<td>tolower(CompanyName) eq 'alfreds futterkiste'</td>
-</tr>
-<tr>
-<td>string toupper(string string)</td>
-<td>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</td>
-</tr>
-<tr>
-<td>string trim(string string)</td>
-<td>trim(CompanyName) eq 'Alfreds Futterkiste'</td>
-</tr>
-<tr>
-<td>string concat(string string1, string string2)</td>
-<td>concat(concat(City,', '), Country) eq 'Berlin, Germany'</td>
-</tr>
-<tr>
-<td colspan="3"><strong>Date Functions</strong></td>
-</tr>
-<tr>
-<td>int day(DateTime datetimeValue)</td>
-<td>day(BirthDate) eq 8</td>
-</tr>
-<tr>
-<td>int hour(DateTime datetimeValue)</td>
-<td>hour(BirthDate) eq 1</td>
-</tr>
-<tr>
-<td>int minute(DateTime datetimeValue)</td>
-<td>minute(BirthDate) eq 0</td>
-</tr>
-<tr>
-<td>int month(DateTime datetimeValue)</td>
-<td>month(BirthDate) eq 12</td>
-</tr>
-<tr>
-<td>int second(DateTime datetimeValue)</td>
-<td>second(BirthDate) eq 0</td>
-</tr>
-<tr>
-<td>int year(DateTime datetimeValue)</td>
-<td>year(BirthDate) eq 1948</td>
-</tr>
-<tr>
-<td colspan="3"><strong>Math Functions</strong></td>
-</tr>
-<tr>
-<td>double round(double doubleValue)</td>
-<td>round(Freight) eq 32</td>
-</tr>
-<tr>
-<td>decimal round(decimal decimalValue)</td>
-<td>round(Freight) eq 32</td>
-</tr>
-<tr>
-<td>double floor(double doubleValue)</td>
-<td>floor(Freight) eq 32</td>
-</tr>
-<tr>
-<td>decimal floor(decimal datetimeValue)</td>
-<td>floor(Freight) eq 32</td>
-</tr>
-<tr>
-<td>double ceiling(double doubleValue)</td>
-<td>ceiling(Freight) eq 33</td>
-</tr>
-<tr>
-<td>decimal ceiling(decimal datetimeValue)</td>
-<td>ceiling(Freight) eq 33</td>
-</tr>
-<tr>
-<td colspan="3"><strong>Type Functions</strong></td>
-</tr>
-<tr>
-<td>bool IsOf(type value)</td>
-<td>isof('NorthwindModel.Order')</td>
-</tr>
-<tr>
-<td>bool IsOf(expression value, type targetType)</td>
-<td>isof(ShipCountry,'Edm.String')</td>
-</tr>
-</tbody>
-</table>
+
+<div aria-label="Functions for use with Filter Query Option">
+    <table border="1">
+        <caption><strong>String Functions</strong></caption>
+        <thead>
+            <tr>
+                <th>Function</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>bool substringof(string searchString, string searchInString)</td>
+                <td>substringof('Alfreds',CompanyName)</td>
+            </tr>
+            <tr>
+                <td>bool endswith(string string, string suffixString)</td>
+                <td>endswith(CompanyName,'Futterkiste')</td>
+            </tr>
+            <tr>
+                <td>bool startswith(string string, string prefixString)</td>
+                <td>startswith(CompanyName,'Alfr')</td>
+            </tr>
+            <tr>
+                <td>int length(string string)</td>
+                <td>length(CompanyName) eq 19</td>
+            </tr>
+            <tr>
+                <td>int indexof(string searchInString, string searchString)</td>
+                <td>indexof(CompanyName,'lfreds') eq 1</td>
+            </tr>
+            <tr>
+                <td>string replace(string searchInString, string searchString, string replaceString)</td>
+                <td>replace(CompanyName,' ', '') eq 'AlfredsFutterkiste'</td>
+            </tr>
+            <tr>
+                <td>string substring(string string, int pos)</td>
+                <td>substring(CompanyName,1) eq 'lfreds Futterkiste'</td>
+            </tr>
+            <tr>
+                <td>string substring(string string, int pos, int length)</td>
+                <td>substring(CompanyName,1, 2) eq 'lf'</td>
+            </tr>
+            <tr>
+                <td>string tolower(string string)</td>
+                <td>tolower(CompanyName) eq 'alfreds futterkiste'</td>
+            </tr>
+            <tr>
+                <td>string toupper(string string)</td>
+                <td>toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'</td>
+            </tr>
+            <tr>
+                <td>string trim(string string)</td>
+                <td>trim(CompanyName) eq 'Alfreds Futterkiste'</td>
+            </tr>
+            <tr>
+                <td>string concat(string string1, string string2)</td>
+                <td>concat(concat(City,', '), Country) eq 'Berlin, Germany'</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table border="1">
+        <caption><strong>Date Functions</strong></caption>
+        <thead>
+            <tr>
+                <th>Function</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>int day(DateTime datetimeValue)</td>
+                <td>day(BirthDate) eq 8</td>
+            </tr>
+            <tr>
+                <td>int hour(DateTime datetimeValue)</td>
+                <td>hour(BirthDate) eq 1</td>
+            </tr>
+            <tr>
+                <td>int minute(DateTime datetimeValue)</td>
+                <td>minute(BirthDate) eq 0</td>
+            </tr>
+            <tr>
+                <td>int month(DateTime datetimeValue)</td>
+                <td>month(BirthDate) eq 12</td>
+            </tr>
+            <tr>
+                <td>int second(DateTime datetimeValue)</td>
+                <td>second(BirthDate) eq 0</td>
+            </tr>
+            <tr>
+                <td>int year(DateTime datetimeValue)</td>
+                <td>year(BirthDate) eq 1948</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table border="1">
+        <caption><strong>Math Functions</strong></caption>
+        <thead>
+            <tr>
+                <th>Function</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>double round(double doubleValue)</td>
+                <td>round(Freight) eq 32</td>
+            </tr>
+            <tr>
+                <td>decimal round(decimal decimalValue)</td>
+                <td>round(Freight) eq 32</td>
+            </tr>
+            <tr>
+                <td>double floor(double doubleValue)</td>
+                <td>floor(Freight) eq 32</td>
+            </tr>
+            <tr>
+                <td>decimal floor(decimal datetimeValue)</td>
+                <td>floor(Freight) eq 32</td>
+            </tr>
+            <tr>
+                <td>double ceiling(double doubleValue)</td>
+                <td>ceiling(Freight) eq 33</td>
+            </tr>
+            <tr>
+                <td>decimal ceiling(decimal datetimeValue)</td>
+                <td>ceiling(Freight) eq 33</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table border="1">
+        <caption><strong>Type Functions</strong></caption>
+        <thead>
+            <tr>
+                <th>Function</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>bool IsOf(type value)</td>
+                <td>isof('NorthwindModel.Order')</td>
+            </tr>
+            <tr>
+                <td>bool IsOf(expression value, type targetType)</td>
+                <td>isof(ShipCountry,'Edm.String')</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 <h5 id="theexpandsystemqueryoption">10.2.3.1.3 The <code>$expand</code> System Query Option</h5>
 <p>The presence of the <code>$expand</code> system query option indicates that entities related to the entity, or collection of entities, identified by the resource path section of the URL MUST be represented inline.</p>
 <p>The value of the <code>$expand</code> query option MUST be a comma separated list of navigation property paths.</p>
@@ -497,8 +555,8 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </code></pre>
 <p>For each Order within the Orders entity set, the following MUST be represented inline:</p>
 <ul>
-<li>The Order lines associated to the Orders identified by the resource path section of the URL and the products associated to each Order line.</li>
-<li>The customer associated with each Order returned.http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</li>
+    <li>The Order lines associated to the Orders identified by the resource path section of the URL and the products associated to each Order line.</li>
+    <li>The customer associated with each Order returned.http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</li>
 </ul>
 <p>For each Customer entity in the Customers entity set, the value of all associated InHouseStaff MUST be represented inline if the entity is of type VipCustomer or a subtype of that. For entities that are not of type VipCustomer, or any of its subtypes, that entity SHOULD be returned with no inline representation for the expanded navigation property.</p>
 <h4 id="theselectsystemqueryoption">10.2.3.2 The <code>$select</code> System Query Option</h4>
@@ -559,9 +617,9 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>A request with a <code>$format</code> system query option specifies that the response SHOULD use the media type specified by the query option.</p>
 <p>If the <code>$format</code> query option is present in a request, it SHOULD take precedence over the value(s) specified in the accept request header.</p>
 <ul>
-<li>If the value of the query option is “atom”, then the media type used in the response MUST be “application/atom+xml”, or “application/atomsvc+xml” for the <a href="#servicedocumentrequest">service document</a>.</li>
-<li>If the value of the query option is “json”, then the media type used in the response MUST be “application/json”.</li>
-<li>If the value of the query option is “xml”, then the media type used in the response MUST be “application/xml”.</li>
+    <li>If the value of the query option is “atom”, then the media type used in the response MUST be “application/atom+xml”, or “application/atomsvc+xml” for the <a href="#servicedocumentrequest">service document</a>.</li>
+    <li>If the value of the query option is “json”, then the media type used in the response MUST be “application/json”.</li>
+    <li>If the value of the query option is “xml”, then the media type used in the response MUST be “application/xml”.</li>
 </ul>
 <p>For example:</p>
 <pre><code>http://host/service.svc/Orders?$format=json
@@ -731,9 +789,9 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>A service SHOULD advertise only those actions that are available for a given entity or collection of entities. The service MAY advertise all actions for a given entity or collection of entities. The service MAY fail later if the client attempts to invoke the action and it is found to be not available.</p>
 <p>The following information MUST be included, as defined within the appropriate format, when an action is advertised:</p>
 <ul>
-<li>A ‘Target Url’ that MUST identify the resource that accepts requests to invoke the action.</li>
-<li>A ‘Metadata Url’ that MUST identify the <code>FunctionImport</code> that declares the action. This URL can be either relative or absolute, but when relative it MUST be assumed to be relative to the <code>$metadata</code> URL of the current service.</li>
-<li>A ‘Title’ that SHOULD contain a human readable description of the action.</li>
+    <li>A ‘Target Url’ that MUST identify the resource that accepts requests to invoke the action.</li>
+    <li>A ‘Metadata Url’ that MUST identify the <code>FunctionImport</code> that declares the action. This URL can be either relative or absolute, but when relative it MUST be assumed to be relative to the <code>$metadata</code> URL of the current service.</li>
+    <li>A ‘Title’ that SHOULD contain a human readable description of the action.</li>
 </ul>
 <p>Example: Given a GET request to http://server/Customers(‘ALFKI’)</p>
 <p>The service might respond with a Customer entity that advertises a binding of the <code>SampleEntities.CreateOrder</code> action to itself:</p>
@@ -850,76 +908,76 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <hr />
 <h1 id="appendixa:terminology">Appendix A: Terminology</h1>
 <dl>
-<dt>alias</dt>
-<dd>A simple identifier that is typically used as a short name for a <strong>namespace</strong>.</dd>
-<dt>alias qualified name</dt>
-<dd>A qualified name that is used to refer to a <strong>structural type</strong>, except that the <strong>namespace</strong> is replaced by the alias for the <strong>namespace</strong>. For example, if an <strong>entity type</strong> called “Person” is defined in the “Model.Business” <strong>namespace</strong>, and that <strong>namespace</strong> has been given the <strong>alias</strong> “Self”, the alias qualified name for the person <strong>entity type</strong> is “Self.Person”.</dd>
-<dt>annotation</dt>
-<dd>Any custom, application-specific extension that is applied to an instance of <strong>CSDL</strong> through the use of custom attributes and elements that are not a part of this <strong>CSDL</strong> specification.</dd>
-<dt>association</dt>
-<dd>A named independent relationship between two <strong>entity type</strong> definitions. Associations in the <strong>Entity Data Model (EDM)</strong> are first-class concepts and are always bidirectional. Indeed, the first-class nature of associations helps distinguish the <strong>EDM</strong> from the relational model. Every association includes exactly two association ends.</dd>
-<dt>association end</dt>
-<dd>A term that specifies the <strong>entity type</strong> elements that are related, the roles of each of those <strong>entity type</strong> elements in the <strong>association</strong>, and the <strong>cardinality</strong> rules for each end of the <strong>association</strong>.</dd>
-<dt>bound Action invocation URL</dt>
-<dd>the URL that can be used to invoke a particular action bound to a particular entity or collection of entities.</dd>
-<dt>bound Function invocation URL</dt>
-<dd>the URL that can be used to invoke a particular function bound to a particular entity or collection of entities.</dd>
-<dt>cardinality</dt>
-<dd>The measure of the number of elements in a set.</dd>
-<dt>collection</dt>
-<dd>A grouping of one or more <strong>EDM types</strong> that are type compatible. A collection can be used as the return type for a <strong>FunctionImport</strong>.</dd>
-<dt>conceptual schema definition language (CSDL)</dt>
-<dd>A language that is based on XML and that can be used to define conceptual models that are based on the <strong>EDM</strong>.</dd>
-<dt>conceptual schema definition language (CSDL) document</dt>
-<dd>A document that contains a conceptual model that is described by using the <strong>CSDL</strong> code.</dd>
-<dt>declared property</dt>
-<dd>A property that is statically declared by a <strong>Property</strong> element as part of the definition of a <strong>structural type</strong>. For example, in the context of an <strong>entity type</strong>, a declared property includes all properties of an <strong>entity type</strong> that are represented by the <strong>Property</strong> child elements of the <strong>entity type</strong> element that defines the <strong>entity type</strong>.</dd>
-<dt>derived type</dt>
-<dd>A type that is derived from the <strong>base type</strong>. Only <strong>complex type</strong> and <strong>entity type</strong> can define a <strong>base type</strong>.</dd>
-<dt>dynamic property</dt>
-<dd>A designation for an instance of an <strong>open entity type</strong> that includes additional nullable properties (of a <strong>scalar type</strong> or <strong>complex type</strong>), or navigation properties, beyond its <strong>declared properties</strong>. The set of additional properties, and the type of each, may vary between instances of the same <strong>open entity type</strong>. Such additional properties are referred to as dynamic properties and do not have a representation in a <strong>CSDL document</strong>.</dd>
-<dt>EDM type</dt>
-<dd>A categorization that includes all the following types: <strong>EDMSimpleType</strong>, <strong>complex type</strong>, <strong>entity type</strong>, <strong>enumeration</strong>, and <strong>association</strong>.</dd>
-<dt>entity</dt>
-<dd>An instance of an <strong>entity type</strong> that has a unique identity and an independent existence. An entity is an operational unit of consistency.</dd>
-<dt>entity request URL</dt>
-<dd>A URL for requesting a single entity as a top-level object (as opposed to a collection containing a single entity). An entity request URL MAY be obtained from a response payload containing that instance (for example, as a self-link in an <a href="https://www.odata.org/media/30002/ODataAtomPayload">Atom Payload</a>). Services MAY support conventions for constructing an entity request URL using the entity’s Key Value(s), as described in <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</dd>
-<dt>Entity Data Model (EDM)</dt>
-<dd>A set of concepts that describes the structure of data, regardless of its stored form, as described in the Introduction (section 1).</dd>
-<dt>enumeration type</dt>
-<dd>A type that represents a custom enumeration that is declared by using the <strong>EnumType</strong> element.</dd>
-<dt>facet</dt>
-<dd>An element that provides information that specializes the usage of a type. For example, the precision (that is, accuracy) facet can be used to define the precision of a <strong>DateTime property</strong>.</dd>
-<dt>identifier</dt>
-<dd>A string value that is used to uniquely identify a component of the <strong>CSDL</strong> and is of type <strong>SimpleIdentifier</strong>.</dd>
-<dt>in scope</dt>
-<dd>A designation that is applied to an XML construct that is visible or can be referenced, assuming that all other applicable rules are satisfied. Types that are in scope include all <strong>scalar types</strong> and <strong>structural type</strong> types that are defined in <strong>namespaces</strong> that are in scope. <strong>Namespaces</strong> that are in scope include the <strong>namespace</strong> of the current <strong>schema</strong> and other <strong>namespaces</strong> that are referenced in the current <strong>schema</strong> by using the <strong>Using</strong> element.</dd>
-<dt>namespace</dt>
-<dd>A name that is defined on the <strong>schema</strong> and that is subsequently used to prefix <strong>identifiers</strong> to form the <strong>namespace qualified name</strong> of a <strong>structural type</strong>. <strong>CSDL</strong> enforces a maximum length of 512 characters for namespace values.</dd>
-<dt>namespace qualified name</dt>
-<dd>A qualified name that refers to a <strong>structural type</strong> by using the name of the <strong>namespace</strong>, followed by a period, followed by the name of the <strong>structural type</strong>.</dd>
-<dt>nominal type</dt>
-<dd>A designation that applies to the types that can be referenced. Nominal types include all primitive types and named <strong>EDM types</strong>. Nominal types are frequently used inline with collection in the following format: collection(nominal_type).</dd>
-<dt>property</dt>
-<dd>An <strong>entity type</strong> can have one or more properties of the specified <strong>scalar type</strong> or <strong>complex type</strong>. A property can be a <strong>declared property</strong> or a <strong>dynamic property</strong>. (In <strong>CSDL 1.2</strong>, <strong>dynamic properties</strong> are defined only for use with <strong>open entity type</strong> instances.)</dd>
-<dt>referential constraint</dt>
-<dd>A constraint on the keys contained in the <strong>associatio</strong>n type. The ReferentialConstraint <strong>CSDL</strong> construct is used for defining referential constraints.</dd>
-<dt>scalar type</dt>
-<dd>A designation that applies to all <strong>EDMSimpleType</strong> and <strong>enumeration types</strong>. Scalar types do not include <strong>StructuralTypes</strong>.</dd>
-<dt>schema</dt>
-<dd>A container that defines a <strong>namespace</strong> that describes the scope of <strong>EDM types</strong>. All <strong>EDM types</strong> are contained within some <strong>namespace</strong>.</dd>
-<dt>schema level named element</dt>
-<dd>An element that is a child element of the <strong>schema</strong> and contains a <strong>Name</strong> attribute that must have a unique value.</dd>
-<dt>structural type</dt>
-<dd>A type that has members that define its structure. <strong>complex type</strong>, <strong>entity type</strong>, and <strong>association</strong> are all StructuralTypes.</dd>
-<dt>type annotation</dt>
-<dd>An <strong>annotation</strong> of a model element that allows a term and provision of zero or more values for the properties of the term.</dd>
-<dt>type term</dt>
-<dd>A structured term represented as an entity or complex type.</dd>
-<dt>value annotation</dt>
-<dd>An <strong>annotation</strong> that attaches a named value to a model element.</dd>
-<dt>value term</dt>
-<dd>A term with a single property in EDM.</dd>
-<dt>vocabulary</dt>
-<dd>A schema that contains definitions of value terms and/or type terms.</dd>
+    <dt>alias</dt>
+    <dd>A simple identifier that is typically used as a short name for a <strong>namespace</strong>.</dd>
+    <dt>alias qualified name</dt>
+    <dd>A qualified name that is used to refer to a <strong>structural type</strong>, except that the <strong>namespace</strong> is replaced by the alias for the <strong>namespace</strong>. For example, if an <strong>entity type</strong> called “Person” is defined in the “Model.Business” <strong>namespace</strong>, and that <strong>namespace</strong> has been given the <strong>alias</strong> “Self”, the alias qualified name for the person <strong>entity type</strong> is “Self.Person”.</dd>
+    <dt>annotation</dt>
+    <dd>Any custom, application-specific extension that is applied to an instance of <strong>CSDL</strong> through the use of custom attributes and elements that are not a part of this <strong>CSDL</strong> specification.</dd>
+    <dt>association</dt>
+    <dd>A named independent relationship between two <strong>entity type</strong> definitions. Associations in the <strong>Entity Data Model (EDM)</strong> are first-class concepts and are always bidirectional. Indeed, the first-class nature of associations helps distinguish the <strong>EDM</strong> from the relational model. Every association includes exactly two association ends.</dd>
+    <dt>association end</dt>
+    <dd>A term that specifies the <strong>entity type</strong> elements that are related, the roles of each of those <strong>entity type</strong> elements in the <strong>association</strong>, and the <strong>cardinality</strong> rules for each end of the <strong>association</strong>.</dd>
+    <dt>bound Action invocation URL</dt>
+    <dd>the URL that can be used to invoke a particular action bound to a particular entity or collection of entities.</dd>
+    <dt>bound Function invocation URL</dt>
+    <dd>the URL that can be used to invoke a particular function bound to a particular entity or collection of entities.</dd>
+    <dt>cardinality</dt>
+    <dd>The measure of the number of elements in a set.</dd>
+    <dt>collection</dt>
+    <dd>A grouping of one or more <strong>EDM types</strong> that are type compatible. A collection can be used as the return type for a <strong>FunctionImport</strong>.</dd>
+    <dt>conceptual schema definition language (CSDL)</dt>
+    <dd>A language that is based on XML and that can be used to define conceptual models that are based on the <strong>EDM</strong>.</dd>
+    <dt>conceptual schema definition language (CSDL) document</dt>
+    <dd>A document that contains a conceptual model that is described by using the <strong>CSDL</strong> code.</dd>
+    <dt>declared property</dt>
+    <dd>A property that is statically declared by a <strong>Property</strong> element as part of the definition of a <strong>structural type</strong>. For example, in the context of an <strong>entity type</strong>, a declared property includes all properties of an <strong>entity type</strong> that are represented by the <strong>Property</strong> child elements of the <strong>entity type</strong> element that defines the <strong>entity type</strong>.</dd>
+    <dt>derived type</dt>
+    <dd>A type that is derived from the <strong>base type</strong>. Only <strong>complex type</strong> and <strong>entity type</strong> can define a <strong>base type</strong>.</dd>
+    <dt>dynamic property</dt>
+    <dd>A designation for an instance of an <strong>open entity type</strong> that includes additional nullable properties (of a <strong>scalar type</strong> or <strong>complex type</strong>), or navigation properties, beyond its <strong>declared properties</strong>. The set of additional properties, and the type of each, may vary between instances of the same <strong>open entity type</strong>. Such additional properties are referred to as dynamic properties and do not have a representation in a <strong>CSDL document</strong>.</dd>
+    <dt>EDM type</dt>
+    <dd>A categorization that includes all the following types: <strong>EDMSimpleType</strong>, <strong>complex type</strong>, <strong>entity type</strong>, <strong>enumeration</strong>, and <strong>association</strong>.</dd>
+    <dt>entity</dt>
+    <dd>An instance of an <strong>entity type</strong> that has a unique identity and an independent existence. An entity is an operational unit of consistency.</dd>
+    <dt>entity request URL</dt>
+    <dd>A URL for requesting a single entity as a top-level object (as opposed to a collection containing a single entity). An entity request URL MAY be obtained from a response payload containing that instance (for example, as a self-link in an <a href="https://www.odata.org/media/30002/ODataAtomPayload">Atom Payload</a>). Services MAY support conventions for constructing an entity request URL using the entity’s Key Value(s), as described in <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</dd>
+    <dt>Entity Data Model (EDM)</dt>
+    <dd>A set of concepts that describes the structure of data, regardless of its stored form, as described in the Introduction (section 1).</dd>
+    <dt>enumeration type</dt>
+    <dd>A type that represents a custom enumeration that is declared by using the <strong>EnumType</strong> element.</dd>
+    <dt>facet</dt>
+    <dd>An element that provides information that specializes the usage of a type. For example, the precision (that is, accuracy) facet can be used to define the precision of a <strong>DateTime property</strong>.</dd>
+    <dt>identifier</dt>
+    <dd>A string value that is used to uniquely identify a component of the <strong>CSDL</strong> and is of type <strong>SimpleIdentifier</strong>.</dd>
+    <dt>in scope</dt>
+    <dd>A designation that is applied to an XML construct that is visible or can be referenced, assuming that all other applicable rules are satisfied. Types that are in scope include all <strong>scalar types</strong> and <strong>structural type</strong> types that are defined in <strong>namespaces</strong> that are in scope. <strong>Namespaces</strong> that are in scope include the <strong>namespace</strong> of the current <strong>schema</strong> and other <strong>namespaces</strong> that are referenced in the current <strong>schema</strong> by using the <strong>Using</strong> element.</dd>
+    <dt>namespace</dt>
+    <dd>A name that is defined on the <strong>schema</strong> and that is subsequently used to prefix <strong>identifiers</strong> to form the <strong>namespace qualified name</strong> of a <strong>structural type</strong>. <strong>CSDL</strong> enforces a maximum length of 512 characters for namespace values.</dd>
+    <dt>namespace qualified name</dt>
+    <dd>A qualified name that refers to a <strong>structural type</strong> by using the name of the <strong>namespace</strong>, followed by a period, followed by the name of the <strong>structural type</strong>.</dd>
+    <dt>nominal type</dt>
+    <dd>A designation that applies to the types that can be referenced. Nominal types include all primitive types and named <strong>EDM types</strong>. Nominal types are frequently used inline with collection in the following format: collection(nominal_type).</dd>
+    <dt>property</dt>
+    <dd>An <strong>entity type</strong> can have one or more properties of the specified <strong>scalar type</strong> or <strong>complex type</strong>. A property can be a <strong>declared property</strong> or a <strong>dynamic property</strong>. (In <strong>CSDL 1.2</strong>, <strong>dynamic properties</strong> are defined only for use with <strong>open entity type</strong> instances.)</dd>
+    <dt>referential constraint</dt>
+    <dd>A constraint on the keys contained in the <strong>associatio</strong>n type. The ReferentialConstraint <strong>CSDL</strong> construct is used for defining referential constraints.</dd>
+    <dt>scalar type</dt>
+    <dd>A designation that applies to all <strong>EDMSimpleType</strong> and <strong>enumeration types</strong>. Scalar types do not include <strong>StructuralTypes</strong>.</dd>
+    <dt>schema</dt>
+    <dd>A container that defines a <strong>namespace</strong> that describes the scope of <strong>EDM types</strong>. All <strong>EDM types</strong> are contained within some <strong>namespace</strong>.</dd>
+    <dt>schema level named element</dt>
+    <dd>An element that is a child element of the <strong>schema</strong> and contains a <strong>Name</strong> attribute that must have a unique value.</dd>
+    <dt>structural type</dt>
+    <dd>A type that has members that define its structure. <strong>complex type</strong>, <strong>entity type</strong>, and <strong>association</strong> are all StructuralTypes.</dd>
+    <dt>type annotation</dt>
+    <dd>An <strong>annotation</strong> of a model element that allows a term and provision of zero or more values for the properties of the term.</dd>
+    <dt>type term</dt>
+    <dd>A structured term represented as an entity or complex type.</dd>
+    <dt>value annotation</dt>
+    <dd>An <strong>annotation</strong> that attaches a named value to a model element.</dd>
+    <dt>value term</dt>
+    <dd>A term with a single property in EDM.</dd>
+    <dt>vocabulary</dt>
+    <dd>A schema that contains definitions of value terms and/or type terms.</dd>
 </dl>
