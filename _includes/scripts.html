@@ -139,3 +139,37 @@
         }
     }
 </script>
+<script>
+    function openModal() {
+      document.getElementById("screenshot1").style.display = "block";
+    }
+    
+    function closeModal() {
+      document.getElementById("screenshot1").style.display = "none";
+    }
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      var slides = document.getElementsByClassName("screenshot1Lightbox");
+      slides[slideIndex-1].style.display = "block";
+    }
+    
+</script>
+<script type="text/javascript">
+    window.onkeyup = function (event) {
+        if (event.keyCode == 27 && document.getElementById('screenshot1').style.display=='block') {
+            document.getElementById('screenshot1').style.display='none';
+        }
+
+        if (event.keyCode == 13 && event.target.id == "postmanCollection-small") {
+            document.getElementById('screenshot1').style.display='block';
+        }        
+    }
+</script>
