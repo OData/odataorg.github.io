@@ -8,7 +8,7 @@
 <script type="text/javascript" src="{{'/public/jquery.swiftype.autocomplete.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 <script>
     $(document).ready(function() {
-        
+
         var dropdown = $(
             '<div class="autocomplete__segment">' +
             '<ul id="search-results" class="autocomplete__segment-header"  role="listbox"\n' +
@@ -140,14 +140,17 @@
     }
 </script>
 <script type="text/javascript">
+    // open the modal
     function openModal() {
       document.getElementById("screenshot1").style.display = "block";
     }
     
+    // Close the modal
     function closeModal() {
       document.getElementById("screenshot1").style.display = "none";
     }
     
+    // show the selected image.
     function currentSlide(n) {
       showSlides(slideIndex = n);
     }
@@ -157,11 +160,14 @@
       slides[slideIndex-1].style.display = "block";
     }
     
+
     window.onkeyup = function (event) {
+            // On pressing escape close blown out image.
         if (event.keyCode == 27 && document.getElementById('screenshot1').style.display=='block') {
             document.getElementById('screenshot1').style.display='none';
         }
 
+        // On click enter open blown out image.
         if (event.keyCode == 13 && event.target.id == "postmanCollection-small") {
             document.getElementById('screenshot1').style.display='block';
         }        
