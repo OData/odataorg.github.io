@@ -307,3 +307,23 @@ body {
 pre {
   border: 1px solid #424242;
 }
+
+.modal {
+  display: none;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  background-color: black;
+}
+
+.screenshot1Lightbox {
+  width: 800;
+  height: 490;
+  background-color: black;
+}
+
+.postcollection {
+  margin-left: 20%;
+  margin-right: auto;
+}
