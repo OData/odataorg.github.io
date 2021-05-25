@@ -323,6 +323,15 @@ pre {
   background-color: black;
 }
 
+.postman {
+  border: 2px solid black;
+  background-color: white;
+  cursor: pointer;
+  border-color: #ff9800;
+  background: #ff9800;
+  color: white;
+}
+
 .postcollection {
   margin-left: 20%;
   margin-right: auto;
