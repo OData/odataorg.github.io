@@ -1,6 +1,6 @@
 ## Basic Usages
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/522bf43d2b5f9f09f7ee)
+<a href="https://app.getpostman.com/run-collection/522bf43d2b5f9f09f7ee"> <button class="postman">Run in Postman</button> </a>
 
 For usage of advanced scenarios, please refer to [Trippin Advanced Usages](service-usages/trippin-advanced-usages/).
 
