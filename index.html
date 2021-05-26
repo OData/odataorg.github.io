@@ -185,3 +185,18 @@ layout: default
   </div>
   </div>
 </div>
+<script type="text/javascript">
+var settings = {
+  "url": "http://localhost:5000/ms/$batch",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Content-Type": "multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b ",
+  },
+  "data": "--batch_36522ad7-fc75-4b56-8c71-56071383e77b\r\nContent-Type: application/http \r\nContent-Transfer-Encoding:binary\r\n\r\nGET /ms/Customers HTTP/1.1",
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+</script>
