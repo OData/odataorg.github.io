@@ -138,8 +138,14 @@
             $("span.cell-content").contents().unwrap();
         }
     }
-</script>
-<script type="text/javascript">
+    $(".dropdown").on("show.bs.dropdown", function(event){
+       $(this).children('a[role=menuitem]').attr('aria-expanded', true);
+    });
+
+    $(".dropdown").on("hide.bs.dropdown", function(event){
+        $(this).children('a[role=menuitem]').attr('aria-expanded', false);
+    });
+
     // open the modal
     function openModal() {
       document.getElementById("screenshot1").style.display = "block";
