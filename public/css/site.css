@@ -82,6 +82,11 @@
 }
 a {
 	color: #d23000;
+  text-decoration: underline;
+  text-decoration-color:#d23000;
+}
+a[role=menuitem]{
+  text-decoration: none;
 }
 td > a {
 	color:#d23000;
