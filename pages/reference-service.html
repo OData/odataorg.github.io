@@ -4,16 +4,48 @@ title: Reference Services
 date: 2014-02-20 06:56:35.000000000 +08:00
 permalink: /odata-services/
 ---
+
+<style>
+.btn {
+color: #f58d42;
+background-color: white;
+}
+
+.btn:hover{
+color: #f58d42;
+background-color: white;
+}
+
+.btn bottom.active  {
+}
+
+.btn:focus  {
+color: #f58d42;
+}
+
+
+</style>
+
+<script>
+function activateTabsById(id) 
+{
+ document.getElementById('btn1').className = "btn";
+ document.getElementById('btn2').className = "btn";
+ document.getElementById('btn3').className = "btn";
+ document.getElementById(id).classList.toggle("active");
+}
+</script>
+
 <div id="services-tab">
 <ul class="nav nav-tabs" role="tablist" aria-label="Versions"> 
   <li role="presentation" class="active">
-    <a href="#odata-v4" role="tab" aria-controls="odata-v4" data-toggle="tab">OData v4</a>
+    <button href="#odata-v4" role="tab" aria-controls="odata-v4"  class="btn active" onclick="activateTabsById('btn1')" id = "btn1" data-toggle="tab">OData v4</button>
   </li>
   <li role="presentation">
-    <a  href="#v3" role="tab" data-toggle="tab" aria-controls="v3" tabindex="-1">OData v3</a>
+    <button  href="#v3" role="tab" data-toggle="tab" aria-controls="v3" class="btn" onclick="activateTabsById('btn2')" id = "btn2" tabindex="-1">OData v3</button>
   </li>
   <li role="presentation">
-    <a href="#v2" role="tab" data-toggle="tab" aria-controls="v2" tabindex="-1">OData v2</a>
+    <button href="#v2" role="tab" data-toggle="tab" aria-controls="v2" class="btn" onclick="activateTabsById('btn3')" id = "btn3" tabindex="-1">OData v2</button>
   </li>
 </ul>
 
