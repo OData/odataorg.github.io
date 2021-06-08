@@ -60,9 +60,12 @@
 	padding-bottom: 1px !important;
 }
 .alert-success {
-    background-color: #f1fced;
-    border-color: #d6e9c6;
-    color: #366b37;
+  background-color: #3DAA27;
+  border-color: #282b26;
+  color: #000000;
+}
+.alert-success .alert-link {
+  color: #000000;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
     color: #706f6f;
