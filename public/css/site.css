@@ -328,6 +328,7 @@ pre {
   cursor: pointer;
   border-color: #ff9800;
   background: #ff9800;
+  padding: 2px 5px;
   color: white;
 }
 
