@@ -339,3 +339,12 @@ pre {
 .dropdown-menu li a:hover {
   background-color: #c34113;
 }
+
+.postman {
+  border: 2px solid black;
+  cursor: pointer;
+  border-color: #ff9800;
+  background: #ff9800;
+  padding: 2px 5px;
+  color: white;
+}
