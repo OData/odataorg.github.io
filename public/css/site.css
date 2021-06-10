@@ -335,3 +335,7 @@ pre {
   margin-left: 20%;
   margin-right: auto;
 }
+
+.dropdown-menu li a:hover {
+  background-color: #c34113;
+}
