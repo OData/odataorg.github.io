@@ -341,10 +341,20 @@ pre {
 }
 
 .postman {
-  border: 2px solid black;
-  cursor: pointer;
-  border-color: #ff9800;
-  background: #ff9800;
-  padding: 2px 5px;
+  border-radius: 3px;
+  background: #d23714;
+  padding: 5px;
   color: white;
+}
+
+/* Mouse navigation.*/
+.postman:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Keyboard navigation.*/
+.postman:focus {
+  color: white;
+  text-decoration: underline;
 }
