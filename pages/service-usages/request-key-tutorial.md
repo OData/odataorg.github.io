@@ -49,7 +49,7 @@ The first one is the same with the `Usages in Browsers`. And the other is to use
 #### Use Environment Concept in Postman
 
 1. To understand environment concept in postman, please refer to 
-[Setting up an environment with variables](https://www.getpostman.com/docs/environments).
+[Setting up an environment with variables](https://learning.postman.com/docs/sending-requests/managing-environments).
 
 2. Please import the postman collection which needs environment configuration to simplify the key configuration.
 [![Import Postman Collection For Write](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/7e8ea944a01c65d2cdc3)

@@ -4,29 +4,57 @@
 <script src="{{'/public/combobox-autocomplete.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 
 <script src="{{'/public/site.js' | prepend: site.baseurl | prepend: site.url}}"></script>
-<script type="text/javascript"
-        src="{{'/public/jquery.swiftype.search.js' | prepend: site.baseurl | prepend: site.url}}"></script>
-<script type="text/javascript"
-        src="{{'/public/jquery.swiftype.autocomplete.js' | prepend: site.baseurl | prepend: site.url}}"></script>
+<script type="text/javascript" src="{{'/public/jquery.swiftype.search.js' | prepend: site.baseurl | prepend: site.url}}"></script>
+<script type="text/javascript" src="{{'/public/jquery.swiftype.autocomplete.js' | prepend: site.baseurl | prepend: site.url}}"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
+
+        var dropdown = $(
+            '<div class="autocomplete__segment">' +
+            '<ul id="search-results" class="autocomplete__segment-header"  role="listbox"\n' +
+            '      aria-label="Search Results"></ul>' +
+            '</div>');
+
+        var target = $("body")[0];
+        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+        var myObserver = new MutationObserver(mutationHandler);
+        var obsConfig = {
+            childList: true,
+            characterData: false,
+            attributes: false,
+            subtree: true
+        };
+
+        myObserver.observe(target, obsConfig);
+
+        function mutationHandler(mutationRecords) {
+
+            mutationRecords.forEach(function(mutation) {
+                var newNodes = mutation.addedNodes; // DOM NodeList
+                if (newNodes !== null) { // If there are new nodes added
+                    var $nodes = $(newNodes); // jQuery set
+                    $nodes.each(function() {
+                        var $node = $(this);
+                        if ($node.hasClass("swiftype-widget")) {
+                            $node.children().first().children().first().html(dropdown);
+                            myObserver.disconnect();
+                        }
+                    });
+                }
+            });
+        }
 
         var search = $('#search');
 
-        var renderResults = function (ctx, data) {
+        var renderResults = function(ctx, data) {
             var results = [];
 
-            $.each(data, function (docType, opts) {
-                $.each(opts, function (idx, result) {
+            $.each(data, function(docType, opts) {
+                $.each(opts, function(idx, result) {
                     // Specify a valid Swiftype field/meta tag. results.FIELD == VALUE
                     results.push(result);
                 });
             });
-            var dropdown = $(
-                '<div class="autocomplete__segment">' +
-                '<ul id="search-results" class="autocomplete__segment-header"  role="listbox"\n' +
-                '      aria-label="Search Results"></ul>' +
-                '</div>');
 
             // Create a reusable function to render results.
             function renderResult(result) {
@@ -40,7 +68,7 @@
                 }
 
                 return $(
-                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + title+ '"><a href="' + url + '">' +
+                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + title + '"><a href="' + url + '">' +
                     '<span\n        class="autocomplete-result__title">' + section + '</span> <br>' +
                     '<small class="autocomplete-result__description muted" aria-label="' + title + '">' + title + '</small>' +
                     '</a>\n</li>'
@@ -48,7 +76,7 @@
             }
             // append the items to the first child which is the search-results
             var child = dropdown.children()[0];
-            $.each(results, function (idx, item) {
+            $.each(results, function(idx, item) {
                 ctx.registerResult(renderResult(item).appendTo(child), item);
             });
 
@@ -56,14 +84,14 @@
                 dropdown.appendTo(ctx.list);
             }
 
-           search.attr('aria-expanded', true);
-            var button= document.getElementById('cb1-button');
+            search.attr('aria-expanded', true);
+            var button = document.getElementById('cb1-button');
             var cba = new ComboboxAutocomplete(document.getElementById('search'), button, document.getElementById('search-results'));
             cba.init();
             button.click();
         };
 
-       search.swiftype({
+        search.swiftype({
             resultRenderFunction: renderResults,
             suggestionListType: 'div',
             resultLimit: 10,
@@ -78,4 +106,76 @@
             resultLimit: 10,
         });
     });
+
+    // Listen for "resize" events and also check if the page is loaded when already zoomed.
+    window.addEventListener("resize", handleResizeEvent);
+    window.addEventListener("load", handleResizeEvent);
+    // --------------------------------------------------------------------------- //
+
+    var isReflowed = false;
+    // Handle window resize events.
+    function handleResizeEvent(event) {
+        // Zoom >= 300%
+        if (window.innerWidth <= 640 && !isReflowed) {
+
+            // Transpose the headers
+            $('table.reflows').find('th').each(function(index, value) {
+
+                var $this = $(this),
+                    title = '<b class="cell-label">' + $this.html() + '</b>';
+
+                // add titles to cells
+                $('table.reflows')
+                    .find('tr').find('td:eq(' + index + ')').wrapInner('<span class="cell-content"></span>').prepend(title);
+            });
+            isReflowed = true;
+        }
+
+        // Zoom < 300%
+        else if (isReflowed && window.innerWidth > 640) {
+            isReflowed = false;
+            $("b.cell-label").remove();
+            $("span.cell-content").contents().unwrap();
+        }
+    }
+    $(".dropdown").on("show.bs.dropdown", function(event){
+       $(this).children('a[role=menuitem]').attr('aria-expanded', true);
+    });
+
+    $(".dropdown").on("hide.bs.dropdown", function(event){
+        $(this).children('a[role=menuitem]').attr('aria-expanded', false);
+    });
+
+    // open the modal
+    function openModal() {
+      document.getElementById("screenshot1").style.display = "block";
+    }
+    
+    // Close the modal
+    function closeModal() {
+      document.getElementById("screenshot1").style.display = "none";
+    }
+    
+    // show the selected image.
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      var slides = document.getElementsByClassName("screenshot1Lightbox");
+      slides[slideIndex-1].style.display = "block";
+    }
+    
+
+    window.onkeyup = function (event) {
+            // On pressing escape close blown out image.
+        if (event.keyCode == 27 && document.getElementById('screenshot1').style.display=='block') {
+            document.getElementById('screenshot1').style.display='none';
+        }
+
+        // On click enter open blown out image.
+        if (event.keyCode == 13 && event.target.id == "postmanCollection-small") {
+            document.getElementById('screenshot1').style.display='block';
+        }        
+    }
 </script>

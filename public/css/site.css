@@ -60,9 +60,12 @@
 	padding-bottom: 1px !important;
 }
 .alert-success {
-    background-color: #f1fced;
-    border-color: #d6e9c6;
-    color: #366b37;
+  background-color: #3DAA27;
+  border-color: #282b26;
+  color: #000000;
+}
+.alert-success .alert-link {
+  color: #000000;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
     color: #706f6f;
@@ -82,6 +85,11 @@
 }
 a {
 	color: #d23000;
+  text-decoration: underline;
+  text-decoration-color:#d23000;
+}
+a[role=menuitem]{
+  text-decoration: none;
 }
 td > a {
 	color:#d23000;
@@ -92,6 +100,7 @@ code {
     color: #ce3512;
     background-color: #f9f2f4;
     border-radius: 4px;
+    overflow-wrap: break-word;
 }
 .table {
   width: 100%;
@@ -163,7 +172,6 @@ code {
 }
 .tutorial-sidebar.affix {
     position: fixed;
-    top: 20px;
 }
 .tutorial-sidebar.affix-bottom {
     position: absolute;
@@ -185,8 +193,9 @@ code {
 @media (max-width: 991px) {
   .affix {
     position: static;
-	display: block;
-	float:right;
+  	display: block;
+  	float:right;
+    top: 50%;
   }
 }
 
@@ -194,4 +203,158 @@ code {
     .tutorial-sidebar .nav>.active>ul {
     display: block;
 	}
+}
+
+/* URL styling */
+    /* specific for IE10 & 11, they do not support these declarations with "a" or ".wrapped" selector
+      also, must use "word-wrap" property rather than "overflow-wrap" */
+  
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  * {
+    word-wrap: break-word;
+  }
+}
+
+/* for all Edge, does not support these declarations with "a" or ".wrapped" selector, so must use "*" selector */
+@supports (-ms-ime-align:auto) {
+  * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+/* all other browsers long url styling */
+
+.wrapped {
+  word-wrap:break-word;
+  overflow-wrap: break-word;
+}
+
+table.reflows{
+  width: 100%;
+}
+
+table.reflows th{
+  text-align: left;
+  border-bottom: 1px dashed silver;
+}
+
+table.reflows.cell-label {
+  display: none;
+}
+
+@media screen and (max-width: 640px) {
+  table.reflows th {
+        display: none;
+      }
+
+   table.reflows tr td {
+        float: left;
+        clear: left;
+        display: block;
+        width: 100%;
+      }
+
+  table.reflows tr td:last-child {
+        padding-bottom: 20px;
+        border-bottom: 0;
+      }
+
+  table.reflows .cell-label {
+        display: block;
+        float:left;
+      }
+  table.reflows .cell-content {
+        display: block;
+        float:right;
+      }
+
+  table.reflows tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.25);
+  }
+  table.reflows tr:nth-child(odd) {
+        background-color: #F9F9F9;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+
+[class*='col-'] {
+  float: left;
+  padding-right: $pad;
+  .grid &:last-of-type {
+    padding-right: 0;
+  }
+}
+.col-2-3 {
+  width: 66.66%;
+}
+.col-1-3 {
+  width: 33.33%;
+}
+.col-1-2 {
+  width: 50%;
+}
+.col-1-4 {
+  width: 25%;
+}
+.col-1-8 {
+  width: 12.5%;
+}
+.col-1-12 {
+  width: 8.33%;
+}
+.col-3-4 {
+  width: 75%;
+}
+.col-3-8 {
+  width: 37.5%;
+}
+
+pre {
+  border: 1px solid #424242;
+}
+
+.modal {
+  display: none;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  background-color: black;
+}
+
+.screenshot1Lightbox {
+  width: 800;
+  height: 490;
+  background-color: black;
+}
+
+.postcollection {
+  margin-left: 20%;
+  margin-right: auto;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #c34113;
+}
+
+.postman {
+  border-radius: 3px;
+  background: #d23714;
+  padding: 5px;
+  color: white;
+}
+
+/* Mouse navigation.*/
+.postman:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Keyboard navigation.*/
+.postman:focus {
+  color: white;
+  text-decoration: underline;
 }

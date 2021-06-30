@@ -6,13 +6,13 @@ permalink: /getting-started/basic-tutorial/
 ---
 <!--body data-spy="scroll" data-target="nav"-->
 <div class="row">
-<div class="col-md-8">
+<div class="col-2-3">
 <p>            The Open Data Protocol (OData) is a data access protocol built on core protocols like HTTP and commonly accepted methodologies like REST for the web. There are various kinds of <a href="https://www.odata.org/libraries/">libraries</a> and <a href="https://www.odata.org/ecosystem/">tools</a>  can be used to consume OData services. But for beginners and those who want to write their own libraries, the pure HTTP requests and responses are also very important. This documentation will not cover every feature details for OData V4 services but will try to cover various typical scenarios.  If you want to have a more detailed understanding, please refer to <a href="https://www.odata.org/documentation/">OData Documentation</a>. </p>
-<p>        You can now use the <b><a href="https://www.odata.org/getting-started/learning-odata-on-postman">Postman collections</a></b> to learn OData in an interactive way.</p>
+<p>        You can now use the <b><a href="/getting-started/learning-odata-on-postman">Postman collections</a></b> to learn OData in an interactive way.</p>
 <h4>Please note:</h4>
 <ul>
 <li>This is the Basic section. For topics like Singleton, Inheritance, Open Type, Containment and Batch, please refer to <a href="https://www.odata.org/getting-started/advanced-tutorial/">Advanced Section</a>.</li>
-<li>All these are based on OData V4 sample service <a href="https://services.odata.org/V4/TripPinServiceRW">TripPin</a>, please just replace the <code>serviceRoot</code> below with the URL <code>https://services.odata.org/V4/TripPinServiceRW</code>. TripPin now supports ETag, so for data modification topics, you should first using GET on TripPin (eg. GET serviceRoot/People) to get the section information in the payload then use the URL with section for data modification examples. (something looks like https://services.odata.org/V4/(S(flat4rgegiueineatspfdku1))/TripPinServiceRW)</li>
+<li>All these are based on OData V4 sample service <a href="https://services.odata.org/V4/TripPinServiceRW">TripPin</a>, please just replace the <code>serviceRoot</code> below with the URL <code>https://services.odata.org/V4/TripPinServiceRW</code>. TripPin now supports ETag, so for data modification topics, you should first using GET on TripPin (eg. GET serviceRoot/People) to get the section information in the payload then use the URL with section for data modification examples. (something looks like <code>https://services.odata.org/V4/(S(flat4rgegiueineatspfdku1))/TripPinServiceRW)</code></li>
 <li>You may use <a href="http://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
 <li>In TripPin service, ETag is currently enabled on entity <em>Person</em>. We omit the ETag related headers in request headers for short, please go to the <a href="https://www.odata.org/getting-started/basic-tutorial/#etag">ETag Section</a> for detailed information.</li>
 <li>We will keep improving this by adding contents and fixing bugs. You can provide your feedbacks and ask questions using <a href="https://www.odata.org/join-the-odata-discussion/">OData Mailling List</a>.</li>
@@ -980,47 +980,49 @@ HTTP/1.1 204 No Content
 </p></div>
 </p></div>
 </div>
-<div class="col-md-1"></div>
-<div class="col-md-3">
-
-<nav class="tutorial-sidebar" aria-label="Table of contents">
-<ul class="nav tutorial-sidenav" data-spy="affix">
-<li class="active">
-            <a href="#requestData">Requesting Data</a></p>
-<ul class="nav">
-<li><a href="#entitySet">Requesting Entity Collections</a></li>
-<li><a href="#entityByID">Requesting an Individual Entity by ID</a></li>
-<li><a href="#property">Requesting an Individual Property</a></li>
-<li><a href="#propertyVal">Requesting an Individual Property Raw Value</a></li>
-</ul>
-</li>
-<li>
-            <a href="#queryData">Querying Data</a></p>
-<ul class="nav">
-<li><a href="#filter">System Query Option $filter</a></li>
-<li><a href="#orderby">System Query Option $orderby</a></li>
-<li><a href="#topskip">System Query Option $top and $skip</a></li>
-<li><a href="#count">System Query Option $count</a></li>
-<li><a href="#expand">System Query Option $expand</a></li>
-<li><a href="#select">System Query Option $select</a></li>
-<li><a href="#search">System Query Option $search</a></li>
-<li><a href="#lambda">Lambda Operators</a></li>
-</ul>
-</li>
-<li>
-            <a href="#modifyData">Data Modification</a></p>
-<ul class="nav">
-<li><a href="#create">Create an Entity</a></li>
-<li><a href="#delete">Delete an Entity</a></li>
-<li><a href="#update">Update an Entity</a></li>
-<li><a href="#relationship">Relationship Operations</a></li>
-<li><a href="#operation">Functions and Actions</a></li>
-<li><a href="#etag">ETag</a></li>
-</ul>
-</li>
-</ul>
-</nav>
+<div class="col-1-12"></div>
+<div class="col-1-4" id="tutorial-contents">
+    <nav class="tutorial-sidebar affix" aria-label="Page Contents">
+        <ul class="nav tutorial-sidenav">
+            <li class="active">
+                <a href="#requestData">Requesting Data</a></p>
+                <ul class="nav">
+                    <li><a href="#entitySet">Requesting Entity Collections</a></li>
+                    <li><a href="#entityByID">Requesting an Individual Entity by ID</a></li>
+                    <li><a href="#property">Requesting an Individual Property</a></li>
+                    <li><a href="#propertyVal">Requesting an Individual Property Raw Value</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#queryData">Querying Data</a></p>
+                <ul class="nav">
+                    <li><a href="#filter">System Query Option $filter</a></li>
+                    <li><a href="#orderby">System Query Option $orderby</a></li>
+                    <li><a href="#topskip">System Query Option $top and $skip</a></li>
+                    <li><a href="#count">System Query Option $count</a></li>
+                    <li><a href="#expand">System Query Option $expand</a></li>
+                    <li><a href="#select">System Query Option $select</a></li>
+                    <li><a href="#search">System Query Option $search</a></li>
+                    <li><a href="#lambda">Lambda Operators</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#modifyData">Data Modification</a></p>
+                <ul class="nav">
+                    <li><a href="#create">Create an Entity</a></li>
+                    <li><a href="#delete">Delete an Entity</a></li>
+                    <li><a href="#update">Update an Entity</a></li>
+                    <li><a href="#relationship">Relationship Operations</a></li>
+                    <li><a href="#operation">Functions and Actions</a></li>
+                    <li><a href="#etag">ETag</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 </div>
 </div>
 
 <!--/body-->
+<script type="text/javascript">
+    $(".page-header").css({"width":"66.66%"});
+</script>
