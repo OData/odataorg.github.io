@@ -2,7 +2,7 @@
 category: other
 name: OData Client for PHP
 rownumber: 23
-version: V1-4
+version: V4
 object: Client
 downloads:
   - source: GitHub
