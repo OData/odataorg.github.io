@@ -8,15 +8,15 @@ permalink: /ecosystem/
 <div class="col-md-2">
 <ul class="nav nav-pills nav-stacked">
 	<li class="active"><a href="#producers" data-toggle="pill">Producers</a></li>
-	<li><a href="#consumers" data-toggle="pill">Consumers</a></li>
-	<li><a href="#liveservices" data-toggle="pill">Live Services</a></li>
-	<li><a href="#sdk" data-toggle="pill">Sample Code</a></li>
-	<li><a href="#tutorials" data-toggle="pill">Tutorials</a></li>
+	<li><a onclick="activateTabsById('consumers', 'ecosystem')" data-toggle="pill">Consumers</a></li>
+	<li><a onclick="activateTabsById('liveservices', 'ecosystem')" data-toggle="pill">Live Services</a></li>
+	<li><a onclick="activateTabsById('sdk', 'ecosystem')"  data-toggle="pill">Sample Code</a></li>
+	<li><a onclick="activateTabsById('tutorials', 'ecosystem')" data-toggle="pill">Tutorials</a></li>
 </ul>
 </div>
 <div class="col-md-10">
 <div class="tab-content">
-	<div id="producers" class="tab-pane active">
+	<div id="producers" class="tab-pane active ecosystem">
 	<h2 id="producers_header">Producers</h2>
 	OData producers are services that expose their data using the OData protocol. Below we have collected a list of key OData producers, which will continue to grow along with the OData ecosystem. You can use <a href="https://www.odata.org/libraries">OData SDK</a> to build your own OData producers. If you create or know of an OData producer not listed be sure to let us know via our new <a href="https://www.odata.org/contribution">contribution page</a>.
 
@@ -39,7 +39,7 @@ permalink: /ecosystem/
 	</tbody>
 	</table>
 	</div>
-	<div id="consumers" class="tab-pane">
+	<div id="consumers" class="tab-pane ecosystem">
 	<h2 id="consumers_header">Consumers</h2>
 	OData consumers are simply applications that consume data exposed using the OData protocol. OData consumers can vary greatly in sophistication, from something as simple as your web browser all the way through to a custom application that takes advantage of all the features of the OData Protocol. Below we have collected a list of key OData consumers, which will continue to grow along with the OData ecosystem. Simply pick a consumer from the list below and point it at one of the live services. If you create or know of an OData consumer not listed be sure to let us know via our new <a href="https://www.odata.org/contribution">contribution page</a>.
 	<table class="table table-striped table-condensed table-hover" role="presentation" aria-describedby="consumers_header">
@@ -60,7 +60,7 @@ permalink: /ecosystem/
 </tbody>
 </table>
 </div>
-<div id="liveservices" class="tab-pane">
+<div id="liveservices" class="tab-pane ecosystem">
 	<h2 id="liveservices_header">Live Services</h2>
 <table class="table table-striped table-condensed table-hover" role="presentation" aria-describedby="liveservices_header">
 <tbody>
@@ -80,7 +80,7 @@ permalink: /ecosystem/
 </tbody>
 </table>
 </div>
-<div id="sdk" class="tab-pane">
+<div id="sdk" class="tab-pane ecosystem">
 <h2 id="sdk_header">OData SDK - Sample Code</h2>
 The OData SDK includes some sample code to show you how to do everything from create a general purpose OData Explorer to creating OData services and tests that verify that service is producing valid OData.
 <table class="table table-striped table-condensed table-hover" role="presentation" aria-describedby="sdk_header">
@@ -106,7 +106,7 @@ The OData SDK includes some sample code to show you how to do everything from cr
 </tbody>
 </table>
 </div>
-<div id="tutorials" class="tab-pane">
+<div id="tutorials" class="tab-pane ecosystem">
 <h2 id="tutorials_header">Tutorials</h2>
 <table class="table table-striped table-condensed table-hover" role="presentation" aria-describedby="tutorials_header">
 <tbody>
