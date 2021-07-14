@@ -4,21 +4,23 @@ title: Reference Services
 date: 2014-02-20 06:56:35.000000000 +08:00
 permalink: /odata-services/
 ---
+
+
 <div id="services-tab">
 <ul class="nav nav-tabs" role="tablist" aria-label="Versions"> 
   <li role="presentation" class="active">
-    <a role="tab" aria-controls="odata-v4" data-toggle="tab"  tabindex="0" >OData v4</a>
+    <a onclick="activateTabsById('odata-v4', 'services-tab')"  class="tab-links" role="tab" aria-controls="odata-v4" data-toggle="tab">OData v4</a>
   </li>
   <li role="presentation">
-    <a role="tab" data-toggle="tab" aria-controls="v3" tabindex="-1">OData v3</a>
+    <a  onclick="activateTabsById('v3', 'services-tab')" role="tab" class="tab-links" data-toggle="tab" aria-controls="v3" tabindex="-1">OData v3</a>
   </li>
   <li role="presentation">
-    <a role="tab" data-toggle="tab" aria-controls="v2" tabindex="-1">OData v2</a>
+    <a onclick="activateTabsById('v2', 'services-tab')" role="tab" class="tab-links" data-toggle="tab" aria-controls="v2" tabindex="-1">OData v2</a>
   </li>
 </ul>
 
 <div class="tab-content">
-  <div id="odata-v4" tabindex="0" class="tab-pane active" role="tabpanel">
+  <div id="odata-v4" tabindex="0" class="tab-pane active services-tab" role="tabpanel">
     <table class="table table-striped table-condensed table-hover reflows" role="presentation" aria-label="OData v4 Reference Services">
       <tr>
         <th>Name</th>
@@ -35,7 +37,7 @@ permalink: /odata-services/
       </tr>
     </table>
   </div>
-  <div class="tab-pane hide" id="v4" role="tabpanel" hidden>
+  <div class="tab-pane  services-tab" id="v4" role="tabpanel" hidden>
     <table class="table table-striped table-condensed table-hover">
       <tr>
         <th>Name</th>
@@ -59,7 +61,7 @@ permalink: /odata-services/
       </tr>
     </table>
   </div>
-  <div class="tab-pane" id="v3" role="tabpanel" hidden>
+  <div class="tab-pane" id="v3" role="tabpanel services-tab" hidden>
     <table class="table table-striped table-condensed table-hover" role="presentation" aria-label="OData v3 Reference Services">
       <tr>
         <th>Name</th>
@@ -79,7 +81,7 @@ permalink: /odata-services/
       </tr>
     </table>
   </div>
-  <div class="tab-pane" id="v2" role="tabpanel" hidden>
+  <div class="tab-pane" id="v2" role="tabpanel services-tab" hidden>
     <table class="table table-striped table-condensed table-hover" role="presentation" aria-label="OData v2 Reference Services">
       <tr>
         <th>Name</th>
