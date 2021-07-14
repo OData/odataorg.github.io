@@ -42,6 +42,15 @@
        $("#myCarousel").carousel('cycle');
     });
 });
+    
+ function activateTabsById(tabId, panelclassName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName(panelclassName);
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].classList.remove("active");
+  }
+  document.getElementById(tabId).className  = "tab-pane active " + panelclassName;
+}
 </script>
 
   <link rel="stylesheet" href="https://www.odata.org/public/css/bootstrap.min.css"/>
