@@ -470,19 +470,19 @@ OData-Version: 4.0
         </h3>
 <p class="text-justify bottom-margin">As the REST principles go, "Everything is a Resource". As a simple start, let's see how resources can be retrieved from the OData RESTful APIs. The sample service used is the TripPin service which simulates the service of an open trip management system. Our friend, Russell Whyte, who has formerly registered TripPin, would like to find out who are the other people in it.</p>
 <div class="code-row bottom-margin">
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a  onclick="activateTabsById('http1', 'requesting-resources')" role="tab" aria-controls="http1"  data-toggle="tab">HTTP request</a></li>
+<ul class="nav nav-tabs" role="tablist" target="requesting-resources">
+<li role="presentation" class="active"><a  class = "tab-link" target="http1" role="tab" aria-controls="http1"  data-toggle="tab">HTTP request</a></li>
 <li role="presentation" class="dropdown">
 <a role="tab" id="csharpDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="csharpDrop1-contents">C# &nbsp;<span class="caret"></span></a></p>
 <ul class="dropdown-menu" role="menu" aria-labelledby="csharpDrop1" id="csharpDrop1-contents">
-<li><a onclick="activateTabsById('csharpCodeGen1', 'requesting-resources')" tabindex="-1" role="tab" id="csharpCodeGen1-tab" data-toggle="tab" aira-controls="csharpCodeGen1">OData v4 Client Code Generator</a></li>
-<li><a onclick="activateTabsById('csharpSimpleOData1', 'requesting-resources')" tabindex="-1" role="tab" id="csharpSimpleOData1-tab" data-toggle="tab" aira-controls="csharpSimpleOData1">Simple.OData.Client</a></li>
+<li><a class = "tab-link" target="csharpCodeGen1" tabindex="-1" role="tab" id="csharpCodeGen1-tab" data-toggle="tab" aira-controls="csharpCodeGen1">OData v4 Client Code Generator</a></li>
+<li><a class = "tab-link" target="csharpSimpleOData1" tabindex="-1" role="tab" id="csharpSimpleOData1-tab" data-toggle="tab" aira-controls="csharpSimpleOData1">Simple.OData.Client</a></li>
 </ul>
 </li>
-<li role="presentation"><a  onclick="activateTabsById('olingo-js-1', 'requesting-resources')" role="tab" aria-controls="olingo-js-1" data-toggle="tab">Olingo JavaScript client</a></li>
-<li role="presentation"><a  onclick="activateTabsById('odatacpp-1', 'requesting-resources')"  role="tab" aria-controls="odatacpp-1" data-toggle="tab">C++</a></li>
-<li role="presentation"><a  onclick="activateTabsById('nodejs-1', 'requesting-resources')"  role="tab" aria-controls="nodejs-1" data-toggle="tab">Node.js</a></li>
-<li role="presentation"><a  onclick="activateTabsById('contribute-1', 'requesting-resources')" role="tab" aria-controls="contribute-1" data-toggle="tab">Contribute</a></li>
+<li role="presentation"><a  class = "tab-link" target="olingo-js-1" role="tab" aria-controls="olingo-js-1" data-toggle="tab">Olingo JavaScript client</a></li>
+<li role="presentation"><a  class = "tab-link" target="odatacpp-1"  role="tab" aria-controls="odatacpp-1" data-toggle="tab">C++</a></li>
+<li role="presentation"><a  class = "tab-link" target="nodejs-1"  role="tab" aria-controls="nodejs-1" data-toggle="tab">Node.js</a></li>
+<li role="presentation"><a  class = "tab-link" target="contribute-1" role="tab" aria-controls="contribute-1" data-toggle="tab">Contribute</a></li>
 </ul>
 <div class="tab-content">
 <div role="tabpanel" class="tab-pane active requesting-resources" id="http1">
@@ -577,19 +577,19 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
         </h3>
 <p class="text-justify bottom-margin">REST principles also say, that every resource is identified by a unique identifier. OData also enables defining key properties of a resource and retrieving it using the keys. In this step, Russell wants to find the information about himself by specifying his username as the key.</p>
 <div class="code-row bottom-margin">
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a onclick="activateTabsById('http2', 'individual_resource')" role="tab" aria-controls="http2" data-toggle="tab">HTTP request</a></li>
+<ul class="nav nav-tabs" role="tablist" target="individual_resource">
+<li role="presentation" class="active"><a class = "tab-link" target="http2" role="tab" aria-controls="http2" data-toggle="tab">HTTP request</a></li>
 <li role="presentation" class="dropdown">
 <a role="tab" id="csharpDrop2" class="dropdown-toggle" data-toggle="dropdown" aria-controls="csharpDrop2-contents">C# &nbsp;<span class="caret"></span></a></p>
 <ul class="dropdown-menu" role="menu" aria-labelledby="csharpDrop1" id="csharpDrop2-contents">
-<li><a onclick="activateTabsById('csharpCodeGen2', 'individual_resource')" tabindex="-1" role="tab" id="csharpCodeGen2-tab" data-toggle="tab" aira-controls="csharpCodeGen2">OData v4 Client Code Generator</a></li>
-<li><a onclick="activateTabsById('csharpSimpleOData2', 'individual_resource')" tabindex="-1" role="tab" id="csharpSimpleOData2-tab" data-toggle="tab" aira-controls="csharpSimpleOData2">Simple.OData.Client</a></li>
+<li><a class = "tab-link" target="csharpCodeGen2" tabindex="-1" role="tab" id="csharpCodeGen2-tab" data-toggle="tab" aira-controls="csharpCodeGen2">OData v4 Client Code Generator</a></li>
+<li><a class = "tab-link" target="csharpSimpleOData2" tabindex="-1" role="tab" id="csharpSimpleOData2-tab" data-toggle="tab" aira-controls="csharpSimpleOData2">Simple.OData.Client</a></li>
 </ul>
 </li>
-<li role="presentation"><a onclick="activateTabsById('olingo-js-2', 'individual_resource')" role="tab" aria-controls="olingo-js-2" data-toggle="tab">Olingo JavaScript client</a></li>
-<li role="presentation"><a onclick="activateTabsById('odatacpp-2', 'individual_resource')" role="tab" aria-controls="odatacpp-2" data-toggle="tab">C++</a></li>
-<li role="presentation"><a onclick="activateTabsById('nodejs-2', 'individual_resource')" role="tab" aria-controls="nodejs-2" data-toggle="tab">Node.js</a></li>
-<li role="presentation"><a onclick="activateTabsById('contribute-2', 'individual_resource')" role="tab" aria-controls="contribute-2" data-toggle="tab">Contribute</a></li>
+<li role="presentation"><a class = "tab-link" target="olingo-js-2" role="tab" aria-controls="olingo-js-2" data-toggle="tab">Olingo JavaScript client</a></li>
+<li role="presentation"><a class = "tab-link" target="odatacpp-2" role="tab" aria-controls="odatacpp-2" data-toggle="tab">C++</a></li>
+<li role="presentation"><a class = "tab-link" target="nodejs-2" role="tab" aria-controls="nodejs-2" data-toggle="tab">Node.js</a></li>
+<li role="presentation"><a class = "tab-link" target="contribute-2" role="tab" aria-controls="contribute-2" data-toggle="tab">Contribute</a></li>
 </ul>
 <div class="tab-content">
 <div role="tabpanel" class="tab-pane active  individual_resource" id="http2">
@@ -685,19 +685,19 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
         </h3>
 <p class="text-justify bottom-margin">As an architecture that's built on top of the current features of the Web, RESTful APIs can also support query strings. For that, OData defines a series of system query options that can help you construct complicated queries for the resources you want. With the help of that, our friend Russell can find out the first 2 persons in the system who have registered at least one trip that costs more than 3000, and only display their first name and last name.</p>
 <div class="code-row bottom-margin">
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a onclick="activateTabsById('http3', 'queries')" role="tab" aria-controls="http3" data-toggle="tab">HTTP request</a></li>
+<ul class="nav nav-tabs" role="tablist" target="queries">
+<li role="presentation" class="active"><a class = "tab-link" target="http3" role="tab" aria-controls="http3" data-toggle="tab">HTTP request</a></li>
 <li role="presentation" class="dropdown">
 <a role="tab" id="csharpDrop3" role="tab" class="dropdown-toggle" data-toggle="dropdown" aria-controls="csharpDrop3-contents">C# &nbsp;<span class="caret"></span></a></p>
 <ul class="dropdown-menu" role="menu" aria-labelledby="csharpDrop3" id="csharpDrop3-contents">
-<li><a onclick="activateTabsById('csharpCodeGen3', 'queries')" tabindex="-1" role="tab" id="csharpCodeGen3-tab" data-toggle="tab" aira-controls="csharpCodeGen3">OData v4 Client Code Generator</a></li>
-<li><a onclick="activateTabsById('csharpSimpleOData3', 'queries')" tabindex="-1" role="tab" id="csharpSimpleOData3-tab" data-toggle="tab" aira-controls="csharpSimpleOData3">Simple.OData.Client</a></li>
+<li><a class = "tab-link" target="csharpCodeGen3" tabindex="-1" role="tab" id="csharpCodeGen3-tab" data-toggle="tab" aira-controls="csharpCodeGen3">OData v4 Client Code Generator</a></li>
+<li><a class = "tab-link" target="csharpSimpleOData3" tabindex="-1" role="tab" id="csharpSimpleOData3-tab" data-toggle="tab" aira-controls="csharpSimpleOData3">Simple.OData.Client</a></li>
 </ul>
 </li>
-<li role="presentation"><a onclick="activateTabsById('olingo-js-3', 'queries')" role="tab" aria-controls="olingo-js-3" data-toggle="tab">Olingo JavaScript client</a></li>
-<li role="presentation"><a onclick="activateTabsById('odatacpp-3', 'queries')" role="tab" aria-controls="odatacpp-3" data-toggle="tab">C++</a></li>
-<li role="presentation"><a onclick="activateTabsById('nodejs-3', 'queries')"  role="tab" aria-controls="nodejs-3" data-toggle="tab">Node.js</a></li>
-<li role="presentation"><a onclick="activateTabsById('contribute-3', 'queries')"  role="tab" aria-controls="contribute-3" data-toggle="tab">Contribute</a></li>
+<li role="presentation"><a class = "tab-link" target="olingo-js-3" role="tab" aria-controls="olingo-js-3" data-toggle="tab">Olingo JavaScript client</a></li>
+<li role="presentation"><a class = "tab-link" target="odatacpp-3" role="tab" aria-controls="odatacpp-3" data-toggle="tab">C++</a></li>
+<li role="presentation"><a class = "tab-link" target="nodejs-3"  role="tab" aria-controls="nodejs-3" data-toggle="tab">Node.js</a></li>
+<li role="presentation"><a class = "tab-link" target="contribute-3"  role="tab" aria-controls="contribute-3" data-toggle="tab">Contribute</a></li>
 </ul>
 <div class="tab-content">
 <div role="tabpanel" class="tab-pane active queries" id="http3">
@@ -802,19 +802,19 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
         </h3>
 <p class="text-justify bottom-margin">REST principles require the using of simple and uniform interfaces. With that regard, OData clients can expect unified interfaces of the resources. The stateless transfer of representations in REST are carried out by using different HTTP methods in the requests. After having gone through the first 3 steps, Russell thinks the system is useful. He wants to add his best friend Lewis to the system. He finds out that all he needs to do is to send a POST request containing a JSON representation of Lewis' information to the same interface from which he requested the people information.</p>
 <div class="code-row bottom-margin">
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a onclick="activateTabsById('http4', 'new_resource')" role="tab" aria-controls="http4"  data-toggle="tab">HTTP request</a></li>
+<ul class="nav nav-tabs" role="tablist" target="new_resource">
+<li role="presentation" class="active"><a class = "tab-link" target="http4" role="tab" aria-controls="http4"  data-toggle="tab">HTTP request</a></li>
 <li role="presentation" class="dropdown">
 <a role="tab" id="csharpDrop4" class="dropdown-toggle" data-toggle="dropdown" aria-controls="csharpDrop4-contents">C# &nbsp;<span class="caret"></span></a></p>
 <ul class="dropdown-menu" role="menu" aria-labelledby="csharpDrop4" id="csharpDrop4-contents">
-<li><a onclick="activateTabsById('csharpCodeGen4', 'new_resource')" tabindex="-1" role="tab" id="csharpCodeGen4-tab" data-toggle="tab" aira-controls="csharpCodeGen4">OData v4 Client Code Generator</a></li>
-<li><a onclick="activateTabsById('csharpSimpleOData4', 'new_resource')" tabindex="-1" role="tab" id="csharpSimpleOData4-tab" data-toggle="tab" aira-controls="csharpSimpleOData4">Simple.OData.Client</a></li>
+<li><a class = "tab-link" target="csharpCodeGen4" tabindex="-1" role="tab" id="csharpCodeGen4-tab" data-toggle="tab" aira-controls="csharpCodeGen4">OData v4 Client Code Generator</a></li>
+<li><a class = "tab-link" target="csharpSimpleOData4" tabindex="-1" role="tab" id="csharpSimpleOData4-tab" data-toggle="tab" aira-controls="csharpSimpleOData4">Simple.OData.Client</a></li>
 </ul>
 </li>
-<li role="presentation"><a onclick="activateTabsById('olingo-js-4', 'new_resource')" role="tab" aria-controls="olingo-js-4" data-toggle="tab">Olingo JavaScript client</a></li>
-<li role="presentation"><a onclick="activateTabsById('odatacpp-4', 'new_resource')" role="tab" aria-controls="odatacpp-4" data-toggle="tab">C++</a></li>
-<li role="presentation"><a onclick="activateTabsById('nodejs-4', 'new_resource')" role="tab" aria-controls="nodejs-4" data-toggle="tab">Node.js</a></li>
-<li role="presentation"><a onclick="activateTabsById('contribute-4', 'new_resource')" role="tab" aria-controls="contribute-4" data-toggle="tab">Contribute</a></li>
+<li role="presentation"><a class = "tab-link" target="olingo-js-4" role="tab" aria-controls="olingo-js-4" data-toggle="tab">Olingo JavaScript client</a></li>
+<li role="presentation"><a class = "tab-link" target="odatacpp-4" role="tab" aria-controls="odatacpp-4" data-toggle="tab">C++</a></li>
+<li role="presentation"><a class = "tab-link" target="nodejs-4" role="tab" aria-controls="nodejs-4" data-toggle="tab">Node.js</a></li>
+<li role="presentation"><a class = "tab-link" target="contribute-4" role="tab" aria-controls="contribute-4" data-toggle="tab">Contribute</a></li>
 </ul>
 <div class="tab-content">
 <div role="tabpanel" class="tab-pane active new_resource" id="http4">
@@ -1065,19 +1065,19 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
         </h3>
 <p class="text-justify bottom-margin">In RESTful APIs, resources are usually dependent with each other. For that, the concept of relationships in OData can be defined among resources to add flexibility and richness to the data model. For example, in the TripPin OData service, people are related to the trips that they've booked using the system. Knowing that, Russell would like to invite Lewis to his existing trip in the U.S. by relating that trip to Lewis.</p>
 <div class="code-row bottom-margin">
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a onclick="activateTabsById('http5', 'relating_resources')" role="tab" aria-controls="http5"  data-toggle="tab">HTTP request</a></li>
+<ul class="nav nav-tabs" role="tablist" target="relating_resources">
+<li role="presentation" class="active"><a class = "tab-link" target="http5" role="tab" aria-controls="http5"  data-toggle="tab">HTTP request</a></li>
 <li role="presentation" class="dropdown">
 <a role="tab" id="csharpDrop5" class="dropdown-toggle" data-toggle="dropdown" aria-controls="csharpDrop5-contents">C# &nbsp;<span class="caret"></span></a></p>
 <ul class="dropdown-menu" role="menu" aria-labelledby="csharpDrop5" id="csharpDrop5-contents">
-<li><a onclick="activateTabsById('csharpCodeGen5', 'relating_resources')" tabindex="-1" role="tab" id="csharpCodeGen5-tab" data-toggle="tab" aira-controls="csharpCodeGen5">OData v4 Client Code Generator</a></li>
-<li><a onclick="activateTabsById('csharpSimpleOData5', 'relating_resources')" tabindex="-1" role="tab" id="csharpSimpleOData5-tab" data-toggle="tab" aira-controls="csharpSimpleOData5">Simple.OData.Client</a></li>
+<li><a class = "tab-link" target="csharpCodeGen5" tabindex="-1" role="tab" id="csharpCodeGen5-tab" data-toggle="tab" aira-controls="csharpCodeGen5">OData v4 Client Code Generator</a></li>
+<li><a class = "tab-link" target="csharpSimpleOData5" tabindex="-1" role="tab" id="csharpSimpleOData5-tab" data-toggle="tab" aira-controls="csharpSimpleOData5">Simple.OData.Client</a></li>
 </ul>
 </li>
-<li role="presentation"><a onclick="activateTabsById('olingo-js-5', 'relating_resources')" role="tab" aria-controls="olingo-js-5" data-toggle="tab">Olingo JavaScript client</a></li>
-<li role="presentation"><a onclick="activateTabsById('odatacpp-5', 'relating_resources')"  role="tab" aria-controls="odatacpp-5" data-toggle="tab">C++</a></li>
-<li role="presentation"><a onclick="activateTabsById('nodejs-5', 'relating_resources')"  role="tab" aria-controls="nodejs-5" data-toggle="tab">Node.js</a></li>
-<li role="presentation"><a onclick="activateTabsById('contribute-5', 'relating_resources')"  role="tab" aria-controls="contribute-5" data-toggle="tab">Contribute</a></li>
+<li role="presentation"><a class = "tab-link" target="olingo-js-5" role="tab" aria-controls="olingo-js-5" data-toggle="tab">Olingo JavaScript client</a></li>
+<li role="presentation"><a class = "tab-link" target="odatacpp-5"  role="tab" aria-controls="odatacpp-5" data-toggle="tab">C++</a></li>
+<li role="presentation"><a class = "tab-link" target="nodejs-5"  role="tab" aria-controls="nodejs-5" data-toggle="tab">Node.js</a></li>
+<li role="presentation"><a class = "tab-link" target="contribute-5"  role="tab" aria-controls="contribute-5" data-toggle="tab">Contribute</a></li>
 </ul>
 <div class="tab-content">
 <div role="tabpanel" class="tab-pane active relating_resources" id="http5">
@@ -1233,19 +1233,19 @@ Download and install the Node.js platform from <a href="http://nodejs.org">nodej
         </h3>
 <p class="text-justify bottom-margin">In RESTful APIs, there can be some custom operations that contain complicated logic and can be frequently used. For that purpose, OData supports defining functions and actions to represent such operations. They are also resources themselves and can be bound to existing resources. After having explored the TripPin OData service, Russell finds out that the it has a function called GetInvolvedPeople from which he can find out the involved people of a specific trip. He invokes the function to find out who else other than him and Lewis goes to that trip in the U.S.</p>
 <div class="code-row bottom-margin">
-<ul class="nav nav-tabs" role="tablist">
-<li role="presentation" class="active"><a onclick="activateTabsById('http6', 'invoking_function')" role="tab" aria-controls="http6"  data-toggle="tab">HTTP request</a></li>
+<ul class="nav nav-tabs" role="tablist" target="invoking_function">
+<li role="presentation" class="active"><a class = "tab-link" target="http6" role="tab" aria-controls="http6"  data-toggle="tab">HTTP request</a></li>
 <li role="presentation" class="dropdown">
 <a role="tab" id="csharpDrop6" class="dropdown-toggle" data-toggle="dropdown" aria-controls="csharpDrop1-contents">C# &nbsp;<span class="caret"></span></a></p>
 <ul class="dropdown-menu" role="menu" aria-labelledby="csharpDrop6" id="csharpDrop6-contents">
-<li><a onclick="activateTabsById('csharpCodeGen6', 'invoking_function')"  tabindex="-1" role="tab" id="csharpCodeGen6-tab" data-toggle="tab" aira-controls="csharpCodeGen6">OData v4 Client Code Generator</a></li>
-<li><a onclick="activateTabsById('csharpSimpleOData6', 'invoking_function')"  tabindex="-1" role="tab" id="csharpSimpleOData6-tab" data-toggle="tab" aira-controls="csharpSimpleOData6">Simple.OData.Client</a></li>
+<li><a class = "tab-link" target="csharpCodeGen6"  tabindex="-1" role="tab" id="csharpCodeGen6-tab" data-toggle="tab" aira-controls="csharpCodeGen6">OData v4 Client Code Generator</a></li>
+<li><a class = "tab-link" target="csharpSimpleOData6"  tabindex="-1" role="tab" id="csharpSimpleOData6-tab" data-toggle="tab" aira-controls="csharpSimpleOData6">Simple.OData.Client</a></li>
 </ul>
 </li>
-<li role="presentation"><a onclick="activateTabsById('olingo-js-6', 'invoking_function')" role="tab" aria-controls="olingo-js-6" data-toggle="tab">Olingo JavaScript client</a></li>
-<li role="presentation"><a onclick="activateTabsById('odatacpp-6', 'invoking_function')"  role="tab" aria-controls="odatacpp-6" data-toggle="tab">C++</a></li>
-<li role="presentation"><a onclick="activateTabsById('nodejs-6', 'invoking_function')"   role="tab" aria-controls="nodejs-6" data-toggle="tab">Node.js</a></li>
-<li role="presentation"><a onclick="activateTabsById('contribute-6', 'invoking_function')"  role="tab" aria-controls="contribute-6" data-toggle="tab">Contribute</a></li>
+<li role="presentation"><a class = "tab-link" target="olingo-js-6" role="tab" aria-controls="olingo-js-6" data-toggle="tab">Olingo JavaScript client</a></li>
+<li role="presentation"><a class = "tab-link" target="odatacpp-6"  role="tab" aria-controls="odatacpp-6" data-toggle="tab">C++</a></li>
+<li role="presentation"><a class = "tab-link" target="nodejs-6"   role="tab" aria-controls="nodejs-6" data-toggle="tab">Node.js</a></li>
+<li role="presentation"><a class = "tab-link" target="contribute-6"  role="tab" aria-controls="contribute-6" data-toggle="tab">Contribute</a></li>
 </ul>
 <div class="tab-content">
 <div role="tabpanel" class="tab-pane active invoking_function" id="http6">
