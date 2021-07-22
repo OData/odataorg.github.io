@@ -3,21 +3,5 @@
 <div class="container" style=" text-align: center">
   <p>&copy; 2015-{{ 'now' | date: "%Y" }} OData – The Protocol for REST APIs </p>
 </div>
-
-
-<script>
-$( ".tab-link" ).click(function() {
-   var panelClassName = $(this).parent().parent().attr('data-tab-target');
-   var dataTabTarget = $(this).attr('data-tab-target')
-   
-   var i, tabContent, tablinks;
-   tabContent = document.getElementsByClassName(panelClassName);
-   for (i = 0; i < tabContent.length; i++) {
-    tabContent[i].classList.remove("active");
-  }
-  document.getElementById(dataTabTarget).className  = "tab-pane active " + panelClassName;
-  
-});
-</script>
    
 </footer>
