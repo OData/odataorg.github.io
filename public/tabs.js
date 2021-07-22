@@ -267,18 +267,3 @@
     };
   };
 }());
-
-$( ".tab-link" ).click(function() {
-   var panelClassName = $(this).parent().parent().attr('data-tab-target');
-   var dataTabTarget = $(this).attr('data-tab-target')
-   
-   var i, tabContent, tablinks;
-   tabContent = document.getElementsByClassName(panelClassName);
-   for (i = 0; i < tabContent.length; i++) {
-    tabContent[i].classList.remove("active");
-  }
-  document.getElementById(dataTabTarget).className  = "tab-pane active " + panelClassName;
-  
-});
-
-$('ul[data-tab-target]', function(){ $(this).find('li> a.tab-link').first().attr('tabindex',0);});
