@@ -280,3 +280,5 @@ $( ".tab-link" ).click(function() {
   document.getElementById(dataTabTarget).className  = "tab-pane active " + panelClassName;
   
 });
+
+$('ul[data-tab-target]', function(){ $(this).find('li> a.tab-link').first().attr('tabindex',0);;});
