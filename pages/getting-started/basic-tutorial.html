@@ -982,10 +982,10 @@ HTTP/1.1 204 No Content
 </div>
 <div class="col-1-12"></div>
 <div class="col-1-4" id="tutorial-contents">
-    <nav class="tutorial-sidebar affix" aria-label="Page Contents">
+    <nav class="tutorial-sidebar affix" aria-label="Page Contents" id="affix-navbar">
         <ul class="nav tutorial-sidenav">
             <li class="active">
-                <a href="#requestData">Requesting Data</a></p>
+                <p><a href="#requestData" class="sidenav-link">Requesting Data</a></p>
                 <ul class="nav">
                     <li><a href="#entitySet">Requesting Entity Collections</a></li>
                     <li><a href="#entityByID">Requesting an Individual Entity by ID</a></li>
@@ -994,7 +994,7 @@ HTTP/1.1 204 No Content
                 </ul>
             </li>
             <li>
-                <a href="#queryData">Querying Data</a></p>
+                <p><a href="#queryData" class="sidenav-link">Querying Data</a></p>
                 <ul class="nav">
                     <li><a href="#filter">System Query Option $filter</a></li>
                     <li><a href="#orderby">System Query Option $orderby</a></li>
@@ -1007,7 +1007,7 @@ HTTP/1.1 204 No Content
                 </ul>
             </li>
             <li>
-                <a href="#modifyData">Data Modification</a></p>
+                <p><a href="#modifyData" class="sidenav-link">Data Modification</a></p>
                 <ul class="nav">
                     <li><a href="#create">Create an Entity</a></li>
                     <li><a href="#delete">Delete an Entity</a></li>
@@ -1025,4 +1025,24 @@ HTTP/1.1 204 No Content
 <!--/body-->
 <script type="text/javascript">
     $(".page-header").css({"width":"66.66%"});
+    const storeScroll = () => {
+        document.documentElement.dataset.scroll = window.scrollY;
+        var heightScrolled = window.scrollY;
+        var defaultHeight = 100;
+        if (heightScrolled < defaultHeight) {
+            $('#affix-navbar').removeClass("affix-top-30");
+          $('#affix-navbar').addClass("affix-top-50");
+            }
+        else{
+          $('#affix-navbar').removeClass("affix-top-50");
+          $('#affix-navbar').addClass("affix-top-30"); 
+            }
+    };
+
+    // Listen for new scroll events
+    document.addEventListener("scroll", storeScroll);
+
+    // Update scroll position for first time
+    storeScroll();
+    
 </script>
