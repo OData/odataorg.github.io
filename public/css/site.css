@@ -374,3 +374,11 @@ pre {
 .affix-top-30 {
     top: 30%;
   }
+
+@media screen and (-ms-high-contrast: active) {
+     .tab-link { 
+      -ms-high-contrast-adjust:none;
+      color: white;
+  }
+}
+
