@@ -358,3 +358,10 @@ pre {
   color: white;
   text-decoration: underline;
 }
+
+@media screen and (-ms-high-contrast: active) {
+     .tab-link { 
+      -ms-high-contrast-adjust:none;
+      color: white;
+  }
+}
