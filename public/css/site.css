@@ -134,6 +134,8 @@ code {
     font-weight: 500;
     color: #bf3e11;
     padding: 4px 20px;
+    word-wrap:break-word;
+    overflow-wrap: break-word;
 }
 .tutorial-sidebar .nav>li>a:hover, .tutorial-sidebar .nav>li>a:focus {
     padding-left: 19px;
@@ -141,6 +143,8 @@ code {
     text-decoration: none;
     background-color: transparent;
     border-left: 1px solid #563d7c;
+    word-wrap:break-word;
+    overflow-wrap: break-word;
 }
 .tutorial-sidebar .nav>.active>a, .tutorial-sidebar .nav>.active:hover>a, .tutorial-sidebar .nav>.active:focus>a {
     padding-left: 18px;
@@ -148,6 +152,8 @@ code {
     color: #563d7c;
     background-color: transparent;
     border-left: 2px solid #563d7c;
+    word-wrap:break-word;
+    overflow-wrap: break-word;
 }
 .tutorial-sidebar .nav .nav {
     display: none;
@@ -159,6 +165,8 @@ code {
     padding-left: 30px;
     font-size: 14px;
     font-weight: 400;
+    word-wrap:break-word;
+    overflow-wrap: break-word;
 }
 .tutorial-sidebar .nav .nav>li>a:hover, .tutorial-sidebar .nav .nav>li>a:focus {
     padding-left: 29px;
@@ -168,7 +176,7 @@ code {
     padding-left: 28px;
 }
 .tutorial-sidebar.affix, .tutorial-sidebar.affix-bottom {
-    width: 213px;
+    word-wrap: break-word;
 }
 .tutorial-sidebar.affix {
     position: fixed;
@@ -190,7 +198,7 @@ code {
 	top: 50px;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   .affix {
     position: static;
   	display: block;
@@ -199,7 +207,7 @@ code {
   }
 }
 
-@media (min-width:992px) {
+@media (min-width:768px) {
     .tutorial-sidebar .nav>.active>ul {
     display: block;
 	}
@@ -359,9 +367,18 @@ pre {
   text-decoration: underline;
 }
 
+.affix-top-50 {
+    top: 50%;
+  }
+
+.affix-top-30 {
+    top: 30%;
+  }
+
 @media screen and (-ms-high-contrast: active) {
      .tab-link { 
       -ms-high-contrast-adjust:none;
       color: white;
   }
 }
+
