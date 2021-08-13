@@ -61,7 +61,7 @@ author: Qian Li
 <p>    After these 3 steps above, a RESTful service is bootstraped using RESTier.</p>
 <p style="font-size:18px;"><i>With RESTier, Mark has successfully built the RESTful service against his data source. Now he got several asks from customers of adding business logic to this service.</i></p>
 <ul>
-<li style="font-size:18px;"><i>Customer A says besides the current <code>Orders</code>, he also wants an entity set <code>CurrentOrders</code> which haven't been shipped yet.</i></li>
+<li style="font-size:18px;"><i>Customer A says besides the current <code>Orders</code>, he also wants an entity set <code>CurrentOrders</code> which haven't been shipped yet.</i>
 <p>        With RESTier, <b>Imperative Views</b> can make this ask work by adding some code in <code>NorthwindDomain.cs</code></p>
         {% highlight csharp%}
         protected IQueryable<Order> CurrentOrders
@@ -72,7 +72,8 @@ author: Qian Li
             }
         }
         {% endhighlight %}
-<li style="font-size:18px;"><i>Customer B says he only cares <code>Customers</code> from France and he doesn't want to add a $filter query for every request.</i></li>
+</li>
+<li style="font-size:18px;"><i>Customer B says he only cares <code>Customers</code> from France and he doesn't want to add a $filter query for every request.</i>
 <p>        With RESTier, <b>Entity Set Filters</b> can make this work by adding some code in <code>NorthwindDomain.cs</code></p>
         {% highlight csharp%}
         private IQueryable<Customer> OnFilterCustomers(IQueryable<Customer> customers)
@@ -80,7 +81,8 @@ author: Qian Li
             return customers.Where(c => c.Country == "France");
         }
         {% endhighlight %}
-<li style="font-size:18px;"><i>Customer C says he has some additional logic when he deletes an <code>Product</code></i></li>
+</li>
+<li style="font-size:18px;"><i>Customer C says he has some additional logic when he deletes an <code>Product</code></i>
 <p>        With RESTier, <b>Submit Logic</b> can make this work by adding some code in <code>NorthwindDomain.cs</code></p>
         {% highlight csharp%}
         private void OnDeletingProducts(Product product)
@@ -88,7 +90,8 @@ author: Qian Li
             // User logic code when deleting a product.
         }
         {% endhighlight %}
-<li style="font-size:18px;"><i>Customer D says he only wants users to have READ permission on <code>Suppliers</code></i></li>
+</li>
+<li style="font-size:18px;"><i>Customer D says he only wants users to have READ permission on <code>Suppliers</code></i>
 <p>        With RESTier, <b>Role-based Security</b> can make this work by adding some code in <code>NorthwindDomain.cs</code></p>
         {% highlight csharp%}
         [EnableRoleBasedSecurity]
@@ -102,7 +105,8 @@ author: Qian Li
            // code
         }
         {% endhighlight %}
-    </ul>
+</li>
+</ul>
 <h1>Behind the Scenes</h1>
 <p>    After the previous section of introducting how RESTier help solve your problems, now let's take a deeper look at RESTier itself. And please be noted that RESTier is currently an alpha version, so there are still some limitions.</p>
 <h2>Structure of RESTier</h2>
