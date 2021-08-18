@@ -17,21 +17,21 @@ For a developer preview, below are screenshots of the [high level steps from the
 
 *1. Get started with an External Object Report*
 
-<img src="/assets/SalesforceWebinar1.png" width="623" height="348" />
+<img src="/assets/SalesforceWebinar1.png" alt="SalesForce Webinar One External Object Report" width="623" height="348" />
 
-<img src="/assets/SalesforceWebinar2.png" width="623" height="310" />
+<img src="/assets/SalesforceWebinar2.png" alt="SalesForce Webinar Two External Object Report" width="623" height="310" />
 
-<img src="/assets/SalesforceWebinar3.png" width="624" height="350" />
+<img src="/assets/SalesforceWebinar3.png" alt="SalesForce Webinar Three External Object Report" width="624" height="350" />
 
 *2. To expand on this, create a new report type that blends standard objects with external data*
 
-<img src="/assets/SalesforceWebinar4.png" width="623" height="349" />
+<img src="/assets/SalesforceWebinar4.png" alt="SalesForce Webinar Four External Object Report" width="623" height="349" />
 
-<img src="/assets/SalesforceWebinar5.png" width="624" height="351" />
+<img src="/assets/SalesforceWebinar5.png" alt="SalesForce Webinar Five External Object Report" width="624" height="351" />
 
-<img src="/assets/SalesforceWebinar6.png" width="623" height="352" />
+<img src="/assets/SalesforceWebinar6.png" alt="SalesForce Webinar Six External Object Report" width="623" height="352" />
 
-<img src="/assets/SalesforceWebinar7.png" width="624" height="351" />
+<img src="/assets/SalesforceWebinar7.png" alt="SalesForce Webinar Seven External Object Report" width="624" height="351" />
 
 **Webinar: [Configuring Salesforce External Object Reports](prgress.co/2fWHBDE)**
 
