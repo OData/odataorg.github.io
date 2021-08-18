@@ -29,7 +29,7 @@ For a developer preview, below are screenshots of the [high level steps from the
 
 <img src="/assets/SalesforceWebinar5.png" alt="SalesForce Webinar Five External Object Report" width="624" height="351" />
 
-<img src="/assets/SalesforceWebinar6.png" alt="SalesForce Webinar Sex External Object Report" width="623" height="352" />
+<img src="/assets/SalesforceWebinar6.png" alt="SalesForce Webinar Six External Object Report" width="623" height="352" />
 
 <img src="/assets/SalesforceWebinar7.png" alt="SalesForce Webinar Seven External Object Report" width="624" height="351" />
 
