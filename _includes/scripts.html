@@ -44,7 +44,7 @@
             });
         }
 
-        var search = $('#search');
+        var search = $('#main-search-input');
 
         var renderResults = function(ctx, data) {
             var results = [];
@@ -86,7 +86,7 @@
 
             search.attr('aria-expanded', true);
             var button = document.getElementById('cb1-button');
-            var cba = new ComboboxAutocomplete(document.getElementById('search'), button, document.getElementById('search-results'));
+            var cba = new ComboboxAutocomplete(document.getElementById('main-search-input'), button, document.getElementById('search-results'));
             cba.init();
             button.click();
         };
