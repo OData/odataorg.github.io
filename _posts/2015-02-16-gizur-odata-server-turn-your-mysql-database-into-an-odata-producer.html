@@ -66,8 +66,3 @@ $ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3
 <h2>Concluding remarks</h2>
 <p>A note regarding the URL:s of the API. The account id is part of the URL for all API functions but <code>/create_account</code> and <code>/help</code>. This makes it possible to setup a proxy in front of a group of NodeJS processes running Gizur OData Servers. Each account needs to be routed to the same process if BLOBs are used. The reason is that an in-process leveldb database is used. Leveldb does not have  multi-process support.</p>
 <p>The server is open source and can be downloaded here: <code>https://github.com/gizur/odataserver</code>. All input regarding the OData server is appreciated. Just create a github issue in the repository above. You can also reach me at jonas[at]gizur.com. </p>
-
-<script type="text/javascript">
-    $('code').attr('tabindex',0);
-    $('pre').attr('tabindex',0);
-</script>
