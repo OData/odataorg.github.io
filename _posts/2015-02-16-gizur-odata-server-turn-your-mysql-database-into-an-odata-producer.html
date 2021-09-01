@@ -17,20 +17,20 @@ author: Jonas Colmsjö
 <p>Start with checking out: <code>curl http://appdev.gizur.com:9000/help</code> (or open the link in a browser if you prefer). This gives an overview of the API (similar to this post). This documentation will always be up-to-date with the version currently deployed on the sandbox server.</p>
 <p>The first step is to create an account and get a password. The sandbox server will send the password in the open which is useful for testing. You should set <code>RESET_PASSWORD_WITHOUT_LINK</code> to false in <code>config.js</code> in your production system.</p>
 <p>1. Create account. Note the account id that is returned. It is 12 characters and looks like this: <code>3ea8f06baf64</code>. The account id is used in all subsequent functions.</p>
-<pre tabindex="0">
+<pre>
 $ curl -d '{"email":"joe@example.com"}' http://appdev.gizur.com:9000/create_account
 </pre>
 <p>2. Get a password. The HTTP request looks like this: <code>GET /[account id]/s/reset_password</code>:</p>
-<pre tabindex="0">
+<pre>
 $ curl -d '{"accountId":"3ea8f06baf64","email":"joe@example.com"}' http://appdev.gizur.com:9000/3ea8f06baf64/s/reset_password
 </pre>
 <p>3. A reset passwork link will sent in a mail. The sandbox server will respond with the password in the API call above so you don't need the link. Also, the reset password link will generate a password when it is accessed so the password the API returned above will not be possible to use if the reset link is used.</p>
-<pre tabindex="0">
+<pre>
 $ curl http://appdev.gizur.com:9000/3ea8f06baf64/s/reset_password/1cf4843d-139f-49f1-b185-28400dad3cbd
 </pre>
 <h2>Working with BLOBs</h2>
 <p>Pictures and other binary data can be saved in buckets. Text can of course also be saved in these buckets. Buckets needs to be named with a prefix that is configurable. The prefix in the sandbox is <code>b_</code>. The example below shows how to save and get text.</p>
-<pre tabindex="0">
+<pre>
 $ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"bucketName":"b_mybycket"}' http://appdev.gizur.com:9000/3ea8f06baf64/s/create_bucket
 
 $ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d 'Just some data to store' http://appdev.gizur.com:9000/3ea8f06baf64/b_mybycket
@@ -46,7 +46,7 @@ $ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3
 <li><code>$select</code></li>
 </ul>
 <p>Only <code>JSON</code> is supported. We currently have no plans of adding <code>XML</code> support since we mainly are targeting JacaScript developers.</p>
-<pre tabindex="0">
+<pre>
 $ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"tableDef":{"tableName":"mytable","columns":["col1 int","col2 varchar(255)"]}}' http://appdev.gizur.com:9000/3ea8f06baf64/s/create_table
 
 $ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"col1":11,"col2":"11"}' http://appdev.gizur.com:9000/3ea8f06baf64/mytable
@@ -55,10 +55,10 @@ $ curl -H "user: 3ea8f06baf64" -H "password: xxx"  http://appdev.gizur.com:9000/
 </pre>
 <h2>Service definitions</h2>
 <p>The odata standard does not contain any specification for service definitions in <code>JSON</code>. The internal representation of the database is returned as-is for now. This might change in future versions.</p>
-<pre tabindex="0">
+<pre>
 $ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3ea8f06baf64
 </pre>
-<pre tabindex="0">
+<pre>
 $ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3ea8f06baf64/mytable/$metadata
 </pre>
 <h2>Priviledges</h2>
@@ -66,3 +66,8 @@ $ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3
 <h2>Concluding remarks</h2>
 <p>A note regarding the URL:s of the API. The account id is part of the URL for all API functions but <code>/create_account</code> and <code>/help</code>. This makes it possible to setup a proxy in front of a group of NodeJS processes running Gizur OData Servers. Each account needs to be routed to the same process if BLOBs are used. The reason is that an in-process leveldb database is used. Leveldb does not have  multi-process support.</p>
 <p>The server is open source and can be downloaded here: <code>https://github.com/gizur/odataserver</code>. All input regarding the OData server is appreciated. Just create a github issue in the repository above. You can also reach me at jonas[at]gizur.com. </p>
+
+<script type="text/javascript">
+    $('code').attr('tabindex',0);
+    $('pre').attr('tabindex',0);
+</script>
