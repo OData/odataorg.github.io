@@ -1,6 +1,6 @@
 ## Basic Usages
 
-[Run in Postman](https://app.getpostman.com/run-collection/522bf43d2b5f9f09f7ee){:.postman}
+[Run in Postman](https://app.getpostman.com/run-collection/522bf43d2b5f9f09f7ee)
 
 For usage of advanced scenarios, please refer to [Trippin Advanced Usages](service-usages/trippin-advanced-usages/).
 
