@@ -344,7 +344,7 @@ pre {
   margin-right: auto;
 }
 
-.dropdown-menu li a:hover {
+.dropdown-menu li a:hover, .dropdown-menu li a:focus {
   background-color: #c34113;
 }
 
