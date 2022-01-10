@@ -348,13 +348,6 @@ pre {
   background-color: #c34113;
 }
 
-.postman {
-  border-radius: 3px;
-  background: #d23714;
-  padding: 5px;
-  color: white;
-}
-
 /* Mouse navigation.*/
 .postman:hover {
   color: white;
