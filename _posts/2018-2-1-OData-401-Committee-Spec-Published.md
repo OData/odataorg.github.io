@@ -4,7 +4,7 @@ title: OData 4.01 Committee Spec Approved
 date: 2018-2-1 17:59:43.000000000 +08:00
 author: Michael Pizzo
 ---
-[OData V4.01](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html) was officially approved as a Committee Specification this week, marking the next step toward final standardization of the much anticipated extensions to OData V4.0.
+[OData V4.01](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html) was officially approved as a Committee Specification this week, marking the next step toward final standardization of the much anticipated extensions to OData V4.0.
 
 OData v4.01 is a fully compatible extension of the OData V4.0 protocol that adopts many popular conventions, syntax and payload simplifications, and incorporates new functionality.
 
@@ -53,9 +53,9 @@ OData V4.01 defines a new JSON representation for CSDL Metadata.
 OData V4.01 defines a new JSON representation for batch request and response payloads.
 
 
-For a full description of the new features and conventions, see [What's New in OData V4.01](http://docs.oasis-open.org/odata/new-in-odata/v4.01/new-in-odata-v4.01.html).
+For a full description of the new features and conventions, see [What's New in OData V4.01](https://docs.oasis-open.org/odata/new-in-odata/v4.01/new-in-odata-v4.01.html).
 
-Please take a look and send feedback to the [OASIS OData TC](http://www.oasis-open.org/committees/comments/form.php?wg_abbrev=odata).
+Please take a look and send feedback to the [OASIS OData TC](https://www.oasis-open.org/committees/comments/form.php?wg_abbrev=odata).
 
 About the Author
 ----------------

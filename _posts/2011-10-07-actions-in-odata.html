@@ -37,13 +37,16 @@ author: OData.org Archive
 …,<br />
 "actions": {<br />
 </span><span style="font-family: Courier New">      "MyEntities.Checkout": [<br />
-{ "target": "</span><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fserver%2fservice.svc%2fMovies%286%29%2fCheckout"><span style="font-family: Courier New">http://server/service.svc/Movies(6)/Checkout</span></a><span style="font-family: Courier New">", "title": "Checkout Donnie Darko" }<br />
+{ "target": "</span><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fserver%2fservice.svc%2fMovies%286%29%2fCheckout"><span style="font-family: Courier New">
+    
+    
+    server/service.svc/Movies(6)/Checkout</span></a><span style="font-family: Courier New">", "title": "Checkout Donnie Darko" }<br />
 ]<br />
 }<br />
 }</span></p>
 <p>The identity or rel of the action (or the actions property name in JSON) is the EntityContainer qualified Name of a FunctionImport in $metadata that describes the action. This means given a particular rel if you know the URL of $metadata you can find the FunctionImport that describes the parameters, which could optionally be annotated with vocabularies that tell you more about the Action's semantics.</p>
 <p>Note too that in these examples rel is relative to the current $metadata, it is however possible that an Action isn't described in the current $metadata, so we also allow you to use absolute urls, like this:</p>
-<p><span style="font-family: Courier New">&lt;m:action rel="</span><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fotherserver%2f%24metadata%23MyEntities.Checkout"><span style="font-family: Courier New">http://otherserver/$metadata#MyEntities.Checkout</span></a><span style="font-family: Courier New">"<br />
+<p><span style="font-family: Courier New">&lt;m:action rel="</span><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fotherserver%2f%24metadata%23MyEntities.Checkout"><span style="font-family: Courier New">https://otherserver/$metadata#MyEntities.Checkout</span></a><span style="font-family: Courier New">"<br />
 target="Movies(6)/Checkout"<br />
 title="Checkout Donnie Darko" /&gt;</span></p>
 <p>I guess you can imagine where this is going?</p>
@@ -78,7 +81,7 @@ title="Checkout Donnie Darko" /&gt;</span></p>
 <h3></h3>
 <h3>Invoking the Action:</h3>
 <p>In our example movie entry, the server has indicated that the 'MyEntities.Checkout' action can be invoked via a POST to this URL:</p>
-<p><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fserver%2fservice.svc%2fMovies%286%29%2fCheckout">http://server/service.svc/Movies(6)/Checkout</a></p>
+<p><a href="https://pod51008.outlook.com/owa/redir.aspx?C=2Gay8FFrP0WhM9JgUKl4HR5mzjKqWM4IuEY09H2tIrPKoTdBMfRuprU1WbPjUJTXafDEoS5T4rw.&amp;URL=http%3a%2f%2fserver%2fservice.svc%2fMovies%286%29%2fCheckout">https://server/service.svc/Movies(6)/Checkout</a></p>
 <p>However we don't yet know what to POST.</p>
 <p>Using the rel of the action ('MyEntities.Checkout') we know the 'Checkout' FunctionImport in the 'MyEntities' EntityContainer describes the action, and we can see that our action requires two parameters: movie and noOfDays.</p>
 <p>Because the action is advertised (or bound) in an entity we known that the movie (or binding) parameter is provided 'by reference' in the target URL. However we still need to provide a value for noOfDays. All other parameters are always passed in the payload of the POST in JSON format.</p>
@@ -103,5 +106,5 @@ title="Checkout Donnie Darko" /&gt;</span></p>
 <p>That said I hope this is enough to whet your appetite.</p>
 <p>Please let me know what you think via the OData.org <a href="https://www.odata.org/join-the-odata-discussion/">mailing list</a>.</p>
 <p>Cheers<br />
-<a href="http://twitter.com/adjames">Alex</a></p>
+<a href="https://twitter.com/adjames">Alex</a></p>
 </div>

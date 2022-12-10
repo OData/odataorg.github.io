@@ -2,5 +2,5 @@
 layout: default
 category: consumers
 title: "Drupal"
-link: "http://drupal.org/project/odata"
+link: "https://drupal.org/project/odata"
 ---

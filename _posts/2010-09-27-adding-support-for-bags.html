@@ -54,7 +54,11 @@ author: OData.org Archive
 <li><strong>Rules for Responses to Requests sent to a URI addressing Bag Properties</strong> (i.e. request URI == /Customer(1)/Addresses ):
 <ul>
 <li>Requests using any HTTP verb other than GET or PUT MUST result in a 405 (Method Not Allowed) response.</li>
-<li>All error responses MUST include a response body which conforms to the error response format as described here: <a href="http://msdn.microsoft.com/en-us/library/dd541497%28PROT.10%29.aspx" target="_blank">http://msdn.microsoft.com/en-us/library/dd541497(PROT.10).aspx</a></li>
+<li>All error responses MUST include a response body which conforms to the error response format as described here: <a href="
+                                                                                                                       
+                                                                                                                       
+                                                                                                                       
+                                                                                                                       msdn.microsoft.com/en-us/library/dd541497%28PROT.10%29.aspx" target="_blank">https://msdn.microsoft.com/en-us/library/dd541497(PROT.10).aspx</a></li>
 <li>If the Entry Type which defines the Bag Property defines a concurrency token, then a GET or PUT request to the bag MUST return an ETag header with the value of the concurrency token equal to that which would be used for the associated Entry Type instance (i.e. same as "regular" properties).</li>
 <li><strong>Responses from a GET request to a Bag Property</strong>:
 <ul>
@@ -71,7 +75,7 @@ author: OData.org Archive
 </ul>
 <p><strong>Payload Examples</strong></p>
 <p><strong>Example 1 : Representing Bag Properties</strong></p>
-<p>Request Uri: GET http:// host /service.svc/Customers(1)</p>
+<p>Request Uri: GET https:// host /service.svc/Customers(1)</p>
 <p>Response:</p>
 <p><a href="/assets/image003_500x430.jpg"><img class="alignnone size-full wp-image-373" alt="image003_500x430" src="/assets/image003_500x430.jpg" width="500" height="430" /></a></p>
 <p><strong>Example 2: Representing Bag properties with Customizable Feed Mapping</p>
@@ -87,9 +91,9 @@ author: OData.org Archive
 <p><strong>Customizable feed mapping</strong></p>
 <p>The following rules define the customizable feed mappings rules for Bags and are in addition to those already defined for entries <a href="https://www.odata.org/documentation/odata-version-2-0/atom-format#CustomizingtheRepresentationofanEntry"> here</a>.</p>
 <ul>
-<li>Each instance in the bag must be represented as a child element of the element representing the bag as a whole and be named 'element' and MUST be defined in the data service namespace (<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>).</li>
+<li>Each instance in the bag must be represented as a child element of the element representing the bag as a whole and be named 'element' and MUST be defined in the data service namespace (<a href="https://schemas.microsoft.com/ado/2007/08/dataservices">https://schemas.microsoft.com/ado/2007/08/dataservices</a>).</li>
 <li>An attribute named 'type' (in the Data Service Metadata namespace) MAY exist on the element representing the bag as a whole.</li>
-<li>If a Bag of Complex type instances with Customizable Feeds annotations in the data services metadata document and has a value of null then the element being mapped to MUST be present with an attribute named 'null'  that  MUST be defined in the data service namespace (<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>). If the null value is being mapped to an attribute the Server or Client MUST return status code 500</li>
+<li>If a Bag of Complex type instances with Customizable Feeds annotations in the data services metadata document and has a value of null then the element being mapped to MUST be present with an attribute named 'null'  that  MUST be defined in the data service namespace (<a href="https://schemas.microsoft.com/ado/2007/08/dataservices">https://schemas.microsoft.com/ado/2007/08/dataservices</a>). If the null value is being mapped to an attribute the Server or Client MUST return status code 500</li>
 </ul>
 <h3>Versioning</h3>
 <ul>

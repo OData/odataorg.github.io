@@ -221,7 +221,7 @@ First part is the “@odata.etag” annotation support, it is part of response b
 
 Second part is Etag header support, this is only support when operation is against a single entity.
 
-For more details, please refer to [Restier Documents #ETag](http://odata.github.io/RESTier/#02-04-ETAG).
+For more details, please refer to [Restier Documents #ETag](https://odata.github.io/RESTier/#02-04-ETAG).
 
 #### Request ETag
 

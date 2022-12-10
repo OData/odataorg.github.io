@@ -11,19 +11,22 @@ published: true
 author: OData.org Archive
 ---
 <div>
-<p>The datajs team <a href="http://blogs.msdn.com/b/astoriateam/archive/2011/04/13/announcing-datajs-version-0-0-3.aspx"> recently announced</a> an updated version of datajs (version 0.0.3).</p>
+<p>The datajs team <a href="
+                      
+                      
+                      blogs.msdn.com/b/astoriateam/archive/2011/04/13/announcing-datajs-version-0-0-3.aspx"> recently announced</a> an updated version of datajs (version 0.0.3).</p>
 <p>Highlights include the ability to use HTML5 storage capabilities to cache data from an OData source and read it back later.</p>
 <p>Here's code that does just that:</p>
 <p>var cache = datajs.createDataCache({<br />
 name: "movies",<br />
-source: " <a href="http://odata.netflix.com/Catalog/Titles?$filter=Rating%20eq%20%27PG%27"> http://odata.netflix.com/Catalog/Titles?$filter=Rating eq 'PG'</a>"<br />
+source: " <a href="https://odata.netflix.com/Catalog/Titles?$filter=Rating%20eq%20%27PG%27"> https://odata.netflix.com/Catalog/Titles?$filter=Rating eq 'PG'</a>"<br />
 });</p>
 <p>&nbsp;</p>
 <p>// Read ten items from the start<br />
 cache.readRange(0, 10).then(function (data) {<br />
 //display 'data' results<br />
 });</p>
-<p>For more information checkout the <a href="http://blogs.msdn.com/b/astoriateam/archive/2011/04/13/announcing-datajs-version-0-0-3.aspx"> announcement post</a>.</p>
+<p>For more information checkout the <a href="https://blogs.msdn.com/b/astoriateam/archive/2011/04/13/announcing-datajs-version-0-0-3.aspx"> announcement post</a>.</p>
 <p>As always please share your thoughts on the <a href="https://www.odata.org/join-the-odata-discussion/">Mailing List</a>.</p>
 <p>-Alex</p>
 </div>

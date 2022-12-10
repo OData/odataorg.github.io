@@ -264,7 +264,11 @@ author: OData.org Archive
 <h3>Is there any way to make that URL shorter? And perhaps do this in one query?</h3>
 <p>This is actually an overly-simple polygon for a case like this. This is just a square with a single hole in it. A real driving polygon would contain multiple holes and a lot more boundary points. So that polygon in the final query would realistically be 3-5 times as long in the URL.</p>
 <p>It would be really nice to support reference arguments in URLs (with cross-domain support). Then you could represent the entire example in a single query:</p>
-<pre><code>/Houses$filter=Price gt 50000 and Price lt 250000 and intersects(Location, Ref("http://drivetime.services.odata.org/DriveTime(to=POINT(-127.89734578345 45.234534534), maximum_duration=time'0:15:00')"))</code></pre>
+<pre><code>/Houses$filter=Price gt 50000 and Price lt 250000 and intersects(Location, Ref("
+    
+    
+    
+    drivetime.services.odata.org/DriveTime(to=POINT(-127.89734578345 45.234534534), maximum_duration=time'0:15:00')"))</code></pre>
 <p>However, this is not supported in OData today.</p>
 </div>
 <div>

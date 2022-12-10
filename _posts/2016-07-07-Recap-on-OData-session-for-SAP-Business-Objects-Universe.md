@@ -21,7 +21,7 @@ This is an exciting development for the OData ecosystem and we can expect simila
 * How would a PowerBI user connecting to the API be seen from a license perspective?
 * How much data could be extracted for data visualization before violating the license based on this info? “This API is solely for the purposes of accessing semantic data, so you can’t use the API for mass data/metadata extraction, for bypassing SAP licensing, or for reverse-engineering a Universe.”
 
-* [Download session from Slideshare](http://www.slideshare.net/SumitSarkar10/odata-and-the-future-of-business-objects-universes)
+* [Download session from Slideshare](https://www.slideshare.net/SumitSarkar10/odata-and-the-future-of-business-objects-universes)
 * [Learn more from the SAP Semantic Layer Product Team](bit.ly/odataunx)
 
 #Let's Connect:

@@ -12,8 +12,8 @@ published: true
 author: OData.org Archive
 ---
 <div>
-<p>In April we shipped the OData version 3 along with the <a href="http://blogs.msdn.com/b/astoriateam/archive/2012/04/09/wcf-data-services-5-0-rtm-release.aspx">5.0 release of WCF Data Services</a>. To make it easier for you discover the new features and for us to show you some of them, we’re now making available the OData demo services which use the OData V3 protocol.</p>
-<p>The new services are hosted side by side with old demo services which we didn’t change. The new demo services are using the <a href="http://blogs.msdn.com/b/astoriateam/archive/2012/05/07/wcf-data-services-now-with-more-releases.aspx">WCF Data Services 5.0.1-rc</a> release currently, and we will update them to the newer version once it becomes available.</p>
+<p>In April we shipped the OData version 3 along with the <a href="https://blogs.msdn.com/b/astoriateam/archive/2012/04/09/wcf-data-services-5-0-rtm-release.aspx">5.0 release of WCF Data Services</a>. To make it easier for you discover the new features and for us to show you some of them, we’re now making available the OData demo services which use the OData V3 protocol.</p>
+<p>The new services are hosted side by side with old demo services which we didn’t change. The new demo services are using the <a href="https://blogs.msdn.com/b/astoriateam/archive/2012/05/07/wcf-data-services-now-with-more-releases.aspx">WCF Data Services 5.0.1-rc</a> release currently, and we will update them to the newer version once it becomes available.</p>
 <p>There are 3 demo services:</p>
 <p>The read-only Demo service, which has an updated model to use some V3 features as described below, is hosted here:</p>
 <p><a title="https://services.odata.org/V3/OData/OData.svc/" href="https://services.odata.org/V3/OData/OData.svc/">https://services.odata.org/V3/OData/OData.svc/</a></p>
@@ -71,12 +71,12 @@ DataServiceVersion: 3.0;</span></p>
 <h3>Association links</h3>
 <p>Each navigation link can now also specify an association link which is the URL to manipulate the association with. For example this is a part of the ATOM payload for ~/Product(1):</p>
 <p><span style="font-family: Courier New">&lt;link<br />
-rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category"<br />
+rel="https://schemas.microsoft.com/ado/2007/08/dataservices/related/Category"<br />
 type="application/atom+xml;type=entry"<br />
 title="Category"<br />
 href="Products(1)/Category" /&gt;<br />
 &lt;link<br />
-rel="http://schemas.microsoft.com/ado/2007/08/dataservices/relatedlinks/Category"<br />
+rel="https://schemas.microsoft.com/ado/2007/08/dataservices/relatedlinks/Category"<br />
 type="application/xml"<br />
 title="Category"<br />
 href="Products(1)/$links/Category" /&gt;</span></p>

@@ -12,11 +12,11 @@ type: post
 published: true
 author: Qian Li
 ---
-<p>There are quite a lot of <a href="http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint">tutorials</a> showing how to create OData services using Web API OData, but these requires Entity Framework and a database server behind. If you want a quick try or you have your own way of implementing data sources, these tutorials may not be the best fit. In this article, we will show how to build an OData service using <strong>in-memory data</strong> as data source and with basic function.</p>
+<p>There are quite a lot of <a href="https://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint">tutorials</a> showing how to create OData services using Web API OData, but these requires Entity Framework and a database server behind. If you want a quick try or you have your own way of implementing data sources, these tutorials may not be the best fit. In this article, we will show how to build an OData service using <strong>in-memory data</strong> as data source and with basic function.</p>
 <h2>Create the solution</h2>
 <p>Create a new solution following File -> New -> Project -> Web, then choose <code>ASP.NET Web Application</code>. Name it with <code>Demo</code>. Then in the upcoming dialogue box, choose <code>Empty</code> and check <code>Web API</code>, click OK.</p>
 <h2>Install NuGet packages</h2>
-<p>Run the following command in the <a href="http://docs.nuget.org/docs/start-here/using-the-package-manager-console">Package Manager Console</a>.</p>
+<p>Run the following command in the <a href="https://docs.nuget.org/docs/start-here/using-the-package-manager-console">Package Manager Console</a>.</p>
 <p><code>PM> Install-Package Microsoft.AspNet.OData</code></p>
 <h2>Add Models</h2>
 <p>In this getting-started example, we just add two model class <code>Person.cs</code> and <code>Trip.cs</code> under folder <code>Models</code>. <code>Person</code> can navigate to <code>Trips</code>.</p>
@@ -176,7 +176,7 @@ namespace Demo.Controllers
 }
 {% endhighlight %}
 <p>In this very simple implementation, only simple <code>Get</code> with query options are allowed. If you want to enable more capabilities in your controller, the code is quite similar with what's done with EF as data source. Please refer to
-<a href="https://aspnet.codeplex.com/SourceControl/latest#Samples/WebApi/OData/v4/">ASP.NET Web API OData V4 Samples</a> and <a href="http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint">Create an OData v4 Endpoint Using ASP.NET Web API 2.2</a>.</p>
+<a href="https://aspnet.codeplex.com/SourceControl/latest#Samples/WebApi/OData/v4/">ASP.NET Web API OData V4 Samples</a> and <a href="https://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint">Create an OData v4 Endpoint Using ASP.NET Web API 2.2</a>.</p>
 <h2>Configure the Endpoint</h2>
 <p>The last step is to modify the <code>WebApiConfig.cs</code> file under <code>App_Start</code>.</p>
 {% highlight csharp %}
@@ -212,12 +212,12 @@ namespace Demo
 <p>It's done to create a very basic OData endpoint with in-memory data source using Web API OData.
 You can try it out now! All samples below are all <code>GET</code> method.</p>
 <p>Service document</p>
-<p><code>http://localhost:[portNumber]/</code></p>
+<p><code>https://localhost:[portNumber]/</code></p>
 <p>Service metadata</p>
-<p><code>http://localhost:[portNumber]/$metadata</code></p>
+<p><code>https://localhost:[portNumber]/$metadata</code></p>
 <p>Get People</p>
-<p><code>http://localhost:[portNumber]/People</code></p>
+<p><code>https://localhost:[portNumber]/People</code></p>
 <p>Queries</p>
-<p><code>http://localhost:[portNumber]/People?$filter=contains(Description,'Lorem')</code></p>
-<p><code>http://localhost:[portNumber]/People?$select=Name</code></p>
-<p><code>http://localhost:[portNumber]/People?$expand=Trips</code></p>
+<p><code>https://localhost:[portNumber]/People?$filter=contains(Description,'Lorem')</code></p>
+<p><code>https://localhost:[portNumber]/People?$select=Name</code></p>
+<p><code>https://localhost:[portNumber]/People?$expand=Trips</code></p>

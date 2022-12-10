@@ -6,6 +6,6 @@ version: V1-V3
 object: Both
 downloads:
   - source: nugetgallery
-    link: http://www.nuget.org/packages/Microsoft.Data.Edm/
+    link: https://www.nuget.org/packages/Microsoft.Data.Edm/
 ---
 Classes to represent, construct, parse, serialize and validate entity data models.

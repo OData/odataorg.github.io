@@ -141,7 +141,7 @@ You can create an inline link by wrapping link text in brackets ( [ ] ), and the
 If you need more advanced guidelines, please refer to:
 
 - [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
-- [Daring Fireball: Markdown Syntax Documentation](http://daringfireball.net/projects/markdown)
+- [Daring Fireball: Markdown Syntax Documentation](https://daringfireball.net/projects/markdown)
 
 # Appendix B: Code Formatting
 
@@ -170,4 +170,4 @@ The argument to the `highlight` tag (`ruby` in the example above) is the languag
 - `php` for PHP
 - `python` for Python
 
-If the language you used not listed above, please look for the “short name” on the [Pygments’ Lexers page](http://pygments.org/docs/lexers/).
+If the language you used not listed above, please look for the “short name” on the [Pygments’ Lexers page](https://pygments.org/docs/lexers/).

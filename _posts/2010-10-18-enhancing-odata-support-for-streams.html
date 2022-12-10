@@ -19,7 +19,11 @@ author: OData.org Archive
 <p><strong>GET ~/Service/Videos(123123)</strong></p>
 <p>Might return something like this:</p>
 <p><em>&lt;entry m:etag="UVWXYZ"&gt;<br />
-&lt;id&gt;http://server/Service/Videos(123)&lt;/id&gt;<br />
+&lt;id&gt;
+    
+    
+    
+    server/Service/Videos(123)&lt;/id&gt;<br />
 &lt;title&gt;OData Named Resource Streams&lt;/title&gt;<br />
 &lt;summary&gt;A short video about Named Resource Streams...&lt;summary&gt;<br />
 &lt;updated&gt;2010-08-21T08:27:16Z&lt;/updated&gt;<br />
@@ -28,7 +32,7 @@ author: OData.org Archive
 &lt;/author&gt;<br />
 <strong>&lt;link m:etag="ABCDEF" rel="edit-media" title="Title" href="Videos(123)/$value" /&gt;<br />
 </strong> &lt;content src="... uri to a picture to represent the video ..." /&gt;</em> <em><br />
-&lt;m:properties xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;<br />
+&lt;m:properties xmlns:m=" https://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices"&gt;<br />
 &lt;d:Id&gt;123&lt;/d:Id&gt;<br />
 &lt;d:Synopsis&gt; A short video about Named Resource Streams...&lt;/d:Synopsis&gt;<br />
 &lt;d:Name&gt;OData Named Resource Streams &lt;/d:Name&gt;<br />
@@ -43,7 +47,7 @@ For example High and Low bandwidth versions.</p>
 <p>It turns out that this is a very common scenario, common enough that we thought it needed to be supported without forcing people to use multiple MLEs.</p>
 <p>Ideally you should be able to have something like this:</p>
 <p><em>&lt;entry m:etag="UVWXYZ"&gt;<br />
-&lt;id&gt;http://server/Service/Videos(123)&lt;/id&gt;<br />
+&lt;id&gt;https://server/Service/Videos(123)&lt;/id&gt;<br />
 &lt;title&gt;OData Named Resource Streams&lt;/title&gt;<br />
 &lt;summary&gt;A short video about Named Resource Streams...&lt;summary&gt;<br />
 &lt;updated&gt;2010-08-21T08:27:16Z&lt;/updated&gt;<br />
@@ -52,15 +56,15 @@ For example High and Low bandwidth versions.</p>
 &lt;/author&gt;<br />
 &lt;link m:etag="ABCDEF" rel="edit-media" title="Title" href="Videos(123)/$value" /&gt;<br />
 <strong>&lt;link<br />
-rel=" http://schemas.microsoft.com/ado/2007/08/dataservices/edit-media/ HighBandwidth"<br />
+rel=" https://schemas.microsoft.com/ado/2007/08/dataservices/edit-media/ HighBandwidth"<br />
 title="HighBandwidth"<br />
 href="Videos(123)/</strong></em> <em><strong>HighBandwidth/$value" /&gt;<br />
 </strong> <strong>&lt;link<br />
-rel=" http://schemas.microsoft.com/ado/2007/08/dataservices/edit-media/ LowBandwidth"<br />
+rel=" https://schemas.microsoft.com/ado/2007/08/dataservices/edit-media/ LowBandwidth"<br />
 title="LowBandwidth"<br />
 href="Videos(123)/LowBandwidth/$value" /&gt;<br />
 </strong> &lt;content src="... uri to a picture to represent the video ..." /&gt;<br />
-&lt;m:properties xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;<br />
+&lt;m:properties xmlns:m=" https://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices"&gt;<br />
 &lt;d:Id&gt;123&lt;/d:Id&gt;<br />
 &lt;d:Synopsis&gt; A short video about Named Resource Streams...&lt;/d:Synopsis&gt;<br />
 &lt;d:Name&gt;OData Named Resource Streams &lt;/d:Name&gt;<br />

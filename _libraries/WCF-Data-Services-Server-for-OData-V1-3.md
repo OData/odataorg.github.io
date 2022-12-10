@@ -6,6 +6,6 @@ version: V1-V3
 object: Server
 downloads:
   - source: nugetgallery
-    link: http://www.nuget.org/packages/Microsoft.Data.Services/
+    link: https://www.nuget.org/packages/Microsoft.Data.Services/
 ---
 Fully-featured server API for responding to OData queries and consuming/producing OData payloads.

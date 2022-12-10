@@ -8,26 +8,26 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
 <h1 id="introduction">Introduction</h1>
-<p>OData services are described by an Entity Data Model (EDM). Common Schema Definition Language (CSDL) defines an XML-based representation of the entity model exposed by an OData service. CSDL is based on standards defined in [<code><a href="https://www.w3.org/TR/2006/REC-xml11-20060816/">XML 1.1</a></code>] and [<code><a href="http://www.w3.org/standards/techs/xmlschema#w3c_all">XML Schema</a></code>].</p>
+<p>OData services are described by an Entity Data Model (EDM). Common Schema Definition Language (CSDL) defines an XML-based representation of the entity model exposed by an OData service. CSDL is based on standards defined in [<code><a href="https://www.w3.org/TR/2006/REC-xml11-20060816/">XML 1.1</a></code>] and [<code><a href="https://www.w3.org/standards/techs/xmlschema#w3c_all">XML Schema</a></code>].</p>
 <p>An OData service SHOULD provide a CSDL description of its entity model when a client requests a description of the entity model by sending a <code>GET</code> request to <code><serviceRoot>/$metadata</code>. <code>$metadata</code> MUST wrap the CSDL document in an EDMX wrapper.</p>
 <h1 id="csdl1">1 Common Schema Definition Language (CSDL) Namespaces</h1>
 <p>In addition to the default XML namespace, the elements and attributes used to describe the entity model of an OData service are defined in one of the following namespaces.</p>
 <h2 id="csdl1.1">1.1 Entity Data Model for Data Services Packaging (EDMX) Namespace</h2>
-<p>Elements and attributes associated with the top-level wrapper that contains the CSDL used to define the entity model for an OData Service are qualified with the Entity Data Model for Data Services Packaging namespace: <code>http://schemas.microsoft.com/ado/2007/06/edmx</code>.</p>
+<p>Elements and attributes associated with the top-level wrapper that contains the CSDL used to define the entity model for an OData Service are qualified with the Entity Data Model for Data Services Packaging namespace: <code>https://schemas.microsoft.com/ado/2007/06/edmx</code>.</p>
 <p>In this specification the namespace prefix <code>edmx</code> is used to represent the Entity Data Model for Data Services Packaging namespace, however the prefix name is not prescriptive.</p>
 <h2 id="csdl1.2">1.2 Entity Data Model (EDM) Namespace</h2>
-<p>Elements and attributes that define the entity model exposed by the OData Service are qualified with the Entity Data Model namespace: <code>http://schemas.microsoft.com/ado/2009/11/edm</code>.</p>
+<p>Elements and attributes that define the entity model exposed by the OData Service are qualified with the Entity Data Model namespace: <code>https://schemas.microsoft.com/ado/2009/11/edm</code>.</p>
 <p>Prior versions of CSDL used the following namespaces for EDM:</p>
 <ul>
-<li>CSDL version 1.0: http://schemas.microsoft.com/ado/2006/04/edm</li>
-<li>CSDL version 1.1: http://schemas.microsoft.com/ado/2007/05/edm</li>
-<li>CSDL version 1.2: http://schemas.microsoft.com/ado/2008/01/edm</li>
-<li>CSDL version 2.0: http://schemas.microsoft.com/ado/2008/09/edm</li>
-<li>CSDL version 3.0: http://schemas.microsoft.com/ado/2009/11/edm</li>
+<li>CSDL version 1.0: https://schemas.microsoft.com/ado/2006/04/edm</li>
+<li>CSDL version 1.1: https://schemas.microsoft.com/ado/2007/05/edm</li>
+<li>CSDL version 1.2: https://schemas.microsoft.com/ado/2008/01/edm</li>
+<li>CSDL version 2.0: https://schemas.microsoft.com/ado/2008/09/edm</li>
+<li>CSDL version 3.0: https://schemas.microsoft.com/ado/2009/11/edm</li>
 </ul>
 <p>In this specification the namespace prefix <code>edm</code> is used to represent the Entity Data Model namespace, however the prefix name is not prescriptive.</p>
 <h2 id="csdl1.3">1.3 Data Service Metadata Namespace</h2>
-<p>Elements and attributes specific to how the entity model is exposed as an OData Service are qualified with the Data Service Metadata namespace: <code>http://schemas.microsoft.com/ado/2007/08/DataServices/Metadata</code>.</p>
+<p>Elements and attributes specific to how the entity model is exposed as an OData Service are qualified with the Data Service Metadata namespace: <code>https://schemas.microsoft.com/ado/2007/08/DataServices/Metadata</code>.</p>
 <p>In this specification the namespace prefix <code>metadata</code> is used to represent the Data Service Metadata namespace, however the prefix name is not prescriptive.</p>
 <h1 id="csdl2">2 Common Characteristics of Entity Models</h1>
 <p>A typical entity model for an OData service contains one or more model elements. Some of these elements share a few common characteristics.</p>
@@ -40,9 +40,9 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 </ul>
 <p>Consider the following example:</p>
 {% highlight xml %}<Schema
- xmlns=http://schemas.microsoft.com/ado/2006/04/edm
- xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
- xmlns:d=http://schemas.microsoft.com/ado/2007/08/dataservices
+ xmlns=https://schemas.microsoft.com/ado/2006/04/edm
+ xmlns:m=https://schemas.microsoft.com/ado/2007/08/dataservices/metadata
+ xmlns:d=https://schemas.microsoft.com/ado/2007/08/dataservices
  Namespace="org.example" Alias="example">
  <ComplexType Name="Address">...</ComplexType>
 </Schema>
@@ -123,8 +123,8 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <p>The document returned by <code>$metadata</code> MUST contain a single root <code>edmx:Edmx</code> element. This element MUST contain a single direct child <a href="#csdl3.2"><code>edmx:DataServices</code></a> element. The data services element contains a description of the entity model(s) exposed by the OData service.</p>
 <p>In addition to the data services element, <code>Edmx</code> may have zero or more <a href="#csdl3.3"><code>edmx:Reference</code></a> elements and zero or more <a href="#csdl3.4"><code>edmx:AnnotationsReference</code></a> elements. Reference elements specify the location of schemas referenced by the OData service. Annotations reference elements specify the location of <a href="#csdl15">annotations</a> to be applied to the OData service.</p>
 <p>The following example demonstrates the basic structure of the <code>Edmx</code> element and the <a href="#csdl3.2"><code>edmx:DataServices</code></a> element:</p>
-{% highlight xml %}<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
- <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+{% highlight xml %}<edmx:Edmx xmlns:edmx="https://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+ <edmx:DataServices xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
   <Schema ... />
  </edmx:DataServices>
 </edmx:Edmx>
@@ -140,9 +140,9 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <p>The <code>edmx:Reference</code> element specifies external entity models referenced by this EDMX. Referenced models are available in their entirety to referencing models. All entity types, complex types and other named elements in a referenced model can be accessed from a referencing model.</p>
 <p>The following example demonstrates usage of the reference element to reference entity models that contain entity types and complex types that are used as vocabulary terms:</p>
 {% highlight xml %}<?xml version="1.0" encoding="UTF-8" standalone="true"?>
-<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
- <edmx:Reference Url="http://vocabs.odata.org/capabilities/v1.0" />
- <edmx:Reference Url="http://vocabs.odata.org/display/v1.0" />
+<edmx:Edmx xmlns:edmx="https://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+ <edmx:Reference Url="https://vocabs.odata.org/capabilities/v1.0" />
+ <edmx:Reference Url="https://vocabs.odata.org/display/v1.0" />
  <edmx:DataServices ...>
 </edmx:Edmx>
 {% endhighlight %}
@@ -153,18 +153,18 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <p>The annotations reference element MUST contain one or more <a href="#csdl3.5"><code>edmx:Include</code></a> elements that specify the annotations to include from the target document.</p>
 <p>The following example demonstrates usage of the annotations reference element to reference documents that contain annotations:</p>
 {% highlight xml %}<?xml version="1.0" encoding="UTF-8" standalone="true"?>
-<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
- <edmx:AnnotationsReference Url="http://odata.org/ann/a">
+<edmx:Edmx xmlns:edmx="https://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+ <edmx:AnnotationsReference Url="https://odata.org/ann/a">
   <edmx:Include />
  </edmx:AnnotationsReference>
- <edmx:AnnotationsReference Url="http://odata.org/ann/b">
+ <edmx:AnnotationsReference Url="https://odata.org/ann/b">
   <edmx:Include TermNamespace="org.example.validation" />
   <edmx:Include TermNamespace="org.example.display" Qualifier="Slate" />
  </edmx:AnnotationsReference>
  <edmx:DataServices ...>
 </edmx:Edmx>
 {% endhighlight %}
-<p>All annotations from <code>http://odata.org/ann/a</code> are included. For <code>http://odata.org/ann/b</code>, only the following annotations are included:</p>
+<p>All annotations from <code>https://odata.org/ann/a</code> are included. For <code>https://odata.org/ann/b</code>, only the following annotations are included:</p>
 <ul>
 <li>Annotations that use a term from the <code>org.example.validation</code> namespace</li>
 <li>Annotations that use a term from the <code>org.example.display</code> namespace and specify a <code>Slate</code> qualifier</li>
@@ -283,7 +283,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <h3 id="csdl5.3.8">5.3.8 The <code>edm:SRID</code> Attribute</h3>
 <p>A spatial property MAY define a value for the <code>edm:SRID</code> attribute. The value of this attribute identifies which spatial reference system is applied to values of the property on type instances.</p>
 <p>The value of the SRID attribute MUST be a [<code><nonNegativeInt32></code>][csdl19] or the special value variable. If no value is specified, the attribute defaults to <code>0</code> for Geometry types or <code>4326</code> for Geography types.</p>
-<p>The valid values of the SRID attribute and their meanings are as defined by the [European Petroleum Survey Group (EPSG)][http://www.epsg.org/Geodetic.html].</p>
+<p>The valid values of the SRID attribute and their meanings are as defined by the [European Petroleum Survey Group (EPSG)][https://www.epsg.org/Geodetic.html].</p>
 <h3 id="csdl5.3.9">5.3.9 The <code>edm:DefaultValue</code> Attribute</h3>
 <p>A string property MAY define a value for the <code>edm:DefaultValue</code> attribute. The value of this attribute determines the value of the property on new type instances.</p>
 <h3 id="csdl5.3.10">5.3.10 The <code>edm:ConcurrencyMode</code> Attribute</h3>
@@ -577,7 +577,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </DefiningExpression>
 </Function>
 {% endhighlight %}
-<p>In the preceding example the function defines a function body using [Entity SQL][http://msdn.microsoft.com/en-us/library/bb387145.aspx]. This example is informative only; it is up to a given runtime to determine the validity of the defining expression.</p>
+<p>In the preceding example the function defines a function body using [Entity SQL][https://msdn.microsoft.com/en-us/library/bb387145.aspx]. This example is informative only; it is up to a given runtime to determine the validity of the defining expression.</p>
 <h2 id="csdl11.1">11.1 The <code>edm:Function</code> Element</h2>
 <p>The <code>edm:Function</code> element is a nominal type that represents a user function in an entity model. The function may return a single or collection of primitive types, row types or nominal structured types.</p>
 <p>A function MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute.</p>
@@ -1067,9 +1067,9 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <h1 id="csdl17">17 CSDL Examples</h1>
 <p>Following are two basic examples of valid EDM models as represented in CSDL. These examples demonstrate many of the topics covered above.</p>
 <h2 id="csdl17.1">17.1 Products and Categories Example</h2>
-{% highlight xml %}<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
-  <edmx:DataServices xmlns:metadata="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata metadata:DataServiceVersion="3.0">
-    <Schema xmlns="http://schemas.microsoft.com/ado/2007/05/edm" Namespace="ODataDemo">
+{% highlight xml %}<edmx:Edmx xmlns:edmx="https://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+  <edmx:DataServices xmlns:metadata="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata metadata:DataServiceVersion="3.0">
+    <Schema xmlns="https://schemas.microsoft.com/ado/2007/05/edm" Namespace="ODataDemo">
       <EntityType Name="Product">
         <Key>
           <PropertyRef Name="ID"/>
@@ -1138,7 +1138,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 </edmx:Edmx>
 {% endhighlight %}
 <h2 id="csdl17.2">17.2 Annotated Customers and Orders Example</h2>
-{% highlight xml %}<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm " Namespace="Model1" Alias="Self">
+{% highlight xml %}<Schema xmlns="https://schemas.microsoft.com/ado/2009/11/edm " Namespace="Model1" Alias="Self">
   <Using Alias="Vocabulary1" Namespace="Vocabulary1" />
   <EntityContainer Name="Model1Container" >
     <EntitySet Name="CustomerSet" EntityType="Model1.Customer" />
@@ -1209,15 +1209,15 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 {% endhighlight %}
 <h1 id="csdl18">18 Informative XSD for CSDL</h1>
 <pre tabindex="0"><?xml version="1.0" encoding="utf-8"?>
-<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:edm="http://schemas.microsoft.com/ado/2009/11/edm" targetNamespace="http://schemas.microsoft.com/ado/2009/11/edm">
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="https://www.w3.org/2001/XMLSchema" xmlns:annotation="https://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="https://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:edm="https://schemas.microsoft.com/ado/2009/11/edm" targetNamespace="https://schemas.microsoft.com/ado/2009/11/edm">
   <xs:annotation>
     <xs:documentation xml:lang="en">
       Common Data Model Schema Definition Language.
       Copyright (c) Microsoft Corp. All rights reserved.
     </xs:documentation>
   </xs:annotation>
-  <xs:import namespace="http://schemas.microsoft.com/ado/2006/04/codegeneration" schemaLocation="System.Data.Resources.CodeGenerationSchema.xsd" />
-  <xs:import namespace="http://schemas.microsoft.com/ado/2009/02/edm/annotation" schemaLocation="System.Data.Resources.AnnotationSchema.xsd" />
+  <xs:import namespace="https://schemas.microsoft.com/ado/2006/04/codegeneration" schemaLocation="System.Data.Resources.CodeGenerationSchema.xsd" />
+  <xs:import namespace="https://schemas.microsoft.com/ado/2009/02/edm/annotation" schemaLocation="System.Data.Resources.AnnotationSchema.xsd" />
   <xs:element name="Schema" type="edm:TSchema" />
   <xs:complexType name="TSchema">
     <xs:sequence>

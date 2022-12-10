@@ -14,4 +14,4 @@ The ODataJS library is the successor of the datajs library and can be used in co
 
 Like the OData Java Client and Server Library the ODataJS library is also developed and maintained within the project Apache Olingo™.
 
-Feel free to visit the [ODataJS procject](http://olingo.apache.org/doc/javascript/index.html) page for further information about usage, download and contribution.
+Feel free to visit the [ODataJS procject](https://olingo.apache.org/doc/javascript/index.html) page for further information about usage, download and contribution.

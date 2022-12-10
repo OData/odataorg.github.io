@@ -16,7 +16,10 @@ author: OData.org Archive
 <p>The rest of this entry goes into more detail about the geospatial type system that we support, how geospatial types are represented in $metadata, how their values are represented in Atom and JSON payloads, how they are represented in URLs, and what canonical functions are defined for them.</p>
 <h4>Modeling</h4>
 <h5>Primitive Types</h5>
-<p>Our type system is firmly rooted in the OGC <a href="http://www.opengeospatial.org/standards/sfa">Simple Features</a> (OGC SF) geometry type system. We diverge from their type system in only three ways.</p>
+<p>Our type system is firmly rooted in the OGC <a href="
+                                                  
+                                                  
+                                                  www.opengeospatial.org/standards/sfa">Simple Features</a> (OGC SF) geometry type system. We diverge from their type system in only three ways.</p>
 <p><a href="/assets/geom_hierarchy.jpg"><img class="alignnone size-full wp-image-317" alt="geom_hierarchy_499x218" src="/assets/geom_hierarchy.jpg" width="499" height="218" /></a><br />
 <i>Figure 1: The OGC Simple Features Type Hierarchy</i></p>
 <p>First, we expose a subset of the type system and a subset of the operations. For details, see the sections below.</p>
@@ -105,8 +108,8 @@ author: OData.org Archive
 <pre><code>&lt;entity m:type="FoursquareUser"&gt;
     &lt;property name="username" m:type="Edm.String"&gt;Neco Fogworthy&lt;/property&gt;
     &lt;property name="LastKnownPosition" m:type="Edm.GeographyPoint"&gt;&lt;gml:Point
-      gml:srsName="http://www.opengis.net/def/crs/EPSG/0/4326"
-      xmlns:gml="http://www.opengis.net/gml"&gt;
+      gml:srsName="https://www.opengis.net/def/crs/EPSG/0/4326"
+      xmlns:gml="https://www.opengis.net/gml"&gt;
         &lt;gml:pos&gt;45.12 -127.432 NaN 3.1415&lt;/gml:pos&gt;
       &lt;/gml:Point&gt;&lt;/property&gt;&lt;/entity&gt;</code></pre>
 <h5>Entities in JSON</h5>
@@ -145,7 +148,7 @@ author: OData.org Archive
 <p>Distance is represented the same in the two topologies, but interpreted differently. In each case, it is represented as a double scalar value. The units are interpreted by the topology and coordinate system for the property with which it is compared or calculated.</p>
 <p>Because a plane is uniform, we can simply define distances in geometric coordinates to be in terms of that coordinate system's units. This works as long as each axis uses the same unit for its coordinates, which is the general case.</p>
 <p>Geographic topologies are not typically uniform, because they use angular measures. The distance between longitude -125 and -124 is not the same at all points on the globe. It goes to 0 at the poles. Thus, the underlying coordinate system measures position well, but does not work for describing a distance.</p>
-<p>For this reason, each geographic CRS also defines a unit that will be used for distances. For most CRSs, this is meters. However, some use US feet, Indian feet, German meters, or other units. In order to determine the meaning of a distance scalar, the developer must read the reference (<a href="http://www.epsg-registry.org/">http://www.epsg-registry.org/</a>) for the CRS involved.</p>
+<p>For this reason, each geographic CRS also defines a unit that will be used for distances. For most CRSs, this is meters. However, some use US feet, Indian feet, German meters, or other units. In order to determine the meaning of a distance scalar, the developer must read the reference (<a href="https://www.epsg-registry.org/">https://www.epsg-registry.org/</a>) for the CRS involved.</p>
 <h4>New Canonical Functions</h4>
 <p>Each of these canonical functions is defined on certain geospatial types. Thus, each geospatial primitive type has a set of corresponding canonical functions. An OData implementation that supports a given geospatial primitive type SHOULD support using the corresponding canonical functions in $filter. It MAY support using the corresponding canonical functions in $orderby.</p>
 <p>The canonical functions are named just like Simple Features-compliant extension methods. This means that individual server extensions for standard OGC functions feel like core OData. This works as long as we explicitly state (or reference) the set of functions allowed in geo.</p>
@@ -199,7 +202,7 @@ author: OData.org Archive
 <p>This is actually an overly-simple polygon for a case like this. This is just a square with a single hole in it. A real driving polygon would contain multiple holes and a lot more boundary points. So that polygon in the final query would realistically be 3-5 times as long in the URL.</p>
 <p>It would be really nice to support reference arguments in URLs (with cross-domain support). Then you could represent the entire example in a single query:</p>
 <pre><code>/Houses$filter=Price gt 50000 and Price lt 250000 and geo.intersects(Location,
-            Ref("http://drivetime.services.odata.org/DriveTime(to=geography'POINT(-127.89734578345
+            Ref("https://drivetime.services.odata.org/DriveTime(to=geography'POINT(-127.89734578345
             45.234534534)', maximum_duration=time'0:15:00')"))</code></pre>
 <p>However, this is not supported in OData today.</p>
 <h4>In Closing</h4>

@@ -69,7 +69,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>However, the service can describe those operations in terms of composable chunks. This allows the client wide flexibility in how it composes resources to achieve its intent.</p>
 <p>See <a href="#requestingdata">Requesting Data</a> and <a href="#datamodification">Data Modification</a> for details.</p>
 <h1 id="notationalconventions">4. Notational Conventions</h1>
-<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC2119</a>, “Key words for use in RFCs to Indicate Requirement Levels”)].</p>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC2119</a>, “Key words for use in RFCs to Indicate Requirement Levels”)].</p>
 <h2 id="normativereferences">4.1. Normative References</h2>
 <p>This document references the following related documents:</p>
 <ul>
@@ -79,10 +79,10 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     <li><a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:ATOM</a> ATOM encoding for OData payloads. OData Services MUST support the ATOM encoding.</li>
     <li><a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> A JSON encoding for OData payloads. OData services SHOULD support a JSON encoding.</li>
     <li><a href="https://www.odata.org/documentation/odata-version-3-0/batch-processing">OData:Batch</a> Support for grouping multiple OData requests in a single batch.</li>
-    <li><a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a> HTTP 1.1 Specification</li>
-    <li><a href="http://tools.ietf.org/html/rfc5023">RFC5023</a> The Atom Publishing Protocol</li>
-    <li><a href="http://tools.ietf.org/html/rfc2119">RFC2119</a> Keywords for use in RFCs to Indicate Requirement Levels</li>
-    <li><a href="http://tools.ietf.org/html/rfc5789">RFC5789</a> Patch Method for HTTP</li>
+    <li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a> HTTP 1.1 Specification</li>
+    <li><a href="https://tools.ietf.org/html/rfc5023">RFC5023</a> The Atom Publishing Protocol</li>
+    <li><a href="https://tools.ietf.org/html/rfc2119">RFC2119</a> Keywords for use in RFCs to Indicate Requirement Levels</li>
+    <li><a href="https://tools.ietf.org/html/rfc5789">RFC5789</a> Patch Method for HTTP</li>
 </ul>
 <h2 id="examplepayloads">4.2. Example Payloads</h2>
 <p>Some sections of this specification are illustrated with non-normative example OData request and response payloads. However, the text of this specification provides the definition of conformance.</p>
@@ -128,7 +128,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h2 id="formatextensibility">6.6. Format Extensibility</h2>
 <p>An OData Service MUST support at least the <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a> format, and MAY support additional formats for both request and response bodies.</p>
 <h1 id="formats">7. Formats</h1>
-<p>The client may request a particular response format through the <code>Accept</code> header, as specified in <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, or through the <a href="#theformatsystemqueryoption"><code>$format</code> System Query Option</a>.</p>
+<p>The client may request a particular response format through the <code>Accept</code> header, as specified in <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, or through the <a href="#theformatsystemqueryoption"><code>$format</code> System Query Option</a>.</p>
 <p>In the case that both the <code>Accept</code> header and the <code>$format</code> query option are specified on a request, the value specified in the <code>$format</code> query option SHOULD be used.</p>
 <p>If the service does not support the requested format, it SHOULD reply with a <code>406 Not Acceptable</code> error response.</p>
 <p>See the format-specific specifications (<a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a>, <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a>) for details.</p>
@@ -158,7 +158,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The service SHOULD respond with the maximum version supported by the service that is less than or equal to the specified <code>MaxDataServiceVersion</code>.</p>
 <p>For more details see <a href="#versioning">Versioning</a>.</p>
 <h3 id="theacceptrequestheader">8.2.3. The <code>Accept</code> Request Header</h3>
-<p>As specified in <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, the client MAY specify the set of accepted <a href="#formats">formats</a> through the use of the <code>Accept</code> Header.</p>
+<p>As specified in <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, the client MAY specify the set of accepted <a href="#formats">formats</a> through the use of the <code>Accept</code> Header.</p>
 <h3 id="theif-matchrequestheader">8.2.4. The <code>If-Match</code> Request Header</h3>
 <p>A client MAY include an <code>If-Match</code> header in a request to GET, PUT, MERGE, PATCH or DELETE an entity or entity property, or to invoke an action bound to an entity. The value of the <code>If-Match</code> request header MUST be an ETag value previously retrieved for the entity.</p>
 <p>If specified, the request MUST only be invoked if the specified value matches the current ETag value of the entity. If the value does not match the current ETag value of the entity for a <a href="#datamodification">Data Modification</a> or <a href="#actions">Action</a> request, the service MUST respond with ‘412 Precondition Failed’ and MUST ensure that no data is modified as a result of the request.</p>
@@ -205,7 +205,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h3 id="nocontentresponsecode">9.1.4. <code>204 No Content</code> Response Code</h3>
 <p>A service may reply to a Data Modification Request with <code>204 No Content</code>. In this case, the response body MUST be empty.</p>
 <h3 id="xxredirectresponsecode">9.1.5. <code>3xx Redirect</code> Response Code</h3>
-<p>As per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, an OData service MAY respond to any Data Modification request with a response code of <code>3xx Redirection</code>. In this case, the response SHOULD include a <a href="#thelocationheader"><code>Location</code> header</a> with the URL from which the result can be obtained.</p>
+<p>As per <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, an OData service MAY respond to any Data Modification request with a response code of <code>3xx Redirection</code>. In this case, the response SHOULD include a <a href="#thelocationheader"><code>Location</code> header</a> with the URL from which the result can be obtained.</p>
 <p>The service MUST ensure that no observable change has occurred to the state of the service as a result of any request that returns a <code>3xx</code>.</p>
 <h2 id="xxclienterrorresponses">9.2. <code>4xx Client Error</code> Responses</h2>
 <p>Services SHOULD return <code>4xx Client Error</code> in response to client errors such as malformed requests, in addition to requests for non-existent resources such as entity collections, entities, or properties.</p>
@@ -222,7 +222,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>An OData service is a self-describing service that exposes metadata defining the entity sets, relationships, entity types, and operations.</p>
 <h3 id="servicedocumentrequest">10.1.1. Service Document Request</h3>
 <p>To request a <code>Service Document</code> describing the set of entity collections (i.e., entity sets) that can be queried from a service, the client issues a GET request to the root URL of the service (the <em>Service Root</em>).</p>
-<p>The format of the Service Document is dependent upon the format selected. For example, in Atom the Service Document is an AtomPub Service Document (as specified in <a href="http://tools.ietf.org/html/rfc5023">RFC5023</a>).</p>
+<p>The format of the Service Document is dependent upon the format selected. For example, in Atom the Service Document is an AtomPub Service Document (as specified in <a href="https://tools.ietf.org/html/rfc5023">RFC5023</a>).</p>
 <h3 id="metadatadocumentrequest">10.1.2. Metadata Document Request</h3>
 <p>An OData <em>Metadata Document</em> is a representation of the <a href="#DataModel">data model</a> that describes the data and operations exposed by an OData service.</p>
 <p><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> describes an XML representation for OData Metadata Documents and provides an XSD to validate their contents. The media type of the XML representation of an OData Metadata Document is ‘application/xml’.</p>
@@ -548,15 +548,15 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The service MUST include any actions or functions that are bound to the associated entities that are introduced via <code>$expand</code>, unless a <code>$select</code> System Query Option is also included in the request and that <code>$select</code> requests that the actions/functions be omitted.</p>
 <p>For a full description of the syntax used when building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 <p>Examples</p>
-<pre><code>http://host/service.svc/Customers?$expand=Orders
+<pre><code>https://host/service.svc/Customers?$expand=Orders
 </code></pre>
 <p>For each customer entity within the Customers entity set, the value of all associated Orders MUST be represented inline.</p>
-<pre><code>http://host/service.svc/Orders?$expand=OrderLines/Product,Customer
+<pre><code>https://host/service.svc/Orders?$expand=OrderLines/Product,Customer
 </code></pre>
 <p>For each Order within the Orders entity set, the following MUST be represented inline:</p>
 <ul>
     <li>The Order lines associated to the Orders identified by the resource path section of the URL and the products associated to each Order line.</li>
-    <li>The customer associated with each Order returned.http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</li>
+    <li>The customer associated with each Order returned.https://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</li>
 </ul>
 <p>For each Customer entity in the Customers entity set, the value of all associated InHouseStaff MUST be represented inline if the entity is of type VipCustomer or a subtype of that. For entities that are not of type VipCustomer, or any of its subtypes, that entity SHOULD be returned with no inline representation for the expanded navigation property.</p>
 <h4 id="theselectsystemqueryoption">10.2.3.2 The <code>$select</code> System Query Option</h4>
@@ -622,11 +622,11 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     <li>If the value of the query option is “xml”, then the media type used in the response MUST be “application/xml”.</li>
 </ul>
 <p>For example:</p>
-<pre><code>http://host/service.svc/Orders?$format=json
+<pre><code>https://host/service.svc/Orders?$format=json
 </code></pre>
 <p>Is equivalent to a request with the “accept” header set to “application/json”; it requests the set of Order entities represented using the JSON media type, as specified in <a href="../json-verbose-format">OData:JSON</a>.</p>
 <p>The <code>$format</code> query option MAY be used in conjunction with <code>$value</code> to specify which raw format is returned.</p>
-<pre><code>http://host/service.svc/Orders(1)/ShipCountry/$value/?$format=json
+<pre><code>https://host/service.svc/Orders(1)/ShipCountry/$value/?$format=json
 </code></pre>
 <p>The raw value of the ShipCountry property of the matching Order using the JSON media type.</p>
 <h3 id="requestinglinksbetweenentities">10.2.4. Requesting <code>$links</code> between Entities</h3>
@@ -767,10 +767,10 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 &lt;/FunctionImport&gt;`
 </code></pre>
 <p>can be bound to any url that identifies a <code>SampleModel.Customer</code>, two examples might be:</p>
-<p><code>GET http://server/Customers(6)/MostRecentOrder()</code></p>
-<p>Which invokes the <code>MostRecentOrder</code> function with the ‘customer’ or binding parameter value being the entity identified by http://server/Customers(6)/.</p>
-<p><code>GET http://server/Contacts(23123)/Company/MostRecentOrder()</code></p>
-<p>Which again invokes the <code>MostRecentOrder</code> function, this time with the ‘customer’ or binding parameter value being the entity identified by http://server/Contacts(23123)/Company/.</p>
+<p><code>GET https://server/Customers(6)/MostRecentOrder()</code></p>
+<p>Which invokes the <code>MostRecentOrder</code> function with the ‘customer’ or binding parameter value being the entity identified by https://server/Customers(6)/.</p>
+<p><code>GET https://server/Contacts(23123)/Company/MostRecentOrder()</code></p>
+<p>Which again invokes the <code>MostRecentOrder</code> function, this time with the ‘customer’ or binding parameter value being the entity identified by https://server/Contacts(23123)/Company/.</p>
 <h3 id="actions">10.4.1. Actions</h3>
 <p>Actions are operations exposed by an OData service that MAY have side effects when invoked. Actions MAY return data and are not composable.</p>
 <h4 id="declaringactionsinmetadata">10.4.1.1. Declaring Actions in Metadata</h4>
@@ -793,7 +793,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     <li>A ‘Metadata Url’ that MUST identify the <code>FunctionImport</code> that declares the action. This URL can be either relative or absolute, but when relative it MUST be assumed to be relative to the <code>$metadata</code> URL of the current service.</li>
     <li>A ‘Title’ that SHOULD contain a human readable description of the action.</li>
 </ul>
-<p>Example: Given a GET request to http://server/Customers(‘ALFKI’)</p>
+<p>Example: Given a GET request to https://server/Customers(‘ALFKI’)</p>
 <p>The service might respond with a Customer entity that advertises a binding of the <code>SampleEntities.CreateOrder</code> action to itself:</p>
 <pre><code>{"d":
  { 
@@ -823,7 +823,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>If a client only wants an action to be processed when the binding parameter value, an entity or collection of entities, is unmodified, the client SHOULD include the <a href="#theif-matchrequestheader"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities.</p>
 <p>On success, the response SHOULD be 200 for actions with a return type or 204 for action without a return type. The client can request whether any results from the action be returned using the <a href="#thepreferheader"><code>Prefer</code> header</a>.</p>
 <p>Example: The following request invokes the <code>SampleEntities.CreateOrder</code> action using <code>/Customers('ALFKI')</code>as the customer (or binding parameter). The values <code>2</code> for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountcode</code> parameter are passed in the body of the request:</p>
-<pre><code>   POST http://server/Customers('ALFKI')/SampleEntities.CreateOrder
+<pre><code>   POST https://server/Customers('ALFKI')/SampleEntities.CreateOrder
    {
       "quantity": 2,
       "discountCode": "BLACKFRIDAY"
@@ -845,7 +845,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </code></pre>
 <h4 id="advertisingcurrentlyavailablefunctionswithinapayload">10.4.2.2. Advertising Currently Available Functions within a Payload</h4>
 <p>Functions MAY be bound to an entity or collection of entities. Services MAY choose whether to advertise functions within the entities or collections of entities returned from the Server.</p>
-<p>Example: Given a GET request to <code>http://server//Orders</code>, the service might respond with a collection of Orders that advertises the <code>SampleEntities.MostRecent</code> Function bound to the collection:</p>
+<p>Example: Given a GET request to <code>https://server//Orders</code>, the service might respond with a collection of Orders that advertises the <code>SampleEntities.MostRecent</code> Function bound to the collection:</p>
 <pre><code>{
     "__metadata": {
         "functions": "SampleEntities.MostRecent" : [
@@ -880,11 +880,11 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>To use Inline Parameter Syntax, whereever a function is called, parameter values MUST be specified inside the parenthesis, i.e. <code>()</code>, appended directly to the function name.</p>
 <p>The parameter values MUST be specified as a comma separated list of Name/Value pairs in the format <code>Name=Value</code>, where <code>Name</code> is the name of the parameter to the function and <code>Value</code> is the parameter value.</p>
 <p>For example this request:</p>
-<pre><code>GET http://server/Sales.GetEmployeesByManager(ManagerID=3)
+<pre><code>GET https://server/Sales.GetEmployeesByManager(ManagerID=3)
 </code></pre>
 <p>Invokes a <code>Sales.GetEmployeesByManager</code> function which takes a single <code>ManagerID</code> parameter.</p>
 <p>And this request:</p>
-<pre><code>GET http://server/Customers?$filter=Sales.GetSalesRegion(City=$it/City) eq "Western"
+<pre><code>GET https://server/Customers?$filter=Sales.GetSalesRegion(City=$it/City) eq "Western"
 </code></pre>
 <p>Filters <code>Customers</code> to those in the <code>Western</code> sales region, calculated for each Customer in the collection by passing the Customer’s City as the <code>City</code> parameter value to the <code>Sales.GetSalesRegion</code> function.</p>
 <p>Primitive parameters values may be provided to functions in the request URL path using inline syntax. All other parameter types MUST be provided externally.</p>
@@ -892,7 +892,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>Parameters MAY be specified by substituting a <code>parameter alias</code> in place of an inline parameter to a function call. Parameters aliases are names beginning with an ampersand (<code>@</code>).</p>
 <p>Actual parameter values MUST be specified as query options in the query part of the request URL. The query option name is the Name of the parameter alias, and the query option value is the value to be used for the specified parameter alias.</p>
 <p>For example:</p>
-<pre><code>GET http://server/Sales.GetEmployeesByManager(ManagerID=@p1)?@p1=3
+<pre><code>GET https://server/Sales.GetEmployeesByManager(ManagerID=@p1)?@p1=3
 </code></pre>
 <p>Parameter aliases allow the same parameter value to be used multiple times in a request and MAY be used to reference non-primitive values.</p>
 <p>If a parameter alias referenced by a function call is not given a value in the Query part of the request URL, the value MUST be assumed to be <code>null</code>.</p>
@@ -900,7 +900,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The OData protocol allows parameter values for the last Function call in a Request URL Path to be specified by appending Name/Value pairs, representing each parameter Name and Value for that Function, as query strings to the Query part of the Request URL.</p>
 <p>This enables clients to invoke Functions without parsing the advertised Target Url.</p>
 <p>For example:</p>
-<pre><code>GET http://server/Sales.GetEmployeesByManager?ManagerID=3
+<pre><code>GET https://server/Sales.GetEmployeesByManager?ManagerID=3
 </code></pre>
 <h4 id="functionoverloadresolution">10.4.2.4. Function overload resolution</h4>
 <p>Functions overloads are supported in OData, meaning a service MAY expose multiple Functions with the same name that take a different set of parameters.</p>

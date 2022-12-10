@@ -13,17 +13,19 @@ author: OData.org Archive
 <div>
 <p>Microsoft just announced a new project called 'datajs'. datajs is a cross-browser JavaScript library that among other things brings comprehensive OData support to JavaScript. 'datajs' is an open source project, released under MIT.</p>
 <p>For example if allows you to query an OData service like this:</p>
-<p><em>OData.read("http://odata.netflix.com/v1/Catalog/Genres", function (data, response) {<br />
+<p><em>OData.read("
+    
+    odata.netflix.com/v1/Catalog/Genres", function (data, response) {<br />
 //success handler<br />
 });</em></p>
 <p>And do inserts like this:</p>
 <p><em>OData.request({<br />
 method: "POST",<br />
-requestUri: "http://ODataServer/FavoriteMovies.svc/BestMovies"<br />
+requestUri: "https://ODataServer/FavoriteMovies.svc/BestMovies"<br />
 data: {ID: 0, MovieTitle: 'Up'}<br />
 },</em></p>
 <p><em>function (data, response) {<br />
 //success handler<br />
 });</em></p>
-<p>For more information <a href="http://blogs.msdn.com/b/astoriateam/archive/2011/02/08/new-javascript-library-for-odata-and-beyond.aspx"> check out the announcement</a></p>
+<p>For more information <a href="https://blogs.msdn.com/b/astoriateam/archive/2011/02/08/new-javascript-library-for-odata-and-beyond.aspx"> check out the announcement</a></p>
 </div>

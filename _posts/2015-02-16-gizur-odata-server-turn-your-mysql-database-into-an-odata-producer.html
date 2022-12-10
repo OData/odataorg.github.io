@@ -13,29 +13,29 @@ author: Jonas Colmsjö
 <p>I came across the odata standard while learning SAP:s new in-memory database technology called HANA. HANA makes it possible to create a backend API with CRUD operations without any coding. It is also possible to put logic in the backend using JavaScript (SAP HANA XS) and expose these functions with odata. And there is a model for managing users and privileges built into the database (there is also suport for oath2). Even though SAP HANA is a great platform it does take a significant effort to port existing databases running on other relational databases. It is also fairly costly to run HANA even though there are several cloud vendors that deliver hosted HANA instances. I can also see a need for a simple odata server based on traditional databases technology that it possible to run on a developer’s laptop.</p>
 <p>The Gizur OData Server has been designed for development of web and mobile applications. We have web and mobile applications where the backends are developed with PHP and MySQL. It takes significant time and effort to develop backend API:s when developing web and mobile apps. It is often a challenge to achieve good performance and we also need to manage pictures. A re-usable model for managing users and privileges would also save a lot of time and effort. A simple solution that seamed to provide most of the required features was to put a odata API on top of a relational database like MySQL. The data model becomes the API for simple CRUD operations. Read, write and deletes for an entity becomes selects, insert/updates and deletes for tables. Users and privileges are managed with grant and revoke functions. We’ve also added functions for creating and deleting tables. Support for complex types and server side logic isn’t included now but can be added later on. We decided to manage pictures and other BLOBs in a leveldb database. Privileges for BLOBs are managed with the same functions as for tables for simplicity. The Gizur OData server is developed in NodeJS and the MySQL parts are separeated out in data access layer. This makes it fairly easy to support any database vendor that has NodeJS drivers (most RDBM:es does have NodeJS drivers). There is for instance a partial implementation for MS SQL Server in addition to MySQL included in the distribution.</p>
 <h2>Getting started</h2>
-<p>A sandbox server is available for anyone to play around with at <code>http://appdev.gizur.com:9000</code> (the server is reset regularly). I use <code>curl</code> from the command line in this example. It should be easy to translate into whatever programming language you prefer. I'll get back with a blog post on hwoto use the server in a simple web application.</p>
-<p>Start with checking out: <code>curl http://appdev.gizur.com:9000/help</code> (or open the link in a browser if you prefer). This gives an overview of the API (similar to this post). This documentation will always be up-to-date with the version currently deployed on the sandbox server.</p>
+<p>A sandbox server is available for anyone to play around with at <code>https://appdev.gizur.com:9000</code> (the server is reset regularly). I use <code>curl</code> from the command line in this example. It should be easy to translate into whatever programming language you prefer. I'll get back with a blog post on hwoto use the server in a simple web application.</p>
+<p>Start with checking out: <code>curl https://appdev.gizur.com:9000/help</code> (or open the link in a browser if you prefer). This gives an overview of the API (similar to this post). This documentation will always be up-to-date with the version currently deployed on the sandbox server.</p>
 <p>The first step is to create an account and get a password. The sandbox server will send the password in the open which is useful for testing. You should set <code>RESET_PASSWORD_WITHOUT_LINK</code> to false in <code>config.js</code> in your production system.</p>
 <p>1. Create account. Note the account id that is returned. It is 12 characters and looks like this: <code>3ea8f06baf64</code>. The account id is used in all subsequent functions.</p>
 <pre>
-$ curl -d '{"email":"joe@example.com"}' http://appdev.gizur.com:9000/create_account
+$ curl -d '{"email":"joe@example.com"}' https://appdev.gizur.com:9000/create_account
 </pre>
 <p>2. Get a password. The HTTP request looks like this: <code>GET /[account id]/s/reset_password</code>:</p>
 <pre>
-$ curl -d '{"accountId":"3ea8f06baf64","email":"joe@example.com"}' http://appdev.gizur.com:9000/3ea8f06baf64/s/reset_password
+$ curl -d '{"accountId":"3ea8f06baf64","email":"joe@example.com"}' https://appdev.gizur.com:9000/3ea8f06baf64/s/reset_password
 </pre>
 <p>3. A reset passwork link will sent in a mail. The sandbox server will respond with the password in the API call above so you don't need the link. Also, the reset password link will generate a password when it is accessed so the password the API returned above will not be possible to use if the reset link is used.</p>
 <pre>
-$ curl http://appdev.gizur.com:9000/3ea8f06baf64/s/reset_password/1cf4843d-139f-49f1-b185-28400dad3cbd
+$ curl https://appdev.gizur.com:9000/3ea8f06baf64/s/reset_password/1cf4843d-139f-49f1-b185-28400dad3cbd
 </pre>
 <h2>Working with BLOBs</h2>
 <p>Pictures and other binary data can be saved in buckets. Text can of course also be saved in these buckets. Buckets needs to be named with a prefix that is configurable. The prefix in the sandbox is <code>b_</code>. The example below shows how to save and get text.</p>
 <pre>
-$ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"bucketName":"b_mybycket"}' http://appdev.gizur.com:9000/3ea8f06baf64/s/create_bucket
+$ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"bucketName":"b_mybycket"}' https://appdev.gizur.com:9000/3ea8f06baf64/s/create_bucket
 
-$ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d 'Just some data to store' http://appdev.gizur.com:9000/3ea8f06baf64/b_mybycket
+$ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d 'Just some data to store' https://appdev.gizur.com:9000/3ea8f06baf64/b_mybycket
 
-$ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3ea8f06baf64/b_mybycket
+$ curl -H "user: 3ea8f06baf64" -H "password: xxx" https://appdev.gizur.com:9000/3ea8f06baf64/b_mybycket
 </pre>
 <h2>Working with tables</h2>
 <p>It is easy to perform CRUD operations on MySQL tables. HTTP <code>GET</code>, <code>POST</code>, <code>PUT</code> and <code>DELETE</code> represents <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code> and <code>DELETE</code> in the database. The following odata commands are supported:</p>
@@ -47,19 +47,19 @@ $ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3
 </ul>
 <p>Only <code>JSON</code> is supported. We currently have no plans of adding <code>XML</code> support since we mainly are targeting JacaScript developers.</p>
 <pre>
-$ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"tableDef":{"tableName":"mytable","columns":["col1 int","col2 varchar(255)"]}}' http://appdev.gizur.com:9000/3ea8f06baf64/s/create_table
+$ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"tableDef":{"tableName":"mytable","columns":["col1 int","col2 varchar(255)"]}}' https://appdev.gizur.com:9000/3ea8f06baf64/s/create_table
 
-$ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"col1":11,"col2":"11"}' http://appdev.gizur.com:9000/3ea8f06baf64/mytable
+$ curl -H "user: 3ea8f06baf64" -H "password: xxx" -d '{"col1":11,"col2":"11"}' https://appdev.gizur.com:9000/3ea8f06baf64/mytable
 
-$ curl -H "user: 3ea8f06baf64" -H "password: xxx"  http://appdev.gizur.com:9000/3ea8f06baf64/mytable
+$ curl -H "user: 3ea8f06baf64" -H "password: xxx"  https://appdev.gizur.com:9000/3ea8f06baf64/mytable
 </pre>
 <h2>Service definitions</h2>
 <p>The odata standard does not contain any specification for service definitions in <code>JSON</code>. The internal representation of the database is returned as-is for now. This might change in future versions.</p>
 <pre>
-$ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3ea8f06baf64
+$ curl -H "user: 3ea8f06baf64" -H "password: xxx" https://appdev.gizur.com:9000/3ea8f06baf64
 </pre>
 <pre>
-$ curl -H "user: 3ea8f06baf64" -H "password: xxx" http://appdev.gizur.com:9000/3ea8f06baf64/mytable/$metadata
+$ curl -H "user: 3ea8f06baf64" -H "password: xxx" https://appdev.gizur.com:9000/3ea8f06baf64/mytable/$metadata
 </pre>
 <h2>Priviledges</h2>
 <p>The MySQL model for managing users is exposed in the API. There are <code>grant</code> and <code>revoke</code> methods in the API. See <code>/help</code> for more details. This model is used for both tables and BLOBs. This is not part of the odata standard though.</p>

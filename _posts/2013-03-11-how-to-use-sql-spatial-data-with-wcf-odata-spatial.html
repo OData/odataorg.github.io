@@ -16,7 +16,7 @@ author: Qian Li
 <p>A common scenario we will be looking into in this article consists in using OData in conjunction with a SQL-based backend, leveraging Odata Spatial Model and SQL Spatial Type.</p>
 <p>One of the goals of OData and .Net underlying frameworks is to offer a robust end to end solution to fulfill these issues.</p>
 <p><a href="https://www.odata.org/blog/geospatial-data-support-in-odata/"> According to OData</a>, one of the key features of the next global solutions, is common spatial properties which include time and geography. To implement this feature, Odata v3 supports the <a href="https://www.odata.org/blog/geospatial-data-support-in-odata/">Spatial Model</a>.</p>
-<p>On the backend side, SQL Server provides a <a href="http://msdn.microsoft.com/en-us/library/ff848797.aspx">Spatial Type</a>, which is well distributed and already widely used.</p>
+<p>On the backend side, SQL Server provides a <a href="https://msdn.microsoft.com/en-us/library/ff848797.aspx">Spatial Type</a>, which is well distributed and already widely used.</p>
 <p><strong> However, when using Spatial Model, a gap appears in the flow of service as the OData spatial types are not cross compatible with the SQL Spatial library. Any attempt to build a WCF service against Entity with SQL data will fail with gentle kind of “not compatible type” message.</strong></p>
 <p><a href="/assets/case_study_spatial_data-300x178.png"><img class="alignnone size-medium wp-image-11711" alt="case_study_spatial_data" src="/assets/case_study_spatial_data-300x178.png" width="300" height="178" /></a></p>
 <p><strong>This short article will show you a trick to fill this gap as shown in the previous diagram.</strong></p>
@@ -255,7 +255,7 @@ public class IOfThings_Entity : IUpdatable
  }
  }
 {% endhighlight %}
-<p>Note that we use the JSONPSupportBehavior for JSON support. You can find it at <a href="http://code.msdn.microsoft.com/DataServicesJSONP">http://code.msdn.microsoft.com/DataServicesJSONP</a></p>
+<p>Note that we use the JSONPSupportBehavior for JSON support. You can find it at <a href="https://code.msdn.microsoft.com/DataServicesJSONP">https://code.msdn.microsoft.com/DataServicesJSONP</a></p>
 <p><strong><span style="font-size: 18px;">Finally</span></strong></p>
 <p>Now you have a clean skeleton to bridge OData Spatial and SQL Spatial models and use them in conjunction.</p>
 <p>It took us few hours to find this solution and we Hope this will save you time, enjoy the ride!</p>

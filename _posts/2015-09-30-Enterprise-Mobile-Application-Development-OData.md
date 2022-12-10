@@ -11,11 +11,11 @@ Below is a tutorial on building an enterprise mobile application by leveraging e
 
 #Building Enterprise Mobile Applications using OData
 
-From the OData ecosystem, we selected the [Telerik Platform for mobile application development] (http://www.telerik.com/platform#overview) and Progress DataDirect Cloud for the [Greenfield Data Integration](https://www.progress.com/blogs/greenfield-hybrid-data-integration-with-salesforce-and-odata) using OData.
+From the OData ecosystem, we selected the [Telerik Platform for mobile application development] (https://www.telerik.com/platform#overview) and Progress DataDirect Cloud for the [Greenfield Data Integration](https://www.progress.com/blogs/greenfield-hybrid-data-integration-with-salesforce-and-odata) using OData.
 
 * To start with, register for a [DataDirect Cloud trial](https://pacific.progress.com/console/register?productName=d2c&ignoreCookie=true) and [Telerik platform trial](https://www.telerik.com/login/v2/platform?ReturnUrl=https%3a%2f%2fidentity.telerik.com%2fv2%2foauth%2ftelerik%2fauthorize%3fclient_id%3duri%253aappshell%26redirect_uri%3dhttps%253a%252f%252fplatform.telerik.com%252f%26response_type%3dcode%26state%3d7B021E8).
 
-Note: [New in Telerik Platform Enterprise](http://www.telerik.com/blogs/overview-of-telerik-platform-enterprise-enhancements), DataDirect Cloud connectors are now integrated into a single platform.
+Note: [New in Telerik Platform Enterprise](https://www.telerik.com/blogs/overview-of-telerik-platform-enterprise-enhancements), DataDirect Cloud connectors are now integrated into a single platform.
 * Login to DataDirect Cloud by clicking on "Connect Data".
  
 * You will be redirected to DataDirect Cloud Dashboard. The first step here would be to create a Data Source definition. On the Dashboard, you can click on "Data Sources" tab to the left of Dashboard and then you would have to click on "Data Stores" on the Next Screen.
@@ -35,7 +35,7 @@ Note: [New in Telerik Platform Enterprise](http://www.telerik.com/blogs/overview
 ![DataDirect Cloud OData Objects](/assets/enterprise-mobile3.png) 
 
 * The base access URI for accessing the data sources in DataDirect cloud will be https://service.datadirectcloud.com/api/odata/<Data Source Name>. 
-* For more on how to access the data using DataDirect Cloud's OData API visit [here](http://documentation.progress.com/output/DataDirect/DataDirectCloud/index.html#page/odata/getting-started-with-the-odata-api.html).
+* For more on how to access the data using DataDirect Cloud's OData API visit [here](https://documentation.progress.com/output/DataDirect/DataDirectCloud/index.html#page/odata/getting-started-with-the-odata-api.html).
 Next, Log in to your account at Telerik Mobile App Builder platform [here](https://www.telerik.com/login/v2/platform?ReturnUrl=https%3a%2f%2fidentity.telerik.com%2fv2%2foauth%2ftelerik%2fauthorize%3fclient_id%3duri%253aappshell%26redirect_uri%3dhttps%253a%252f%252fplatform.telerik.com%252f%26response_type%3dcode%26state%3d7B021E8)
 * Click on "Create App" to create a new application. On the next screen, select "Hybrid App" if you want to build the application for Android/Windows/iOS. Select start from a blank app as your starting point and fill in the application name and create the App.
 

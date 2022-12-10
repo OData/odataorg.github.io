@@ -2,6 +2,6 @@
 layout: default
 category: consumers
 title: "LINQPad"
-link: "http://www.linqpad.net/Beta.aspx"
+link: "https://www.linqpad.net/Beta.aspx"
 ---
 LINQPad is a tool for building OData queries interactively.

@@ -6,6 +6,6 @@ version: V1-V4
 object: Both
 downloads:
   - source: AdaptiveLINQ
-    link: http://www.adaptivelinq.com/
+    link: https://www.adaptivelinq.com/
 ---
 The AdaptiveLINQ .QueryByCube() extension method applying to any IQueryable collection helps you to build an analysis engine querybale using the OData protocol.      
