@@ -11,7 +11,7 @@ type: post
 published: true
 author: Qian Li
 ---
-<p><em>The blog post is Written by <a href="https://www.linkedin.com/in/timrodman">Tim Rodman</a> – CPA turned ERP professional, now blogging at <a href="https://www.acumaticareports.com/">AcumaticaReports.com</a></em></p>
+<p><em>The blog post is Written by <a href="https://www.linkedin.com/in/timrodman">Tim Rodman</a> – CPA turned ERP professional, now blogging at <a href="http://www.acumaticareports.com/">AcumaticaReports.com</a></em></p>
 <h2>What is Acumatica</h2>
 <p>ERP systems have long functioned like a data version of Fort Knox. They contain a wealth of useful information, but accessing it is almost impossible.</p>
 <p>The IT department has access, but the business users are left out in the cold.</p>
@@ -33,16 +33,16 @@ author: Qian Li
 <p>There are no firewalls to configure, no 3rd party applications to install, and no configuration needed within Acumatica. As long as you are using version 5.1, it works out of the box.</p>
 <h2>Consuming the data</h2>
 <p>In order to consume the data from an OData-enabled Generic Inquiry screen, an end user simply needs to connect to a URL. Since the Acumatica application is browser-based, users are already accustomed to browsing to a URL in their web browser like this:</p>
-<p><code>https://MyCompany.com/AcumaticaERP</code></p>
+<p><code>http://MyCompany.com/AcumaticaERP</code></p>
 <p>In order to access OData, a user simply adds /OData to the end of the regular URL like this:</p>
-<p><code>https://MyCompany.com/AcumaticaERP/OData</code></p>
+<p><code>http://MyCompany.com/AcumaticaERP/OData</code></p>
 <p>If they browse to this URL from an application like Microsoft Excel, they are prompted for their username and password, then presented with the OData connections that are available to them like this:</p>
 <p><img src="/assets/acumatica51.png" alt="Acumatica and Microsoft Excel" title="Acumatica and Microsoft Excel" width="518" height="336" class="aligncenter size-full wp-image-13036" /></p>
 <h2>Filtering and Sorting</h2>
 <p>You can pass parameters to the OData URL if you want to apply filters or restrict how many records are returned. For example, if you only want open orders and you only want the first 25 records, you can do this:</p>
-<p><code>https://MyCompany.com/AcumaticaERP/OData/Sales Orders and Quotes?$top=25&amp;$filter=Status eq 'Open'</code></p>
+<p><code>http://MyCompany.com/AcumaticaERP/OData/Sales Orders and Quotes?$top=25&amp;$filter=Status eq 'Open'</code></p>
 <p>You can also specify the sort order of the data when it’s returned to you. If you want to sort by the order amount, for example, you can do this:</p>
-<p><code>https://MyCompany.com/AcumaticaERP/OData/Sales Orders and Quotes?$orderby=OrderTotal</code></p>
+<p><code>http://MyCompany.com/AcumaticaERP/OData/Sales Orders and Quotes?$orderby=OrderTotal</code></p>
 <h2>Security</h2>
 <p>One of the beautiful things about this setup is that the Generic Inquiry screens are already built-in to the Acumatica security setup. If a user has access to the Generic Inquiry screen from the regular Acumatica menu, then they also have access to the OData connection.</p>
 <p>Traditional ERP systems often rely on expensive Data Warehouse solutions to present their data to end users. These Data Warehouse solutions have a separate security setup and reconciling which users have access to certain data in the ERP application vs the Data Warehouse can be a real nightmare.</p>

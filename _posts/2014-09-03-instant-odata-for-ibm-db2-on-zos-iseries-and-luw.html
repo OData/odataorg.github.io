@@ -11,8 +11,8 @@ type: post
 published: true
 author: Sumit Sarkar
 ---
-<p>From my experience working with DB2 shops on <a href="https://www.progress.com/products/datadirect-connect/adonet-providers/data-sources/ibm-db2">.NET application development projects</a>, I have learned that most .NET developers are less familiar with the different flavors of DB2.  This is why they choose standards based connectivity from either IBM or Progress DataDirect.</p>
-<p>The latest standard is OData, or “ODBC for the web”. DB2 is the core of many on-premise business systems, and this data has tremendous potential in the growing world of web and mobile.  Not surprisingly, Progress DataDirect (world’s leading contributor to data API standards) introduced <a href="https://www.progress.com/products/datadirect-cloud">instant and secure OData production</a> from any DB2 system in a self service way for everyone, including those without specific DB2 knowledge.</p>
+<p>From my experience working with DB2 shops on <a href="http://www.progress.com/products/datadirect-connect/adonet-providers/data-sources/ibm-db2">.NET application development projects</a>, I have learned that most .NET developers are less familiar with the different flavors of DB2.  This is why they choose standards based connectivity from either IBM or Progress DataDirect.</p>
+<p>The latest standard is OData, or “ODBC for the web”. DB2 is the core of many on-premise business systems, and this data has tremendous potential in the growing world of web and mobile.  Not surprisingly, Progress DataDirect (world’s leading contributor to data API standards) introduced <a href="http://www.progress.com/products/datadirect-cloud">instant and secure OData production</a> from any DB2 system in a self service way for everyone, including those without specific DB2 knowledge.</p>
 <p>A great example of OData’s power with DB2 is Salesforce.com that supports the consumption of OData sources for a new style of data federation using external objects (I will be speaking about this at Dreamforce ’14).   For example, OData provides instant access to DB2 for i MRP/ERP systems from the Salesforce CRM customer data in the cloud.  Here’s a <a href="https://www.odata.org/ecosystem/">list of OData consumers</a>.</p>
 <p><strong>DataDirect Cloud OData production works with the following DB2 systems:</strong></p>
 <p>DB2 for LUW:</p>
@@ -31,7 +31,7 @@ DB2 i 6.1 (DB2 UDB V6R1 for I)<br />
 DB2 for i 5/OS V5R4 (DB2 UDB V5R4 for I)</p>
 <p><strong>Getting started with self service DB2 OData production securely from behind a corporate firewall</strong></p>
 <ol>
-<li>Register for trial of <a style="background-color: #ffffff" href="https://www.progress.com/products/datadirect-cloud?sfdcid=701a0000002MkKS&amp;cmpid=ddblog">DataDirect Cloud</a> connectivity service</li>
+<li>Register for trial of <a style="background-color: #ffffff" href="http://www.progress.com/products/datadirect-cloud?sfdcid=701a0000002MkKS&amp;cmpid=ddblog">DataDirect Cloud</a> connectivity service</li>
 <li>
 <p>Click downloads to install the on-premise connector to generate a connector ID</p>
 </li>
@@ -42,7 +42,7 @@ DB2 for i 5/OS V5R4 (DB2 UDB V5R4 for I)</p>
 </li>
 <li>Enter the DB2 connection information from perspective on on-premise connector including the connector ID from step #2. For example, I’m connecting to a DB2 for i system running in Progress Software’s corporate firewall.
 <p>&nbsp;</p>
-<p><a href="/assets/db2-e1409558820738.png"><img class="aligncenter size-full wp-image-12215" src="/assets/db2-e1409558820738.png" alt="db2" width="580" height="599" /></a><br />Click on Advanced Tab to configure the OData map which is a JSON string during the beta, but subject to change when GA (<a style="background-color: #ffffff" href="https://documentation.progress.com/output/DataDirect/DataDirectCloud/index.html">check latest documentation</a>).  The following value exposes two entities with a foreign key relationship. {"schemaName":"TEST01","includedTables":["ACCOUNT","OPPORTUNITY"],"tableMapping":[{"name":"OPPORTUNITY","key":["SYS_NAME"]}]}</p>
+<p><a href="/assets/db2-e1409558820738.png"><img class="aligncenter size-full wp-image-12215" src="/assets/db2-e1409558820738.png" alt="db2" width="580" height="599" /></a><br />Click on Advanced Tab to configure the OData map which is a JSON string during the beta, but subject to change when GA (<a style="background-color: #ffffff" href="http://documentation.progress.com/output/DataDirect/DataDirectCloud/index.html">check latest documentation</a>).  The following value exposes two entities with a foreign key relationship. {"schemaName":"TEST01","includedTables":["ACCOUNT","OPPORTUNITY"],"tableMapping":[{"name":"OPPORTUNITY","key":["SYS_NAME"]}]}</p>
 </li>
 <li>For a demo, I selected PragmatiQa XOData which is one of several Odata consumers available from the list compiled by Odata.org (thanks to PragmatiQa for support during the trial)</li>
 <li>
@@ -76,7 +76,7 @@ DB2 for i 5/OS V5R4 (DB2 UDB V5R4 for I)</p>
 </ul>
 <p>DB2 is one of many on-premise data sources available in DataDirect Cloud that will instantly produce OData, in addition: SQL Server, Oracle, Greenplum, MySQL, Sybase, Hadoop Ecosystem, Postgres, Progress OpenEdge, MongoDB, Cassandra.</p>
 <p>These are in addition to the really exciting cloud data sources we’re enabling for OData such as Salesforce, Oracle Marketing Cloud (Eloqua), Marketo, Microsoft Dynamics, Amazon Redshift, Sugar CRM, and WorkDay.</p>
-<p>Check out the most current <a href="https://www.progress.com/products/datadirect-cloud/cloud-data-sources">list of OData data sources</a>.</p>
+<p>Check out the most current <a href="http://www.progress.com/products/datadirect-cloud/cloud-data-sources">list of OData data sources</a>.</p>
 <p><strong>Let's talk</strong></p>
 <p>@SAsInSumit</p>
 <p>www.linkedin.com/in/meetsumit</p>

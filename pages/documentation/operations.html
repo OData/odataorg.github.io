@@ -8,11 +8,11 @@ permalink: /documentation/odata-version-2-0/operations/
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
 <h2>Introduction</h2>
-<p>The OData protocol exposes a uniform service interface to operate on collections of structured and unstructured data. Most of the semantics of operations in OData come from the AtomPub protocol [RFC5023], which in turn builds on top of HTTP <a href="https://www.ietf.org/rfc/rfc2616.txt">[RFC2616]</a>.</p>
+<p>The OData protocol exposes a uniform service interface to operate on collections of structured and unstructured data. Most of the semantics of operations in OData come from the AtomPub protocol [RFC5023], which in turn builds on top of HTTP <a href="http://www.ietf.org/rfc/rfc2616.txt">[RFC2616]</a>.</p>
 <p>This document describes the operation model for the protocol, specifying the interactions between clients and servers for retrieving and manipulating data in an OData service. It builds on the <a href="../overview">[OData-Core]</a> document for core concepts, <a href="../uri-conventions">[OData-URI]</a> for URI conventions and on the formats specifications for Atom <a href="https://www.odata.org/developers/protocols/atom-format"> [OData-Atom]</a> and JSON <a href="../json-format">[OData-JSON]</a> for the description of data representations.</p>
 <h2>1. Background</h2>
 <h3>1.1 Representation formats and content type negotiation</h3>
-<p>OData supports two formats for representing resources, the XML-based Atom format and the JSON format. As described in the HTTP specification <a href="https://www.ietf.org/rfc/rfc2616.txt"> [RFC2616]</a>, clients can indicate their preference of resource representation by including an <em>accept</em> request header with a list of MIME types it can handle.</p>
+<p>OData supports two formats for representing resources, the XML-based Atom format and the JSON format. As described in the HTTP specification <a href="http://www.ietf.org/rfc/rfc2616.txt"> [RFC2616]</a>, clients can indicate their preference of resource representation by including an <em>accept</em> request header with a list of MIME types it can handle.</p>
 <p>A client that wants only JSON responses would set this header to "application/json". For example:</p>
 <pre><code>GET /OData/OData.svc/Products HTTP/1.1 host: services.odata.org accept: application/json</code></pre>
 <p>For the Atom format there is more than one MIME type involved. Atom feeds and Entries use a content type of "application/atom+xml". However, when addressing Links or properties within an element the returned resource is just XML without the Atom Entry wrapper, and its content type is "application/xml". AtomPub also introduces service documents, with a content-type of "application/atomsvc+xml". Clients can choose to support only specific content-types or all of them. To indicate it can handle all of them a client would set the <em>accept</em> header to "application/atom+xml, application/atomsvc+xml, application/xml". For example:</p>
@@ -45,9 +45,9 @@ permalink: /documentation/odata-version-2-0/operations/
   application/atom+xml;charset=utf-8 DataServiceVersion: 1.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
 &lt;feed xml:base="https://services.odata.org/OData/OData.svc
-    xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices" 
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="https://www.w3.org/2005/Atom"&gt; 
+    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;Products&lt;/title&gt;
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Products&lt;/id&gt; 
   &lt;updated&gt;2010-02-27T20:03:28Z&lt;/updated&gt;
@@ -75,9 +75,9 @@ permalink: /documentation/odata-version-2-0/operations/
   application/atom+xml;charset=utf-8 DataServiceVersion: 2.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
 &lt;feed xml:base="https://services.odata.org/Northwind/Northwind.svc/"
-    xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices" 
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="https://www.w3.org/2005/Atom"&gt; 
+    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;Customers&lt;/title&gt;
   &lt;id&gt;https://services.odata.org/Northwind/Northwind.svc/Customers&lt;/id&gt;
   &lt;updated&gt;2010-03-12T18:05:49Z&lt;/updated&gt; 
@@ -104,7 +104,7 @@ permalink: /documentation/odata-version-2-0/operations/
 <pre><code>HTTP/1.1 200 OK Content-Length: 158 Date: Sat, 27 Feb 2010 21:10:15 GMT Content-Type:
   application/xml;charset=utf-8 DataServiceVersion: 1.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
-&lt;Description xmlns="https://schemas.microsoft.com/ado/2007/08/dataservices"&gt;
+&lt;Description xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;
   Low fat milk 
 &lt;/Description&gt;</code></pre>
 <p>To retrieve a property value in raw form a client issues an HTTP GET request against the property's raw value URL. Typically these values have a fixed content-type and negotiation is not supported (although servers are allowed to introduce this capability). Clients not having out of band knowledge of expected content-types should use "*/*" in their accept header (or not include an accept header in the request). For example:</p>
@@ -123,16 +123,16 @@ permalink: /documentation/odata-version-2-0/operations/
   DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 accept: application/atom+xml 
   content-type: application/atom+xml Content-Length: 634 
 &lt;?xml version="1.0" encoding="utf-8"?&gt; 
-&lt;Entry xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices"
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="https://www.w3.org/2005/Atom"&gt;
+&lt;Entry xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns="http://www.w3.org/2005/Atom"&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-27T21:36:47Z&lt;/updated&gt;
   &lt;author&gt; 
     &lt;name /&gt; 
   &lt;/author&gt; 
   &lt;category term="DataServiceProviderDemo.Category"
-      scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
+      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
   &lt;content type="application/xml"&gt; 
     &lt;m:properties&gt; 
       &lt;d:ID&gt;10&lt;/d:ID&gt; 
@@ -147,9 +147,9 @@ permalink: /documentation/odata-version-2-0/operations/
   application/atom+xml;charset=utf-8 DataServiceVersion: 1.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
 &lt;Entry xml:base="https://services.odata.org/OData/OData.svc/"
-    xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices" 
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="https://www.w3.org/2005/Atom"&gt; 
+    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Categories(10)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-27T21:39:54Z&lt;/updated&gt;
@@ -157,11 +157,11 @@ permalink: /documentation/odata-version-2-0/operations/
     &lt;name /&gt; 
   &lt;/author&gt; 
   &lt;Link rel="edit" title="Category" href="Categories(10)" /&gt; 
-  &lt;Link rel="https://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
+  &lt;Link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
       type="application/atom+xml;type=feed" title="Products" 
       href="Categories(10)/Products"/&gt; 
   &lt;category term="DataServiceProviderDemo.Category" 
-      scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme"/&gt; 
+      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme"/&gt; 
   &lt;content type="application/xml"&gt; 
     &lt;m:properties&gt; 
       &lt;d:ID m:type="Edm.Int32"&gt;10&lt;/d:ID&gt;
@@ -170,7 +170,7 @@ permalink: /documentation/odata-version-2-0/operations/
   &lt;/content&gt; 
 &lt;/Entry&gt;</code></pre>
 <p>The Entry being created may contain Links to other Entries in the service. If that is the case the server is expected to create the Entry and the appropriate Links. For example, to create a new product in the catalog that is associated with the category Entry created above a client would execute a POST request against the OData.svc/Products collection with a product Entry (similar to the Category Entry above, with the proper adjustments for type information and property names and values) containing a Link to the Category Entry using any URI that resolves to that resource:</p>
-<pre><code>&lt;Link rel="https://schemas.microsoft.com/ado/2007/08/dataservices/related/Category"
+<pre><code>&lt;Link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category"
   type="application/atom+xml;type=Entry" title="Category" href="Categories(10)" /&gt;</code></pre>
 <p>or the equivalent in JSON format as described in the Representing Links section of <a href="../json-format">[OData-JSON]</a>.</p>
 <p>Alternatively a client can create and Link an Entry to a related Entry by leveraging the addressing scheme if the server supports addressing related items. For example, if a server implements the OData URI conventions described in <a href="../uri-conventions">[OData-URI]</a>, the address …/Categories(10)/Products points at all the products in the specified category. When a POST request is issued against that products collection (instead of the top-level products collection) the server will create the new product Entry and automatically Link it to the parent category. Clients may combine this method and the previous one to create an Entry that is related to another one implicitly through the relationship implied in the URL, and related to other Entries by explicitly-specified Links in the request body.</p>
@@ -180,17 +180,17 @@ permalink: /documentation/odata-version-2-0/operations/
   1.0 MaxDataServiceVersion: 2.0 accept: application/atom+xml 
   content-type: application/atom+xml Content-Length: 2626 
 &lt;?xml version="1.0" encoding="utf-8"?&gt; 
-&lt;Entry xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices"
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="https://www.w3.org/2005/Atom"&gt;
+&lt;Entry xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns="http://www.w3.org/2005/Atom"&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-27T21:36:47Z&lt;/updated&gt;
   &lt;author&gt; 
     &lt;name /&gt; 
   &lt;/author&gt; 
   &lt;category term="DataServiceProviderDemo.Category" 
-      scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
-  &lt;Link rel="https://schemas.microsoft.com/ado/2007/08/dataservices/related/Products" 
+      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
+  &lt;Link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products" 
       type="application/atom+xml;type=feed" title="Products" href="Categories(1)/Products"&gt; 
     &lt;m:inline&gt; 
       &lt;feed&gt;
@@ -201,7 +201,7 @@ permalink: /documentation/odata-version-2-0/operations/
             &lt;name /&gt; 
           &lt;/author&gt; 
           &lt;category term="DataServiceProviderDemo.Product"
-              scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
+              scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
           &lt;content type="application/xml"&gt; 
             &lt;m:properties&gt; 
               &lt;d:ID m:type="Edm.Int32"&gt;10&lt;/d:ID&gt;
@@ -221,7 +221,7 @@ permalink: /documentation/odata-version-2-0/operations/
             &lt;name /&gt; 
           &lt;/author&gt; 
           &lt;category term="DataServiceProviderDemo.Product"
-              scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
+              scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
           &lt;content type="application/xml"&gt; 
             &lt;m:properties&gt; 
               &lt;d:ID m:type="Edm.Int32"&gt;11&lt;/d:ID&gt;
@@ -250,9 +250,9 @@ permalink: /documentation/odata-version-2-0/operations/
   Content-Type: application/atom+xml;charset=utf-8 DataServiceVersion: 1.0; 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
 &lt;Entry xml:base="https://services.odata.org/OData/OData.svc/"
-    xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices" 
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="https://www.w3.org/2005/Atom"&gt; 
+    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Categories(10)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T08:59:57Z&lt;/updated&gt;
@@ -260,11 +260,11 @@ permalink: /documentation/odata-version-2-0/operations/
     &lt;name /&gt; 
   &lt;/author&gt; 
   &lt;Link rel="edit" title="Category" href="Categories(10)" /&gt; 
-  &lt;Link rel="https://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
+  &lt;Link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
       type="application/atom+xml;type=feed" title="Products" 
       href="Categories(10)/Products"/&gt; 
   &lt;category term="DataServiceProviderDemo.Category" 
-      scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme"/&gt; 
+      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme"/&gt; 
   &lt;content type="application/xml"&gt; 
     &lt;m:properties&gt; 
       &lt;d:ID m:type="Edm.Int32"&gt;10&lt;/d:ID&gt;
@@ -286,9 +286,9 @@ permalink: /documentation/odata-version-2-0/operations/
   content-type: application/atom+xml Content-Length: 1181 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
 &lt;Entry xml:base="https://services.odata.org/OData/OData.svc/" 
-    xmlns:d=" https://schemas.microsoft.com/ado/2007/08/dataservices"
-    xmlns:m=" https://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="https://www.w3.org/2005/Atom"&gt; 
+    xmlns:d=" http://schemas.microsoft.com/ado/2007/08/dataservices"
+    xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Products(1)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T10:23:02Z&lt;/updated&gt;
@@ -297,7 +297,7 @@ permalink: /documentation/odata-version-2-0/operations/
   &lt;/author&gt; 
   &lt;Link rel="edit" title="Product" href="Products(1)" /&gt; 
   &lt;category term="DataServiceProviderDemo.Product" 
-      scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
+      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
   &lt;content type="application/xml"&gt; 
     &lt;m:properties&gt; 
       &lt;d:ID m:type="Edm.Int32"&gt;1&lt;/d:ID&gt;
@@ -319,9 +319,9 @@ permalink: /documentation/odata-version-2-0/operations/
   accept: application/atom+xml content-type: application/atom+xml Content-Length: 1181 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
 &lt;Entry xml:base="https://services.odata.org/OData/OData.svc/" 
-    xmlns:d=" https://schemas.microsoft.com/ado/2007/08/dataservices"
-    xmlns:m=" https://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="https://www.w3.org/2005/Atom"&gt; 
+    xmlns:d=" http://schemas.microsoft.com/ado/2007/08/dataservices"
+    xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Products(1)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T10:23:02Z&lt;/updated&gt;
@@ -331,7 +331,7 @@ permalink: /documentation/odata-version-2-0/operations/
   &lt;Link rel="edit" title="Product" href="Products(1)" /&gt; 
   &lt;category 
       term="DataServiceProviderDemo.Product" 
-      scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
+      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
   &lt;content type="application/xml"&gt; 
     &lt;m:properties&gt; 
       &lt;d:Rating m:type="Edm.Int32"&gt;4&lt;/d:Rating&gt;
@@ -348,8 +348,8 @@ permalink: /documentation/odata-version-2-0/operations/
   1.0 MaxDataServiceVersion: 2.0 accept: application/xml 
   content-type: application/xml Content-Length: 275 
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
-&lt;d:Rating xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices" 
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+&lt;d:Rating xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
     m:type="Edm.Int32"&gt;5
 &lt;/d:Rating&gt;</code></pre>
 <p>Alternatively clients can use the address of the raw value of a property and send data in its native form. The example below shows updating the same "Rating" property, although more natural scenarios would include updating an image or an HTML document with a newer version without the need to encode it:</p>
@@ -372,7 +372,7 @@ permalink: /documentation/odata-version-2-0/operations/
 <pre><code>POST /OData/OData.svc/Categories(1)/$links/Products HTTP/1.1 Host: services.odata.org
   DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 Content-Length: 159 
   Content-Type:application/xml 
-&lt;uri xmlns="https://schemas.microsoft.com/ado/2007/08/dataservices"&gt;
+&lt;uri xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;
   https://services.odata.org/OData/OData.svc/Products(10) 
 &lt;/uri&gt;</code></pre>
 <p>Response:</p>
@@ -394,7 +394,7 @@ permalink: /documentation/odata-version-2-0/operations/
 <pre><code>PUT /OData/OData.svc/Products(1)/$links/Category HTTP/1.1 Host: services.odata.org
   DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 
   accept: application/xml content-type: application/xml Content-Length: 158 
-&lt;uri xmlns="https://schemas.microsoft.com/ado/2007/08/dataservices"&gt;
+&lt;uri xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices"&gt;
   https://services.odata.org/OData/OData.svc/Categories(2) 
 &lt;/uri&gt;</code></pre>
 <p>Response:</p>
@@ -405,13 +405,13 @@ permalink: /documentation/odata-version-2-0/operations/
     DataServiceVersion: 1.0 MaxDataServiceVersion: 2.0 
     content-type: application/atom+xml Content-Length:590 
 &lt;entry xml:base="https://services.odata.org/OData/OData.svc/" 
-    xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices"
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="https://www.w3.org/2005/Atom"&gt;
-  &lt;Link rel="https://schemas.microsoft.com/ado/2007/08/dataservices/related/Category"
+    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns="http://www.w3.org/2005/Atom"&gt;
+  &lt;Link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category"
       type="application/atom+xml;type=Entry" title="Category" href="Categories(1)" /&gt;
   &lt;category term="DataServiceProviderDemo.Product" 
-      scheme="https://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
+      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt; 
 &lt;/entry&gt;</code></pre>
 <p>Response:</p>
 <pre><code>HTTP/1.1 204 No Content Date: Tue, 02 Mar 2010 20:06:12 GMT DataServiceVersion: 1.0;</code></pre>
@@ -428,9 +428,9 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt; 
 &lt;feed 
     xml:base="https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/OData/OData.svc/"
-    xmlns:d="https://schemas.microsoft.com/ado/2007/08/dataservices" 
-    xmlns:m="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="https://www.w3.org/2005/Atom"&gt; 
+    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns="http://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;GetProductsByRating&lt;/title&gt;
   &lt;id&gt;
 https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/odata/odata.svc/GetProductsByRating

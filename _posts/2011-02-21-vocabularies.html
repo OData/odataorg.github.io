@@ -27,9 +27,7 @@ author: OData.org Archive
 <h3>Why does OData need vocabularies?</h3>
 <p>OData is being used in many different verticals now. Each vertical brings its own specific set of requirements and challenges. While some problems are general enough that solving them inside OData adds value to the OData eco-system as a whole, most don't meet that bar.</p>
 <p>It seems clear then that we need a mechanism that allows Producers to share more information that 'smarter' Consumers MAY understand enough to enable a higher fidelity experience.</p>
-<p>In fact some consumers are already trying to provide a higher fidelity experience, for example <a href="
-                                                                                                     
-                                                                                                     metasapiens.com/sesame/data-browser/">Sesame</a> can render the results of OData queries on a map. Sesame does this by looking for specifically named properties, which it 'guesses' represent the entity's location. While this is powerful, it would be much better if it wasn't a 'guess', if the Producer used a well-known vocabulary to tell Consumers which property is the entity's location.</p>
+<p>In fact some consumers are already trying to provide a higher fidelity experience, for example <a href="http://metasapiens.com/sesame/data-browser/">Sesame</a> can render the results of OData queries on a map. Sesame does this by looking for specifically named properties, which it 'guesses' represent the entity's location. While this is powerful, it would be much better if it wasn't a 'guess', if the Producer used a well-known vocabulary to tell Consumers which property is the entity's location.</p>
 <h3>Goals</h3>
 <p>As with any new feature, we need to agree on a set of goals before we can come up with the right design. To get us started I propose this set of goals:</p>
 <ul>
@@ -66,8 +64,8 @@ author: OData.org Archive
 &lt;/EntityType&gt;</em></p>
 <p>For this to be valid XML the display and validation namespaces would have to be introduced somewhere something like this:</p>
 <p><em>&lt;Schema<br />
-xmlns:display="https://odata.org/vocabularies/display"<br />
-xmlns:validation="https://odata.org/vocabularies/validation"&gt;</em></p>
+xmlns:display="http://odata.org/vocabularies/display"<br />
+xmlns:validation="http://odata.org/vocabularies/validation"&gt;</em></p>
 <p>Here the URL of the xsd reference identifies the vocabulary globally.</p>
 <p>While this allows for completely arbitrary annotations and is extremely expressive, it has a number of down-sides:</p>
 <ol>
@@ -91,8 +89,8 @@ xmlns:validation="https://odata.org/vocabularies/validation"&gt;</em></p>
 <p>In fact if you execute an <a href="https://www.odata.org/documentation/odata-version-2-0/atom-format#RepresentingComplexTypesProperties"> OData request</a> that just retrieves an instance of this complex type the response would look like this:</p>
 <p><em>&lt;Constraint<br />
 p1:type="Namespace.Constraint"<br />
-xmlns:p1="https://schemas.microsoft.com/ado/2007/08/dataservices/metadata"<br />
-xmlns="https://schemas.microsoft.com/ado/2007/08/dataservices" &gt;<br />
+xmlns:p1="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"<br />
+xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices" &gt;<br />
 &lt;Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/Regex&gt;<br />
 &lt;ErrorMessage&gt;Please enter a valid EmailAddress&lt;/ErrorMessage&gt;<br />
 &lt;/Constraint&gt;</em></p>
@@ -119,10 +117,10 @@ e.g.   &lt;validation:ErrorMessage m:IsNull="true" /&gt;</li>
 <p>This looks good. It supports both constrained (OData values) and unconstrained annotations, and is consistent with the existing annotation support in OData.</p>
 <h3>Out of line &amp; External Annotations</h3>
 <p>Now if we turn our attention back to concern (2), this example implicitly refers to its parent; however we need to allow vocabularies to refer to something explicitly. For metadata the most obvious solution is to leverage addressable metadata, which allows you to refer to individual pieces of the metadata.</p>
-<p>For example if this URL is the address of the metadata for the Email property: <a href="https://server/service/$metadata/Properties%28%27Namespace.Person.Email%27%29"> https://server/service/$metadata/Properties('Namespace.Person.Email')</a></p>
-<p>Then this 'free floating' element is 'annotating' the Email property using the 'https://odata.org/vocabularies/constraints' vocabulary:</p>
-<p><em>&lt;Annotation AppliesTo="https://server/service/$metadata/Properties('Namespace.Person.Email')"<br />
-xmlns:validation="https://odata.org/vocabularies/constraints"&gt;<br />
+<p>For example if this URL is the address of the metadata for the Email property: <a href="http://server/service/$metadata/Properties%28%27Namespace.Person.Email%27%29"> http://server/service/$metadata/Properties('Namespace.Person.Email')</a></p>
+<p>Then this 'free floating' element is 'annotating' the Email property using the 'http://odata.org/vocabularies/constraints' vocabulary:</p>
+<p><em>&lt;Annotation AppliesTo="http://server/service/$metadata/Properties('Namespace.Person.Email')"<br />
+xmlns:validation="http://odata.org/vocabularies/constraints"&gt;<br />
 &lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
 &lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
 &lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
@@ -131,23 +129,23 @@ xmlns:validation="https://odata.org/vocabularies/constraints"&gt;<br />
 <p>Annotation by reference also neatly sidesteps issue (3), i.e. the object annotated is left structurally unchanged, which means we could use a similar approach to annotate data without breaking code (like a javascript path) that relies on a particular structure.</p>
 <p>Another nice side-effect of this design is that you can use it 'inside' the CSDL too, simply by removing the address of the metadata service from the AppliesTo url - since we are in the CSDL we can us 'relative addressing':</p>
 <p><em>&lt;Annotation AppliesTo="Properties('Namespace.Person.Email')"<br />
-xmlns:validation="https://odata.org/vocabularies/constraints"&gt;<br />
+xmlns:validation="http://odata.org/vocabularies/constraints"&gt;<br />
 &lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
 &lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
 &lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
 &lt;/validation:Constraint&gt;<br />
 &lt;/Annotation&gt;</em></p>
 <p>Indeed if you have a separate file with many annotations for a particular model, you could group a series of annotations together like this:</p>
-<p><em>&lt;Annotations AppliesTo="https://server/service/$metadata/"&gt;<br />
+<p><em>&lt;Annotations AppliesTo="http://server/service/$metadata/"&gt;<br />
 &lt;Annotation AppliesTo="Properties('Namespace.Person.Email')"<br />
-xmlns:validation="https://odata.org/vocabularies/constraints"&gt;<br />
+xmlns:validation="http://odata.org/vocabularies/constraints"&gt;<br />
 &lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
 &lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
 &lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
 &lt;/validation:Constraint&gt;<br />
 &lt;/Annotation&gt;<br />
 &lt;Annotation AppliesTo="Properties('Namespace.Customer.Email')"<br />
-xmlns:validation="https://odata.org/vocabularies/constraints"&gt;<br />
+xmlns:validation="http://odata.org/vocabularies/constraints"&gt;<br />
 &lt;validation:Constraint m:Type="validation:Constraint" &gt;<br />
 &lt;validation:Regex&gt;^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,6}$.&lt;/validation:Regex&gt;<br />
 &lt;validation:ErrorMessage&gt;Please enter a valid EmailAddress&lt;/validation:ErrorMessage&gt;<br />
@@ -187,4 +185,4 @@ xmlns:validation="https://odata.org/vocabularies/constraints"&gt;<br />
 <li>What vocabularies would you like to see pushed?</li>
 </ul>
 <p>Thanks for reading!<br />
-- <a href="https://twitter.com/adjames"><strong>Alex</strong></a></p>
+- <a href="http://twitter.com/adjames"><strong>Alex</strong></a></p>

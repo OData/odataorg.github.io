@@ -49,21 +49,18 @@ author: OData.org Archive
 <h3>Exploration</h3>
 <p>I want to explore what the protocol changes might be for supporting reference data caching in the conference organization finder application we dug into above.</p>
 <p>The conference application first went through a startup sequence and used an OData query to pull all conference sessions.  This query would look like any other OData query, e.g.</p>
-<p><a href="
-      
-      
-      conferenceorganization/v1/sessions/">https://conferenceorganization/v1/sessions/</a></p>
+<p><a href="http://conferenceorganization/v1/sessions/">http://conferenceorganization/v1/sessions/</a></p>
 <p>The data returned by the feed for the query would look exactly like any other dataset for an OData query with one exception:</p>
 <p><em>&lt;?xml version="1.0" encoding="utf-8" standalone="yes" ?&gt;<br />
 </em><em>&lt;feed ...&gt;<br />
 </em><em>&lt;session&gt;<br />
 </em><em>...<br />
 </em><em>&lt;/session&gt;<br />
-</em><em><strong>&lt;link rel="https://odata.org/delta" href="https://</strong> <strong>conferenceorganization/v1/</strong> <strong>sessions/?$deltatoken=B:405973881944444416</strong><strong>"/&gt;<br />
+</em><em><strong>&lt;link rel="http://odata.org/delta" href="http://</strong> <strong>conferenceorganization/v1/</strong> <strong>sessions/?$deltatoken=B:405973881944444416</strong><strong>"/&gt;<br />
 </strong></em><em>&lt;/feed&gt;</em></p>
 <p>Note the inclusion of a delta (or refresh) link after the data.  The client can store the data obtained locally then use the delta link to obtain any changes to the dataset subsequent to the initial query.   Using the link to query for new changes will give you empty results until the data in the service is updated.  If there are updates, just instance data that changed (added, updated, or deleted) is returned along with a new delta link.  This allows a client to poll the server for changes to a specific set of data keeping it up to date over time while improving performance and reducing network use.</p>
 <p>One immediate question with the design is how the system would interact with server driven paging.  It's important that a server calculate the delta token at the moment a query is executed considering instance data could change while a client is paging through results using a series of next links.  This allows clients to use a delta link to get any changes for a set of data that occurred since the query was first executed.  How would the delta token be persisted or carried across a set of next links?  The protocol is stateless so we wouldn't want to persist it on the server (or client).  One option would be to hold the delta token inside the next link, such as:</p>
-<p><em>&lt;link rel="next" href="https://conferenceorganization/v1/ sessions/?$skiptoken='5QLs'&amp;<strong>$deltatoken=N:405973881944444416</strong> <strong>"</strong> /&gt;</em></p>
+<p><em>&lt;link rel="next" href="http://conferenceorganization/v1/ sessions/?$skiptoken='5QLs'&amp;<strong>$deltatoken=N:405973881944444416</strong> <strong>"</strong> /&gt;</em></p>
 <p>This would allow the server to obtain the token across requests and create the delta link for use on the last page of results.</p>
 <p>&nbsp;</p>
 <h3>Summary</h3>

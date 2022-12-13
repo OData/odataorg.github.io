@@ -5,7 +5,7 @@ version: V1-V3
 object: Client
 downloads:
   - source: CodePlex
-    link: https://datajs.codeplex.com/
+    link: http://datajs.codeplex.com/
   - source: nuget gallery
     link: https://www.nuget.org/packages/datajs
 ---

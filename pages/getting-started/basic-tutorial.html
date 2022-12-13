@@ -13,7 +13,7 @@ permalink: /getting-started/basic-tutorial/
 <ul>
 <li>This is the Basic section. For topics like Singleton, Inheritance, Open Type, Containment and Batch, please refer to <a href="https://www.odata.org/getting-started/advanced-tutorial/">Advanced Section</a>.</li>
 <li>All these are based on OData V4 sample service <a href="https://services.odata.org/V4/TripPinServiceRW">TripPin</a>, please just replace the <code>serviceRoot</code> below with the URL <code>https://services.odata.org/V4/TripPinServiceRW</code>. TripPin now supports ETag, so for data modification topics, you should first using GET on TripPin (eg. GET serviceRoot/People) to get the section information in the payload then use the URL with section for data modification examples. (something looks like <code>https://services.odata.org/V4/(S(flat4rgegiueineatspfdku1))/TripPinServiceRW)</code></li>
-<li>You may use <a href="https://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
+<li>You may use <a href="http://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
 <li>In TripPin service, ETag is currently enabled on entity <em>Person</em>. We omit the ETag related headers in request headers for short, please go to the <a href="https://www.odata.org/getting-started/basic-tutorial/#etag">ETag Section</a> for detailed information.</li>
 <li>We will keep improving this by adding contents and fixing bugs. You can provide your feedbacks and ask questions using <a href="https://www.odata.org/join-the-odata-discussion/">OData Mailling List</a>.</li>
 </ul>
@@ -153,7 +153,7 @@ San Francisco International Airport
 <p>                The <code>$filter</code> system query option allows clients to filter a collection of resources that are addressed by a request URL. The expression specified with <code>$filter</code> is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response.</p>
 <div id="basic">
 <h4>Basic predicates, built-in functions</h4>
-<p>                    There are several kinds of basic predicates and built-in functions for <code>$filter</code>, including logical operators and arithmetic operators. For more detailed information, please refer to <a href="https://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">OData V4 URL Conventions Document</a>. The request below using <code>$filter</code> to get people with FirstName "Scott".<br />
+<p>                    There are several kinds of basic predicates and built-in functions for <code>$filter</code>, including logical operators and arithmetic operators. For more detailed information, please refer to <a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">OData V4 URL Conventions Document</a>. The request below using <code>$filter</code> to get people with FirstName "Scott".<br />
                     <code>GET serviceRoot/People?$filter=FirstName eq 'Scott'</code><br />
                     <br />
                     Response Payload</p>
