@@ -170,4 +170,4 @@ The argument to the `highlight` tag (`ruby` in the example above) is the languag
 - `php` for PHP
 - `python` for Python
 
-If the language you used not listed above, please look for the “short name” on the [Pygments’ Lexers page](http://pygments.org/docs/lexers/).
+If the language you used not listed above, please look for the “short name” on the [Pygments’ Lexers page](https://pygments.org/docs/lexers/).
