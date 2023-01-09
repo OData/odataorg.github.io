@@ -8,11 +8,11 @@ permalink: /documentation/odata-version-2-0/operations/
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
 <h2>Introduction</h2>
-<p>The OData protocol exposes a uniform service interface to operate on collections of structured and unstructured data. Most of the semantics of operations in OData come from the AtomPub protocol [RFC5023], which in turn builds on top of HTTP <a href="http://www.ietf.org/rfc/rfc2616.txt">[RFC2616]</a>.</p>
+<p>The OData protocol exposes a uniform service interface to operate on collections of structured and unstructured data. Most of the semantics of operations in OData come from the AtomPub protocol [RFC5023], which in turn builds on top of HTTP <a href="https://www.ietf.org/rfc/rfc2616.txt">[RFC2616]</a>.</p>
 <p>This document describes the operation model for the protocol, specifying the interactions between clients and servers for retrieving and manipulating data in an OData service. It builds on the <a href="../overview">[OData-Core]</a> document for core concepts, <a href="../uri-conventions">[OData-URI]</a> for URI conventions and on the formats specifications for Atom <a href="https://www.odata.org/developers/protocols/atom-format"> [OData-Atom]</a> and JSON <a href="../json-format">[OData-JSON]</a> for the description of data representations.</p>
 <h2>1. Background</h2>
 <h3>1.1 Representation formats and content type negotiation</h3>
-<p>OData supports two formats for representing resources, the XML-based Atom format and the JSON format. As described in the HTTP specification <a href="http://www.ietf.org/rfc/rfc2616.txt"> [RFC2616]</a>, clients can indicate their preference of resource representation by including an <em>accept</em> request header with a list of MIME types it can handle.</p>
+<p>OData supports two formats for representing resources, the XML-based Atom format and the JSON format. As described in the HTTP specification <a href="https://www.ietf.org/rfc/rfc2616.txt"> [RFC2616]</a>, clients can indicate their preference of resource representation by including an <em>accept</em> request header with a list of MIME types it can handle.</p>
 <p>A client that wants only JSON responses would set this header to "application/json". For example:</p>
 <pre><code>GET /OData/OData.svc/Products HTTP/1.1 host: services.odata.org accept: application/json</code></pre>
 <p>For the Atom format there is more than one MIME type involved. Atom feeds and Entries use a content type of "application/atom+xml". However, when addressing Links or properties within an element the returned resource is just XML without the Atom Entry wrapper, and its content type is "application/xml". AtomPub also introduces service documents, with a content-type of "application/atomsvc+xml". Clients can choose to support only specific content-types or all of them. To indicate it can handle all of them a client would set the <em>accept</em> header to "application/atom+xml, application/atomsvc+xml, application/xml". For example:</p>
@@ -47,7 +47,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;feed xml:base="https://services.odata.org/OData/OData.svc
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="http://www.w3.org/2005/Atom"&gt; 
+    xmlns="https://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;Products&lt;/title&gt;
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Products&lt;/id&gt; 
   &lt;updated&gt;2010-02-27T20:03:28Z&lt;/updated&gt;
@@ -77,7 +77,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;feed xml:base="https://services.odata.org/Northwind/Northwind.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="http://www.w3.org/2005/Atom"&gt; 
+    xmlns="https://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;Customers&lt;/title&gt;
   &lt;id&gt;https://services.odata.org/Northwind/Northwind.svc/Customers&lt;/id&gt;
   &lt;updated&gt;2010-03-12T18:05:49Z&lt;/updated&gt; 
@@ -125,7 +125,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;?xml version="1.0" encoding="utf-8"?&gt; 
 &lt;Entry xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="http://www.w3.org/2005/Atom"&gt;
+    xmlns="https://www.w3.org/2005/Atom"&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-27T21:36:47Z&lt;/updated&gt;
   &lt;author&gt; 
@@ -149,7 +149,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;Entry xml:base="https://services.odata.org/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="http://www.w3.org/2005/Atom"&gt; 
+    xmlns="https://www.w3.org/2005/Atom"&gt; 
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Categories(10)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-27T21:39:54Z&lt;/updated&gt;
@@ -182,7 +182,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;?xml version="1.0" encoding="utf-8"?&gt; 
 &lt;Entry xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="http://www.w3.org/2005/Atom"&gt;
+    xmlns="https://www.w3.org/2005/Atom"&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-27T21:36:47Z&lt;/updated&gt;
   &lt;author&gt; 
@@ -252,7 +252,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;Entry xml:base="https://services.odata.org/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="http://www.w3.org/2005/Atom"&gt; 
+    xmlns="https://www.w3.org/2005/Atom"&gt; 
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Categories(10)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T08:59:57Z&lt;/updated&gt;
@@ -288,7 +288,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;Entry xml:base="https://services.odata.org/OData/OData.svc/" 
     xmlns:d=" http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="http://www.w3.org/2005/Atom"&gt; 
+    xmlns="https://www.w3.org/2005/Atom"&gt; 
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Products(1)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T10:23:02Z&lt;/updated&gt;
@@ -321,7 +321,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;Entry xml:base="https://services.odata.org/OData/OData.svc/" 
     xmlns:d=" http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m=" http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="http://www.w3.org/2005/Atom"&gt; 
+    xmlns="https://www.w3.org/2005/Atom"&gt; 
   &lt;id&gt;https://services.odata.org/OData/OData.svc/Products(1)&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt; 
   &lt;updated&gt;2010-02-28T10:23:02Z&lt;/updated&gt;
@@ -407,7 +407,7 @@ permalink: /documentation/odata-version-2-0/operations/
 &lt;entry xml:base="https://services.odata.org/OData/OData.svc/" 
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-    xmlns="http://www.w3.org/2005/Atom"&gt;
+    xmlns="https://www.w3.org/2005/Atom"&gt;
   &lt;Link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category"
       type="application/atom+xml;type=Entry" title="Category" href="Categories(1)" /&gt;
   &lt;category term="DataServiceProviderDemo.Product" 
@@ -430,7 +430,7 @@ permalink: /documentation/odata-version-2-0/operations/
     xml:base="https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="http://www.w3.org/2005/Atom"&gt; 
+    xmlns="https://www.w3.org/2005/Atom"&gt; 
   &lt;title type="text"&gt;GetProductsByRating&lt;/title&gt;
   &lt;id&gt;
 https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/odata/odata.svc/GetProductsByRating
