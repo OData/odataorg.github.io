@@ -38,9 +38,9 @@ author: OData.org Archive
 <p>Would return the service document for a metadata service used to interrogate the data service:</p>
 <pre>&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?&gt;
 &lt;service xml:base="<a href="http://localhost:999/dataservice/$metadata/">http://localhost:999/dataservice/$metadata/</a>" 
-         xmlns:atom="<a href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>" 
-         xmlns:app="<a href="http://www.w3.org/2007/app">http://www.w3.org/2007/app</a>" 
-         xmlns="<a href="http://www.w3.org/2007/app">http://www.w3.org/2007/app</a>"&gt;
+         xmlns:atom="<a href="https://www.w3.org/2005/Atom">https://www.w3.org/2005/Atom</a>" 
+         xmlns:app="<a href="https://www.w3.org/2007/app">https://www.w3.org/2007/app</a>" 
+         xmlns="<a href="https://www.w3.org/2007/app">https://www.w3.org/2007/app</a>"&gt;
   &lt;workspace&gt;
     &lt;atom:title&gt;Default&lt;/atom:title&gt;
     &lt;collection href="ResourceTypes"&gt;
@@ -63,7 +63,7 @@ author: OData.org Archive
 &lt;entry xml:base="<a href="http://localhost:999/dataservice/$metadata/">http://localhost:999/dataservice/$metadata/</a>" 
        xmlns:d="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>" 
        xmlns:m="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">http://schemas.microsoft.com/ado/2007/08/dataservices/metadata</a>" 
-       xmlns="http://www.w3.org/2005/Atom"&gt;
+       xmlns="https://www.w3.org/2005/Atom"&gt;
   &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceTypes('Namespace.Product')&lt;/id&gt;
   &lt;title type="text"&gt;&lt;/title&gt;
   &lt;updated&gt;2010-04-21T17:34:41Z&lt;/updated&gt;
@@ -113,7 +113,7 @@ author: OData.org Archive
 &lt;entry xml:base="<a href="http://localhost:999/dataservice/$metadata/">http://localhost:999/dataservice/$metadata/</a>" 
        xmlns:d="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices">http://schemas.microsoft.com/ado/2007/08/dataservices</a>" 
        xmlns:m="<a href="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">http://schemas.microsoft.com/ado/2007/08/dataservices/metadata</a>" 
-       xmlns="<a href="http://www.w3.org/2005/Atom">http://www.w3.org/2005/Atom</a>"&gt;
+       xmlns="<a href="https://www.w3.org/2005/Atom">https://www.w3.org/2005/Atom</a>"&gt;
   &lt;id&gt;http://localhost:999/dataservice/$metadata/ResourceTypes('Namespace.Product')&lt;/id&gt;&gt;
   &lt;title type="text"&gt;&lt;/title&gt;
   &lt;updated&gt;2010-04-21T17:51:09Z&lt;/updated&gt;
@@ -276,7 +276,7 @@ author: OData.org Archive
 <p>Cool huh?</p>
 <p>&nbsp;</p>
 <h2>Changing the way &lt;link @rel&gt; works?</h2>
-<p>Recently Michael Hausenblas wrote an <a href="http://webofdata.wordpress.com/2010/04/14/oh-it-is-data-on-the-web/"> interesting post</a> comparing OData and Linked Data. In that post he lamented that unlike RDF in OData predicate links do not dereference.</p>
+<p>Recently Michael Hausenblas wrote an <a href="https://webofdata.wordpress.com/2010/04/14/oh-it-is-data-on-the-web/"> interesting post</a> comparing OData and Linked Data. In that post he lamented that unlike RDF in OData predicate links do not dereference.</p>
 <p>Huh? What does that mean?</p>
 <p>Well if you look at an &lt;entry&gt; and one of its links</p>
 <pre>&lt;entry&gt;
@@ -311,5 +311,5 @@ author: OData.org Archive
 <p>Do you think queryable metadata is interesting?<br />
 And if so do you think making @rel dereference-able is important?</p>
 <p>Please let us know what you think.</p>
-<p><a href="http://twitter.com/adjames">Alex James</a></p>
+<p><a href="https://twitter.com/adjames">Alex James</a></p>
 </div>

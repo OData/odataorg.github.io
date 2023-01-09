@@ -21,7 +21,7 @@ Resources
 
 OASIS Press Release: [ISO/IEC JTC 1 Approves OASIS OData Standard for Open Data Exchange](https://www.oasis-open.org/news/pr/iso-iec-jtc-1-approves-oasis-odata-standard-for-open-data-exchange)
 
-ISO OData Standards Publications [ISO/IEC 20802-1:2016](https://www.iso.org/iso/catalogue_detail.htm?csnumber=69208) and [ISO/IEC 20802-2:2016](http://www.iso.org/iso/catalogue_detail.htm?csnumber=69209)
+ISO OData Standards Publications [ISO/IEC 20802-1:2016](https://www.iso.org/iso/catalogue_detail.htm?csnumber=69208) and [ISO/IEC 20802-2:2016](https://www.iso.org/iso/catalogue_detail.htm?csnumber=69209)
 
 [OASIS OData Technical Committee](https://www.oasis-open.org/committees/odata/)
 

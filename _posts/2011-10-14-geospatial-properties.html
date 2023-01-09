@@ -16,7 +16,7 @@ author: OData.org Archive
 <p>The rest of this entry goes into more detail about the geospatial type system that we support, how geospatial types are represented in $metadata, how their values are represented in Atom and JSON payloads, how they are represented in URLs, and what canonical functions are defined for them.</p>
 <h4>Modeling</h4>
 <h5>Primitive Types</h5>
-<p>Our type system is firmly rooted in the OGC <a href="http://www.opengeospatial.org/standards/sfa">Simple Features</a> (OGC SF) geometry type system. We diverge from their type system in only three ways.</p>
+<p>Our type system is firmly rooted in the OGC <a href="https://www.opengeospatial.org/standards/sfa">Simple Features</a> (OGC SF) geometry type system. We diverge from their type system in only three ways.</p>
 <p><a href="/assets/geom_hierarchy.jpg"><img class="alignnone size-full wp-image-317" alt="geom_hierarchy_499x218" src="/assets/geom_hierarchy.jpg" width="499" height="218" /></a><br />
 <i>Figure 1: The OGC Simple Features Type Hierarchy</i></p>
 <p>First, we expose a subset of the type system and a subset of the operations. For details, see the sections below.</p>
@@ -105,7 +105,7 @@ author: OData.org Archive
 <pre><code>&lt;entity m:type="FoursquareUser"&gt;
     &lt;property name="username" m:type="Edm.String"&gt;Neco Fogworthy&lt;/property&gt;
     &lt;property name="LastKnownPosition" m:type="Edm.GeographyPoint"&gt;&lt;gml:Point
-      gml:srsName="http://www.opengis.net/def/crs/EPSG/0/4326"
+      gml:srsName="https://www.opengis.net/def/crs/EPSG/0/4326"
       xmlns:gml="http://www.opengis.net/gml"&gt;
         &lt;gml:pos&gt;45.12 -127.432 NaN 3.1415&lt;/gml:pos&gt;
       &lt;/gml:Point&gt;&lt;/property&gt;&lt;/entity&gt;</code></pre>

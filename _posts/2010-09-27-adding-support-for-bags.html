@@ -54,7 +54,7 @@ author: OData.org Archive
 <li><strong>Rules for Responses to Requests sent to a URI addressing Bag Properties</strong> (i.e. request URI == /Customer(1)/Addresses ):
 <ul>
 <li>Requests using any HTTP verb other than GET or PUT MUST result in a 405 (Method Not Allowed) response.</li>
-<li>All error responses MUST include a response body which conforms to the error response format as described here: <a href="http://msdn.microsoft.com/en-us/library/dd541497%28PROT.10%29.aspx" target="_blank">http://msdn.microsoft.com/en-us/library/dd541497(PROT.10).aspx</a></li>
+<li>All error responses MUST include a response body which conforms to the error response format as described here: <a href="https://msdn.microsoft.com/en-us/library/dd541497%28PROT.10%29.aspx" target="_blank">https://msdn.microsoft.com/en-us/library/dd541497(PROT.10).aspx</a></li>
 <li>If the Entry Type which defines the Bag Property defines a concurrency token, then a GET or PUT request to the bag MUST return an ETag header with the value of the concurrency token equal to that which would be used for the associated Entry Type instance (i.e. same as "regular" properties).</li>
 <li><strong>Responses from a GET request to a Bag Property</strong>:
 <ul>
