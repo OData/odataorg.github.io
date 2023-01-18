@@ -14,7 +14,7 @@ permalink: /documentation/odata-version-2-0/uri-conventions/
 <p>The terms used in this document are defined in the <a href="../terminology">[OData:Terms]</a> document.</p>
 <h2>1. URI Components</h2>
 <p>A URI used by an OData service has up to three significant parts: the <a href="../uri-conventions#ServiceRootUri"> service root URI</a>, <a href="../uri-conventions#ResourcePath">resource path</a> and <a href="../uri-conventions#QueryStringOptions"> query string options</a>. Additional URI constructs (such as a fragment) MAY be present in a URI used by an OData service; however, this specification applies no further meaning to such additional constructs.</p>
-<p><a href="/assets/ODataUri.png"><img src="/assets/ODataUri.png" alt="ODataUri" width="714" height="32" class="aligncenter size-full wp-image-1831" /></a></p>
+<p><a href="/assets/ODataUri.png"><img src="/assets/ODataUri.png" alt="Structure of an OData URI, which consists of a scheme, host, optional colon and port, service root, optional resource path, and optional question mark followed by query options." width="714" height="32" class="aligncenter size-full wp-image-1831" /></a></p>
 <p>The following are two example URIs broken down into their component parts:</p>
 <pre><code>https://services.odata.org/OData/OData.svc _______________________________________/
   | service root URI </code>
@@ -48,12 +48,12 @@ _______________________________________/ __________________/  _________________/
 <h3>3.1. Addressing Entries</h3>
 <hr />
 <p>The basic rules for addressing a Collection (of Entries), a single Entry within a Collection, as well as a property of an Entry are illustrated in the figure below.</p>
-<p><a href="/assets/ResourcePath.png" rel="attachment wp-att-9621"><img class="wp-image-9621" alt="ResourcePath" src="/assets/ResourcePath.png" width="1154" height="101" /></a></p>
+<p><a href="/assets/ResourcePath.png" rel="attachment wp-att-9621"><img class="wp-image-9621" alt="Structure of a resource path, showing multiple structure options as follows. To address an entry, one must first address a specific collection. A Collection may optionally be followed by a forward slash and $count. Alternatively, it may be followed by a KeyPredicate. After this KeyPredicate is one or more forward slash and navigation property, one or more forward slash and ComplexType, optional one or more forward slash and Property, and optional one or more forward slash and $value. The navigation property may be either a NavPropSingle or a NavPropCollection. If the collection is chosen, it is directly followed by either a KeyPredicate or an optional forward slash and $count. If the latter option is chosen, this must be the last navigation property in the sequence." src="/assets/ResourcePath.png" width="1154" height="101" /></a></p>
 <ul>
 <li><strong>Collection</strong>: The name of a Collection or Service Operation (which returns a Collection of Entries) exposed by the service.</li>
 <li><strong>KeyPredicate</strong>: A predicate that identifies the value(s) of the key Properties of an Entry. If the Entry has a single key Property the predicate may include only the value of the key Property. If the key is made up of two or more Properties, then its value must be stated using name/value pairs. More precisely, the syntax for a KeyPredicate is shown by the following figure.</li>
 </ul>
-<p><a href="/assets/keyPredicate.png"><img src="/assets/keyPredicate.png" alt="keyPredicate" width="356" height="83" class="aligncenter size-full wp-image-1821" /></a></p>
+<p><a href="/assets/keyPredicate.png"><img src="/assets/keyPredicate.png" alt="Structure of a KeyPredicate, which starts and ends with an opening and closing parenthesis, respectively. Between the parentheses may be either a single KeyValue or a three-piece portion containing a Property, equals sign, and KeyValue. There may be more than one three-piece portion if these portions are separated by commas." width="356" height="83" class="aligncenter size-full wp-image-1821" /></a></p>
 <ul>
 <li><strong>NavPropSingle</strong>: The name of a Navigation Property defined by the Entry associated with the prior path segment. The Navigation Property must identify a single entity (that is, have a "to 1" relationship).</li>
 <li><strong>NavPropCollection</strong>: Same as NavPropSingle except it must identify a Collection of Entries (that is, have a "to many" relationship).</li>
@@ -101,7 +101,7 @@ _______________________________________/ __________________/  _________________/
 <hr />
 <p>Much like the use of links on Web pages, the data model used by OData services supports relationships as a first class construct. For example, an OData service could expose a Collection of Products Entries each of which are related to a Category Entry.</p>
 <p>Associations between Entries are addressable in OData just like Entries themselves are (as described above). The basic rules for addressing relationships are shown in the following figure.</p>
-<p><a href="/assets/addressingRelationships.png" rel="attachment wp-att-10141"><img class="size-full wp-image-10141" alt="addressingRelationships" src="/assets/addressingRelationships.png" width="510" height="29" /></a></p>
+<p><a href="/assets/addressingRelationships.png" rel="attachment wp-att-10141"><img class="size-full wp-image-10141" alt="Structure of addressing relationships, which consists of a URI identifying a single entry, forward slash, $links, forward slash, and NavigationProperty." src="/assets/addressingRelationships.png" width="510" height="29" /></a></p>
 <ul>
 <li><strong>NavigationProperty</strong>: The name of a Navigation Property that is declared on the Entry associated with the path segment prior to the "$links" segment.</li>
 </ul>
@@ -120,7 +120,7 @@ _______________________________________/ __________________/  _________________/
 <h3> 3.3. Addressing Service Operations</h3>
 <hr />
 <p>OData services can expose Service Operations which, like Entries, are identified using a URI. Service Operations are simple functions exposed by an OData service whose semantics are defined by the author of the function. A Service Operation can accept primitive type input parameters and can be defined to return a single primitive, single complex type, collection of primitives, collection of complex types, a single Entry, a Collection of Entries, or void. The basic rules for constructing URIs to address Service Operations and to pass parameters to them are illustrated in the following figure.</p>
-<p><a href="/assets/addressingServiceOperations.png" rel="attachment wp-att-9871"><img class="wp-image-9871" alt="addressingServiceOperations" src="/assets/addressingServiceOperations.png" width="644" height="48" /></a></p>
+<p><a href="/assets/addressingServiceOperations.png" rel="attachment wp-att-9871"><img class="wp-image-9871" alt="Structure of a URI addressing a service operation, starting with a ServiceRootUri and ServiceOperation. These may optionally be followed by a question mark and one or more three-piece portion containing a ParamName, equals symbol, and ParamValue." src="/assets/addressingServiceOperations.png" width="644" height="48" /></a></p>
 <ul>
 <li><strong>ServiceRootUri</strong>: The <a href="../uri-conventions#ServiceRootUri">service root URI</a> identifies the root of the OData service.</li>
 <li><strong>ServiceOperation</strong>: The name of a Service Operation exposed by an OData service.</li>
