@@ -41,6 +41,9 @@
 .st-default-search-input{
 	color: #000000 !important; 
 }
+.st-default-search-input:focus {
+  border-color: #3a98e3 !important;
+}
 @media screen and (-ms-high-contrast: black-on-white) {
   .brand
   {
