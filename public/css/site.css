@@ -389,3 +389,7 @@ figure img {
 p a {
    word-wrap: break-word;
 }
+
+td {
+    word-wrap: break-word;
+}
