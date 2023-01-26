@@ -392,3 +392,27 @@ strong {
 .alert.alert-success {
     background-color: #FFF1DA;
 }
+
+figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+p a {
+   word-wrap: break-word;
+}
+
+td {
+    word-wrap: break-word;
+}
+
+.visually-hidden {
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%); /* browsers in the future */
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}

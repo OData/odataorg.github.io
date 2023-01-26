@@ -4,12 +4,12 @@ title: OData Version 3.0 Core Protocol
 date: 2014-02-20 07:50:09.000000000 +08:00
 permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 ---
-<h5 class="alert alert-success">
+<p class="alert alert-success">
     OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0.
     <br><br>
     <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a>
-</h5>
-<h1 id="overview">1. Overview</h1>
+</p>
+<h2 id="overview">1. Overview</h2>
 <p>The OData Protocol is an application-level protocol for interacting with data via RESTful web services. The protocol supports the description of data models and the editing and querying of data according to those models. It provides facilities for:</p>
 <ul>
     <li>Metadata: a machine-readable description of the data model exposed by a particular data provider.</li>
@@ -28,7 +28,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     <li>OData should degrade gracefully. It should be easy to build a very basic but compliant OData service, with additional work necessary only to support additional capabilities.</li>
     <li>Keep it simple. Address the common cases and provide extensibility where necessary.</li>
 </ul>
-<h1 id="datamodel">2. Data Model</h1>
+<h2 id="datamodel">2. Data Model</h2>
 <p>This section provides a high-level description of the <em>Entity Data Model (EDM)</em>: the abstract data model that MUST be used to describe the data exposed by an OData service. An <a href="#metadatadocumentrequest">OData Metadata Document</a> is a representation of a service’s data model exposed for client consumption.</p>
 <p>The central concepts in the EDM are <em>entities</em>, <em>entity sets</em>, and <em>relationships</em>.</p>
 <p><em>Entities</em> are instances of entity types (e.g. <code>Customer</code>, <code>Employee</code>, etc.). <em>Entity types</em> are nominal structured types with a key. Entities consist of named properties and MAY include relationships with other entities. Entity types support single inheritance from other entity types. Entities are the core identity types in a data model.</p>
@@ -43,13 +43,13 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p><em>Structural elements</em> are composed of other model elements. Entity types, complex types, association types, and row types are all structural elements. <em>Row types</em> are unnamed structural elements.</p>
 <p>An OData <em>resource</em> is anything in the model that can be addressed (an entity set, entity, property, or operation).</p>
 <p>Refer to <a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> for more information on the OData entity data model.</p>
-<h2 id="annotations">2.1 Annotations</h2>
+<h3 id="annotations">2.1 Annotations</h3>
 <p>Model and instance elements may be annotated with type annotations or value annotations.</p>
 <p><em>Type Annotations</em> are defined in metadata as entity types or complex types, and are generally used to define a common concept, such as a person or a movie.</p>
 <p><em>Value Annotations</em> are defined in metadata as individual value terms with a name and a type. Value annotations are typically used to specify an individual fact about an element, such as whether it is read-only.</p>
 <p>A set of related type annotation terms or value annotation terms in a common namespace comprises a <em>Vocabulary</em>.</p>
 <p>Applied <em>annotations</em> have a <em>term</em> (the namespace-qualified name of the annotation being applied), a <em>target</em> (the model or instance element to which the term is applied), and a <em>value</em>. The value may be a static value, or an expression which may contain a path to one or more properties of an annotated entity.</p>
-<h1 id="servicemodel">3. Service Model</h1>
+<h2 id="servicemodel">3. Service Model</h2>
 <p>OData allows generic clients to discover the capabilities of services. This is possible because the service is defined in a uniform way, using a comon <a href="#datamodel">data model</a>. The service advertises its concrete data model in a machine-readable form.</p>
 <p>An OData service consists of two well-defined, static resources and a set of dynamic resources. The two static resources allow machines to ask a service about its data model. The dynamic resources provide ways to manipulate that model.</p>
 <p>The <a href="#metadatadocumentrequest"><em>metadata document</em></a> is a static resource that describes the data model and type system understood by that particular OData service.</p>
@@ -68,9 +68,9 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>In this way, the service always remains in control. It defines what is allowed at any moment and how that will be requested.</p>
 <p>However, the service can describe those operations in terms of composable chunks. This allows the client wide flexibility in how it composes resources to achieve its intent.</p>
 <p>See <a href="#requestingdata">Requesting Data</a> and <a href="#datamodification">Data Modification</a> for details.</p>
-<h1 id="notationalconventions">4. Notational Conventions</h1>
+<h2 id="notationalconventions">4. Notational Conventions</h2>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC2119</a>, “Key words for use in RFCs to Indicate Requirement Levels”)].</p>
-<h2 id="normativereferences">4.1. Normative References</h2>
+<h3 id="normativereferences">4.1. Normative References</h3>
 <p>This document references the following related documents:</p>
 <ul>
     <li><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>. Detailed description of the OData Entity Data Model.</li>
@@ -84,11 +84,11 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     <li><a href="http://tools.ietf.org/html/rfc2119">RFC2119</a> Keywords for use in RFCs to Indicate Requirement Levels</li>
     <li><a href="http://tools.ietf.org/html/rfc5789">RFC5789</a> Patch Method for HTTP</li>
 </ul>
-<h2 id="examplepayloads">4.2. Example Payloads</h2>
+<h3 id="examplepayloads">4.2. Example Payloads</h3>
 <p>Some sections of this specification are illustrated with non-normative example OData request and response payloads. However, the text of this specification provides the definition of conformance.</p>
-<h2 id="interpretingexamples">4.3. Interpreting Examples</h2>
+<h3 id="interpretingexamples">4.3. Interpreting Examples</h3>
 <p>All code examples in this document are non-normative.</p>
-<h1 id="versioning">5. Versioning</h1>
+<h2 id="versioning">5. Versioning</h2>
 <p>This document defines version 3.0 of the OData Specification.</p>
 <p>The OData protocol supports a versioning scheme for enabling services to expose new features and format versions without breaking compatibility with older clients.</p>
 <p>OData requests and responses MAY be versioned according to <a href="#thedataserviceversionheader">The <code>DataServiceVersion</code> Header</a>.</p>
@@ -98,16 +98,16 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <pre><code>majorversionnumber + "." + minorversionnumber 
 </code></pre>
 <p>This version of the specification defines the following valid data service version values: “1.0”, “2.0”, and “3.0”, corresponding to OData versions 1.0, 2.0, and 3.0, respectively.</p>
-<h1 id="extensibility">6. Extensibility</h1>
+<h2 id="extensibility">6. Extensibility</h2>
 <p>The OData protocol supports both user- and version-driven extensibility through a combination of versioning, convention, and explicit extension points.</p>
-<h2 id="queryoptionextensibility">6.1. Query Option Extensibility</h2>
+<h3 id="queryoptionextensibility">6.1. Query Option Extensibility</h3>
 <p>Query options within the request URL can control how a particular request is processed by the service.</p>
 <p>OData-defined system query options are prefixed with “$”. Services MAY support additional query options not defined in the OData specification, but they MUST NOT begin with the “$” character.</p>
 <p>OData services SHOULD NOT require any query options to be specified in a request, and SHOULD fail any request that contains query options that it does not understand.</p>
-<h2 id="payloadextensibility">6.2. Payload Extensibility</h2>
+<h3 id="payloadextensibility">6.2. Payload Extensibility</h3>
 <p>OData supports extensibility in the payload, according to the specific format.</p>
 <p>Regardless of the format, additional content MUST NOT be present if it needs to be understood by the receiver in order to correctly interpret the payload. Thus, clients and services MAY safely ignore any content not specifically defined in the version of the payload specified by the [<code>DataServiceVersion</code>(#thedataserviceversionheader) header.</p>
-<h2 id="actionfunctionextensibility">6.3. Action/Function Extensibility</h2>
+<h3 id="actionfunctionextensibility">6.3. Action/Function Extensibility</h3>
 <p>Actions and functions extend the set of operations that can be performed on or with a service or resource. Actions MAY have side-effects. For example actions may be used to extend CUD operations or to invoke custom operations. Functions MUST NOT have side-effects. Functions can be invoked:</p>
 <ul>
     <li>directly from the service root</li>
@@ -116,128 +116,128 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </ul>
 <p>Fully qualified action and function names include a namespace prefix. The <code>odata</code> and <code>geo</code> namespaces are reserved for the use of this specification.</p>
 <p>An OData service MUST fail any request that contains actions or functions that it does not understand.</p>
-<h2 id="vocabularyextensibility">6.4. Vocabulary Extensibility</h2>
+<h3 id="vocabularyextensibility">6.4. Vocabulary Extensibility</h3>
 <p>Vocabularies provide the ability to annotate metadata as well as instance data, and define a powerful extensibility point for OData.</p>
 <p>Metadata annotations can be used to define additional characteristics or capabilities of a metadata element, such as a service, entity type, property, function, action or parameter. For example, a metadata annotation may define ranges of valid values for a particular property.</p>
 <p>Instance annotations can be used to define additional information associated with a particular result, entity, property, or error; for example whether a property is read-only for a particular instance.</p>
 <p>Annotations that apply across instances SHOULD be specified within the metadata. Where the same annotation is defined at both the metadata and instance level, the instance-level annotation SHOULD override the annotation specified at the metadata level.</p>
 <p>A service SHOULD NOT require a client to interpret annotations it uses.</p>
-<h2 id="headerfieldextensibility">6.5. Header Field Extensibility</h2>
+<h3 id="headerfieldextensibility">6.5. Header Field Extensibility</h3>
 <p>OData defines semantics around certain HTTP request and response headers. Services that support a version of OData MUST understand and comply with the headers defined by that version. Compliance means either honoring the semantics of the header field or failing the request.</p>
 <p>Individual services MAY define custom headers. These headers MUST NOT begin with <code>OData-</code>. Custom headers SHOULD be optional when making requests to the service. A service MUST NOT require a client to understand custom headers to accurately interpret the response.</p>
-<h2 id="formatextensibility">6.6. Format Extensibility</h2>
+<h3 id="formatextensibility">6.6. Format Extensibility</h3>
 <p>An OData Service MUST support at least the <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a> format, and MAY support additional formats for both request and response bodies.</p>
-<h1 id="formats">7. Formats</h1>
+<h2 id="formats">7. Formats</h2>
 <p>The client may request a particular response format through the <code>Accept</code> header, as specified in <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, or through the <a href="#theformatsystemqueryoption"><code>$format</code> System Query Option</a>.</p>
 <p>In the case that both the <code>Accept</code> header and the <code>$format</code> query option are specified on a request, the value specified in the <code>$format</code> query option SHOULD be used.</p>
 <p>If the service does not support the requested format, it SHOULD reply with a <code>406 Not Acceptable</code> error response.</p>
 <p>See the format-specific specifications (<a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a>, <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a>) for details.</p>
-<h1 id="headerfields">8. Header Fields</h1>
+<h2 id="headerfields">8. Header Fields</h2>
 <p>OData defines semantics around the following request and response headers. Additional headers MAY be specified, but have no unique semantics defined in OData.</p>
-<h2 id="commonheaders">8.1. Common Headers</h2>
+<h3 id="commonheaders">8.1. Common Headers</h3>
 <p>The <a href="#thedataserviceversionheader"><code>DataServiceVersion</code></a> and <a href="#thecontent-typeheader"><code>Content-Type</code></a> headers may be used on any OData request or response.</p>
-<h3 id="thedataserviceversionheader">8.1.1. The <code>DataServiceVersion</code> Header</h3>
+<h4 id="thedataserviceversionheader">8.1.1. The <code>DataServiceVersion</code> Header</h4>
 <p>OData clients MAY use the <code>DataServiceVersion</code> header on a request to specify the version of the protocol used to generate the request.</p>
 <p>If present on a request, the service MUST interpret the request according to the rules defined in the specified version of the protocol, or fail the request with a 4xx response code.</p>
 <p>If not specified, the service MUST assume the request is generated using the maximum version of the protocol that the service understands.</p>
 <p>OData services SHOULD specify the <code>DataServiceVersion</code> header on a response to specify the version of the protocol used to generate the response. If present on a response, the client MUST interpret the response according to the rules defined in the specified version of the protocol. If not specified, the client MUST assume the request is generated using version 1.0 of the OData Protocol.</p>
 <p>For more details see <a href="#versioning">Versioning</a>.</p>
-<h3 id="thecontent-typeheader">8.1.2. The <code>Content-Type</code> Header</h3>
+<h4 id="thecontent-typeheader">8.1.2. The <code>Content-Type</code> Header</h4>
 <p>The format of an individual request or response body MUST be specified in the <code>Content-Type</code> header of the request or response.</p>
 <p>See the format-specific specifications (<a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a>, <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a>) for details.</p>
-<h2 id="commonrequestheaders">8.2. Common Request Headers</h2>
+<h3 id="commonrequestheaders">8.2. Common Request Headers</h3>
 <p>In addition to the <a href="#commonheaders">Common Headers</a>, a client MAY specify any combination of the following request headers.</p>
-<h3 id="themaxdataserviceversionrequestheader">8.2.1. The <code>MaxDataServiceVersion</code> Request Header</h3>
+<h4 id="themaxdataserviceversionrequestheader">8.2.1. The <code>MaxDataServiceVersion</code> Request Header</h4>
 <p>Clients SHOULD specify a <code>MaxDataServiceVersion</code> request header.</p>
 <p>If specified, the service MUST generate a response with a <a href="#thedataserviceversionheader"><code>DataServiceVersion</code></a> less than or equal to the specified <code>MaxDataServiceVersion</code>.</p>
 <p>If <code>MaxDataServiceVersion</code> is not specified, then the service SHOULD interpret the request as having a <code>MaxDataServiceVersion</code> equal to the maximum version supported by the service.</p>
 <p>For more details see <a href="#versioning">Versioning</a>.</p>
-<h3 id="themindataserviceversionrequestheader">8.2.2. The <code>MinDataServiceVersion</code> Request Header</h3>
+<h4 id="themindataserviceversionrequestheader">8.2.2. The <code>MinDataServiceVersion</code> Request Header</h4>
 <p>Clients SHOULD specify a <code>MinDataServiceVersion</code> request header.</p>
 <p>If specified, the service MUST generate a response with a <a href="#thedataserviceversionheader">DataServiceVersion</a> greater than or equal to the specified <code>MinDataServiceVersion</code>.</p>
 <p>The service SHOULD respond with the maximum version supported by the service that is less than or equal to the specified <code>MaxDataServiceVersion</code>.</p>
 <p>For more details see <a href="#versioning">Versioning</a>.</p>
-<h3 id="theacceptrequestheader">8.2.3. The <code>Accept</code> Request Header</h3>
+<h4 id="theacceptrequestheader">8.2.3. The <code>Accept</code> Request Header</h4>
 <p>As specified in <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, the client MAY specify the set of accepted <a href="#formats">formats</a> through the use of the <code>Accept</code> Header.</p>
-<h3 id="theif-matchrequestheader">8.2.4. The <code>If-Match</code> Request Header</h3>
+<h4 id="theif-matchrequestheader">8.2.4. The <code>If-Match</code> Request Header</h4>
 <p>A client MAY include an <code>If-Match</code> header in a request to GET, PUT, MERGE, PATCH or DELETE an entity or entity property, or to invoke an action bound to an entity. The value of the <code>If-Match</code> request header MUST be an ETag value previously retrieved for the entity.</p>
 <p>If specified, the request MUST only be invoked if the specified value matches the current ETag value of the entity. If the value does not match the current ETag value of the entity for a <a href="#datamodification">Data Modification</a> or <a href="#actions">Action</a> request, the service MUST respond with ‘412 Precondition Failed’ and MUST ensure that no data is modified as a result of the request.</p>
-<h3 id="theif-none-matchrequestheader">8.2.5. The <code>If-None-Match</code> Request Header</h3>
+<h4 id="theif-none-matchrequestheader">8.2.5. The <code>If-None-Match</code> Request Header</h4>
 <p>A client MAY include an <code>If-None-Match</code> header in a request to GET, PUT, MERGE, PATCH or DELETE an entity or entity property, or to invoke an action bound to an entity. The value of the <code>If-None-Match</code> request header MUST be an ETag value previously retrieved for the entity.</p>
 <p>If specified, the request MUST only be invoked if the specified value does not match the current ETag value of the entity. If the value does match the current ETag value of the entity for a <a href="#datamodification">Data Modification</a> or <a href="#actions">Action</a> request, the service MUST respond with ‘412 Precondition Failed’ and MUST ensure that no data is modified as a result of the request.</p>
-<h2 id="commonresponseheaders">8.3. Common Response Headers</h2>
+<h3 id="commonresponseheaders">8.3. Common Response Headers</h3>
 <p>In addition to the <a href="#commonheaders">Common Headers</a>, a service MAY specify the following response headers.</p>
-<h3 id="theetagheader">8.3.1. The <code>ETag</code> Header</h3>
+<h4 id="theetagheader">8.3.1. The <code>ETag</code> Header</h4>
 <p>A request that returns an individual entity MAY include an <code>ETag</code> header.</p>
 <p>The value specified in the <code>ETag</code> header may be specified in the <a href="#theif-matchrequestheader"><code>If-Match</code></a> or <a href="#theif-none-matchrequestheader"><code>If-None-Match</code></a> header of a subsequent <a href="#datamodification">Data Modification</a> or <a href="#actions">Action</a> request in order to apply optimistic concurrency in updating, deleting, or invoking the action bound to, the entity.</p>
-<h3 id="thelocationheader">8.3.2. The <code>Location</code> Header</h3>
+<h4 id="thelocationheader">8.3.2. The <code>Location</code> Header</h4>
 <p>The Location header is used to specify the URL of an entity modified through a <a href="#datamodification">Data Modification</a> request, or the request URL to check on the status of an asynchronous operation as described in <a href="#acceptedresponsecode"><code>202 Accepted</code></a>.</p>
-<h2 id="datamodificationrequestheaders">8.4. Data Modification Request Headers</h2>
+<h3 id="datamodificationrequestheaders">8.4. Data Modification Request Headers</h3>
 <p>In addition to the <a href="#commonheaders">Common Headers</a>, a client MAY specify the following headers on a <a href="#datamodification">Data Modification</a> request.</p>
-<h3 id="thepreferheader">8.4.1. The <code>Prefer</code> Header</h3>
+<h4 id="thepreferheader">8.4.1. The <code>Prefer</code> Header</h4>
 <p>The client MAY specify a <code>Prefer</code> header on <a href="#datamodification">Data Modification</a> or <a href="#actions">Action</a> request.</p>
 <p>A Prefer header with a value of <code>return-no-content</code> requests that the service invoke the request but not return content in the response. The service MAY honor this request by returning <a href="#nocontentresponsecode"><code>204 No Content</code></a>.</p>
 <p>A Prefer header with a value of <code>return-content</code> requests that the service invoke the request and return the modified entity. The service MAY honor this request by returning the successfully modified entity in the body of the response, formatted according to the rules specified for the requested <a href="#formats">format</a>.</p>
 <p>In response to a request containing a <code>Prefer</code> header, the service MAY return the <a href="#thepreference-appliedheader"><code>Preference-Applied</code></a> Header.</p>
-<h2 id="datamodificationresponseheaders">8.5. Data Modification Response Headers</h2>
+<h3 id="datamodificationresponseheaders">8.5. Data Modification Response Headers</h3>
 <p>In addition to the <a href="#commonheaders">Common Headers</a>, a service MAY specify the following headers on a <a href="#datamodification">Data Modification</a> response.</p>
-<h3 id="thedataserviceidheader">8.5.1. The <code>DataServiceId</code> Header</h3>
+<h4 id="thedataserviceidheader">8.5.1. The <code>DataServiceId</code> Header</h4>
 <p>A response to a PUT, POST, MERGE, or PATCH request that returns <code>404 No Content</code> MUST include a DataServiceId response header. The value of the header is the URI identifier of the entity that was acted on by the request.</p>
-<h3 id="thepreference-appliedheader">8.5.2. The <code>Preference-Applied</code> Header</h3>
+<h4 id="thepreference-appliedheader">8.5.2. The <code>Preference-Applied</code> Header</h4>
 <p>In response to a <a href="#datamodification">Data Modification</a> or <a href="#actions">Action</a> request containing a <a href="#thepreferheader"><code>Prefer header</code></a>, the service may include a <code>Preference-Applied</code> response header to specify the <code>prefer</code> header value that was honored.</p>
 <p>If the service has returned content in response to a request including a <code>Prefer</code> header with a value of <code>return-content</code>, it MAY include a <code>Preference-Applied</code> response header with a value of <code>return-content</code>.</p>
 <p>If the service has returned content in response to a request including a <code>Prefer</code> header with a value of <code>return-content</code>, it MAY include a <code>Preference-Applied</code> response header with a value of <code>return-no-content</code>.</p>
-<h3 id="theretry-afterheader">8.5.3. The <code>Retry-After</code> Header</h3>
+<h4 id="theretry-afterheader">8.5.3. The <code>Retry-After</code> Header</h4>
 <p>A service MUST include a <code>Retry-After</code> header in a <a href="#acceptedresponsecode"><code>202 Accepted</code></a> response.</p>
 <p>The Retry-After header specifies the suggested length of time, in seconds, after which the client SHOULD use the URL returned in the <a href="#thelocationheader"><code>Location Header</code></a> to check on the status of the operation.</p>
-<h1 id="commonresponsesemantics">9. Common Response Semantics</h1>
+<h2 id="commonresponsesemantics">9. Common Response Semantics</h2>
 <p>An OData service MAY respond to any request using any valid HTTP status code appropriate for the request. A service SHOULD be as specific as possible in its choice of HTTP status codes.</p>
 <p>The following represent the most common success response codes. In some cases, a service MAY respond with a more specific success code.</p>
-<h2 id="successresponsecodes">9.1. Success Response Codes</h2>
+<h3 id="successresponsecodes">9.1. Success Response Codes</h3>
 <p>The following response codes represent successful requests.</p>
-<h3 id="okresponsecode">9.1.1. <code>200 OK</code> Response Code</h3>
+<h4 id="okresponsecode">9.1.1. <code>200 OK</code> Response Code</h4>
 <p>A GET, PUT, MERGE, or PATCH request MAY return <code>200 OK</code> if the operation is completed successfully. In this case, the response body MUST contain the value of the entity or property specified in the request URL.</p>
-<h3 id="createdresponsecode">9.1.2. <code>201 Created</code> Response Code</h3>
+<h4 id="createdresponsecode">9.1.2. <code>201 Created</code> Response Code</h4>
 <p>A POST request MAY return <code>201 Created</code> if the entity or link was successfully created. In this case, the response body MUST contain the updated entity.</p>
-<h3 id="acceptedresponsecode">9.1.3. <code>202 Accepted</code> Response Code</h3>
+<h4 id="acceptedresponsecode">9.1.3. <code>202 Accepted</code> Response Code</h4>
 <p>A service MAY reply to a Data Modification Request with <code>202 Accepted</code>, indicating that the request has been accepted but has not yet completed. In this case, the response body MUST contain a <a href="#thelocationheader"><code>Location</code> header</a> in addition to a <a href="#theretry-afterheader"><code>Retry-After</code> header</a>, and the response body MUST be empty.</p>
 <p>Once the request has successfully completed, the service MUST return <code>303 See Other</code> with a <a href="#thelocationheader"><code>Location</code> header</a> specifying the final URL to retrieve the outcome of the operation. The response body and headers from this final URL MUST be formatted as would the completion of the initial Data Modification Request.</p>
-<h3 id="nocontentresponsecode">9.1.4. <code>204 No Content</code> Response Code</h3>
+<h4 id="nocontentresponsecode">9.1.4. <code>204 No Content</code> Response Code</h4>
 <p>A service may reply to a Data Modification Request with <code>204 No Content</code>. In this case, the response body MUST be empty.</p>
-<h3 id="xxredirectresponsecode">9.1.5. <code>3xx Redirect</code> Response Code</h3>
+<h4 id="xxredirectresponsecode">9.1.5. <code>3xx Redirect</code> Response Code</h4>
 <p>As per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, an OData service MAY respond to any Data Modification request with a response code of <code>3xx Redirection</code>. In this case, the response SHOULD include a <a href="#thelocationheader"><code>Location</code> header</a> with the URL from which the result can be obtained.</p>
 <p>The service MUST ensure that no observable change has occurred to the state of the service as a result of any request that returns a <code>3xx</code>.</p>
-<h2 id="xxclienterrorresponses">9.2. <code>4xx Client Error</code> Responses</h2>
+<h3 id="xxclienterrorresponses">9.2. <code>4xx Client Error</code> Responses</h3>
 <p>Services SHOULD return <code>4xx Client Error</code> in response to client errors such as malformed requests, in addition to requests for non-existent resources such as entity collections, entities, or properties.</p>
 <p>The service MUST ensure that no observable change has occurred to the state of the service as a result of any request that returns an error status code.</p>
 <p>In the case that a response body is defined for the error code, the body of the error is as defined for the appropriate <a href="#formats">format</a>.</p>
-<h3 id="notfoundresponsecode">9.2.1. <code>404 Not Found</code> Response Code</h3>
+<h4 id="notfoundresponsecode">9.2.1. <code>404 Not Found</code> Response Code</h4>
 <p>If the entity or collection specified by the request URL does not exist, the service SHOULD respond with <code>404 Not Found</code> and an empty response body.</p>
-<h3 id="instreamerrors">9.3 InStream Errors</h3>
+<h4 id="instreamerrors">9.3 InStream Errors</h4>
 <p>In the case that the service encounters an error after sending a success status to the client, the service MUST generate an in-stream error which SHOULD leave the response malformed. Clients MUST assume that any malformed responses are invalid and results SHOULD be discarded.</p>
 <p>This specification does not prescribe a particular format for such instream errors.</p>
-<h1 id="odataservicerequests">10. OData Service Requests</h1>
+<h2 id="odataservicerequests">10. OData Service Requests</h2>
 <p>An OData Service MAY support the following types of requests.</p>
-<h2 id="metadatarequests">10.1. Metadata Requests</h2>
+<h3 id="metadatarequests">10.1. Metadata Requests</h3>
 <p>An OData service is a self-describing service that exposes metadata defining the entity sets, relationships, entity types, and operations.</p>
-<h3 id="servicedocumentrequest">10.1.1. Service Document Request</h3>
+<h4 id="servicedocumentrequest">10.1.1. Service Document Request</h4>
 <p>To request a <code>Service Document</code> describing the set of entity collections (i.e., entity sets) that can be queried from a service, the client issues a GET request to the root URL of the service (the <em>Service Root</em>).</p>
 <p>The format of the Service Document is dependent upon the format selected. For example, in Atom the Service Document is an AtomPub Service Document (as specified in <a href="http://tools.ietf.org/html/rfc5023">RFC5023</a>).</p>
-<h3 id="metadatadocumentrequest">10.1.2. Metadata Document Request</h3>
+<h4 id="metadatadocumentrequest">10.1.2. Metadata Document Request</h4>
 <p>An OData <em>Metadata Document</em> is a representation of the <a href="#DataModel">data model</a> that describes the data and operations exposed by an OData service.</p>
 <p><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> describes an XML representation for OData Metadata Documents and provides an XSD to validate their contents. The media type of the XML representation of an OData Metadata Document is ‘application/xml’.</p>
 <p>OData services MUST expose a Metadata Document which defines all data exposed by the service. The <em>Metadata Document URL</em> SHOULD be the root URL of the service with “/$metadata” appended. To retrieve this document a client issues a GET request to the Metadata Document URL.</p>
 <p>If a request for metadata does not specify a format preference (via <a href="#theacceptrequestheader"><code>Accept</code></a> header or <a href="#theformatsystemqueryoption">$format</a>) then the XML representation MUST be returned.</p>
-<h2 id="requestingdata">10.2. Requesting Data</h2>
+<h3 id="requestingdata">10.2. Requesting Data</h3>
 <p>OData services support requesting data through the use of HTTP GET requests.</p>
 <p>The path of the URL specifies the target of the request (for example; the collection of entities, entity, navigation property, scalar property, or operation). Additional query operators, such as filter, sort, page, and projection operations are specified through query options.</p>
 <p>The format of the returned data is dependent upon the request and the format specified by the client, either in the <a href="#theacceptrequestheader"><code>Accept</code></a> header or using the <a href="#theformatsystemqueryoption">$format</a> query option.</p>
 <p>This section describes the types of data requests defined by OData. For complete details on the syntax for building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
-<h3 id="requestingindividualentities">10.2.1. Requesting Individual Entities</h3>
+<h4 id="requestingindividualentities">10.2.1. Requesting Individual Entities</h4>
 <p>To retrieve an individual entity, a client makes a GET request to an <em>entity request URL</em>.</p>
 <p>The entity request URL MAY be returned in a response payload containing that instance (for example, as a self-link in an <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">Atom Payload</a>).</p>
 <p>Services MAY support conventions for constructing an entity request URL using the entity’s Key Value(s), as described in <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
-<h3 id="requestingindividualproperties">10.2.2. Requesting Individual Properties</h3>
+<h4 id="requestingindividualproperties">10.2.2. Requesting Individual Properties</h4>
 <p>A service SHOULD support retrieving an individual property value.</p>
 <p>To retrieve an individual property, a client issues a GET request to the property URL. The property URL is the entity request URL with “<code>/</code>” and the property name appended.</p>
 <p>For complex typed properties, the path MAY be further extended with the name of the individual property of the complex type.</p>
@@ -245,7 +245,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products(1)/Name
 </code></pre>
-<h4 id="requestingapropertysrawvalueusingvalue">10.2.2.1. Requesting a Property’s Raw Value using <code>$value</code></h4>
+<h5 id="requestingapropertysrawvalueusingvalue">10.2.2.1. Requesting a Property’s Raw Value using <code>$value</code></h5>
 <p>A service SHOULD support retrieving the raw value of a primitive type property. To retrieve this value, a client sends a GET request to the property value URL. See the <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> document for details.</p>
 <p>For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products(1)/Name/$value
@@ -253,18 +253,18 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The raw value of an Edm.Binary property MUST be serialized as an unencoded byte stream.</p>
 <p>The raw value of other properties SHOULD be represented using the <code>text/plain</code> media type. See <a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a> for details.</p>
 <p>A <code>$value</code> request for a property that is <code>NULL</code> SHOULD result in a <code>404 Not Found</code>. response.</p>
-<h3 id="queryingcollections">10.2.3. Querying Collections</h3>
+<h4 id="queryingcollections">10.2.3. Querying Collections</h4>
 <p>OData services support querying collections of entities.</p>
 <p>The target collection is specified through a URL, and query operations such as filter, sort, paging, and projection are specified as <em>System Query Options</em> provided as query options. The names of all System Query Options are prefixed with a “$” character.</p>
 <p>An OData service MAY support some or all of the System Query Options defined. If a data service does not support a System Query Option, it MUST fail any request that contains the unsupported option.</p>
-<h4 id="thefiltersystemqueryoption">10.2.3.1. The <code>$filter</code> System Query Option</h4>
+<h5 id="thefiltersystemqueryoption">10.2.3.1. The <code>$filter</code> System Query Option</h5>
 <p>The set of entities returned MAY be restricted through the use of the <code>$filter</code> System Query Option.</p>
 <p>For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=Price lt 10.00
 </code></pre>
 <p>Returns all Products whose Price is less than $10.00.</p>
 <p>The value of the <code>$filter</code> option is a boolean expression as defined in <a href="https://www.odata.org/documentation/odata-version-3-0/abnf">OData:ABNF</a>.</p>
-<h5 id="built-infilteroperations">10.2.3.1.1. Built-in Filter Operations</h5>
+<h6 id="built-infilteroperations">10.2.3.1.1. Built-in Filter Operations</h6>
 <p>OData supports a set of built-in filter operations, as described in this section. For a full description of the syntax used when building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 
 <div aria-label="Filter Query Option Operators">
@@ -384,7 +384,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 
 </div>
 
-<h5 id="built-inqueryfunctions">10.2.3.1.2. Built-in Query Functions</h5>
+<h6 id="built-inqueryfunctions">10.2.3.1.2. Built-in Query Functions</h6>
 <p>OData supports a set of built-in functions that can be used within <code>$filter</code> operations. The following table lists the available functions. For a full description of the syntax used when building requests, see <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
 <p>OData does note define an ISNULL or COALESCE operator. Instead, there is a <code>null</code> literal which can be used in comparisons.</p>
 
@@ -542,7 +542,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     </table>
 </div>
 
-<h5 id="theexpandsystemqueryoption">10.2.3.1.3 The <code>$expand</code> System Query Option</h5>
+<h6 id="theexpandsystemqueryoption">10.2.3.1.3 The <code>$expand</code> System Query Option</h6>
 <p>The presence of the <code>$expand</code> system query option indicates that entities related to the entity, or collection of entities, identified by the resource path section of the URL MUST be represented inline.</p>
 <p>The value of the <code>$expand</code> query option MUST be a comma separated list of navigation property paths.</p>
 <p>The service MUST include any actions or functions that are bound to the associated entities that are introduced via <code>$expand</code>, unless a <code>$select</code> System Query Option is also included in the request and that <code>$select</code> requests that the actions/functions be omitted.</p>
@@ -559,7 +559,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     <li>The customer associated with each Order returned.http://host/service.svc/Customers?$expand=SampleModel.VipCustomer/InHouseStaff</li>
 </ul>
 <p>For each Customer entity in the Customers entity set, the value of all associated InHouseStaff MUST be represented inline if the entity is of type VipCustomer or a subtype of that. For entities that are not of type VipCustomer, or any of its subtypes, that entity SHOULD be returned with no inline representation for the expanded navigation property.</p>
-<h4 id="theselectsystemqueryoption">10.2.3.2 The <code>$select</code> System Query Option</h4>
+<h5 id="theselectsystemqueryoption">10.2.3.2 The <code>$select</code> System Query Option</h5>
 <p>The <code>$select</code> system query option requests that the service return only the properties, open properties, related properties, actions and functions explicitly requested by the client. The service MUST return the specified content, and MAY choose to return additional information.</p>
 <p>The value of the $select query option is a comma separated list of property paths, qualified action names, qualified function names, or the star operator (*), or the star operator prefixed with the name of the entity container in order to specify all operations within the container.</p>
 <p>For example, the following request returns just the Rating and ReleaseDate for the matching Products:</p>
@@ -576,7 +576,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$select=DemoService.*
 </code></pre>
 <p>For AtomPub formatted responses, the value of a <code>$select</code> clause applies only to the properties returned within the <code>m:properties</code> element. For example, if a property of an entity type is mapped to an Atom element, then that property MUST always be included in the response according to its customizable feed mapping.</p>
-<h4 id="theorderbysystemqueryoption">10.2.3.3 The <code>$orderby</code> System Query Option</h4>
+<h5 id="theorderbysystemqueryoption">10.2.3.3 The <code>$orderby</code> System Query Option</h5>
 <p>The <code>$orderby</code> System Query option specifies the order in which entities are returned from the service.</p>
 <p>The value of the <code>$orderby</code> System Query option contains a comma separated list of property navigation paths to sort by, where each property navigation path terminates on a primitive property.</p>
 <p>A type cast using the qualified entity type name is required to order by a property defined on a derived type.</p>
@@ -584,14 +584,14 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$orderby=ReleaseDate asc, Rating desc
 </code></pre>
-<h4 id="thetopsystemqueryoption">10.2.3.4. The <code>$top</code> System Query Option</h4>
+<h5 id="thetopsystemqueryoption">10.2.3.4. The <code>$top</code> System Query Option</h5>
 <p>The <code>$top</code> System Query Option specifies that only the first n records SHOULD be returned, where n is a non-negative integer value specified by the <code>$top</code> query option.</p>
 <p>For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$top=5
 </code></pre>
 <p>Would return only the first five Products in the Products entity set.</p>
 <p>If no unique ordering is imposed through an <a href="#theorderbysystemqueryoption"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$top</code>.</p>
-<h4 id="theskipsystemqueryoption">10.2.3.5. The <code>$skip</code> System Query Option</h4>
+<h5 id="theskipsystemqueryoption">10.2.3.5. The <code>$skip</code> System Query Option</h5>
 <p>The <code>$skip</code> System Query Option specifies that the result MUST NOT include the first n entities, where n is a non-negative integer value specified by the <code>$skip</code> query option.</p>
 <p>For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$skip=5
@@ -603,7 +603,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </code></pre>
 <p>Would return the third through seventh Products in the Products entity set.</p>
 <p>If no unique ordering is imposed through an <a href="#theorderbysystemqueryoption"><code>$orderby</code></a> query option, the service MUST impose a stable ordering across requests that include <code>$skip</code>.</p>
-<h4 id="theinlinecountsystemqueryoption">10.2.3.6. The <code>$inlinecount</code> System Query Option</h4>
+<h5 id="theinlinecountsystemqueryoption">10.2.3.6. The <code>$inlinecount</code> System Query Option</h5>
 <p>The <code>$inlinecount</code> System Query Option with a value of <code>allpages</code> specifies that the total count of entities matching the request MUST be returned along with the result.</p>
 <p>For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$inlinecount=allpages
@@ -613,7 +613,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The service MUST return an HTTP Status code of <code>404 Bad Request</code> if a value other than <code>allpages</code> or <code>none</code> is specified.</p>
 <p><code>$inlinecount</code> ignores any <a href="#thetopsystemqueryoption"><code>$top</code></a>, <a href="#theskipsystemqueryoption"><code>$skip</code></a>, or <a href="#theexpandsystemqueryoption"><code>$expand</code></a> query options, and returns the total count of results across all pages including only those results matching any specified <a href="#thefiltersystemqueryoption"><code>$filter</code></a>.</p>
 <p>How the count is encoded in the response body is dependent upon the selected format.</p>
-<h4 id="theformatsystemqueryoption">10.2.3.7. The <code>$format</code> System Query Option</h4>
+<h5 id="theformatsystemqueryoption">10.2.3.7. The <code>$format</code> System Query Option</h5>
 <p>A request with a <code>$format</code> system query option specifies that the response SHOULD use the media type specified by the query option.</p>
 <p>If the <code>$format</code> query option is present in a request, it SHOULD take precedence over the value(s) specified in the accept request header.</p>
 <ul>
@@ -629,7 +629,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <pre><code>http://host/service.svc/Orders(1)/ShipCountry/$value/?$format=json
 </code></pre>
 <p>The raw value of the ShipCountry property of the matching Order using the JSON media type.</p>
-<h3 id="requestinglinksbetweenentities">10.2.4. Requesting <code>$links</code> between Entities</h3>
+<h4 id="requestinglinksbetweenentities">10.2.4. Requesting <code>$links</code> between Entities</h4>
 <p>To request the links (URLs) of related entities according to a particular relationship, the client issues a GET request.</p>
 <p>The path of the request is <code>/$links/</code> appended to the path of a the source entity’s request URL, followed by the name of the navigation property representing the relationship.</p>
 <p>On success, the response body MUST contain the URL for each related entity, formatted as a either a single link, or a collection of links, depending on the cardinality of the relationship.</p>
@@ -638,23 +638,23 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <pre><code>https://services.odata.org/OData/OData.svc/Products(0)/$links/Orders
 </code></pre>
 <p>Returns the URLs of each Order related to the Product with <code>ID=0</code>.</p>
-<h3 id="requestingthecountofanentitycollection">10.2.5. Requesting the <code>$count</code> of an Entity Collection</h3>
+<h4 id="requestingthecountofanentitycollection">10.2.5. Requesting the <code>$count</code> of an Entity Collection</h4>
 <p>To request only the count of an entity collection, the client issues a GET request with <code>/$count</code> appended to the path of the request URL.</p>
 <p>On success, the response body MUST contain the count of entities matching the request, formatted as a simple scalar integer value.</p>
 <p>For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products/$count
 </code></pre>
 <p>Returns the count of Products in the Products entity set.</p>
-<h2 id="datamodification">10.3. Data Modification</h2>
+<h3 id="datamodification">10.3. Data Modification</h3>
 <p>An OData service MAY support Create, Update, and Delete operations for some or all of the entities that it exposes. Additionally, services MAY support one or more <a href="#actions">Actions</a> which may affect the state of the system.</p>
 <p>A successfully completed Data Modification request must not violate the integrity of the data.</p>
 <p>A client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#thepreferheader"><code>Prefer</code> Header</a>.</p>
-<h3 id="commondatamodificationsemantics">10.3.1. Common Data Modification Semantics</h3>
+<h4 id="commondatamodificationsemantics">10.3.1. Common Data Modification Semantics</h4>
 <p>Data modification requests share the following semantics.</p>
-<h4 id="useofetagsforavoidingupdateconflicts">10.3.1.1 Use of ETags for Avoiding Update Conflicts</h4>
+<h5 id="useofetagsforavoidingupdateconflicts">10.3.1.1 Use of ETags for Avoiding Update Conflicts</h5>
 <p>A client MAY include an ETag value in a the <a href="#theif-matchrequestheader"><code>if-match</code></a> or the <a href="#theif-none-matchrequestheader"><code>if-none-match</code></a> request header of a Data Modification or <a href="#actions">Action</a> request. If specified, the operation MUST only be invoked if the <code>if-match</code> or <code>if-none-match</code> condition is satisfied.</p>
 <p>The ETag value specified in the <code>if-match</code> or <code>if-none-match</code> request header may be obtained from an <a href="#theetagheader"><code>ETag</code> header</a> of a request for an individual entity, or may be included for an individual entry in a format-specific manner.</p>
-<h4 id="differentialupdate">10.3.1.2. Differential Update</h4>
+<h5 id="differentialupdate">10.3.1.2. Differential Update</h5>
 <p>Some update requests support two types of update: replace and merge. The client chooses which to execute by which HTTP verb it sends in the request.</p>
 <p>A PUT request indicates a replacement update. The service MUST replace all property values with those specified in the request body. Missing properties MUST be set to their default values. Missing dynamic properties MUST be removed or set to NULL.</p>
 <p>A PATCH or MERGE indicates a differential update. The service MUST replace exactly those property values that are specified in the request body. Missing properties, including dynamic properties, MUST NOT be altered.</p>
@@ -664,101 +664,101 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The semantics of a MERGE request on a data service entity is to merge the content in the request payload with the entity’s current state. The merging is done by comparing each component of the request body to the entity as it exists in the service.</p>
 <p>If a component in the request body is not defined on the entity that is to be updated the request MAY be considered malformed.</p>
 <p>If a component in the request body does match a component on the entity that is to be updated, the value of the component in the request body MUST replace the matching component of the entity to be updated and the matching process continues with the children of the component from the request body.</p>
-<h3 id="createanentity">10.3.2. Create an Entity</h3>
+<h4 id="createanentity">10.3.2. Create an Entity</h4>
 <p>To create an entity in a collection, send a POST request to that collection’s URL. The POST body MUST contain a single valid entity representation.</p>
 <p>To create an <em>open entity</em> (an instance of an open type), additional property values beyond those specified in the metadata MAY be sent in the request body. The service MUST treat these as dynamic properties and add them to the created instance.</p>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service SHOULD ignore any such values supplied.</p>
 <p>Upon successful completion, the response MUST contain a <a href="#thelocationheader"><code>Location</code> header</a> that contains the edit URL of the created entity.</p>
 <p>Upon successful completion the service MUST respond with either <a href="#createdresponsecode"><code>201 Created</code></a>, or <a href="#nocontentresponsecode">‘204 No Content’</a> if the request included a <a href="#thepreferheader"><code>Prefer</code></a> header with a value of "return-no-content’.</p>
-<h4 id="linktorelatedentitieswhencreatinganentity">10.3.2.1. Link to Related Entities When Creating an Entity</h4>
+<h5 id="linktorelatedentitieswhencreatinganentity">10.3.2.1. Link to Related Entities When Creating an Entity</h5>
 <p>A service SHOULD support linking new entities to existing entities upon creation.</p>
 <p>A request to create an entity MAY specify that the entity should be linked to existing entities. To bind the new entity to existing entities, include the required relationship link in the appropriate navigation property in the request body.</p>
 <p>The representation for binding information is format specific.</p>
 <p>On success, the service MUST create the requested entity and relate it to the requested existing entities.</p>
 <p>On failure, the service MUST NOT create the new entity. In particular, the service MUST never create an entity in a partially-valid state (with the navigation property unset).</p>
-<h4 id="createrelatedentitieswhencreatinganentity">10.3.2.2. Create Related Entities When Creating an Entity</h4>
+<h5 id="createrelatedentitieswhencreatinganentity">10.3.2.2. Create Related Entities When Creating an Entity</h5>
 <p>A service that supports creating entities SHOULD support creating related entities as part of the same request.</p>
 <p>A request to create an entity MAY specify related entities that should also be created. The related entities MUST be represented using the appropriate inline representation of the navigation property.</p>
 <p>On success, the service MUST create each entity and relate them.</p>
 <p>On failure, the service MUST NOT create any of the entities.</p>
-<h3 id="updateanentity">10.3.3. Update an Entity</h3>
+<h4 id="updateanentity">10.3.3. Update an Entity</h4>
 <p>To update an existing entity, send a PUT, PATCH, or MERGE request to that entity’s edit URL. The request body MUST contain a single valid entity representation.</p>
 <p>A service SHOULD support <a href="#differentialupdate">Differential Update</a> for entities.</p>
 <p>If the request contains a value for a key property, the service MUST ignore that value when applying the update.</p>
 <p>If the entity being updated is open, then additional values for properties beyond those specified in the metadata MAY be sent in the request body. The service MUST treat these as dynamic properties.</p>
 <p>If the entity being updated is not open, then additional values for properties beyond those specified in the metadata SHOULD NOT be sent in the request body. The service SHOULD ignore any such values supplied.</p>
 <p>On success, the response MUST be a valid <a href="#successresponsecodes">success response</a>.</p>
-<h3 id="deleteanentity">10.3.4. Delete an Entity</h3>
+<h4 id="deleteanentity">10.3.4. Delete an Entity</h4>
 <p>To delete an existing entity, send a DELETE request to that entity’s edit URL. The request body SHOULD be empty.</p>
 <p>On success, the response MUST be <code>204 No Content</code>.</p>
-<h3 id="modifyingrelationshipsbetweenentities">10.3.5. Modifying Relationships Between Entities</h3>
+<h4 id="modifyingrelationshipsbetweenentities">10.3.5. Modifying Relationships Between Entities</h4>
 <p>Relationships between entities are represented by navigation properties as described in <a href="#datamodel">Data Model</a>. URL conventions for navigation properties are described in <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a>.</p>
-<h4 id="createanewlinkbetweentwoexistingentitiesinaonetomanynavigationproperty">10.3.5.1. Create a New Link Between Two Existing Entities in a One to Many Navigation Property</h4>
+<h5 id="createanewlinkbetweentwoexistingentitiesinaonetomanynavigationproperty">10.3.5.1. Create a New Link Between Two Existing Entities in a One to Many Navigation Property</h5>
 <p>To relate an existing entity to another entity, send a POST request to the URL for the appropriate navigation property’s links collection. The request body MUST contain a URL that identifies the entity to be added.</p>
 <p>The body MUST be formatted as a single link. See the appropriate format document for details.</p>
 <p>On success, the response MUST be <code>204 No Content</code> and contain an empty body.</p>
-<h4 id="removearelationshipbetweentwoentities">10.3.5.2. Remove a Relationship Between Two Entities</h4>
+<h5 id="removearelationshipbetweentwoentities">10.3.5.2. Remove a Relationship Between Two Entities</h5>
 <p>To remove a relationship to a related entity, send a <code>DELETE</code> request to a URL that represents the link to the related entity.</p>
 <p>The <code>DELETE</code> request MUST follow the requirements for integrity constraints above.</p>
 <p>On success, the response MUST be <code>204 No Content</code> and contain an empty body.</p>
-<h4 id="changetherelationinaonetoonenavigationproperty">10.3.5.3. Change the Relation in a One to One Navigation Property</h4>
+<h5 id="changetherelationinaonetoonenavigationproperty">10.3.5.3. Change the Relation in a One to One Navigation Property</h5>
 <p>If a navigation property is nullable, then a change MAY be performed by first removing the existing relationship and then adding the new one. Use the approach described for adding and removing links.</p>
 <p>Alternatively, a relationship MAY be updated as part of an update to the source entity by including the required binding information for the new target entity. This binding information MUST be formatted as for a deferred navigation property in a response.</p>
-<h3 id="managingmediaentities">10.3.6 Managing Media Entities</h3>
+<h4 id="managingmediaentities">10.3.6 Managing Media Entities</h4>
 <p>A <em>media entity</em> is an entity that represents an out-of-band stream, such as a photograph.</p>
 <p>A media entity MUST have a <code>source url</code> that can be used to read the media stream, and MAY have an <code>edit-media</code> URL that can be used to write to the media stream.</p>
 <p>Because a media entity has both a media stream and standard entity properties special handling is required.</p>
-<h4 id="creatingamediaentity">10.3.6.1. Creating a Media Entity</h4>
+<h5 id="creatingamediaentity">10.3.6.1. Creating a Media Entity</h5>
 <p>To create a media entity, send a POST request to the media entity’s entity set. The request body MUST contain the media value (for example, the photograph) in the appropriate media type.</p>
 <p>On successful creation of the media, the service MUST respond with <code>201 Created</code> and a response body containing the newly created media entity.</p>
-<h4 id="editingamediaentitystream">10.3.6.2. Editing a Media Entity Stream</h4>
+<h5 id="editingamediaentitystream">10.3.6.2. Editing a Media Entity Stream</h5>
 <p>To change the data for a media entity stream, the client sends a PUT request to the edit URL of the media entity.</p>
 <p>If the entity includes an ETag value, the client SHOULD include an <a href="#theif-matchrequestheader"><code>If-Match</code></a> header with the ETag value.</p>
 <p>The request MUST contain a <a href="#thecontent-typeheader"><code>Content-Type</code></a> header, set to the correct value.</p>
 <p>The body of the request MUST be the binary data that will be the new value for the stream.</p>
-<h4 id="deletingamediaentity">10.3.6.3. Deleting a Media Entity</h4>
+<h5 id="deletingamediaentity">10.3.6.3. Deleting a Media Entity</h5>
 <p>To delete a media entity, send a DELETE request to the entity’s edit link as described in <a href="#deleteanentity">Delete An Entity</a>.</p>
 <p>Deleting a media entity also deletes the media associated with the entity.</p>
-<h3 id="managingnamedstreamproperties">10.3.7. Managing Named Stream Properties</h3>
+<h4 id="managingnamedstreamproperties">10.3.7. Managing Named Stream Properties</h4>
 <p>An entity may have one or <code>named stream properties</code>. Named stream properties are properties of type Edm.Stream.</p>
 <p>The values for named stream properties do not appear in the entity payload. Instead, the values are read or written through URLs.</p>
 <p>Named streams are not deletable or directly creatable by the client. The service owns their lifetime. The client can request to set the stream data to empty (0 bytes).</p>
-<h4 id="editingnamedstreamvalues">10.3.7.1. Editing Named Stream Values</h4>
+<h5 id="editingnamedstreamvalues">10.3.7.1. Editing Named Stream Values</h5>
 <p>To change the data for a named stream, the client sends a PUT request to the edit URL.</p>
 <p>If the stream metadata includes an ETag value, the client SHOULD include an <a href="#theif-matchrequestheader"><code>If-Match</code></a> with the ETag value.</p>
 <p>The request MUST contain a <a href="#thecontent-typeheader"><code>Content-Type</code></a> header, set to the correct value.</p>
 <p>The body of the request MUST be the binary data that will be the new value for the stream.</p>
-<h3 id="managingvaluesandpropertiesdirectly">10.3.8. Managing Values and Properties Directly</h3>
+<h4 id="managingvaluesandpropertiesdirectly">10.3.8. Managing Values and Properties Directly</h4>
 <p>Values and properties can be explicitly addressed with URLs. This allows them to be individually modified. See <a href="https://www.odata.org/documentation/odata-version-3-0/url-conventions">OData:URL</a> for details on addressing.</p>
-<h4 id="updateaprimitiveproperty">10.3.8.1. Update a Primitive Property</h4>
+<h5 id="updateaprimitiveproperty">10.3.8.1. Update a Primitive Property</h5>
 <p>To update a value, the client MAY send a PUT, MERGE, or PATCH request to an edit URL for a primitive property. The message body MUST contain the new value, formatted as a single property according to the specified format.</p>
 <p>Primitive properties do not support differential update. Regardless of which verb is used the service MUST replace the entire value with the value supplied in the request body.</p>
 <p>The same rules apply whether this is a regular property or a dynamic property.</p>
 <p>On success, the response MUST be a valid update <a href="#successresponsecodes">response</a>.</p>
-<h4 id="nullavalue">10.3.8.2. Null a Value</h4>
+<h5 id="nullavalue">10.3.8.2. Null a Value</h5>
 <p>There are two ways to set a primitive value to NULL. The client MAY <a href="#updateaprimitiveproperty">Update a Primitive Property</a>, specifying a NULL value. Alternatively, the client MAY send a DELETE request with an empty message body to the property URL.</p>
 <p>The service SHOULD consider a DELETE request to a non-nullable value to be malformed.</p>
 <p>The same rules apply whether the target is the value of a regular property or the value of a dynamic property. A missing dynamic property is defined to be the same as a dynamic property with value NULL. All dynamic properties are nullable.</p>
 <p>On success, the service MUST respond with <code>204 No Content</code> and an empty body.</p>
-<h4 id="updateacomplextype">10.3.8.3. Update a Complex Type</h4>
+<h5 id="updateacomplextype">10.3.8.3. Update a Complex Type</h5>
 <p>To update a complex type, send a PUT, PATCH, or MERGE request to that property’s URL. The request body MUST contain a single valid representation for that type.</p>
 <p>A service MUST support <a href="#differentialupdate">Differential Update</a> for complex types.</p>
 <p>On success, the response MUST be a valid update <a href="#successresponsecodes">response</a>.</p>
-<h4 id="updateacollectionproperty">10.3.8.4. Update a Collection Property</h4>
+<h5 id="updateacollectionproperty">10.3.8.4. Update a Collection Property</h5>
 <p>To update a value, send a PUT request to the collection property’s URL. The message body MUST contain the desired new value, formatted as a collection property according to the specified format.</p>
 <p>The service MUST replace the entire value with the value supplied in the request body.</p>
 <p>On success, the response MUST be a valid update <a href="#successresponsecodes">response</a>.</p>
-<h2 id="operations">10.4. Operations</h2>
+<h3 id="operations">10.4. Operations</h3>
 <p>Services MAY support custom operations. Operations (actions, functions and legacy service operations) are represented as function import elements in <a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>.</p>
-<h3 id="commonrulesforalloperations">10.4.1 Common rules for all operations</h3>
+<h4 id="commonrulesforalloperations">10.4.1 Common rules for all operations</h4>
 <p>All operations MUST follow the rules outlined in <a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a>.</p>
-<h4 id="entitysetpathexpression">10.4.1.1. Entity Set Path Expression</h4>
+<h5 id="entitysetpathexpression">10.4.1.1. Entity Set Path Expression</h5>
 <p>For functions or actions that return an entity or collection of entities, the entity set associated with the returned entity or collection of entities MAY depend upon the entity set of one of the parameter values used to invoke the operation.</p>
 <p>When such a dependency exists an <em>entity set path expression</em> is used. An entity set path expression MUST begin with the name of a parameter to the operation, and optionally includes a series of navigation properties (and occasional type casts) as a succinct way to describe the series of entity set transitions.</p>
 <p>The actual entity set transitions can be deduced by finding the association set backing each navigation property, and moving from the current entity set which will be found on one end to the entity set found on the other End.</p>
 <p>The entity set of the results of an operation invocation with an entity set path expression can only be established once the entity set of the parameter that begins the entity set path expression is known.</p>
 <p>For example this entity set path expression: “p1/Orders/Customer” can only be evaluated once the entity set of the p1 parameter value is known.</p>
-<h4 id="commonrulesforbindingoperations">10.4.1.2. Common Rules for Binding Operations</h4>
+<h5 id="commonrulesforbindingoperations">10.4.1.2. Common Rules for Binding Operations</h5>
 <p>Actions and functions MAY be bound to an entity or a collection of entities. The first parameter of a bound operation is the <em>binding parameter</em>.</p>
 <p>Any URL that can identify a binding parameter of the correct type MAY be used as the foundation of a URL to invoke an operation that supports binding using the resource identified by that URL as the <em>binding parameter value</em>.</p>
 <p>For example, the function</p>
@@ -771,9 +771,9 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>Which invokes the <code>MostRecentOrder</code> function with the ‘customer’ or binding parameter value being the entity identified by http://server/Customers(6)/.</p>
 <p><code>GET http://server/Contacts(23123)/Company/MostRecentOrder()</code></p>
 <p>Which again invokes the <code>MostRecentOrder</code> function, this time with the ‘customer’ or binding parameter value being the entity identified by http://server/Contacts(23123)/Company/.</p>
-<h3 id="actions">10.4.1. Actions</h3>
+<h4 id="actions">10.4.1. Actions</h4>
 <p>Actions are operations exposed by an OData service that MAY have side effects when invoked. Actions MAY return data and are not composable.</p>
-<h4 id="declaringactionsinmetadata">10.4.1.1. Declaring Actions in Metadata</h4>
+<h5 id="declaringactionsinmetadata">10.4.1.1. Declaring Actions in Metadata</h5>
 <p>Actions SHOULD be declared in <code>$metadata</code> using a <code>FunctionImport</code> element that indicates the signature (name, return type and parameters) of the action.</p>
 <p><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> specifies how functions are syntactically defined in CSDL.</p>
 <p>For example this <code>FunctionImport</code> represents an action that creates an order for a customer using the specified quantity and discount code. This action can be bound to any resource path that represents a <code>Customer</code> entity:</p>
@@ -784,7 +784,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     &lt;Parameter Name="discountCode" Type="Edm.String" Mode="In"&gt;
 &lt;/FunctionImport&gt;
 </code></pre>
-<h4 id="advertisingcurrentlyavailableactions">10.4.1.2. Advertising Currently Available Actions</h4>
+<h5 id="advertisingcurrentlyavailableactions">10.4.1.2. Advertising Currently Available Actions</h5>
 <p><a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a> and <a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> formats require all actions that are available for the current entity or current collection of entities to be advertised inside any representation of the entity or collection entities returned from the service.</p>
 <p>A service SHOULD advertise only those actions that are available for a given entity or collection of entities. The service MAY advertise all actions for a given entity or collection of entities. The service MAY fail later if the client attempts to invoke the action and it is found to be not available.</p>
 <p>The following information MUST be included, as defined within the appropriate format, when an action is advertised:</p>
@@ -814,7 +814,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </code></pre>
 <p>When the resource retrieved represents a collection, the ‘Target Url’ of any actions advertised MUST encode every System Query Option used to retrieve the collection. In practice this means that any of these System Query Options should be encoded: $filter, $expand, $orderby, $skip and $top.</p>
 <p>An efficient format that assumes client knowledge of metadata SHOULD NOT advertise Actions that are available on all instances and whose target url can be established via metadata.</p>
-<h3 id="invokinganaction">10.4.1.3. Invoking an Action</h3>
+<h4 id="invokinganaction">10.4.1.3. Invoking an Action</h4>
 <p>To invoke an action a client MUST make a POST request to the ‘Target Url’ of the action.</p>
 <p>If the action supports binding the binding parameter value MUST be encoded in the ‘Target Url’. It is not possible to specify an entity or a collection of entities as a parameter value in the request body.</p>
 <p>If the invoke request contains any non-binding parameter values, the <code>Content-Type</code> of the request MUST be <code>'application/json'</code>, and the parameter values MUST be encoded in a single JSON object in the request body.</p>
@@ -829,12 +829,12 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
       "discountCode": "BLACKFRIDAY"
    }
 </code></pre>
-<h4 id="actionoverloadresolution">10.4.1.4. Action Overload Resolution</h4>
+<h5 id="actionoverloadresolution">10.4.1.4. Action Overload Resolution</h5>
 <p>Actions support overloads, meaning a service MAY expose multiple actions with the same name that take a different set of parameters.</p>
 <p>The combination of the action name, the binding parameter type and the unordered list of non-binding parameter names MUST be sufficient to uniquely identify a specific action overload.</p>
-<h3 id="functions">10.4.2. Functions</h3>
+<h4 id="functions">10.4.2. Functions</h4>
 <p>Functions are operations exposed by an OData service that MUST return data and MUST have no observable side effects.</p>
-<h4 id="declaringfunctionsinmetadata">10.4.2.1. Declaring Functions in Metadata</h4>
+<h5 id="declaringfunctionsinmetadata">10.4.2.1. Declaring Functions in Metadata</h5>
 <p>Functions SHOULD be declared in <code>$metadata</code>. Function declarations indicate the signature (Name, ReturnType and Parameters) and semantics (composability, bindability and result entity set) of the Function.</p>
 <p><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> specifies how functions are syntactically defined in CSDL.</p>
 <p>For Example: The following <code>FunctionImport</code> describes a Function called MostRecent that returns the most recent Order within a collection of Orders:</p>
@@ -843,7 +843,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     &lt;Parameter Name="orders" Type="Collection(SampleModel.Order)" Mode="In"/&gt;
 &lt;/FunctionImport&gt;
 </code></pre>
-<h4 id="advertisingcurrentlyavailablefunctionswithinapayload">10.4.2.2. Advertising Currently Available Functions within a Payload</h4>
+<h5 id="advertisingcurrentlyavailablefunctionswithinapayload">10.4.2.2. Advertising Currently Available Functions within a Payload</h5>
 <p>Functions MAY be bound to an entity or collection of entities. Services MAY choose whether to advertise functions within the entities or collections of entities returned from the Server.</p>
 <p>Example: Given a GET request to <code>http://server//Orders</code>, the service might respond with a collection of Orders that advertises the <code>SampleEntities.MostRecent</code> Function bound to the collection:</p>
 <pre><code>{
@@ -870,12 +870,12 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </code></pre>
 <p>When the resource retrieved represents a collection, the ‘Target Url’ of any functions advertised MUST encode every System Query Option used to retrieve the collection. In practice this means that any of these System Query Options should be encoded: $filter, $expand, $orderby, $skip and $top.</p>
 <p>An efficient format that assumes client knowledge of metadata SHOULD NOT advertise Functions that are available on all instances and whose target url can be established via metadata.</p>
-<h4 id="invokingafunction">10.4.2.3. Invoking a Function</h4>
+<h5 id="invokingafunction">10.4.2.3. Invoking a Function</h5>
 <p>To invoke a function directly a client MUST issue a GET request to a URL that identifies the function and that specifies any parameter values required by the function.</p>
 <p>It is also possible to invoke a function indirectly using GET, PUT, POST, PATCH, MERGE or DELETE requests by formulating a URL that identifies a function and its parameters and then appending further path segments to create a request URL that identifies resources related to the results of the function.</p>
 <p>Parameter values passed to functions MUST be specified either as a URL Literal (for Primitive Types) or as a JSON formatted OData object (for Complex Types or Collections of Primitive Types or Complex Types).</p>
 <p>Functions calls MAY be present in the request URL path or the request URL query inside either the <a href="#thefiltersystemqueryoption"><code>$filter</code></a> or <a href="#theorderbysystemqueryoption"><code>$orderby</code></a> System Query Options.</p>
-<h5 id="inlineparametersyntax">10.4.2.3.1. Inline Parameter Syntax</h5>
+<h6 id="inlineparametersyntax">10.4.2.3.1. Inline Parameter Syntax</h6>
 <p>The simplest way to pass parameter values to a function is using inline parameter syntax.</p>
 <p>To use Inline Parameter Syntax, whereever a function is called, parameter values MUST be specified inside the parenthesis, i.e. <code>()</code>, appended directly to the function name.</p>
 <p>The parameter values MUST be specified as a comma separated list of Name/Value pairs in the format <code>Name=Value</code>, where <code>Name</code> is the name of the parameter to the function and <code>Value</code> is the parameter value.</p>
@@ -888,7 +888,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </code></pre>
 <p>Filters <code>Customers</code> to those in the <code>Western</code> sales region, calculated for each Customer in the collection by passing the Customer’s City as the <code>City</code> parameter value to the <code>Sales.GetSalesRegion</code> function.</p>
 <p>Primitive parameters values may be provided to functions in the request URL path using inline syntax. All other parameter types MUST be provided externally.</p>
-<h5 id="parameteraliases">10.4.2.3.2. Parameter Aliases</h5>
+<h6 id="parameteraliases">10.4.2.3.2. Parameter Aliases</h6>
 <p>Parameters MAY be specified by substituting a <code>parameter alias</code> in place of an inline parameter to a function call. Parameters aliases are names beginning with an ampersand (<code>@</code>).</p>
 <p>Actual parameter values MUST be specified as query options in the query part of the request URL. The query option name is the Name of the parameter alias, and the query option value is the value to be used for the specified parameter alias.</p>
 <p>For example:</p>
@@ -896,17 +896,17 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 </code></pre>
 <p>Parameter aliases allow the same parameter value to be used multiple times in a request and MAY be used to reference non-primitive values.</p>
 <p>If a parameter alias referenced by a function call is not given a value in the Query part of the request URL, the value MUST be assumed to be <code>null</code>.</p>
-<h5 id="parameternamesyntax">10.4.2.3.3. Parameter Name Syntax</h5>
+<h6 id="parameternamesyntax">10.4.2.3.3. Parameter Name Syntax</h6>
 <p>The OData protocol allows parameter values for the last Function call in a Request URL Path to be specified by appending Name/Value pairs, representing each parameter Name and Value for that Function, as query strings to the Query part of the Request URL.</p>
 <p>This enables clients to invoke Functions without parsing the advertised Target Url.</p>
 <p>For example:</p>
 <pre><code>GET http://server/Sales.GetEmployeesByManager?ManagerID=3
 </code></pre>
-<h4 id="functionoverloadresolution">10.4.2.4. Function overload resolution</h4>
+<h5 id="functionoverloadresolution">10.4.2.4. Function overload resolution</h5>
 <p>Functions overloads are supported in OData, meaning a service MAY expose multiple Functions with the same name that take a different set of parameters.</p>
 <p>When a function is invoked (using any of the three parameter syntaxes) the parameter names and parameter values are specified in the URL, and the parameter types can be deduced from each parameter value. The combination of the Function name and the unordered list of parameter types and names is always sufficient to identify a particular function overload.</p>
 <hr />
-<h1 id="appendixa:terminology">Appendix A: Terminology</h1>
+<h2 id="appendixa:terminology">Appendix A: Terminology</h2>
 <dl>
     <dt>alias</dt>
     <dd>A simple identifier that is typically used as a short name for a <strong>namespace</strong>.</dd>

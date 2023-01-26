@@ -4,34 +4,32 @@ title: URL Conventions (OData Version 3.0)
 date: 2014-02-20 09:14:47.000000000 +08:00
 permalink: /documentation/odata-version-3-0/url-conventions/
 ---
-<h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
+<p class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
 <br><br>
-<a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
-<h1 id="url1">1. Introduction</h1>
+<a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></p>
+<h2 id="url1">1. Introduction</h2>
 <p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Identifiers (URLs) and defined in a data model, to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators, which if accepted by an OData service, MUST be implemented as required by this document.</p>
 <p>The [OData:Atom] and [OData:JSON] documents specify the format of the resource representations that are exchanged using OData and the [OData:Operations] document describes the actions that can be performed on the URLs (optionally constructed following the conventions defined in this document) embedded in those representations.</p>
 <p>Servers are encouraged to follow the URL construction conventions defined in this specification when possible as consistency promotes an ecosystem of reusable client components and libraries.</p>
-<h1 id="url2">2. URL Components</h1>
+<h2 id="url2">2. URL Components</h2>
 <p>A URL used by an OData service has at most three significant parts: the <em>service root URL</em>, <em>resource path</em> and <em>query options</em>. Additional URL constructs (such as a fragment) MAY be present in a URL used by an OData service; however, this specification applies no further meaning to such additional constructs.</p>
-<p><a href="/assets/ODataUri.png" rel="attachment wp-att-9571"><img src="/assets/ODataUri.png" alt="ODataUri" width="714" height="32" class="wp-image-9571" /></a><br />
-&nbsp;<br />
-The following are two example URLs broken down into their component parts:</p>
-<pre><code>https://services.odata.org/OData/OData.svc 
-_______________________________________/
-               | 
-        service root URL 
-
-https://services.odata.org/OData/OData.svc/Category(1)/Products?$top=2&amp;$orderby=name
-_______________________________________/ __________________/ __________________/
-               |                                |                    |
-         service root URL                  resource path        query options
-</code></pre>
-<h1 id="url3">3. Service Root URL</h1>
+<figure>
+    <img src="/assets/ODataUri.png" alt="Diagram of the structure of an OData URI." width="714" height="32" class="aligncenter size-full wp-image-1831" />
+    <figcaption class="visually-hidden">Structure of an OData URI, which consists of a scheme, host, optional colon and port, service root, optional resource path, and optional question mark followed by query options.</figcaption>
+</figure>
+<br />&nbsp;
+<br />
+<p>The following are two example URLs broken down into their component parts:</p>
+<figure>
+    <img src="/assets/exampleURIsComponents.png" alt="Example URIs with component parts labeled." width="714" height="32" class="aligncenter size-full wp-image-1831" />
+    <figcaption class="visually-hidden">Two example URIs with their component parts labeled. The first URI is "https://services.odata.org/OData/OData.svc", which is the service root URL. The second URI starts with the same service root URL, but also has the two following additional parts. The resource path part is "/Category(1)/Products", and the query options part is "?$top=2&$orderby-name".</figcaption>
+</figure>
+<h2 id="url3">3. Service Root URL</h2>
 <p>The service root URL identifies the root of an OData service. The resource identified by this URL MUST be an AtomPub Service Document (as specified in [RFC5023]) and follow the OData conventions for AtomPub Service Documents (or an alternate representation of an Atom Service Document if a different format is requested). OData: JSON Format specifies such an alternate JSON-based representation of a service document. The service document is required to be returned from the root of an OData service to provide clients with a simple mechanism to enumerate all of the collections of resources available for the data service.</p>
-<h1 id="url4">4. Resource Path</h1>
+<h2 id="url4">4. Resource Path</h2>
 <p>The resource path construction rules defined in this section are optional. OData services are encouraged to follow the URL path construction rules (in addition to the required query string rules) as such consistency promotes a rich ecosystem of reusable client components and libraries.</p>
 <p>The resource path section of a URL identifies the resource to be interacted with (such as Customers, a single Customer, Orders related to Customers in London, and so forth). The resource path enables any aspect of the data model (collections of entities, a single entity, properties, Links, service operations, and so on) exposed by an OData service to be addressed.</p>
-<h2 id="url4.1">4.1. Addressing entities</h2>
+<h3 id="url4.1">4.1. Addressing entities</h3>
 <p>The basic rules for addressing a collection (of entities), a single entity within a collection, as well as a property of an entity are covered in the ‘resourcePath’ syntax rule in Appendix A.</p>
 <p>Below is a snippet from Appendix A:</p>
 <pre><code>resourcePath                =   [ entityContainerName "." ] entitySetName [collectionNavigation] /
@@ -45,75 +43,85 @@ _______________________________________/ __________________/ __________________/
 </code></pre>
 <p>Since OData has a uniform composable URL syntax and associated rules there are many ways to address a collection of entities, including, but not limited to:</p>
 <ul>
-<li>Via an entity set (see rule: entitySetName)
+    <li>
+        Via an entity set (see rule: entitySetName)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Products
 </code></pre>
-</li>
-<li>By invoking a function that returns a collection of entities (see rule: entityColFunctionCall)
+    </li>
+    <li>
+        By invoking a function that returns a collection of entities (see rule: entityColFunctionCall)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/GetProductsByCategoryId(categoryId=2)
 </code></pre>
-</li>
-<li>By invoking an action that returns a collection of entities (see rule: actionCall)</li>
-<li>By invoking a service operation that returns a collection of entities (see rule: entityColServiceOpCall)
+    </li>
+    <li>By invoking an action that returns a collection of entities (see rule: actionCall)</li>
+    <li>
+        By invoking a service operation that returns a collection of entities (see rule: entityColServiceOpCall)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/ProductsByColor?color='red'
 </code></pre>
-</li>
+    </li>
 </ul>
 <p>Likewise there are many ways to address a single entity.</p>
 <p>Sometimes a single entity can be accessed directly, for example by:</p>
 <ul>
-<li>Invoking a function that returns a single entity (see rule: entityFunctionCall)</li>
-<li>Invoking an action that returns a single entity (see rule: actionCall)</li>
-<li>Invoking a service operation that returns a single entity (see rule: entityServiceOpCall)</li>
+    <li>Invoking a function that returns a single entity (see rule: entityFunctionCall)</li>
+    <li>Invoking an action that returns a single entity (see rule: actionCall)</li>
+    <li>Invoking a service operation that returns a single entity (see rule: entityServiceOpCall)</li>
 </ul>
 <p>Often however a single entity is accessed by composing more path segments to a resourcePath that identifies a collection of entities, for example by:</p>
 <ul>
-<li>Using a entity key to select a single entity (see rules: collectionNavigation and keyPredicate)
+    <li>
+        Using a entity key to select a single entity (see rules: collectionNavigation and keyPredicate)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)
 </code></pre>
-</li>
-<li>Invoking an action bound to a collection of entities that returns a single entity (see rule: boundOperation)</li>
-<li>Invoking an function bound to a collection of entities that returns a single entity (see rule: boundOperation)
+    </li>
+    <li>Invoking an action bound to a collection of entities that returns a single entity (see rule: boundOperation)</li>
+    <li>
+        Invoking an function bound to a collection of entities that returns a single entity (see rule: boundOperation)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Products/MostExpensive
 </code></pre>
-</li>
+    </li>
 </ul>
 <p>These rules are recursive, so it is possible to address a single entity via another single entity, a collection via a single entity and even a collection via a collection, examples include, but are not limited to:</p>
 <ul>
-<li>By following a navigation from a single entity to another related entity (see rule: entityNavigationproperty)
+    <li>
+        By following a navigation from a single entity to another related entity (see rule: entityNavigationproperty)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Products(1)/Supplier
 </code></pre>
-</li>
-<li>By invoking a function bound to a single entity that returns a single entity (see rule: boundOperation)
+    </li>
+    <li>
+        By invoking a function bound to a single entity that returns a single entity (see rule: boundOperation)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Products(1)/MostRecentOrder
 </code></pre>
-</li>
-<li>By invoking an action bound to a single entity that returns a single entity (see rule: boundOperation)</li>
-<li>By following a navigation from a single entity to a related collection of entities (see rule: entityColNavigationproperty)
+    </li>
+    <li>By invoking an action bound to a single entity that returns a single entity (see rule: boundOperation)</li>
+    <li>
+        By following a navigation from a single entity to a related collection of entities (see rule: entityColNavigationproperty)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/Products
 </code></pre>
-</li>
-<li>By invoking a function bound to a single entity that returns a collection of entities (see rule: boundOperation)
+    </li>
+    <li>
+        By invoking a function bound to a single entity that returns a collection of entities (see rule: boundOperation)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/TopTenProducts
 </code></pre>
-</li>
-<li>By invoking an action bound to a single entity that returns a collection of entities (see rule: boundOperation)</li>
-<li>By invoking a function bound to a collection of entities that returns a collection of entities (see rule: boundOperation)
+    </li>
+    <li>By invoking an action bound to a single entity that returns a collection of entities (see rule: boundOperation)</li>
+    <li>
+        By invoking a function bound to a collection of entities that returns a collection of entities (see rule: boundOperation)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/Products/AllOrders
 </code></pre>
-</li>
-<li>By invoking an action bound to a collection of entities that returns a collection of entities (see rule: boundOperation)</li>
+    </li>
+    <li>By invoking an action bound to a collection of entities that returns a collection of entities (see rule: boundOperation)</li>
 </ul>
 <p>Finally it is possible to compose path segments onto a resource path that identifies a primitive, complex instance, collection of primitives or collection of complex instances and bind an action or function that returns a entity or collections of entities.</p>
-<h3 id="url4.1.1">4.1.1. Canonical URL</h3>
+<h4 id="url4.1.1">4.1.1. Canonical URL</h4>
 <p>For OData services conformant with the addressing conventions in this section, the canonical form of an absolute URL identifying a non contained entity is formed by adding a single path segment to the service root URL. The path segment is made up of the name of the entitySet associated with the entity followed by the key predicate identifying the entity within the collection.</p>
 <p>For example the URLs <a href="https://services.odata.org/OData/OData.svc/Categories%281%29/Products%281%29">https://services.odata.org/OData/OData.svc/Categories(1)/Products(1)</a> and <a href="https://services.odata.org/OData/OData.svc/Products%281%29">https://services.odata.org/OData/OData.svc/Products(1)</a> represent the same entity, but the canonical URL for the entity is <a href="https://services.odata.org/OData/OData.svc/Products%281%29">https://services.odata.org/OData/OData.svc/Products(1)</a>.</p>
 <p>For contained entities the canonical URL begins with canonical URL of the parent, with further path segments that:</p>
 <ul>
-<li>Name and navigate through the containing navigation property</li>
-<li>and, if the navigation property returns a collection, an entity key (see rule: entity key) that uniquely identifies the entity in that collection.</li>
+    <li>Name and navigate through the containing navigation property</li>
+    <li>and, if the navigation property returns a collection, an entity key (see rule: entity key) that uniquely identifies the entity in that collection.</li>
 </ul>
-<h2 id="url4.2">4.2. Addressing Links between Entities</h2>
+<h3 id="url4.2">4.2. Addressing Links between Entities</h3>
 <p>Much like the use of links on Web pages, the data model used by OData services supports relationships as a first class construct. For example, an OData service could expose a collection of Products entities each of which are related to a Category entity.</p>
 <p>Links between entities are addressable in OData just like entities themselves are (as described above). The basic rules for addressing relationships are shown in the following figure. By the following rule:</p>
 <pre><code>entityURL       =   ; any URL that identifies a single entity
@@ -121,70 +129,70 @@ _______________________________________/ __________________/ __________________/
 links           =   entityURL "/$links/" navigationpropertyName   
 </code></pre>
 <p>For example: https://services.odata.org/OData/OData.svc/Category(1)/$links/Products addresses the links between Category(1) and Products.</p>
-<h2 id="url4.3">4.3. Addressing Operations</h2>
-<h3 id="url4.3.1">4.3.1. Addressing Actions</h3>
+<h3 id="url4.3">4.3. Addressing Operations</h3>
+<h4 id="url4.3.1">4.3.1. Addressing Actions</h4>
 <p>The semantic rules for addressing and invoking actions are defined in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document. The grammar for addressing and invoking actions are defined by the following syntax grammar rules in Appendix A:</p>
 <ul>
-<li>The actionCall syntax rule defines the grammar in the ResourcePath for addressing and invoking an action directly from the Service Root.</li>
-<li>The boundActionCall syntax rule defines the grammar in the ResourcePath for addressing and invoking an action that is appended to a ResourcePath that identifies some resources that should be used as the binding parameter value when invoking the action.</li>
-<li>The boundOperation syntax rule (which encompasses the boundActionCall syntax rule), when used by the resourcePath syntax rule, illustrates how a boundActionCall can be appended to a ResourcePath.</li>
+    <li>The actionCall syntax rule defines the grammar in the ResourcePath for addressing and invoking an action directly from the Service Root.</li>
+    <li>The boundActionCall syntax rule defines the grammar in the ResourcePath for addressing and invoking an action that is appended to a ResourcePath that identifies some resources that should be used as the binding parameter value when invoking the action.</li>
+    <li>The boundOperation syntax rule (which encompasses the boundActionCall syntax rule), when used by the resourcePath syntax rule, illustrates how a boundActionCall can be appended to a ResourcePath.</li>
 </ul>
-<h3 id="url4.3.2">4.3.2. Addressing Functions</h3>
+<h4 id="url4.3.2">4.3.2. Addressing Functions</h4>
 <p>The semantic rules for addressing and invoking functions are defined in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document. The grammar for addressing and invoking functions is defined by a number syntax grammar rules in Appendix A, in particular:</p>
 <ul>
-<li>The functionCall syntax rule defines the grammar in the ResourcePath for addressing and providing parameters for a function directly from the Service Root.</li>
-<li>The boundFunctionCall syntax rule defines the grammar in the ResourcePath for addressing and providing parameters for a function that is appended to a ResourcePath that identifies some resources that should be used as the binding parameter value when invoking the function.</li>
-<li>The boundOperation syntax rule (which encompasses the boundFunctionCall syntax rule), when used by the resourcePath syntax rule, illustrates how a boundFunctionCall can be appended to a ResourcePath.</li>
-<li>The functionExpr, boolFunctionExpr, boundFunctionExpr and boolBoundFunctionExpr syntax rules as used by the filter and orderby syntax rules define the grammar for invoking functions to help filter and order resources identified by the ResourcePath of the URL.</li>
-<li>The aliasAndValue syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax <a href="../odata-version-3-0-core-protocol#parameteraliases">OData:Core 10.4.2.3.2</a>.</li>
-<li>The parameterAndValue syntax rule defines the grammar for providing function parameter values using Parameter Name Syntax <a href="../odata-version-3-0-core-protocol#parameternamesyntax">OData:Core 10.4.2.3.3</a>.</li>
+    <li>The functionCall syntax rule defines the grammar in the ResourcePath for addressing and providing parameters for a function directly from the Service Root.</li>
+    <li>The boundFunctionCall syntax rule defines the grammar in the ResourcePath for addressing and providing parameters for a function that is appended to a ResourcePath that identifies some resources that should be used as the binding parameter value when invoking the function.</li>
+    <li>The boundOperation syntax rule (which encompasses the boundFunctionCall syntax rule), when used by the resourcePath syntax rule, illustrates how a boundFunctionCall can be appended to a ResourcePath.</li>
+    <li>The functionExpr, boolFunctionExpr, boundFunctionExpr and boolBoundFunctionExpr syntax rules as used by the filter and orderby syntax rules define the grammar for invoking functions to help filter and order resources identified by the ResourcePath of the URL.</li>
+    <li>The aliasAndValue syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax <a href="../odata-version-3-0-core-protocol#parameteraliases">OData:Core 10.4.2.3.2</a>.</li>
+    <li>The parameterAndValue syntax rule defines the grammar for providing function parameter values using Parameter Name Syntax <a href="../odata-version-3-0-core-protocol#parameternamesyntax">OData:Core 10.4.2.3.3</a>.</li>
 </ul>
-<h3 id="url4.3.3">4.3.3. Addressing Legacy Service Operations</h3>
+<h4 id="url4.3.3">4.3.3. Addressing Legacy Service Operations</h4>
 <p>The semantic rules for addressing and invoking a service operation are defined in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document. The grammar for addressing and invoking a service operation is define by 3 syntax rules in Appendix A:</p>
 <ul>
-<li>The serviceOperationCall syntax rule defines the grammar for the ResourcePath that addresses the service operation.</li>
-<li>The resourcePath syntax rule defines the grammar for any additional composition of OData ResourcePath segments that rely on the results of calling the service operation.</li>
-<li>The sopParameterNameAndValue syntax rule defines the grammar for specifying any parameters to the service operation in the query part of the request URL.</li>
+    <li>The serviceOperationCall syntax rule defines the grammar for the ResourcePath that addresses the service operation.</li>
+    <li>The resourcePath syntax rule defines the grammar for any additional composition of OData ResourcePath segments that rely on the results of calling the service operation.</li>
+    <li>The sopParameterNameAndValue syntax rule defines the grammar for specifying any parameters to the service operation in the query part of the request URL.</li>
 </ul>
 <p>This example, illustrates a call to a service operation with subsequent resource path segments, that uses all three syntax rules: [https://services.odata.org/OData/OData.svc/GetProductsByRating?rating=3&amp;$filter=Price gt 20.0M](https://services.odata.org/OData/OData.svc/GetProductsByRating?rating=3&amp;$filter=Price gt 20.0M)</p>
 <p>This invokes the GetProductsByRating service operation, with the rating parameter value set to 3, and then subsequently filters Products returned by the service operation call to include only those with a price greater than $20.</p>
-<h2 id="url4.4">4.4. Addressing a Property</h2>
+<h3 id="url4.4">4.4. Addressing a Property</h3>
 <p>To address an entity property clients compose the property name, to the url of the entity, in a new url segment. If the property has a complex type value, properties of that value can be addressed by further property name composition.</p>
-<h2 id="url4.5">4.5. Addressing a Property Value</h2>
+<h3 id="url4.5">4.5. Addressing a Property Value</h3>
 <p>To address the raw value of a property, client compose <code>/$value</code> to the property url.</p>
-<h1 id="url5">5. Query Options</h1>
+<h2 id="url5">5. Query Options</h2>
 <p>The Query Options section of an OData URL specifies three types of information: System Query Options, Custom Query Options, and Operation (function and service operation) Parameters. All OData services MUST follow the query string parsing and construction rules defined in this section and its subsections.</p>
-<h2 id="url5.1">5.1. System Query Options</h2>
+<h3 id="url5.1">5.1. System Query Options</h3>
 <p>System Query Options are query string parameters a client may specify to control the amount and order of the data that an OData service returns for the resource identified by the URL. The names of all System Query Options are prefixed with a “$” character.</p>
 <p>An OData service may support some or all of the System Query Options defined. If a data service does not support a System Query Option, it must reject any requests which contain the unsupported option.</p>
 <p>The semantics of all System Query Options are defined in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The grammar and syntax rules the System Query Options are defined in</p>
-<h3 id="url5.1.2">5.1.2. Filter System Query Option</h3>
+<h4 id="url5.1.2">5.1.2. Filter System Query Option</h4>
 <p>The $filter system query option allows clients to filter the set of resources that are addressed by a request URL. $filter specifies conditions that MUST be met by a resource for it to be returned in the set of matching resources.</p>
 <p>The semantics of $filter are covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> filter syntax rule defines the formal grammar of the $filter query option.</p>
-<h4 id="url5.1.2.1">5.1.2.1. Logical Operators</h4>
+<h5 id="url5.1.2.1">5.1.2.1. Logical Operators</h5>
 <p>OData defines a set of logical operators that evaluate to true or false (i.e. a boolCommonExpr as defined in Appendix A). Logical Operators are typically used in the Filter System Query Option to filter the set of resources. However Servers MAY allow for the use of Logical Operators with the OrderBy System Query Option.</p>
 <p>The syntax rules for the Logical Operators are defined in Appendix A.</p>
-<h5 id="url5.1.2.1.1">5.1.2.1.1. Equals Operator</h5>
+<h6 id="url5.1.2.1.1">5.1.2.1.1. Equals Operator</h6>
 <p>The Equals operator (or ‘eq’) evaluates to true if the left operand is equal to the right operand, otherwise if evaluates to false.</p>
-<h5 id="url5.1.2.1.2">5.1.2.1.2. Not Equals Operator</h5>
+<h6 id="url5.1.2.1.2">5.1.2.1.2. Not Equals Operator</h6>
 <p>The Not Equals operator (or ‘ne’) evaluates to true if the left operand is not equal to the right operand, otherwise if evaluates to false.</p>
-<h5 id="url5.1.2.1.3">5.1.2.1.3. Greater Than Operator</h5>
+<h6 id="url5.1.2.1.3">5.1.2.1.3. Greater Than Operator</h6>
 <p>The Greater Than operator (or ‘gt’) evaluates to true if the left operand is greater than the right operand, otherwise if evaluates to false.</p>
-<h5 id="url5.1.2.1.4">5.1.2.1.4. Greater Than or Equal Operator</h5>
+<h6 id="url5.1.2.1.4">5.1.2.1.4. Greater Than or Equal Operator</h6>
 <p>The Greater Than or Equal operator (or ‘ge’) evaluates to true if the left operand is greater than or equal to the right operand, otherwise if evaluates to false.</p>
-<h5 id="url5.1.2.1.5">5.1.2.1.5. Less Than Operator</h5>
+<h6 id="url5.1.2.1.5">5.1.2.1.5. Less Than Operator</h6>
 <p>The Less Than operator (or ‘lt’) evaluates to true if the left operand is less than the right operand, otherwise if evaluates to false.</p>
-<h5 id="url5.1.2.1.6">5.1.2.1.6. Less Than or Equal Operator</h5>
+<h6 id="url5.1.2.1.6">5.1.2.1.6. Less Than or Equal Operator</h6>
 <p>The Less Than operator (or ‘le’) evaluates to true if the left operand is less than or equal to the right operand, otherwise if evaluates to false.</p>
-<h5 id="url5.1.2.1.7">5.1.2.1.7. Logical And Operator</h5>
+<h6 id="url5.1.2.1.7">5.1.2.1.7. Logical And Operator</h6>
 <p>The Logical And operator (or ‘and’) evaluates to true if both the left and right operands both evaluate to true, otherwise if evaluates to false.</p>
-<h5 id="url5.1.2.1.8">5.1.2.1.8. Logical Or Operator</h5>
+<h6 id="url5.1.2.1.8">5.1.2.1.8. Logical Or Operator</h6>
 <p>The Logical Or operator (or ‘or’) evaluates to false if both the left and right operands both evaluate to false, otherwise if evaluates to true.</p>
-<h5 id="url5.1.2.1.9">5.1.2.1.9. Logical Negation Operator</h5>
+<h6 id="url5.1.2.1.9">5.1.2.1.9. Logical Negation Operator</h6>
 <p>The Logical Negation Operator (or ‘not’) evaluates to true if the operand evaluates to false, otherwise it evalutes to false.</p>
-<h5 id="url5.1.2.1.10">5.1.2.1.10. Logical Operator Examples</h5>
+<h6 id="url5.1.2.1.10">5.1.2.1.10. Logical Operator Examples</h6>
 <p>The following examples illustrate the use and semantics of each of the logical operators:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=Name eq 'Milk' (Requests all products with a Name equal to 'Milk').
 
@@ -204,20 +212,20 @@ https://services.odata.org/OData/OData.svc/Products?$filter=Name eq 'Milk' or Pr
 
 https://services.odata.org/OData/OData.svc/Products?$filter=not endswith(Name, 'ilk') (Requests all products that do not have a Name that ends with 'ilk'). 
 </code></pre>
-<h4 id="url5.1.2.2">5.1.2.2. Arithmetic Operators</h4>
+<h5 id="url5.1.2.2">5.1.2.2. Arithmetic Operators</h5>
 <p>OData defines a set of arithmetic operators that require operands that evaluate to numeric types. Arithmetic Operators are typically used in the Filter System Query Option to filter the set of resources. However Servers MAY allow for the use of Arithmetic Operators with the OrderBy System Query Option.</p>
 <p>The syntax rules for the Arithmetic Operators are defined in Appendix A.</p>
-<h5 id="url5.1.2.2.1">5.1.2.2.1. Addition Operator</h5>
+<h6 id="url5.1.2.2.1">5.1.2.2.1. Addition Operator</h6>
 <p>The Addition Operator (or ‘add’) adds the left and right numeric operands together.</p>
-<h5 id="url5.1.2.2.2">5.1.2.2.2. Subtraction Operator</h5>
+<h6 id="url5.1.2.2.2">5.1.2.2.2. Subtraction Operator</h6>
 <p>The Subtraction Operator (or ‘sub’) subtracts the right numeric operand from the left numeric operand.</p>
-<h5 id="url5.1.2.2.3">5.1.2.2.3. Multiplication Operator</h5>
+<h6 id="url5.1.2.2.3">5.1.2.2.3. Multiplication Operator</h6>
 <p>The Multiplication Operator (or ‘mul’) multiples the left and right numeric operands together.</p>
-<h5 id="url5.1.2.2.4">5.1.2.2.4. Division Operator</h5>
+<h6 id="url5.1.2.2.4">5.1.2.2.4. Division Operator</h6>
 <p>The Division Operator (or ‘div’) divides the left numeric operand by the right numeric operand.</p>
-<h5 id="url5.1.2.2.5">5.1.2.2.5. Modulo Operator</h5>
+<h6 id="url5.1.2.2.5">5.1.2.2.5. Modulo Operator</h6>
 <p>The Modulo Operator (or ‘mod’) evaluates to the remainder when the left integral operand is divided by the right integral operand.</p>
-<h5 id="url5.1.2.2.6">5.1.2.2.6. Arithmetic Operator Examples</h5>
+<h6 id="url5.1.2.2.6">5.1.2.2.6. Arithmetic Operator Examples</h6>
 <p>The following examples illustrate the use and semantics of each of the Arithmetic operators:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=Price add 2.45M eq '5.00M' (Requests all products with a Price of 2.55M).
 
@@ -229,15 +237,15 @@ https://services.odata.org/OData/OData.svc/Products?$filter=Price div 2.55M eq '
 
 https://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (Requests all products with a Rating exactly divisable by 5).
 </code></pre>
-<h4 id="url5.1.2.3">5.1.2.3. Parenthesis Operator</h4>
+<h5 id="url5.1.2.3">5.1.2.3. Parenthesis Operator</h5>
 <p>he Parenthesis Operator (or ‘( )’) controls the evaluation order of an expression, so that Parenthesis Operator evaluates to the expression grouped inside the parenthesis. For example:</p>
 <pre><code>https://services.odata.org/OData/OData.svc/Products?$filter=( 4 add 5 ) mod ( 4 sub 1 ) eq 0
 </code></pre>
 <p>Requests all products, because 9 mod 3 is 0.</p>
-<h4 id="url5.1.2.4">5.1.2.4. Canonical Functions</h4>
+<h5 id="url5.1.2.4">5.1.2.4. Canonical Functions</h5>
 <p>In addition to operators, a set of functions are also defined for use with the filter query option. The following table lists the available functions. Note: ISNULL or COALESCE operators are not defined. Instead, there is a null literal which can be used in comparisons.</p>
 <p>The syntax rules for all canonical functions are defined in Appendix A.</p>
-<h5 id="url5.1.2.4.1">5.1.2.4.1. substringof</h5>
+<h6 id="url5.1.2.4.1">5.1.2.4.1. substringof</h6>
 <p>The substringof canonical function has this signature:</p>
 <pre><code>Edm.Boolean substringof(Edm.String, Edm.String)
 </code></pre>
@@ -246,7 +254,7 @@ https://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (R
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substringof('Alfreds', CompanyName) eq true
 </code></pre>
 <p>Returns all Customers with a CompanyName that contains ‘Alfreds’.</p>
-<h5 id="url5.1.2.4.2">5.1.2.4.2. endswith</h5>
+<h6 id="url5.1.2.4.2">5.1.2.4.2. endswith</h6>
 <p>The endswith canonical function has this signature:</p>
 <pre><code>Edm.Boolean endswith(Edm.String, Edm.String)
 </code></pre>
@@ -255,7 +263,7 @@ https://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (R
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=endswith(CompanyName, 'Futterkiste')
 </code></pre>
 <p>Returns all Customers with a CompanyName that end with ‘Futterkiste’.</p>
-<h5 id="url5.1.2.4.3">5.1.2.4.3. startswith</h5>
+<h6 id="url5.1.2.4.3">5.1.2.4.3. startswith</h6>
 <p>The startswith canonical function has this signature:</p>
 <pre><code>Edm.Boolean startswith(Edm.String, Edm.String)
 </code></pre>
@@ -264,7 +272,7 @@ https://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (R
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=startswith(CompanyName, 'Alfr')
 </code></pre>
 <p>Returns all Customers with a CompanyName that starts with ‘Alfr’</p>
-<h5 id="url5.1.2.4.4">5.1.2.4.4. length</h5>
+<h6 id="url5.1.2.4.4">5.1.2.4.4. length</h6>
 <p>The length canonical function has this signature:</p>
 <pre><code>Edm.Int32 length(Edm.String)
 </code></pre>
@@ -273,7 +281,7 @@ https://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (R
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=length(CompanyName) eq 19
 </code></pre>
 <p>Returns all Customers with a CompanyName that is 19 characters long.</p>
-<h5 id="url5.1.2.4.5">5.1.2.4.5. indexof</h5>
+<h6 id="url5.1.2.4.5">5.1.2.4.5. indexof</h6>
 <p>The length canonical function has this signature:</p>
 <pre><code>Edm.Int32 indexof(Edm.String, Edm.String)
 </code></pre>
@@ -282,7 +290,7 @@ https://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (R
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=indexof(CompanyName, 'lfreds') eq 1
 </code></pre>
 <p>Returns all Customers with a CompanyName containing ‘lfreds’ starting at the second character.</p>
-<h5 id="url5.1.2.4.6">5.1.2.4.6. replace</h5>
+<h6 id="url5.1.2.4.6">5.1.2.4.6. replace</h6>
 <p>The replace canonical function has this signature:</p>
 <pre><code>Edm.String replace(Edm.String, Edm.String, Edm.String)
 </code></pre>
@@ -291,7 +299,7 @@ https://services.odata.org/OData/OData.svc/Products?$filter=Rating mod 5 eq 0 (R
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=replace(CompanyName, ' ', '') eq 'AlfredsFutterkiste'
 </code></pre>
 <p>Returns all Customers with a CompanyName that equals ‘AlfredsFutterkiste’ once ’ ’ has been replaced by ’’.</p>
-<h5 id="url5.1.2.4.7">5.1.2.4.7. substring</h5>
+<h6 id="url5.1.2.4.7">5.1.2.4.7. substring</h6>
 <p>The substring canonical function has consists of two overloads, with the following signatures:</p>
 <pre><code>Edm.String substring(Edm.String, Edm.Int32)
 Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
@@ -305,7 +313,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=substring(CompanyName, 1, 2) eq 'lf'
 </code></pre>
 <p>Returns all customers with a CompanyName that has ‘lf’ as the second and third characters respectively.</p>
-<h5 id="url5.1.2.4.8">5.1.2.4.8. tolower</h5>
+<h6 id="url5.1.2.4.8">5.1.2.4.8. tolower</h6>
 <p>The tolower canonical function has this signature:</p>
 <pre><code>Edm.String tolower(Edm.String)
 </code></pre>
@@ -314,7 +322,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkiste'
 </code></pre>
 <p>Returns all Customers with a CompanyName that equals ‘alfreds futterkiste’ once any uppercase characters have been converted to lowercase.</p>
-<h5 id="url5.1.2.4.9">5.1.2.4.9. toupper</h5>
+<h6 id="url5.1.2.4.9">5.1.2.4.9. toupper</h6>
 <p>The toupper canonical function has this signature:</p>
 <pre><code>Edm.String toupper(Edm.String)
 </code></pre>
@@ -323,7 +331,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKISTE'
 </code></pre>
 <p>Returns all Customers with a CompanyName that equals ‘ALFREDS FUTTERKISTE’ once any lowercase characters have been converted to uppercase.</p>
-<h5 id="url5.1.2.4.10">5.1.2.4.10. trim</h5>
+<h6 id="url5.1.2.4.10">5.1.2.4.10. trim</h6>
 <p>The trim canonical function has this signature:</p>
 <pre><code>Edm.String trim(Edm.String)
 </code></pre>
@@ -332,7 +340,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=length(trim(CompanyName)) eq length(CompanyName)
 </code></pre>
 <p>Returns all customers with a CompanyName without leading or trailing whitespace characters.</p>
-<h5 id="url5.1.2.4.11">5.1.2.4.11. concat</h5>
+<h6 id="url5.1.2.4.11">5.1.2.4.11. concat</h6>
 <p>The concat canonical function has this signature:</p>
 <pre><code>Edm.String concat(Edm.String, Edm.String)
 </code></pre>
@@ -341,7 +349,7 @@ Edm.String replace(Edm.String, Edm.Int32, Edm.Int32)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Customers?$filter=concat(concat(City, ', '), Country) eq 'Berlin, Germany'
 </code></pre>
 <p>Returns all customers with from the City of Berlin and the Country called Germany.</p>
-<h5 id="url5.1.2.4.12">5.1.2.4.12. year</h5>
+<h6 id="url5.1.2.4.12">5.1.2.4.12. year</h6>
 <p>The year canonical function has the following signatures:</p>
 <pre><code>Edm.Int32 year(Edm.DateTime)
 Edm.Int32 year(Edm.DateTimeOffset)
@@ -351,12 +359,12 @@ Edm.Int32 year(Edm.DateTimeOffset)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=year(BirthDate) eq 1971
 </code></pre>
 <p>Returns all Employees who were born in 1971.</p>
-<h5 id="url5.1.2.4.13">5.1.2.4.13. years</h5>
+<h6 id="url5.1.2.4.13">5.1.2.4.13. years</h6>
 <p>The years canonical function has the following signature:</p>
 <pre><code>Edm.Int32 years(Edm.Time)
 </code></pre>
 <p>If implemented the years the years canonical function MUST return the year component of the Time parameter value.</p>
-<h5 id="url5.1.2.4.14">5.1.2.4.14. month</h5>
+<h6 id="url5.1.2.4.14">5.1.2.4.14. month</h6>
 <p>The month canonical function has the following signatures:</p>
 <pre><code>Edm.Int32 month(Edm.DateTime)
 Edm.Int32 month(Edm.DateTimeOffset)
@@ -366,7 +374,7 @@ Edm.Int32 month(Edm.DateTimeOffset)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=month(BirthDate) eq 5
 </code></pre>
 <p>Returns all Employees who were born in May.</p>
-<h5 id="url5.1.2.4.15">5.1.2.4.15. day</h5>
+<h6 id="url5.1.2.4.15">5.1.2.4.15. day</h6>
 <p>The day canonical function has the following signatures:</p>
 <pre><code>Edm.Int32 day(Edm.DateTime)
 Edm.Int32 day(Edm.DateTimeOffset)
@@ -376,12 +384,12 @@ Edm.Int32 day(Edm.DateTimeOffset)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=day(BirthDate) eq 8
 </code></pre>
 <p>Returns all Employees who were born on the 8th day of a month.</p>
-<h5 id="url5.1.2.4.16">5.1.2.4.16. days</h5>
+<h6 id="url5.1.2.4.16">5.1.2.4.16. days</h6>
 <p>The days canonical function has the following signature:</p>
 <pre><code>Edm.Int32 days(Edm.Time)
 </code></pre>
 <p>If implemented the days canonical function MUST return the days component of the Time parameter value.</p>
-<h5 id="url5.1.2.4.17">5.1.2.4.17. hour</h5>
+<h6 id="url5.1.2.4.17">5.1.2.4.17. hour</h6>
 <p>The day canonical function has the following signatures:</p>
 <pre><code>Edm.Int32 hour(Edm.DateTime)
 Edm.Int32 hour(Edm.DateTimeOffset)
@@ -391,12 +399,12 @@ Edm.Int32 hour(Edm.DateTimeOffset)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=hour(BirthDate) eq 4
 </code></pre>
 <p>Returns all Employees who were born in the 4th hour of a day.</p>
-<h5 id="url5.1.2.4.18">5.1.2.4.18. hours</h5>
+<h6 id="url5.1.2.4.18">5.1.2.4.18. hours</h6>
 <p>The hours canonical function has the following signature:</p>
 <pre><code>Edm.Int32 hours(Edm.Time)
 </code></pre>
 <p>If implemented the hours canonical function MUST return the hours component of the Time parameter value.</p>
-<h5 id="url5.1.2.4.19">5.1.2.4.19. minute</h5>
+<h6 id="url5.1.2.4.19">5.1.2.4.19. minute</h6>
 <p>The minute canonical function has the following signatures:</p>
 <pre><code>Edm.Int32 minute(Edm.DateTime)
 Edm.Int32 minute(Edm.DateTimeOffset)
@@ -406,12 +414,12 @@ Edm.Int32 minute(Edm.DateTimeOffset)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=minute(BirthDate) eq 40
 </code></pre>
 <p>Returns all Employees who were born in the 40th minute of any hour on any day.</p>
-<h5 id="url5.1.2.4.20">5.1.2.4.20. minutes</h5>
+<h6 id="url5.1.2.4.20">5.1.2.4.20. minutes</h6>
 <p>The minutes canonical function has the following signature:</p>
 <pre><code>Edm.Int32 minutes(Edm.Time)
 </code></pre>
 <p>If implemented the minutes canonical function MUST return the minutes component of the Time parameter value.</p>
-<h5 id="url5.1.2.4.21">5.1.2.4.21. second</h5>
+<h6 id="url5.1.2.4.21">5.1.2.4.21. second</h6>
 <p>The second canonical function has the following signatures:</p>
 <pre><code>Edm.Int32 second(Edm.DateTime)
 Edm.Int32 second(Edm.DateTimeOffset)
@@ -421,12 +429,12 @@ Edm.Int32 second(Edm.DateTimeOffset)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Employees?$filter=second(BirthDate) eq 40
 </code></pre>
 <p>Returns all Employees who were born in the 40th second of any minute of any hour on any day.</p>
-<h5 id="url5.1.2.4.22">5.1.2.4.22. seconds</h5>
+<h6 id="url5.1.2.4.22">5.1.2.4.22. seconds</h6>
 <p>The seconds canonical function has the following signature:</p>
 <pre><code>Edm.Int32 seconds(Edm.Time)
 </code></pre>
 <p>If implemented the seconds canonical function MUST return the seconds component of the Time parameter value.</p>
-<h5 id="url5.1.2.4.23">5.1.2.4.23. round</h5>
+<h6 id="url5.1.2.4.23">5.1.2.4.23. round</h6>
 <p>The round canonical function has the following signatures</p>
 <pre><code>Edm.Double round(Edm.Double)
 Edm.Decimal round(Edm.Decimal)
@@ -436,7 +444,7 @@ Edm.Decimal round(Edm.Decimal)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=round(Freight) eq 32
 </code></pre>
 <p>Returns all Orders that have a Freight cost that rounds to 32.</p>
-<h5 id="url5.1.2.4.24">5.1.2.4.24. floor</h5>
+<h6 id="url5.1.2.4.24">5.1.2.4.24. floor</h6>
 <p>The floor canonical function has the following signatures</p>
 <pre><code>Edm.Double floor(Edm.Double)
 Edm.Decimal floor(Edm.Decimal)
@@ -446,7 +454,7 @@ Edm.Decimal floor(Edm.Decimal)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=floor(Freight) eq 32
 </code></pre>
 <p>Returns all Orders that have a Freight cost that rounds down to 32.</p>
-<h5 id="url5.1.2.4.25">5.1.2.4.25. ceiling</h5>
+<h6 id="url5.1.2.4.25">5.1.2.4.25. ceiling</h6>
 <p>The ceiling canonical function has the following signatures</p>
 <pre><code>Edm.Double ceiling(Edm.Double)
 Edm.Decimal ceiling(Edm.Decimal)
@@ -456,7 +464,7 @@ Edm.Decimal ceiling(Edm.Decimal)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=ceiling(Freight) eq 32
 </code></pre>
 <p>Returns all Orders that have a Freight cost that rounds up to 32.</p>
-<h5 id="url5.1.2.4.26">5.1.2.4.26. isof</h5>
+<h6 id="url5.1.2.4.26">5.1.2.4.26. isof</h6>
 <p>The isof canonical function has the following signatures</p>
 <pre><code>Edm.Boolean isof(type)
 Edm.Boolean isof(expression, type)
@@ -470,13 +478,13 @@ Edm.Boolean isof(expression, type)
 <pre><code>https://services.odata.org/Northwind/Northwind.svc/Orders?$filter=isof(Customer, NorthwindModel.MVPCustomer)
 </code></pre>
 <p>Returns only orders that have a customer that is a MVPCustomer.</p>
-<h5 id="url5.1.2.4.27">5.1.2.4.27. cast</h5>
+<h6 id="url5.1.2.4.27">5.1.2.4.27. cast</h6>
 <p>The cast canonical function has the following signatures:</p>
 <pre><code>Edm.Any cast(type)
 Edm.Any cast(expression,type)
 </code></pre>
 <p>If implemented the single parameter cast canonical function MUST return the current instance cast to the type specified. If implemented the two parameter cast canonical function MUST return the object referred to by the expression cast to the type specified. In either case if the cast fails the canonical function MUST return NULL.</p>
-<h4 id="url5.1.2.5">5.1.2.5. Operator Precedence</h4>
+<h5 id="url5.1.2.5">5.1.2.5. Operator Precedence</h5>
 <p>OData Servers MUST use the following operator precedence for supported operators when evaluating $filter and $orderby expressions:</p>
 <pre><code>GROUP                   OPERATOR            DESCRIPTION              
 
@@ -498,7 +506,7 @@ Arithmetic Operators    add                 Addition
 
 Grouping Operators      ( )                 Precedence grouping 
 </code></pre>
-<h3 id="url5.1.3">5.1.3. Expand System Query Option</h3>
+<h4 id="url5.1.3">5.1.3. Expand System Query Option</h4>
 <p>The $expand system query option allows clients to request related resources when a resource that satifies a particular request is retrieved.</p>
 <p>What follows is a snippet from [OData:ABNF][OData ABNF], that applies to the Expand System Query Option:</p>
 <pre><code>expand                      =   "$expand=" expandClause 
@@ -512,7 +520,7 @@ expandItem                  =   [ qualifiedEntityTypeName "/" ] navigationProper
 <p>A type cast using the qualifiedEntityTypeName to a type containing the property is required in order to expand a navigation property defined on a derived type.</p>
 <p>The leftmost navigationPropertyName segment MUST identify a navigation property defined on the entity type of the request or an entity type derived from the entity type of the request. Subsequent navigationPropertyName segments MUST identify navigation properties defined on the entity type returned by the previous navigation property or the entity type introduced in the previous cast.</p>
 <p>Redundant expandClause rules on the same data service URI MAY be considered valid, but MUST NOT alter the meaning of the URI.</p>
-<h3 id="url5.1.4">5.1.4. Select System Query Option</h3>
+<h4 id="url5.1.4">5.1.4. Select System Query Option</h4>
 <p>The $select system query option allows clients to requests a limited set of information for each entity or complex type identified by the ResourcePath and other System Query Options like $filter, $top, $skip etc. The $select query option is often used in conjunction with the $expand query option, to first increase the scope of the resource graph returned ($expand) and then selectively prune that resource graph ($select).</p>
 <p>What follows is a snippet [OData ABNF][OData%20ABNF.html] that applies to the Select System Query Option:</p>
 <pre><code>select                      =   "$select=" selectClause
@@ -558,25 +566,25 @@ selectItem                  =   star /
 <p>If an action or function is requested in a selectItem using a qualifiedActionName or a qualifiedFunctionName clause and that action or function cannot be bound to the entities requested, the service MUST ignore the selectItem clause.</p>
 <p>When multiple selectItems exist in a selectClause, then the total set of property, open property, navigation property, actions and functions to be returned is equal to the union of the set of those identified by each selectItem.</p>
 <p>Redundant selectClause rules on the same URI MAY be considered valid, but MUST NOT alter the meaning of the URI.</p>
-<h3 id="url5.1.5">5.1.5. OrderBy System Query Option</h3>
+<h4 id="url5.1.5">5.1.5. OrderBy System Query Option</h4>
 <p>The $orderby system query option allows clients to request resource in a particular order.</p>
 <p>The semantics of $orderby are covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> orderby syntax rule defines the formal grammar of the $orderby query option.</p>
-<h3 id="url5.1.6">5.1.6. Top and Skip System Query Options</h3>
+<h4 id="url5.1.6">5.1.6. Top and Skip System Query Options</h4>
 <p>The $top system query option allows clients a required number of resources, used in conjunction $skip query option which allows a client to ask the service to begin sending resource after skipping a required number of resource, a client can request a particular page of matching resources.</p>
 <p>The semantics of $top and $skip are covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> top and skip syntax rules define the formal grammar of the $top and $skip query options respectively.</p>
-<h3 id="url5.1.7">5.1.7. Inlinecount System Query Option</h3>
+<h4 id="url5.1.7">5.1.7. Inlinecount System Query Option</h4>
 <p>The $inlinecount system query option allows clients to request a count of the number of matching resources inline with the resources in the response. Typically this is most useful when a service implements server-side paging, as it allows clients to retrieve the number of matching resources even if the service decides to only response with a single page of matching resources.</p>
 <p>The semantics of $inlinecount is covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> inlinecount syntax rule define the formal grammar of the $inlinecount query option.</p>
-<h3 id="url5.1.8">5.1.8. Format System Query Option</h3>
+<h4 id="url5.1.8">5.1.8. Format System Query Option</h4>
 <p>The $format system query option if supported allows clients to request a response in a particular format. Generally requesting a particular format is done using standard content type negotiation, however occasionally the client has no access to request headers which makes standard content type negotiation not an option, it is in these situations that $format is generally used. Where present $format takes precedence over standard content type negotiation.</p>
 <p>The semantics of $format is covered in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document.</p>
 <p>The <a href="../abnf">OData:ABNF</a> format syntax rule define the formal grammar of the $format query option.</p>
-<h2 id="url5.2">5.2. Custom Query Options</h2>
+<h3 id="url5.2">5.2. Custom Query Options</h3>
 <p>Custom query options provide an extensible mechanism for data service-specific information to be placed in a data service URL query string. A custom query option is any query option of the form shown by the rule “customQueryOption” in Appendix A: ABNF for OData URL Conventions.</p>
 <p>Custom query options MUST NOT begin with a “$” character because the character is reserved for system query options. A custom query option MAY begin with the “@” character, however this doing can result in custom query options that collide with function Parameters values specified using Parameter Aliases.</p>
 <p>For example this URL addresses provide a ‘secURLtytoken’ via a custom query option: http://service.odata.org/OData/OData.svc/Products?$orderby=Name&amp;secURLtytoken=0412312321</p>
-<h2 id="url5.3">5.3. URL Equivalence</h2>
+<h3 id="url5.3">5.3. URL Equivalence</h3>
 <p>When determining if two URLs are equivalent, each URL SHOULD be normalized using the rules specified in <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC3987</a> and <a title="http://www.ietf.org/rfc/rfc3986.txt" href="http://">RFC3986</a> and then compared for equality using the equivalence rules specified in <a href="http://www.ietf.org/rfc/rfc2616.txt">HTTP/1.1</a>, Section 3.2.3.</p>
