@@ -380,3 +380,7 @@ strong {
   font-weight: bold;
   font-size: 1.5rem;
 }
+
+.alert.alert-success {
+    background-color: #FFF1DA;
+}
