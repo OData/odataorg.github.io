@@ -19,17 +19,11 @@ permalink: /documentation/odata-version-3-0/url-conventions/
 </figure>
 <br />&nbsp;
 <br />
-The following are two example URLs broken down into their component parts:</p>
-<pre><code>https://services.odata.org/OData/OData.svc 
-_______________________________________/
-               | 
-        service root URL 
-
-https://services.odata.org/OData/OData.svc/Category(1)/Products?$top=2&amp;$orderby=name
-_______________________________________/ __________________/ __________________/
-               |                                |                    |
-         service root URL                  resource path        query options
-</code></pre>
+<p>The following are two example URLs broken down into their component parts:</p>
+<figure>
+    <img src="/assets/exampleURIsComponents.png" alt="Example URIs with component parts labeled." width="714" height="32" class="aligncenter size-full wp-image-1831" />
+    <figcaption class="visually-hidden">Two example URIs with their component parts labeled. The first URI is "https://services.odata.org/OData/OData.svc", which is the service root URL. The second URI starts with the same service root URL, but also has the two following additional parts. The resource path part is "/Category(1)/Products", and the query options part is "?$top=2&$orderby-name".</figcaption>
+</figure>
 <h2 id="url3">3. Service Root URL</h2>
 <p>The service root URL identifies the root of an OData service. The resource identified by this URL MUST be an AtomPub Service Document (as specified in [RFC5023]) and follow the OData conventions for AtomPub Service Documents (or an alternate representation of an Atom Service Document if a different format is requested). OData: JSON Format specifies such an alternate JSON-based representation of a service document. The service document is required to be returned from the root of an OData service to provide clients with a simple mechanism to enumerate all of the collections of resources available for the data service.</p>
 <h2 id="url4">4. Resource Path</h2>

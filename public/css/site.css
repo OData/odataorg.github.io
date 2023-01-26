@@ -381,6 +381,19 @@ strong {
   font-size: 1.5rem;
 }
 
+figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+p a {
+   word-wrap: break-word;
+}
+
+td {
+    word-wrap: break-word;
+}
+
 .visually-hidden {
     clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
     clip: rect(1px, 1px, 1px, 1px);

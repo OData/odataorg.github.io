@@ -50,13 +50,15 @@ permalink: /documentation/odata-version-3-0/atom-format/
 <h2 id="primitivetypesinatom">4. Primitive Types in Atom</h2>
 <p>OData Atom and XML payloads serialize primitive types as shown in the table below.</p>
 <p>For full syntax rules, see <a href="../abnf">OData:ABNF</a>:</p>
-<table border="1" cellspacing="0" cellpadding="0" aria-label="Primitive Types in Atom">
-<tbody>
+<table border="1" cellspacing="0" cellpadding="0" aria-label="Primitive Types in Atom" style="width:100%; table-layout:fixed">
+<thead>
 <tr>
 <th>Primitive Type</th>
 <th>Literal Form</th>
 <th>Example</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td><strong>Null</strong><br />
 Represents the absence of a value</td>
@@ -154,13 +156,13 @@ Note: See definition of UTF8-char in <a href="http://tools.ietf.org/html/rfc3629
 <tr>
 <td><strong>Edm.Time</strong><br />
 Represents the time of day with values ranging from 0:00:00.x to 23:59:59.y, where x and y depend upon the precision</td>
-<td>Defined by the lexical representation for time at <a href="http://www.w3.org/TR/xmlschema-2">http://www.w3.org/TR/xmlschema-2</a></td>
+<td>Defined by the lexical representation for time at <a href="http://www.w3.org/TR/xmlschema-2">XML Schema Datatypes</a></td>
 <td>13:20:00</td>
 </tr>
 <tr>
 <td><strong>Edm.DateTimeOffset</strong><br />
 Represents date and time as an Offset in minutes from GMT, with values ranging from 12:00:00 midnight, January 1, 1753 A.D. through 11:59:59 P.M, December 9999 A.D</td>
-<td>Defined by the lexical representation for datetime (including timezone offset) at <a href="http://www.w3.org/TR/xmlschema-2"> http://www.w3.org/TR/xmlschema-2</a></td>
+<td>Defined by the lexical representation for datetime (including timezone offset) at <a href="http://www.w3.org/TR/xmlschema-2">XML Schema Datatypes</a></td>
 <td>2002-10-10T17:00:00Z</td>
 </tr>
 <tr>
@@ -186,7 +188,8 @@ Represents a linestring in a round-earth coordinate system.</td>
 <td>SRID=123435;Linestring(33.84 -117.91,48.87 2.78)</td>
 </tr>
 <tr>
-<td><strong>Edm.GeographyPolygon</strong>Represents a polygon in a round-earth coordinate system.</td>
+<td><strong>Edm.GeographyPolygon</strong><br />
+Represents a polygon in a round-earth coordinate system.</td>
 <td>srid "Polygon(" polygon ")"<br />
 <i>polygon=</i> ring "," [ring ","]*<br />
 <i>ring=</i> "(" firstpoint "," [point ","]* firstpoint ")" ]* ")"<br />
@@ -208,19 +211,22 @@ Represents a collection of Geography Values.</td>
 <td>SRID=123435;GeographyCollection(Point(33.84 -117.91),Point(48.87 2.78))</td>
 </tr>
 <tr>
-<td><strong>Edm.GeographyMultiPoint</strong>Represents a collection of points in a round-earth coordinate system</td>
+<td><strong>Edm.GeographyMultiPoint</strong><br />
+Represents a collection of points in a round-earth coordinate system</td>
 <td>srid "MultiPoint(" multipoint ")"<br />
 <i>multipoint=</i> point ["," point]*</td>
 <td>SRID=123435;MultiPoint((33.84 -117.91),(48.87 2.78))</td>
 </tr>
 <tr>
-<td><strong>Edm.GeographyMultiLineString</strong>Represents a collection of linestrings in a round-earth coordinate system.</td>
+<td><strong>Edm.GeographyMultiLineString</strong><br />
+Represents a collection of linestrings in a round-earth coordinate system.</td>
 <td>srid "MultiLineString(" multilinestring ")"<br />
 <i>multilinestring=</i> "(" linestring ")" [",(" linestring ")" ]*</td>
 <td>SRID=123435;MultiLineString((33.84 -117.91,48.87 2.78),(33.84 -117.91, 28.36 -81.56))</td>
 </tr>
 <tr>
-<td><strong>Edm.GeographyMultiPolygon</strong>Represents a collection of polygons in a round-earth coordinate system.</td>
+<td><strong>Edm.GeographyMultiPolygon</strong>
+<br />Represents a collection of polygons in a round-earth coordinate system.</td>
 <td>srid "MultiPolygon(" multipolygon ")"<br />
 <i>multipolygon=</i> "(" polygon ")" [",(" polygon ")"]*</td>
 <td>SRID=123435;MultiPolygon(((33.84 -117.91,(33.84 -117.91,28.36 -81.56,33.84 -117.91)))</td>
@@ -263,17 +269,20 @@ Represents a collection of Geometry Values.</td>
 <td>SRID=123435;GeometryCollection(Point(33.84 -117.91),Point(48.87 2.78))</td>
 </tr>
 <tr>
-<td><strong>Edm.GeometryMultiPoint</strong>Represents a collection of points in a flat-earth coordinate system.</td>
+<td><strong>Edm.GeometryMultiPoint</strong><br />
+Represents a collection of points in a flat-earth coordinate system.</td>
 <td>srid "MultiPoint(" multipoint ")"</td>
 <td>SRID=123435;MultiPoint((33.84 -117.91),(48.87 2.78))</td>
 </tr>
 <tr>
-<td><strong>Edm.GeographyMultiLineString</strong>Represents a collection of linestrings in a flat-earth coordinate system.</td>
+<td><strong>Edm.GeographyMultiLineString</strong><br />
+Represents a collection of linestrings in a flat-earth coordinate system.</td>
 <td>srid "MultiLineString(" multilinestring ")"</td>
 <td>SRID=123435;MultiLineString((33.84 -117.91,48.87 2.78),(33.84 -117.91, 28.36 -81.56))</td>
 </tr>
 <tr>
-<td><strong>Edm.GeographyMultiPolygon</strong>Represents a collection of polygons in a flat-earth coordinate system.</td>
+<td><strong>Edm.GeographyMultiPolygon</strong><br />
+Represents a collection of polygons in a flat-earth coordinate system.</td>
 <td>srid "MultiPolygon(" multipolygon ")"</td>
 <td>SRID=123435;MultiPolygon(((33.84 -117.91,(33.84 -117.91,28.36 -81.56,33.84 -117.91)))</td>
 </tr>
