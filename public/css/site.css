@@ -384,3 +384,7 @@ strong {
 .alert.alert-success {
     background-color: #FFF1DA;
 }
+
+.carousel-control:focus {
+    background-color: rgba(0, 0, 0, 0.25);
+}
