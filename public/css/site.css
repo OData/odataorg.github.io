@@ -380,3 +380,14 @@ strong {
   font-weight: bold;
   font-size: 1.5rem;
 }
+
+.visually-hidden {
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%); /* browsers in the future */
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
