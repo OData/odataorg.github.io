@@ -13,8 +13,12 @@ permalink: /documentation/odata-version-3-0/url-conventions/
 <p>Servers are encouraged to follow the URL construction conventions defined in this specification when possible as consistency promotes an ecosystem of reusable client components and libraries.</p>
 <h2 id="url2">2. URL Components</h2>
 <p>A URL used by an OData service has at most three significant parts: the <em>service root URL</em>, <em>resource path</em> and <em>query options</em>. Additional URL constructs (such as a fragment) MAY be present in a URL used by an OData service; however, this specification applies no further meaning to such additional constructs.</p>
-<p><a href="/assets/ODataUri.png" rel="attachment wp-att-9571"><img src="/assets/ODataUri.png" alt="ODataUri" width="714" height="32" class="wp-image-9571" /></a><br />
-&nbsp;<br />
+<figure>
+    <img src="/assets/ODataUri.png" alt="Diagram of the structure of an OData URI." width="714" height="32" class="aligncenter size-full wp-image-1831" />
+    <figcaption class="visually-hidden">Structure of an OData URI, which consists of a scheme, host, optional colon and port, service root, optional resource path, and optional question mark followed by query options.</figcaption>
+</figure>
+<br />&nbsp;
+<br />
 The following are two example URLs broken down into their component parts:</p>
 <pre><code>https://services.odata.org/OData/OData.svc 
 _______________________________________/
@@ -45,64 +49,74 @@ _______________________________________/ __________________/ __________________/
 </code></pre>
 <p>Since OData has a uniform composable URL syntax and associated rules there are many ways to address a collection of entities, including, but not limited to:</p>
 <ul>
-<li>Via an entity set (see rule: entitySetName)
+    <li>
+        Via an entity set (see rule: entitySetName)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Products
 </code></pre>
-</li>
-<li>By invoking a function that returns a collection of entities (see rule: entityColFunctionCall)
+    </li>
+    <li>
+        By invoking a function that returns a collection of entities (see rule: entityColFunctionCall)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/GetProductsByCategoryId(categoryId=2)
 </code></pre>
-</li>
-<li>By invoking an action that returns a collection of entities (see rule: actionCall)</li>
-<li>By invoking a service operation that returns a collection of entities (see rule: entityColServiceOpCall)
+    </li>
+    <li>By invoking an action that returns a collection of entities (see rule: actionCall)</li>
+    <li>
+        By invoking a service operation that returns a collection of entities (see rule: entityColServiceOpCall)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/ProductsByColor?color='red'
 </code></pre>
-</li>
+    </li>
 </ul>
 <p>Likewise there are many ways to address a single entity.</p>
 <p>Sometimes a single entity can be accessed directly, for example by:</p>
 <ul>
-<li>Invoking a function that returns a single entity (see rule: entityFunctionCall)</li>
-<li>Invoking an action that returns a single entity (see rule: actionCall)</li>
-<li>Invoking a service operation that returns a single entity (see rule: entityServiceOpCall)</li>
+    <li>Invoking a function that returns a single entity (see rule: entityFunctionCall)</li>
+    <li>Invoking an action that returns a single entity (see rule: actionCall)</li>
+    <li>Invoking a service operation that returns a single entity (see rule: entityServiceOpCall)</li>
 </ul>
 <p>Often however a single entity is accessed by composing more path segments to a resourcePath that identifies a collection of entities, for example by:</p>
 <ul>
-<li>Using a entity key to select a single entity (see rules: collectionNavigation and keyPredicate)
+    <li>
+        Using a entity key to select a single entity (see rules: collectionNavigation and keyPredicate)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)
 </code></pre>
-</li>
-<li>Invoking an action bound to a collection of entities that returns a single entity (see rule: boundOperation)</li>
-<li>Invoking an function bound to a collection of entities that returns a single entity (see rule: boundOperation)
+    </li>
+    <li>Invoking an action bound to a collection of entities that returns a single entity (see rule: boundOperation)</li>
+    <li>
+        Invoking an function bound to a collection of entities that returns a single entity (see rule: boundOperation)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Products/MostExpensive
 </code></pre>
-</li>
+    </li>
 </ul>
 <p>These rules are recursive, so it is possible to address a single entity via another single entity, a collection via a single entity and even a collection via a collection, examples include, but are not limited to:</p>
 <ul>
-<li>By following a navigation from a single entity to another related entity (see rule: entityNavigationproperty)
+    <li>
+        By following a navigation from a single entity to another related entity (see rule: entityNavigationproperty)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Products(1)/Supplier
 </code></pre>
-</li>
-<li>By invoking a function bound to a single entity that returns a single entity (see rule: boundOperation)
+    </li>
+    <li>
+        By invoking a function bound to a single entity that returns a single entity (see rule: boundOperation)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Products(1)/MostRecentOrder
 </code></pre>
-</li>
-<li>By invoking an action bound to a single entity that returns a single entity (see rule: boundOperation)</li>
-<li>By following a navigation from a single entity to a related collection of entities (see rule: entityColNavigationproperty)
+    </li>
+    <li>By invoking an action bound to a single entity that returns a single entity (see rule: boundOperation)</li>
+    <li>
+        By following a navigation from a single entity to a related collection of entities (see rule: entityColNavigationproperty)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/Products
 </code></pre>
-</li>
-<li>By invoking a function bound to a single entity that returns a collection of entities (see rule: boundOperation)
+    </li>
+    <li>
+        By invoking a function bound to a single entity that returns a collection of entities (see rule: boundOperation)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/TopTenProducts
 </code></pre>
-</li>
-<li>By invoking an action bound to a single entity that returns a collection of entities (see rule: boundOperation)</li>
-<li>By invoking a function bound to a collection of entities that returns a collection of entities (see rule: boundOperation)
+    </li>
+    <li>By invoking an action bound to a single entity that returns a collection of entities (see rule: boundOperation)</li>
+    <li>
+        By invoking a function bound to a collection of entities that returns a collection of entities (see rule: boundOperation)
 <pre><code>For example: https://services.odata.org/OData/OData.svc/Categories(1)/Products/AllOrders
 </code></pre>
-</li>
-<li>By invoking an action bound to a collection of entities that returns a collection of entities (see rule: boundOperation)</li>
+    </li>
+    <li>By invoking an action bound to a collection of entities that returns a collection of entities (see rule: boundOperation)</li>
 </ul>
 <p>Finally it is possible to compose path segments onto a resource path that identifies a primitive, complex instance, collection of primitives or collection of complex instances and bind an action or function that returns a entity or collections of entities.</p>
 <h4 id="url4.1.1">4.1.1. Canonical URL</h4>
@@ -110,8 +124,8 @@ _______________________________________/ __________________/ __________________/
 <p>For example the URLs <a href="https://services.odata.org/OData/OData.svc/Categories%281%29/Products%281%29">https://services.odata.org/OData/OData.svc/Categories(1)/Products(1)</a> and <a href="https://services.odata.org/OData/OData.svc/Products%281%29">https://services.odata.org/OData/OData.svc/Products(1)</a> represent the same entity, but the canonical URL for the entity is <a href="https://services.odata.org/OData/OData.svc/Products%281%29">https://services.odata.org/OData/OData.svc/Products(1)</a>.</p>
 <p>For contained entities the canonical URL begins with canonical URL of the parent, with further path segments that:</p>
 <ul>
-<li>Name and navigate through the containing navigation property</li>
-<li>and, if the navigation property returns a collection, an entity key (see rule: entity key) that uniquely identifies the entity in that collection.</li>
+    <li>Name and navigate through the containing navigation property</li>
+    <li>and, if the navigation property returns a collection, an entity key (see rule: entity key) that uniquely identifies the entity in that collection.</li>
 </ul>
 <h3 id="url4.2">4.2. Addressing Links between Entities</h3>
 <p>Much like the use of links on Web pages, the data model used by OData services supports relationships as a first class construct. For example, an OData service could expose a collection of Products entities each of which are related to a Category entity.</p>
@@ -125,26 +139,26 @@ links           =   entityURL "/$links/" navigationpropertyName
 <h4 id="url4.3.1">4.3.1. Addressing Actions</h4>
 <p>The semantic rules for addressing and invoking actions are defined in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document. The grammar for addressing and invoking actions are defined by the following syntax grammar rules in Appendix A:</p>
 <ul>
-<li>The actionCall syntax rule defines the grammar in the ResourcePath for addressing and invoking an action directly from the Service Root.</li>
-<li>The boundActionCall syntax rule defines the grammar in the ResourcePath for addressing and invoking an action that is appended to a ResourcePath that identifies some resources that should be used as the binding parameter value when invoking the action.</li>
-<li>The boundOperation syntax rule (which encompasses the boundActionCall syntax rule), when used by the resourcePath syntax rule, illustrates how a boundActionCall can be appended to a ResourcePath.</li>
+    <li>The actionCall syntax rule defines the grammar in the ResourcePath for addressing and invoking an action directly from the Service Root.</li>
+    <li>The boundActionCall syntax rule defines the grammar in the ResourcePath for addressing and invoking an action that is appended to a ResourcePath that identifies some resources that should be used as the binding parameter value when invoking the action.</li>
+    <li>The boundOperation syntax rule (which encompasses the boundActionCall syntax rule), when used by the resourcePath syntax rule, illustrates how a boundActionCall can be appended to a ResourcePath.</li>
 </ul>
 <h4 id="url4.3.2">4.3.2. Addressing Functions</h4>
 <p>The semantic rules for addressing and invoking functions are defined in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document. The grammar for addressing and invoking functions is defined by a number syntax grammar rules in Appendix A, in particular:</p>
 <ul>
-<li>The functionCall syntax rule defines the grammar in the ResourcePath for addressing and providing parameters for a function directly from the Service Root.</li>
-<li>The boundFunctionCall syntax rule defines the grammar in the ResourcePath for addressing and providing parameters for a function that is appended to a ResourcePath that identifies some resources that should be used as the binding parameter value when invoking the function.</li>
-<li>The boundOperation syntax rule (which encompasses the boundFunctionCall syntax rule), when used by the resourcePath syntax rule, illustrates how a boundFunctionCall can be appended to a ResourcePath.</li>
-<li>The functionExpr, boolFunctionExpr, boundFunctionExpr and boolBoundFunctionExpr syntax rules as used by the filter and orderby syntax rules define the grammar for invoking functions to help filter and order resources identified by the ResourcePath of the URL.</li>
-<li>The aliasAndValue syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax <a href="../odata-version-3-0-core-protocol#parameteraliases">OData:Core 10.4.2.3.2</a>.</li>
-<li>The parameterAndValue syntax rule defines the grammar for providing function parameter values using Parameter Name Syntax <a href="../odata-version-3-0-core-protocol#parameternamesyntax">OData:Core 10.4.2.3.3</a>.</li>
+    <li>The functionCall syntax rule defines the grammar in the ResourcePath for addressing and providing parameters for a function directly from the Service Root.</li>
+    <li>The boundFunctionCall syntax rule defines the grammar in the ResourcePath for addressing and providing parameters for a function that is appended to a ResourcePath that identifies some resources that should be used as the binding parameter value when invoking the function.</li>
+    <li>The boundOperation syntax rule (which encompasses the boundFunctionCall syntax rule), when used by the resourcePath syntax rule, illustrates how a boundFunctionCall can be appended to a ResourcePath.</li>
+    <li>The functionExpr, boolFunctionExpr, boundFunctionExpr and boolBoundFunctionExpr syntax rules as used by the filter and orderby syntax rules define the grammar for invoking functions to help filter and order resources identified by the ResourcePath of the URL.</li>
+    <li>The aliasAndValue syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax <a href="../odata-version-3-0-core-protocol#parameteraliases">OData:Core 10.4.2.3.2</a>.</li>
+    <li>The parameterAndValue syntax rule defines the grammar for providing function parameter values using Parameter Name Syntax <a href="../odata-version-3-0-core-protocol#parameternamesyntax">OData:Core 10.4.2.3.3</a>.</li>
 </ul>
 <h4 id="url4.3.3">4.3.3. Addressing Legacy Service Operations</h4>
 <p>The semantic rules for addressing and invoking a service operation are defined in the <a href="../odata-version-3-0-core-protocol">OData:Core</a> document. The grammar for addressing and invoking a service operation is define by 3 syntax rules in Appendix A:</p>
 <ul>
-<li>The serviceOperationCall syntax rule defines the grammar for the ResourcePath that addresses the service operation.</li>
-<li>The resourcePath syntax rule defines the grammar for any additional composition of OData ResourcePath segments that rely on the results of calling the service operation.</li>
-<li>The sopParameterNameAndValue syntax rule defines the grammar for specifying any parameters to the service operation in the query part of the request URL.</li>
+    <li>The serviceOperationCall syntax rule defines the grammar for the ResourcePath that addresses the service operation.</li>
+    <li>The resourcePath syntax rule defines the grammar for any additional composition of OData ResourcePath segments that rely on the results of calling the service operation.</li>
+    <li>The sopParameterNameAndValue syntax rule defines the grammar for specifying any parameters to the service operation in the query part of the request URL.</li>
 </ul>
 <p>This example, illustrates a call to a service operation with subsequent resource path segments, that uses all three syntax rules: [https://services.odata.org/OData/OData.svc/GetProductsByRating?rating=3&amp;$filter=Price gt 20.0M](https://services.odata.org/OData/OData.svc/GetProductsByRating?rating=3&amp;$filter=Price gt 20.0M)</p>
 <p>This invokes the GetProductsByRating service operation, with the rating parameter value set to 3, and then subsequently filters Products returned by the service operation call to include only those with a price greater than $20.</p>
