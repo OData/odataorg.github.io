@@ -28,14 +28,14 @@
 .s { color: #ce3512 } /* Literal.String */
 .na { color: #006699; } /* Name.Attribute */
 .nb { color: #336666 } /* Name.Builtin */
-.nc { color: #00AA88; } /* Name.Class */
+.nc { color: #007961; } /* Name.Class */
 .no { color: #336600 } /* Name.Constant */
 .nd { color: #9999FF } /* Name.Decorator */
 .ni { color: #999999; } /* Name.Entity */
 .ne { color: #CC0000; } /* Name.Exception */
 .nf { color: #8700A8 } /* Name.Function */
 .nl { color: #9999FF } /* Name.Label */
-.nn { color: #00CCFF; } /* Name.Namespace */
+.nn { color: #007695; } /* Name.Namespace */
 .nt { color: #2f6f9f; } /* Name.Tag */
 .nv { color: #003333 } /* Name.Variable */
 .ow { color: #000000; } /* Operator.Word */
