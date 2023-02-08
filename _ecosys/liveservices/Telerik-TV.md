@@ -2,6 +2,6 @@
 layout: default
 category: liveservices
 title: "Telerik TV"
-link: "https://tv.telerik.com/services/odata.svc"
+link: "http://tv.telerik.com/services/odata.svc"
 ---
-Telerikâ€™s catalog of libraries, videos, Tags and Series
+Telerik’s catalog of libraries, videos, Tags and Series
