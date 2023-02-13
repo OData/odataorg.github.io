@@ -4,18 +4,18 @@ title: Common Schema Definition Language (CSDL) (OData Version 3.0)
 date: 2014-02-20 08:01:53.000000000 +08:00
 permalink: /documentation/odata-version-3-0/common-schema-definition-language-csdl/
 ---
-<h5 class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
+<p class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
 <br><br>
 <a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
-<h1 id="introduction">Introduction</h1>
+<h2 id="introduction">Introduction</h2>
 <p>OData services are described by an Entity Data Model (EDM). Common Schema Definition Language (CSDL) defines an XML-based representation of the entity model exposed by an OData service. CSDL is based on standards defined in [<code><a href="https://www.w3.org/TR/2006/REC-xml11-20060816/">XML 1.1</a></code>] and [<code><a href="https://www.w3.org/standards/techs/xmlschema#w3c_all">XML Schema</a></code>].</p>
 <p>An OData service SHOULD provide a CSDL description of its entity model when a client requests a description of the entity model by sending a <code>GET</code> request to <code><serviceRoot>/$metadata</code>. <code>$metadata</code> MUST wrap the CSDL document in an EDMX wrapper.</p>
-<h1 id="csdl1">1 Common Schema Definition Language (CSDL) Namespaces</h1>
+<h2 id="csdl1">1 Common Schema Definition Language (CSDL) Namespaces</h2>
 <p>In addition to the default XML namespace, the elements and attributes used to describe the entity model of an OData service are defined in one of the following namespaces.</p>
-<h2 id="csdl1.1">1.1 Entity Data Model for Data Services Packaging (EDMX) Namespace</h2>
+<h3 id="csdl1.1">1.1 Entity Data Model for Data Services Packaging (EDMX) Namespace</h3>
 <p>Elements and attributes associated with the top-level wrapper that contains the CSDL used to define the entity model for an OData Service are qualified with the Entity Data Model for Data Services Packaging namespace: <code>http://schemas.microsoft.com/ado/2007/06/edmx</code>.</p>
 <p>In this specification the namespace prefix <code>edmx</code> is used to represent the Entity Data Model for Data Services Packaging namespace, however the prefix name is not prescriptive.</p>
-<h2 id="csdl1.2">1.2 Entity Data Model (EDM) Namespace</h2>
+<h3 id="csdl1.2">1.2 Entity Data Model (EDM) Namespace</h3>
 <p>Elements and attributes that define the entity model exposed by the OData Service are qualified with the Entity Data Model namespace: <code>http://schemas.microsoft.com/ado/2009/11/edm</code>.</p>
 <p>Prior versions of CSDL used the following namespaces for EDM:</p>
 <ul>
@@ -26,12 +26,12 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <li>CSDL version 3.0: http://schemas.microsoft.com/ado/2009/11/edm</li>
 </ul>
 <p>In this specification the namespace prefix <code>edm</code> is used to represent the Entity Data Model namespace, however the prefix name is not prescriptive.</p>
-<h2 id="csdl1.3">1.3 Data Service Metadata Namespace</h2>
+<h3 id="csdl1.3">1.3 Data Service Metadata Namespace</h3>
 <p>Elements and attributes specific to how the entity model is exposed as an OData Service are qualified with the Data Service Metadata namespace: <code>http://schemas.microsoft.com/ado/2007/08/DataServices/Metadata</code>.</p>
 <p>In this specification the namespace prefix <code>metadata</code> is used to represent the Data Service Metadata namespace, however the prefix name is not prescriptive.</p>
-<h1 id="csdl2">2 Common Characteristics of Entity Models</h1>
+<h2 id="csdl2">2 Common Characteristics of Entity Models</h2>
 <p>A typical entity model for an OData service contains one or more model elements. Some of these elements share a few common characteristics.</p>
-<h2 id="csdl2.1">2.1 Nominal Types</h2>
+<h3 id="csdl2.1">2.1 Nominal Types</h3>
 <p>A nominal type has a name. The name MUST be a [<code><simpleIdentifier></code>][csdl19]. In combination with a [csdl19] produces a fully qualified name of the form [<code><namespaceQualifiedIdentifier></code>][csdl19]. The [<code><namespaceQualifiedIdentifier></code>][csdl19] MUST be unique as it facilitates references to the element from other parts of the model.</p>
 <p>When referring to nominal types, the reference MUST use one of the following:</p>
 <ul>
@@ -52,7 +52,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <li>References in any namespace can use the fully qualified name, for example, <code>org.example.Address</code></li>
 <li>References in any namespace can specify an alias and use an alias qualified name, for example, <code>example.Address</code></li>
 </ul>
-<h2 id="csdl2.2">2.2 Structural Types</h2>
+<h3 id="csdl2.2">2.2 Structural Types</h3>
 <p>Structural types are composed of other model elements. Structural types are common in entity models as they are the typical means of representing entities in the OData service. <a href="#csdl6">Entity types</a> and <a href="#csdl7">complex types</a> are both structural types. <a href="#csdl9.4">Row types</a> are less common but are also structural types.</p>
 <p>A <a href="#csdl5">structural property</a> is a property that has one of the following types:</p>
 <ul>
@@ -61,7 +61,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <li><a href="#csdl8">Enumeration type</a></li>
 <li>A <a href="#csdl9.1">collection</a> of one of the above</li>
 </ul>
-<h2 id="csdl2.3">2.3 The <code>edm:Documentation</code> Element</h2>
+<h3 id="csdl2.3">2.3 The <code>edm:Documentation</code> Element</h3>
 <p>The <code>edm:Documentation</code> element allows service authors to provide documentation for most model elements.</p>
 <p>A model element MUST NOT contain more than one documentation element.</p>
 <p>Refer to the [XML schema][csdl19] for details on which model elements support documentation.</p>
@@ -75,12 +75,12 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  ...
 </EntityType>
 {% endhighlight %}
-<h2 id="csdl2.4">2.4 Vocabulary Annotations</h2>
+<h3 id="csdl2.4">2.4 Vocabulary Annotations</h3>
 <p>Many parts of the model can be annotated with additional information with the <a href="#csdl15.2"><code>edm:TypeAnnotation</code></a> and <a href="#csdl15.4"><code>edm:ValueAnnotation</code></a> elements.</p>
 <p>A model element MUST NOT specify more than one type annotation or value annotation for a given type term or value term.</p>
 <p>Vocabulary annotations may be specified as a child of the model element or as a child of an <a href="#csdl15.1"><code>edm:Annotations</code></a> element that targets the model element.</p>
 <p>Refer to <a href="#csdl15">Vocabulary Annotations</a> for details on which model elements support vocabulary annotations.</p>
-<h2 id="csdl2.5">2.5 Primitive Types</h2>
+<h3 id="csdl2.5">2.5 Primitive Types</h3>
 <p>Structural types are composed of other structural types and primitive types. CSDL defines the following fully qualified primitive types:</p>
 <ul>
 <li><code>Edm.Binary</code></li>
@@ -116,9 +116,9 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <li><code>Edm.GeometryCollection</code></li>
 <li><code>Edm.Stream</code></li>
 </ul>
-<h1 id="csdl3">3 Entity Model Wrapper Constructs</h1>
+<h2 id="csdl3">3 Entity Model Wrapper Constructs</h2>
 <p>An Entity Model Wrapper serves as the aggregation root for the schemas that describe the entity model exposed by the OData Service.</p>
-<h2 id="csdl3.1">3.1 The <code>edmx:Edmx</code> Element</h2>
+<h3 id="csdl3.1">3.1 The <code>edmx:Edmx</code> Element</h3>
 <p>An OData service exposes a single entity model. A CSDL description of the entity model can be requested from <code>$metadata</code>.</p>
 <p>The document returned by <code>$metadata</code> MUST contain a single root <code>edmx:Edmx</code> element. This element MUST contain a single direct child <a href="#csdl3.2"><code>edmx:DataServices</code></a> element. The data services element contains a description of the entity model(s) exposed by the OData service.</p>
 <p>In addition to the data services element, <code>Edmx</code> may have zero or more <a href="#csdl3.3"><code>edmx:Reference</code></a> elements and zero or more <a href="#csdl3.4"><code>edmx:AnnotationsReference</code></a> elements. Reference elements specify the location of schemas referenced by the OData service. Annotations reference elements specify the location of <a href="#csdl15">annotations</a> to be applied to the OData service.</p>
@@ -129,14 +129,14 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </edmx:DataServices>
 </edmx:Edmx>
 {% endhighlight %}
-<h3 id="csdl3.1.1">3.1.1 The <code>Version</code> Attribute</h3>
+<h4 id="csdl3.1.1">3.1.1 The <code>Version</code> Attribute</h4>
 <p>The <code>Version</code> attribute MUST be present on the <a href="#csdl3.1"><code>edmx:Edmx</code></a> element.</p>
 <p>The <code>Version</code> attribute is a string value that specifies the version of the EDMX wrapper, and must be of the form <code><majorversion>.<minorversion></code>. This version of the specification defines version <code>1.0</code> of the EDMX Wrapper.</p>
-<h2 id="csdl3.2">3.2 The <code>edmx:DataServices</code> Element</h2>
+<h3 id="csdl3.2">3.2 The <code>edmx:DataServices</code> Element</h3>
 <p>The <code>edmx:DataServices</code> element contains zero or more <a href="#csdl4.1"><code>edm:Schema</code></a> elements which define the schema(s) exposed by the OData service.</p>
-<h3 id="csdl3.2.1">3.2.1 The <code>metadata:DataServiceVersion</code> Attribute</h3>
+<h4 id="csdl3.2.1">3.2.1 The <code>metadata:DataServiceVersion</code> Attribute</h4>
 <p>The <code>metadata:DataServiceVersion</code> attribute describes the version of OData protocol required to consume the service. This version of the specification defines the following valid data service version values: â€œ1.0â€, â€œ2.0â€, and â€œ3.0â€, corresponding to OData protocol versions 1.0, 2.0 and 3.0 respectively.</p>
-<h2 id="csdl3.3">3.3 The <code>edmx:Reference</code> Element</h2>
+<h3 id="csdl3.3">3.3 The <code>edmx:Reference</code> Element</h3>
 <p>The <code>edmx:Reference</code> element specifies external entity models referenced by this EDMX. Referenced models are available in their entirety to referencing models. All entity types, complex types and other named elements in a referenced model can be accessed from a referencing model.</p>
 <p>The following example demonstrates usage of the reference element to reference entity models that contain entity types and complex types that are used as vocabulary terms:</p>
 {% highlight xml %}<?xml version="1.0" encoding="UTF-8" standalone="true"?>
@@ -146,9 +146,9 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <edmx:DataServices ...>
 </edmx:Edmx>
 {% endhighlight %}
-<h3 id="csdl3.3.1">3.3.1 The <code>edmx:Url</code> Attribute</h3>
+<h4 id="csdl3.3.1">3.3.1 The <code>edmx:Url</code> Attribute</h4>
 <p>The <a href="#csdl3.3"><code>edmx:Reference</code></a> element MUST specify an <code>edmx:Url</code> attribute. The URL attribute uniquely identifies a model. The URL may be backed by a CSDL document describing the referenced model. Alternatively, the URL may be used to load a well-known model from a different location.</p>
-<h2 id="csdl3.4">3.4 The <code>edmx:AnnotationsReference</code> Element</h2>
+<h3 id="csdl3.4">3.4 The <code>edmx:AnnotationsReference</code> Element</h3>
 <p>The <code>edmx:AnnotationsReference</code> element specifies the location of an external document that contains annotations for this entity model. Only <a href="#csdl15.1"><code>edm:Annotations</code></a>, <a href="#csdl15.2"><code>edm:TypeAnnotation</code></a> and <a href="#csdl15.4"><code>edm:ValueAnnotation</code></a> elements will be read from the referenced model.</p>
 <p>The annotations reference element MUST contain one or more <a href="#csdl3.5"><code>edmx:Include</code></a> elements that specify the annotations to include from the target document.</p>
 <p>The following example demonstrates usage of the annotations reference element to reference documents that contain annotations:</p>
@@ -169,20 +169,20 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <li>Annotations that use a term from the <code>org.example.validation</code> namespace</li>
 <li>Annotations that use a term from the <code>org.example.display</code> namespace and specify a <code>Slate</code> qualifier</li>
 </ul>
-<h3 id="csdl3.4.1">3.4.1 The <code>edmx:Url</code> Attribute</h3>
+<h4 id="csdl3.4.1">3.4.1 The <code>edmx:Url</code> Attribute</h4>
 <p>The <a href="#csdl3.4"><code>edmx:AnnotationsReference</code></a> element MUST specify an <code>edmx:Url</code> attribute. The value of the URL attribute uniquely identifies a model. The URL may be backed by a CSDL document describing the referenced model. Alternatively, the URL may be used to load a well-known model from a different location.</p>
-<h2 id="csdl3.5">3.5 The <code>edmx:Include</code> Element</h2>
+<h3 id="csdl3.5">3.5 The <code>edmx:Include</code> Element</h3>
 <p>The <code>edmx:Include</code> element specifies which annotations to include from an <a href="#csdl3.4">annotations reference</a>. An include element that does not have an <a href="#csdl3.5.1"><code>edmx:TermNamespace</code></a> attribute or an <a href="#csdl3.5.2"><code>edmx:Qualifier</code></a> attribute includes all annotations within the document. If both <a href="#csdl3.5.1"><code>edmx:TermNamespace</code></a> and <a href="#csdl3.5.2"><code>edmx:Qualifier</code></a> have values, only annotations that meet both restrictions will be included.</p>
-<h3 id="csdl3.5.1">3.5.1 The <code>edmx:TermNamespace</code> Attribute</h3>
+<h4 id="csdl3.5.1">3.5.1 The <code>edmx:TermNamespace</code> Attribute</h4>
 <p>An <a href="#csdl3.5"><code>edmx:Include</code></a> element MAY provide a [<code><namespace></code>][csdl19] value for the <code>edmx:TermNamespace</code> attribute. A term namespace is a string that disambiguates terms with the same name.</p>
 <p>For instance, assume both <code>org.schema</code> and <code>org.microformats</code> define a term named <code>Address</code>. Although the terms have the same name, they are uniquely identifiable since each term is in a model with a unique namespace.</p>
 <p>If a value is supplied, the include element will import the set of annotations that apply terms from the namespace in the value. The term namespace attribute also provides consumers insight about what namespaces are used in the annotations document. If there are no include elements that have a term namespace of interest to the consumer, the consumer can opt to not download the document.</p>
-<h3 id="csdl3.5.2">3.5.2 The <code>edmx:Qualifier</code> Attribute</h3>
+<h4 id="csdl3.5.2">3.5.2 The <code>edmx:Qualifier</code> Attribute</h4>
 <p>An <a href="#csdl3.5"><code>edmx:Include</code></a> element MAY have a value for the <code>edmx:Qualifier</code> attribute. A qualifier is used to apply an annotation to a subset of consumers. For instance, a service author may want to supply a different set of annotations for various device form factors.</p>
 <p>If a value is supplied, the include element will import the set of annotations that apply the qualifier in the value. The qualifier attribute also provides consumers insight about which qualifiers are used in the annotations document. If there are no include elements that have a qualifier of interest to the consumer, the consumer can opt to not download the document.</p>
-<h1 id="csdl4">4 Schema Constructs</h1>
+<h2 id="csdl4">4 Schema Constructs</h2>
 <p>Each entity model exposed by the OData service is described one or more schemas. The schema acts as a container for all of the entity types, complex types and other parts of the entity model.</p>
-<h2 id="csdl4.1">4.1 The <code>edm:Schema</code> Element</h2>
+<h3 id="csdl4.1">4.1 The <code>edm:Schema</code> Element</h3>
 <p>The Schema is the root of an entity model exposed by an OData service. Although an `edmx:DataServices element contains zero or more Schema elements, many OData services will contain exactly one schema.</p>
 <p>A Schema element contains zero or more of the following elements:</p>
 <ul>
@@ -196,21 +196,21 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <li><a href="#csdl4.2"><code>edm:Using</code></a></li>
 <li><a href="#csdl14.2"><code>edm:ValueTerm</code></a></li>
 </ul>
-<h3 id="csdl4.1.1">4.1.1 The <code>edm:Namespace</code> Attribute</h3>
+<h4 id="csdl4.1.1">4.1.1 The <code>edm:Namespace</code> Attribute</h4>
 <p>A schema is identified by the value of the <code>edm:Namespace</code> attribute. The schemaâ€™s namespace is combined with the name of elements in the entity model to create unique names.</p>
 <p>Identifiers that are used to name types MUST be unique within a namespace to prevent ambiguity. See <a href="#csdl2.1">Nominal Types</a> for more detail.</p>
 <p>A schema that contains nominal types MUST specify a [<code><namespace></code>][csdl19] value for the namespace attribute. A schema that contains only vocabulary annotations MAY specify a [<code><namespace></code>][csdl19] value for the namespace attribute. The <code>edm:Namespace</code> attribute MUST NOT use the reserved values <code>System</code>, <code>Transient</code> or <code>Edm</code>.</p>
-<h3 id="csdl4.1.2">4.1.2 The <code>edm:Alias</code> Attribute</h3>
+<h4 id="csdl4.1.2">4.1.2 The <code>edm:Alias</code> Attribute</h4>
 <p>A schema MAY provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Alias</code> attribute. An alias allows a CSDL document to qualify nominal types with a short string rather than a long namespace. For instance, <code>org.example.vocabularies.display</code> may simply have an alias of <code>Self</code>. An alias qualified name is resolved to a fully qualified name by examining aliases on <a href="#csdl4.2"><code>edm:Using</code></a> and <a href="#csdl4.1"><code>edm:Schema</code></a> elements.</p>
 <p>An alias is scoped to the container in which it is declared. For example, a model referencing an annotations document cannot use any aliases defined in that annotations document. A referencing model defines its own aliases with the <a href="#csdl4.2"><code>edm:Using</code></a> element.</p>
-<h2 id="csdl4.2">4.2 The <code>edm:Using</code> Element</h2>
+<h3 id="csdl4.2">4.2 The <code>edm:Using</code> Element</h3>
 <p>The <code>edm:Using</code> element imports the contents of a specified namespace. A using element binds an alias to the namespace of any entity model.</p>
 <p>Importing the contents of another model with a using element may alter the importing model. For instance, a model may import an entity model containing an entity type derived from an entity type in the importing model. In that case an <a href="#csdl12.2"><code>edm:EntitySet</code></a> in the importing model may return either entity type.</p>
-<h3 id="csdl4.2.1">4.2.1 The <code>edm:Namespace</code> Attribute</h3>
+<h4 id="csdl4.2.1">4.2.1 The <code>edm:Namespace</code> Attribute</h4>
 <p>A using element MUST provide a [<code><namespace></code>][csdl19] value to the <code>edm:Namespace</code> attribute. The value provided to the namespace attribute SHOULD match the namespace of an entity model that is in scope.</p>
-<h3 id="csdl4.2.2">4.2.2 The <code>edm:Alias</code> Attribute</h3>
+<h4 id="csdl4.2.2">4.2.2 The <code>edm:Alias</code> Attribute</h4>
 <p>A using element MUST define a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Alias</code> attribute. An alias allows a CSDL model to substitute a short string for a long namespace. For instance, <code>org.example.vocabularies.display</code> may be bound to an alias of <code>display</code>. An alias qualified name is resolved to a fully qualified name by examining aliases on <a href="#csdl4.2"><code>edm:Using</code></a> and <a href="#csdl4.1"><code>edm:Schema</code></a> elements.</p>
-<h1 id="csdl5">5 Properties</h1>
+<h2 id="csdl5">5 Properties</h2>
 <p>As mentioned in <a href="#csdl2.2">Structural Types</a>, structural types are composed of other structural types and primitive types. Structural types expose a collection of zero or more <a href="#csdl5.1"><code>edm:Property</code></a> elements.</p>
 <p>For example, the following complex type has two properties:</p>
 {% highlight xml %}<ComplexType Name="Measurement">
@@ -219,19 +219,19 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 </ComplexType>
 {% endhighlight %}
 <p><a href="#csdl6.1.4">Open entity types</a> allow properties to be added dynamically. When requesting the value of a missing property from an open entity type, the instance MUST return null.</p>
-<h2 id="csdl5.1">5.1 The <code>edm:Property</code> Element</h2>
+<h3 id="csdl5.1">5.1 The <code>edm:Property</code> Element</h3>
 <p>An <code>edm:Property</code> element allows the construction of structural types from a scalar value or a collection of scalar values.</p>
 <p>For instance, the following property could be used to hold zero or more strings representing the names of measurement units:</p>
 {% highlight xml %}<Property Name="Units" Type="Collection(Edm.String)" Nullable="false"/>
 {% endhighlight %}
 <p>A property MUST specify a unique name as well as a type and zero or more facets. <a href="#csdl5.3">Facets</a> are attributes that modify or constrain the acceptable values for a property value.</p>
-<h3 id="csdl5.1.1">5.1.1 The <code>edm:Name</code> Attribute</h3>
+<h4 id="csdl5.1.1">5.1.1 The <code>edm:Name</code> Attribute</h4>
 <p>A property MUST specify a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute. The name attribute allows a name to be assigned to the property. This name is used when serializing or deserializing OData payloads and can be used for other purposes, such as code generation.</p>
 <p>The value of the name attribute MUST be unique within the set of properties and navigation properties for the type and any of its base types.</p>
-<h2 id="csdl5.2">5.2 The <code>edm:Type</code> Attribute</h2>
+<h3 id="csdl5.2">5.2 The <code>edm:Type</code> Attribute</h3>
 <p>A property MUST specify a value for the <code>edm:Type</code> attribute. The value of this attribute determines the type for the value of the property on instances of the containing type.</p>
 <p>The value of the type attribute MUST be of the form [<code><anyKeylessTypeReference></code>][csdl19]. The value of the type attribute MUST resolve to a <a href="#csdl7">complex type</a>, <a href="#csdl8">enumeration type</a> or <a href="#csdl2.5">primitive type</a>, or a collection of complex, enumeration or primitive types.</p>
-<h2 id="csdl5.3">5.3 Property Facets</h2>
+<h3 id="csdl5.3">5.3 Property Facets</h3>
 <p>Property facets allow a model to provide additional constraints or data about the value of structural properties. Facets are expressed as attributes on the property element.</p>
 <p>Facets apply to the type referenced in the element where the facet is declared. If the type is a collection type declared with attribute notation, the facets apply to the types in the collection. In the following example, the Nullable facet applies to the DateTime type.</p>
 {% highlight xml %}<Property Name="SuggestedTimes" Type="Collection(Edm.DateTime)" Nullable="true" />
@@ -243,24 +243,24 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </Collection>
 </ReturnType>
 {% endhighlight %}
-<h3 id="csdl5.3.1">5.3.1 The <code>edm:Nullable</code> Attribute</h3>
+<h4 id="csdl5.3.1">5.3.1 The <code>edm:Nullable</code> Attribute</h4>
 <p>Any <code>edm:Property</code> MAY define a [<code><boolean></code>][csdl19] value for the <code>edm:Nullable</code> facet attribute. The value of this attribute determines whether a value is required for the property on instances of the containing type.</p>
 <p>If no value is specified, the nullable facet defaults to <code>true</code>.</p>
-<h3 id="csdl5.3.2">5.3.2 The <code>edm:MaxLength</code> Attribute</h3>
+<h4 id="csdl5.3.2">5.3.2 The <code>edm:MaxLength</code> Attribute</h4>
 <p>A binary, stream or string <code>edm:Property</code> MAY define a [<code><nonNegativeIntegral></code>][csdl19] value for the <code>edm:MaxLength</code> facet attribute. The value of this attribute specifies the maximum length of the value of the property on a type instance.</p>
-<h3 id="csdl5.3.3">5.3.3 The <code>edm:FixedLength</code> Attribute</h3>
+<h4 id="csdl5.3.3">5.3.3 The <code>edm:FixedLength</code> Attribute</h4>
 <p>A binary, stream or string <code>edm:Property</code> MAY define a [<code><nonNegativeIntegral></code>][csdl19] value for the <code>edm:FixedLength</code> facet attribute. The value of this attribute specifies the size of the array used to store the value of the property on a type instance.</p>
-<h3 id="csdl5.3.4">5.3.4 The <code>edm:Precision</code> Attribute</h3>
+<h4 id="csdl5.3.4">5.3.4 The <code>edm:Precision</code> Attribute</h4>
 <p>A temporal or decimal <code>edm:Property</code> MAY define a [<code><nonNegativeIntegral></code>][csdl19] value for the <code>edm:Precision</code> attribute.</p>
 <p>For a decimal property the value of this attribute specifies the maximum number of digits allowed in the propertyâ€™s value. For a temporal property the value of this attribute specifies the number of decimal places allowed in the seconds portion of the propertyâ€™s value.</p>
-<h3 id="csdl5.3.5">5.3.5 The <code>edm:Scale</code> Attribute</h3>
+<h4 id="csdl5.3.5">5.3.5 The <code>edm:Scale</code> Attribute</h4>
 <p>A decimal <code>edm:Property</code> MAY define a [<code><nonNegativeIntegral></code>][csdl19] value for the <code>edm:Scale</code> attribute. The value of this attribute specifies the maximum number of digits allowed to the right of the decimal point.</p>
 <p>The value of the <code>edm:Scale</code> attribute MUST be less than or equal to the value of the <a href="#csdl5.3.4"><code>edm:Precision</code></a> attribute.</p>
-<h3 id="csdl5.3.6">5.3.6 The <code>edm:Unicode</code> Attribute</h3>
+<h4 id="csdl5.3.6">5.3.6 The <code>edm:Unicode</code> Attribute</h4>
 <p>A string property MAY define a [<code><boolean></code>][csdl19] value for the <code>edm:Unicode</code> attribute.</p>
 <p>A <code>true</code> value assigned to this attribute indicates that the value of the property is encoded with Unicode. A <code>false</code> value assigned to this attribute indicates that the value of the property is encoded with ASCII.</p>
 <p>If no value is defined for this attribute, the value defaults to <code>true</code>.</p>
-<h3 id="csdl5.3.7">5.3.7 The <code>edm:Collation</code> Attribute</h3>
+<h4 id="csdl5.3.7">5.3.7 The <code>edm:Collation</code> Attribute</h4>
 <p>A string property MAY define a value for the <code>edm:Collation</code> attribute. The value of this attribute specifies a collation sequence that can be used for comparison and ordering operations.</p>
 <p>The value of the collation attribute MUST be one of the following:</p>
 <ul>
@@ -280,19 +280,19 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <li><code>String</code></li>
 <li><code>SByte</code></li>
 </ul>
-<h3 id="csdl5.3.8">5.3.8 The <code>edm:SRID</code> Attribute</h3>
+<h4 id="csdl5.3.8">5.3.8 The <code>edm:SRID</code> Attribute</h4>
 <p>A spatial property MAY define a value for the <code>edm:SRID</code> attribute. The value of this attribute identifies which spatial reference system is applied to values of the property on type instances.</p>
 <p>The value of the SRID attribute MUST be a [<code><nonNegativeInt32></code>][csdl19] or the special value variable. If no value is specified, the attribute defaults to <code>0</code> for Geometry types or <code>4326</code> for Geography types.</p>
 <p>The valid values of the SRID attribute and their meanings are as defined by the [European Petroleum Survey Group (EPSG)][http://www.epsg.org/Geodetic.html].</p>
-<h3 id="csdl5.3.9">5.3.9 The <code>edm:DefaultValue</code> Attribute</h3>
+<h4 id="csdl5.3.9">5.3.9 The <code>edm:DefaultValue</code> Attribute</h4>
 <p>A string property MAY define a value for the <code>edm:DefaultValue</code> attribute. The value of this attribute determines the value of the property on new type instances.</p>
-<h3 id="csdl5.3.10">5.3.10 The <code>edm:ConcurrencyMode</code> Attribute</h3>
+<h4 id="csdl5.3.10">5.3.10 The <code>edm:ConcurrencyMode</code> Attribute</h4>
 <p>An <code>edm:Property</code> MAY define a value for the <code>edm:ConcurrencyMode</code> attribute. The value of this attribute indicates how concurrency should be handled for the property.</p>
 <p>The value of the concurrency mode attribute MUST be <code>None</code> or <code>Fixed</code>. If no value is specified, the value defaults to <code>None</code>.</p>
 <p>When used on a property of an entity type, the concurrency mode attribute specifies that the value of that property SHOULD be used for optimistic concurrency checks.</p>
 <p>The concurrency mode attribute MUST NOT be applied to any properties of a <a href="#csdl7">complex type</a>.</p>
 <p>The concurrency mode attribute MUST NOT be applied to properties whose type is a complex type.</p>
-<h1 id="csdl6">6 Entity Type Constructs</h1>
+<h2 id="csdl6">6 Entity Type Constructs</h2>
 <p>Entity types are nominal structural types with a key that consists of one or more references to structural properties. An entity type by definition has an independent existence and can be created, updated or deleted independently of any other types. An entity type is the template for an entity: any uniquely identifiable record such as a customer or order.</p>
 <p>A key MUST be supplied if and only if the entity type does not specify a base type. The key consists of one or more references to structural properties of the entity type.</p>
 <p>An entity type can define two types of properties. A <a href="#csdl5">structural property</a> is a named reference to a primitive or complex type, or a collection of primitive or complex types. A <a href="#csdl6.4">navigation property</a> is a named reference to another entity type or collection of entity types. All properties MUST have a unique name. Properties MUST NOT have the same name as the declaring entity type.</p>
@@ -314,28 +314,28 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Property Name="DiscontinuedDate" Type="Edm.DateTime" Nullable="true"/>
 </EntityType>
 {% endhighlight %}
-<h2 id="csdl6.1">6.1 The <code>edm:EntityType</code> Element</h2>
+<h3 id="csdl6.1">6.1 The <code>edm:EntityType</code> Element</h3>
 <p>The <code>edm:EntityType</code> element represents an entity type in the entity model.</p>
 <p>An entity type MUST contain exactly one <a href="#csdl6.2"><code>edm:Key</code></a> element or specify a value for the <a href="#csdl6.1.2"><code>edm:BaseType</code></a> attribute, but not both.</p>
 <p>If no base type is specified, the <code>edm:EntityType</code> element MUST contain one or more <a href="#csdl5.1"><code>edm:Property</code></a> elements describing the properties of the entity type. The entity type element also can contain zero or more <a href="#csdl6.4"><code>edm:NavigationProperty</code></a> elements.</p>
-<h3 id="csdl6.1.1">6.1.1 The <code>edm:Name</code> Attribute</h3>
+<h4 id="csdl6.1.1">6.1.1 The <code>edm:Name</code> Attribute</h4>
 <p>A value of the form [<code><simpleIdentifier></code>][csdl19] MUST be provided for the <code>edm:Name</code> attribute because an entity type is a <a href="#csdl2.1">nominal type</a>. The value identifies the entity type and MUST be unique within the entity typeâ€™s namespace.</p>
-<h3 id="csdl6.1.2">6.1.2 The <code>edm:BaseType</code> Attribute</h3>
+<h4 id="csdl6.1.2">6.1.2 The <code>edm:BaseType</code> Attribute</h4>
 <p>An entity type can inherit from another entity type by specifying a [<code><singleEntityTypeReference></code>][csdl19] value for the <code>edm:BaseType</code> attribute.</p>
 <p>An entity type that provides a value for the base type attribute MUST NOT declare a key with the <a href="#csdl6.2"><code>edm:Key</code></a> element.</p>
 <p>An entity type inherits the key as well as structural and navigation properties declared on the entity typeâ€™s base type.</p>
 <p>An entity type MUST NOT introduce an inheritance cycle via the base type attribute.</p>
-<h3 id="csdl6.1.3">6.1.3 The <code>edm:Abstract</code> Attribute</h3>
+<h4 id="csdl6.1.3">6.1.3 The <code>edm:Abstract</code> Attribute</h4>
 <p>An entity type MAY indicate that it cannot be instantiated by providing a [<code><boolean></code>][csdl19] value of <code>true</code> to the <code>edm:Abstract</code> attribute. If not specified, the abstract attribute defaults to <code>false</code>.</p>
-<h3 id="csdl6.1.4">6.1.4 The <code>edm:OpenType</code> Attribute</h3>
+<h4 id="csdl6.1.4">6.1.4 The <code>edm:OpenType</code> Attribute</h4>
 <p>An entity type MAY indicate that it can be freely extended by providing a [<code><boolean></code>][csdl19] value of <code>true</code> to the <code>edm:OpenType</code> attribute. An open entity type allows entity instances to add properties dynamically simply by adding uniquely named values to the payload.</p>
 <p>If no value is provided for the open type attribute, the value of the open type attribute is set to <code>false</code>.</p>
 <p>An entity type derived from an open entity type MUST NOT provide a value of false for the open type attribute.</p>
-<h3 id="csdl6.1.5">6.1.5 The <code>metadata:HasStream</code> Attribute</h3>
+<h4 id="csdl6.1.5">6.1.5 The <code>metadata:HasStream</code> Attribute</h4>
 <p>An entity type MAY contain the <code>metadata:hasstream</code> attribute.</p>
 <p>A value of <code>true</code> specifies that the entity type is a media entity. <em>Media entities</em> are entities that represent a media stream, such as a photo. For more information on Media Entities, see [OData:Core][].</p>
 <p>If no value is provided for the HasStream attribute, the value of the HasStream attribute is set to <code>false</code>.</p>
-<h2 id="csdl6.2">6.2 The <code>edm:Key</code> Element</h2>
+<h3 id="csdl6.2">6.2 The <code>edm:Key</code> Element</h3>
 <p>An entity type MUST be uniquely identifiable. If an entity type does not specify a base type, the entity type MUST contain exactly one <code>edm:Key</code> element. An entity typeâ€™s key refers to the set of properties that uniquely identify an instance of the entity type.</p>
 <p>If specified, the key MUST contain one or more <code>edm:PropertyRef</code> elements. An <code>edm:PropertyRef</code> element references an <a href="#csdl5.1"><code>edm:Property</code></a>. The properties that compose the key MUST be non-nullable <a href="#csdl2.1">primitives</a> or <a href="#csdl8">enumeration types</a>.</p>
 <p>The following entity type has a simple key:</p>
@@ -357,9 +357,9 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Property Name="LineNumber" Type="Edm.Int32" Nullable="false"/>
 </EntityType>
 {% endhighlight %}
-<h2 id="csdl6.3">6.3 The <code>edm:PropertyRef</code> Element</h2>
+<h3 id="csdl6.3">6.3 The <code>edm:PropertyRef</code> Element</h3>
 <p>The <code>edm:PropertyRef</code> element provides an <code>edm:Key</code> with a reference to a single property of an entity type. A [<code><simpleIdentifier></code>][csdl19] value MUST be supplied to the <code>edm:Name</code> attribute. This value MUST resolve to one of the properties of the entity type.</p>
-<h2 id="csdl6.4">6.4 The <code>edm:NavigationProperty</code> Element</h2>
+<h3 id="csdl6.4">6.4 The <code>edm:NavigationProperty</code> Element</h3>
 <p>A navigation property allows navigation from an entity to related entities.</p>
 <p>In the following example, the Product entity type has a navigation property to a Category, which has a navigation link back to one or more products:</p>
 {% highlight xml %}<EntityType Name="Product">
@@ -372,24 +372,24 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <NavigationProperty Name="Products" ToRole="Product" FromRole="Category" Relationship="Self.ProductCategory"/>
 </EntityType>
 {% endhighlight %}
-<h3 id="csdl6.4.1">6.4.1 The <code>edm:Name</code> Attribute</h3>
+<h4 id="csdl6.4.1">6.4.1 The <code>edm:Name</code> Attribute</h4>
 <p>The navigation property MUST provide a [<code><simpleIdentifier></code>][csdl19] value to the <code>edm:Name</code> attribute. The name attribute is a meaningful string that characterizes the relationship when navigating from the entity that declared the navigation property to the related entity.</p>
 <p>The name of the navigation property MUST be unique within the set of structural and navigation properties of the containing entity type and any base types of the entity type.</p>
-<h3 id="csdl6.4.2">6.4.2 The <code>edm:Relationship</code> Attribute</h3>
+<h4 id="csdl6.4.2">6.4.2 The <code>edm:Relationship</code> Attribute</h4>
 <p>The <code>edm:Relationship</code> attribute MUST be given a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value. The value of the attribute MUST resolve to an <a href="#csdl10.1">association</a> in the entity model.</p>
-<h3 id="csdl6.4.3">6.4.3 The <code>edm:ToRole</code> Attribute</h3>
+<h4 id="csdl6.4.3">6.4.3 The <code>edm:ToRole</code> Attribute</h4>
 <p>The navigation property MUST provide a [<code><simpleIdentifier></code>][csdl19] value to the <code>edm:ToRole</code> attribute. The <code>edm:ToRole</code> attribute is a name used to refer to the destination of the navigation property.</p>
 <p>The value provided to the <code>edm:ToRole</code> attribute MUST be the same as one of the <a href="#csdl10.2.2"><code>edm:Role</code></a> names on the corresponding <code>edm:Association</code>.</p>
-<h3 id="csdl6.4.4">6.4.4 The <code>edm:FromRole</code> Attribute</h3>
+<h4 id="csdl6.4.4">6.4.4 The <code>edm:FromRole</code> Attribute</h4>
 <p>The navigation property MUST provide a [<code><simpleIdentifier></code>][csdl19] value to the <code>edm:FromRole</code> attribute. The <code>edm:FromRole</code> attribute is a name used to refer to the destination of the navigation property.</p>
 <p>The value provided to the <code>edm:FromRole</code> attribute MUST be the same as one of the <a href="#csdl10.2.2"><code>edm:Role</code></a> names on the corresponding <code>edm:Association</code>.</p>
-<h3 id="csdl6.4.5">6.4.5 The <code>edm:ContainsTarget</code> Attribute</h3>
+<h4 id="csdl6.4.5">6.4.5 The <code>edm:ContainsTarget</code> Attribute</h4>
 <p>A [<code><boolean></code>][csdl19] value MAY be assigned to the <code>edm:ContainsTarget</code> attribute. If no value is assigned to the contains target attribute, the attribute defaults to <code>false</code>. If the value assigned to the <code>edm:ContainsTarget</code> attribute is <code>true</code>, the entity type to which the navigation property belongs is said to contain the destination of the navigation property.</p>
 <p>It MUST NOT be possible for an entity type to contain itself by following more than one containment navigation property.</p>
 <p>When a navigation property navigates between entity types in the same entity set it is called recursive containment. If the containment is recursive, the containing entity type MUST have a multiplicity of <code>0..1</code>. If the containment is not recursive, the containing entity type MUST have a multiplicity of <code>1</code>.</p>
 <p>The association set for a containment navigation property MUST specify the same entity set for entity types with a common ancestor in the inheritance chain.</p>
 <p>An entity set MUST NOT be bound by association set to more than one navigation property via a containment navigation property that indicates that the entity type (or derived entity types) of that entity set is contained.</p>
-<h1 id="csdl7">7 Complex Type Constructs</h1>
+<h2 id="csdl7">7 Complex Type Constructs</h2>
 <p>Complex types are keyless nominal structured types. The lack of a key means that complex types cannot be created, updated or deleted independently of an entity type. Complex types allow entity models to group properties into common structures if the group of properties does not need to be managed independently.</p>
 <p>All properties MUST have a unique name. Properties MUST NOT have the same name as the declaring complex type.</p>
 <p>The following example demonstrates a complex type that is used by two entity types:</p>
@@ -408,10 +408,10 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Property Name="Dimensions" Type="Self.Dimensions" />
 </EntityType>
 {% endhighlight %}
-<h2 id="csdl7.1">7.1 The <code>edm:ComplexType</code> Element</h2>
+<h3 id="csdl7.1">7.1 The <code>edm:ComplexType</code> Element</h3>
 <p>The <code>edm:ComplexType</code> element represents a complex type in an entity model.</p>
 <p>The complex type MUST declare a <code>simpleIdentifier</code> value for the <code>edm:Name</code> attribute as well as one or more <a href="#csdl5.1"><code>edm:Property</code></a> elements. Complex types MUST NOT have any <a href="#csdl6.4">navigation properties</a>.</p>
-<h1 id="csdl8">8 Enumeration Type Constructs</h1>
+<h2 id="csdl8">8 Enumeration Type Constructs</h2>
 <p>Enumeration types are nominal scalar types that represent a series of related values. Enumeration types expose these related values as members of the enumeration.</p>
 <p>Enumeration types typically allow the selection of a single member. The <a href="#csdl8.1.2"><code>edm:IsFlags</code></a> attribute allows entity model authors to indicate that more than one value can be selected.</p>
 <p>The following example shows a simple flags-enabled enum:</p>
@@ -422,16 +422,16 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Member Name="Delete" Value="8" />
 </EnumType>
 {% endhighlight %}
-<h2 id="csdl8.1">8.1 The <code>edm:EnumType</code> Element</h2>
+<h3 id="csdl8.1">8.1 The <code>edm:EnumType</code> Element</h3>
 <p>The <code>edm:EnumType</code> element represents an enumeration type in an entity model.</p>
 <p>The enumeration type MUST provide a [<code><simpleIdentifier></code>][csdl19] as the value of the <code>edm:Name</code> attribute.</p>
 <p>The enumeration type element contains zero or more child <a href="#csdl8.2"><code>edm:Member</code></a> elements enumerating the members of the enum.</p>
-<h3 id="csdl8.1.1">8.1.1 The <code>edm:UnderlyingType</code> Attribute</h3>
+<h4 id="csdl8.1.1">8.1.1 The <code>edm:UnderlyingType</code> Attribute</h4>
 <p>An enumeration type has an underlying type which specifies the allowable values for member mapping.</p>
 <p>The enumeration type MUST assign an value to the <code>edm:UnderlyingType</code> attribute. If the underlying type is not specified, a 32-bit integer MUST be used as the underlying type.</p>
-<h3 id="csdl8.1.2">8.1.2 The <code>edm:IsFlags</code> Attribute</h3>
+<h4 id="csdl8.1.2">8.1.2 The <code>edm:IsFlags</code> Attribute</h4>
 <p>An enumeration type MAY specify a [<code><boolean></code>][csdl19] value for the <code>edm:IsFlags</code> attribute. A value of <code>true</code> indicates that the enumeration type allows multiple members to be selected simultaneously.</p>
-<h2 id="csdl8.2">8.2 The <code>edm:Member</code> Element</h2>
+<h3 id="csdl8.2">8.2 The <code>edm:Member</code> Element</h3>
 <p>An enumeration type typically has two or more members. Members represent discrete options for the enumeration type.</p>
 <p>Enumeration members are declared with the <code>edm:Member</code> element.</p>
 <p>For example, the following enumeration type has three discrete members:</p>
@@ -441,9 +441,9 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Member Name="Overnight" />
 </EnumType>
 {% endhighlight %}
-<h3 id="csdl8.2.1">8.2.1 The <code>edm:Name</code> Attribute</h3>
+<h4 id="csdl8.2.1">8.2.1 The <code>edm:Name</code> Attribute</h4>
 <p>Each enumeration member MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute. The enumeration type MUST NOT declare two members with the same name.</p>
-<h3 id="csdl8.2.2">8.2.2 The <code>edm:Value</code> Attribute</h3>
+<h4 id="csdl8.2.2">8.2.2 The <code>edm:Value</code> Attribute</h4>
 <p>The value of an enum member allows entity instances to be sorted by a property that has an enum member for its value. If the value is not explicitly set, the value MUST be assigned to 0 for the first member or one plus the previous member value for any subsequent members.</p>
 <p>The value MUST be a valid value for the <a href="#csdl8.1.1"><code>edm:UnderlyingType</code></a> of the enumeration type.</p>
 <p>In the example that follows, <code>FirstClass</code> MUST be assigned a value of <code>0</code>, <code>TwoDay</code> a value of <code>4</code>, and <code>Overnight</code> a value of <code>5</code>.</p>
@@ -453,8 +453,8 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Member Name="Overnight" />
 </EnumType>
 {% endhighlight %}
-<h1 id="csdl9">9 Other Type Constructs</h1>
-<h2 id="csdl9.1">9.1 Collection Types</h2>
+<h2 id="csdl9">9 Other Type Constructs</h2>
+<h3 id="csdl9.1">9.1 Collection Types</h3>
 <p>A collection type provides a means of representing a collection of scalar, complex or entity types.</p>
 <p>A collection type can be represented with attribute notation or element notation, as shown in these two equivalent examples:</p>
 {% highlight xml %}<ReturnType Type="Collection(Edm.String) " />
@@ -466,7 +466,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 </ReturnType>
 {% endhighlight %}
 <p>If specified with attribute notation, the collection type MUST be a collection of entity types, complex types or scalar types. If specified with element notation, the collection type can also be a collection of other collection types, reference types or row types.</p>
-<h3 id="csdl9.1.1">9.1.1 The <code>edm:CollectionType</code> Element</h3>
+<h4 id="csdl9.1.1">9.1.1 The <code>edm:CollectionType</code> Element</h4>
 <p>The <code>edm:CollectionType</code> element represents a collection of other types in an entity model.</p>
 <p>The collection type element can identify the types contained in the collection by specifying a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value for the <code>edm:ElementType</code> attribute.</p>
 <p>Alternatively the collection type can identify the types contained in the collection by specifying one of the following child elements:</p>
@@ -478,11 +478,11 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 </ul>
 <p>The collection type MUST identify the types contained in the collection with exactly one of the methods indicated above.</p>
 <p>The collection type can define relevant facets for scalar types.</p>
-<h2 id="csdl9.2">9.2 The <code>edm:TypeRef</code> Element</h2>
+<h3 id="csdl9.2">9.2 The <code>edm:TypeRef</code> Element</h3>
 <p>The <code>edm:TypeRef</code> element is used to reference a nominal type.</p>
 <p>The <code>edm:TypeRef</code> element MUST provide a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value for the <code>edm:Type</code> attribute.</p>
 <p>The type ref can define relevant facets for scalar types.</p>
-<h2 id="csdl9.3">9.3 Reference Types</h2>
+<h3 id="csdl9.3">9.3 Reference Types</h3>
 <p>A reference type specifies a reference to an entity instance. A reference to an entity instance is a special structure consisting primarily of the entity instance key. A reference to an entity instance is useful when a large number of entities would otherwise be returned.</p>
 <p>A reference type can be specified with attribute notation or element notation, as shown in the following two examples:</p>
 {% highlight xml %}<ReturnType Type="Ref(Self.Customer) " />
@@ -493,14 +493,14 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </CollectionType>
 </ReturnType>
 {% endhighlight %}
-<h3 id="csdl9.3.1">9.3.1 The <code>edm:ReferenceType</code> Element</h3>
+<h4 id="csdl9.3.1">9.3.1 The <code>edm:ReferenceType</code> Element</h4>
 <p>The <code>edm:ReferenceType</code> element represents a reference type in an entity model.</p>
 <p>A reference type MUST specify a [<code><singleEntityTypeReference></code>][csdl19] value for the <code>edm:Type</code> attribute. The value of this attribute names the type for which the reference type contains key information.</p>
-<h2 id="csdl9.4">9.4 Row Types</h2>
+<h3 id="csdl9.4">9.4 Row Types</h3>
 <p>A row type is the only structural type that is not nominal in nature. Because it does not have a name, the row type MUST be used inline. Row types are frequently used as the structure of a function importâ€™s return type.</p>
-<h3 id="csdl9.4.1">9.4.1 The <code>edm:RowType</code> Element</h3>
+<h4 id="csdl9.4.1">9.4.1 The <code>edm:RowType</code> Element</h4>
 <p>The <code>edm:RowType</code> element represents a structural type without a name. The row type MUST declare one or more <a href="#csdl5.1"><code>edm:Property</code></a> elements that define its structure.</p>
-<h1 id="csdl10">10 Association Constructs</h1>
+<h2 id="csdl10">10 Association Constructs</h2>
 <p>Associations provide the fundamental definition for a relationship between two entity types. An association MUST have a name and two ends, each with their own cardinality. In some cases, an association also has a referential constraint. A referential constraint asserts that the entity type playing the principal role in an association MUST exist for the entity type playing the dependent role to exist.</p>
 <p>A simple association might look like this:</p>
 {% highlight xml %}<Association Name="ProductCategory"> 
@@ -508,22 +508,22 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <End Type="Self.Category" Multiplicity="0..1" Role="Category"/>
 </Association>
 {% endhighlight %}
-<h2 id="csdl10.1">10.1 The <code>edm:Association</code> Element</h2>
+<h3 id="csdl10.1">10.1 The <code>edm:Association</code> Element</h3>
 <p>The <code>edm:Association</code> element represents an association in an entity model. The association MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute.</p>
 <p>An association MUST contain exactly two <code>edm:End</code> elements that represent the respective ends of the association. The association MAY also specify zero or one <a href="#csdl10.4"><code>edm:ReferentialConstraint</code></a> elements.</p>
-<h2 id="csdl10.2">10.2 The <code>edm:End</code> Element</h2>
+<h3 id="csdl10.2">10.2 The <code>edm:End</code> Element</h3>
 <p>An association has exactly two ends, each of which plays a role, has its own multiplicity and refers to the entity type at that end of the association. The <code>edm:End</code> element describes one of the ends of an association.</p>
 <p>Each end MAY also contain zero or one <a href="#csdl10.3"><code>edm:OnDelete</code></a> elements to specify operational behavior.</p>
-<h3 id="csdl10.2.1">10.2.1 The <code>edm:Type</code> Attribute</h3>
+<h4 id="csdl10.2.1">10.2.1 The <code>edm:Type</code> Attribute</h4>
 <p>Each end of the association MUST specify the entity type attached to that end. The value of the <code>edm:Type</code> attribute must be a [<code><singleEntityTypeReference></code>][csdl19]. The value of the type attribute MUST resolve to an entity type in the entity model.</p>
-<h3 id="csdl10.2.2">10.2.2 The <code>edm:Role</code> Attribute</h3>
+<h4 id="csdl10.2.2">10.2.2 The <code>edm:Role</code> Attribute</h4>
 <p>The <code>edm:Role</code> attribute allows the association end to be bound to a <a href="#csdl6.4">navigation property</a>. The association end MAY assign a [<code><simpleIdentifier></code>][csdl19] value to the <code>edm:Role</code> attribute.</p>
-<h3 id="csdl10.2.3">10.2.3 The <code>edm:Multiplicity</code> Attribute</h3>
+<h4 id="csdl10.2.3">10.2.3 The <code>edm:Multiplicity</code> Attribute</h4>
 <p>The <code>edm:Multiplicity</code> attribute defines the cardinality of the association end. The value of the attribute MUST be one of the following: - <code>0..1</code> â€“ zero or one - <code>1</code> â€“ exactly one - <code>*</code> â€“ zero or more</p>
-<h2 id="csdl10.3">10.3 The <code>edm:OnDelete</code> Element</h2>
+<h3 id="csdl10.3">10.3 The <code>edm:OnDelete</code> Element</h3>
 <p>The <code>edm:OnDelete</code> element prescribes the action that should be taken when the entity on the opposing end of the association is deleted.</p>
 <p>If present, the <code>edm:OnDelete</code> element MUST define a value for the <code>edm:Action</code> attribute. The value assigned to the action attribute MUST be <code>Cascade</code> or <code>None</code>.</p>
-<h2 id="csdl10.4">10.4 The <code>edm:ReferentialConstraint</code> Element</h2>
+<h3 id="csdl10.4">10.4 The <code>edm:ReferentialConstraint</code> Element</h3>
 <p>A referential constraint asserts that the entity on the principal end of the referential constraint must exist in order for the entity on the dependent end to exist. This assertion is established by the <code>edm:ReferentialConstraint</code> element.</p>
 <p>A referential constraint MUST contain exactly one <code>edm:Principal</code> element and exactly one <code>edm:Dependent</code> element.</p>
 <p>In the example that follows, the category must exist for a product in that category to exist:</p>
@@ -540,14 +540,14 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </ReferentialConstraint>
 </Association>
 {% endhighlight %}
-<h2 id="csdl10.5">10.5 The <code>edm:Principal</code> Element</h2>
+<h3 id="csdl10.5">10.5 The <code>edm:Principal</code> Element</h3>
 <p>The <code>edm:Principal</code> element represents the dominant end of the association. The entity on this end of the association may exist independently of the entity on the dependent end of the association.</p>
 <p>The principal element MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Role</code> attribute. This value MUST have the same value as the <code>edm:Role</code> attribute of one of the association ends. The multiplicity of that association end MUST be <code>1</code> or <code>0..1</code>.</p>
 <p>The principal end of the referential constraint MUST contain one or more <code>edm:PropertyRef</code> elements that name the key properties of the principal entity type.</p>
-<h2 id="csdl10.6">10.6 The <code>edm:Dependent</code> Element</h2>
+<h3 id="csdl10.6">10.6 The <code>edm:Dependent</code> Element</h3>
 <p>The <code>edm:Dependent</code> element represents the subordinate end of the association. The entity on this end of the association may only exist if an entity on the opposite end of the association exists.</p>
 <p>The dependent element MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Role</code> attribute. This value MUST have the same value as the <code>edm:Role</code> attribute of one of the association ends.</p>
-<h2 id="csdl10.7">10.7 The <code>edm:PropertyRef</code> Element</h2>
+<h3 id="csdl10.7">10.7 The <code>edm:PropertyRef</code> Element</h3>
 <p>The <code>edm:PropertyRef</code> elements indicate the fields that take part in the referential constraint on each entity.</p>
 <p>The <code>edm:Principal</code> element and the <code>edm:Dependent</code> element MUST each contain the same number of <code>edm:PropertyRef</code> elements. The property references MUST each be assigned [<code><simpleIdentifier></code>][csdl19] values and be ordered consistently in the principal and dependent elements. The property references MUST have the same data types in the principal and dependent elements.</p>
 <p>The property references for the principal entity MUST be the same property references specified in the <a href="#csdl6.2"><code>edm:Key</code></a> of the principal entity type, however they need not share the same order.</p>
@@ -567,7 +567,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </ReferentialConstraint>
 </Association>
 {% endhighlight %}
-<h1 id="csdl11">11 Model Functions</h1>
+<h2 id="csdl11">11 Model Functions</h2>
 <p>Model functions are similar to <a href="#csdl12.4">function imports</a> in that they represent a function that can interact with types in the model. Model functions allow the definition of a function body directly in the model. This specification does not place any requirements on the content of the function body.</p>
 <p>For example, the following function represents a means of calculating an age:</p>
 {% highlight xml %}<Function Name="GetAge" ReturnType="Edm.Int32">
@@ -578,7 +578,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 </Function>
 {% endhighlight %}
 <p>In the preceding example the function defines a function body using [Entity SQL][https://msdn.microsoft.com/en-us/library/bb387145.aspx]. This example is informative only; it is up to a given runtime to determine the validity of the defining expression.</p>
-<h2 id="csdl11.1">11.1 The <code>edm:Function</code> Element</h2>
+<h3 id="csdl11.1">11.1 The <code>edm:Function</code> Element</h3>
 <p>The <code>edm:Function</code> element is a nominal type that represents a user function in an entity model. The function may return a single or collection of primitive types, row types or nominal structured types.</p>
 <p>A function MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute.</p>
 <p>The function MUST specify exactly one return type. The return type can be specified using the <code>edm:ReturnType</code> attribute or the <code>edm:ReturnType</code> element.</p>
@@ -592,18 +592,18 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <li>A reference type or a collection of reference types</li>
 </ul>
 <p>The function MAY contain zero or one <code>edm:DefiningExpression</code> elements that state the definition for the function body. The conceptual schema definition language (CSDL) file format does not specify rules and restrictions regarding what language is to be used for expressing function bodies.</p>
-<h3 id="csdl11.1.1">11.1.1 The <code>edm:ReturnType</code> Attribute</h3>
+<h4 id="csdl11.1.1">11.1.1 The <code>edm:ReturnType</code> Attribute</h4>
 <p>If the return type is written with attribute notation, an [<code><anyTypeIdentifier></code>][csdl19] value MUST be provided for the <code>edm:ReturnType</code> attribute.</p>
 <p>If a value is provided for the return type attribute, the <code>edm:Function</code> element MUST NOT contain an <code>edm:ReturnType</code> element.</p>
-<h2 id="csdl11.2">11.2 The <code>edm:Parameter</code> Element</h2>
+<h3 id="csdl11.2">11.2 The <code>edm:Parameter</code> Element</h3>
 <p>The <code>edm:Parameter</code> element represents a parameter to the function. A [<code><simpleIdentifier></code>][csdl19] value MUST be provided for the <code>edm:Name</code> attribute.</p>
 <p>The parameter element MUST specify exactly one type. The type may be specified by providing an [<code><anyTypeIdentifier></code>][csdl19] value to the <code>edm:Type</code> attribute. Alternatively the type may be specified by providing at most one <a href="#csdl9.1.1"><code>edm:CollectionType</code></a>, <a href="#csdl9.3.1"><code>edm:ReferenceType</code></a>, or <a href="#csdl9.4.1"><code>edm:RowType</code></a> element as a child of the parameter element.</p>
 <p>The parameter element MUST NOT set a value for the <code>edm:Mode</code> attribute. The mode for function parameters is always <code>In</code>.</p>
-<h2 id="csdl11.3">11.3 The <code>edm:ReturnType</code> Element</h2>
+<h3 id="csdl11.3">11.3 The <code>edm:ReturnType</code> Element</h3>
 <p>If the return type is written with element notation, the <code>edm:Function</code> MUST contain exactly one <code>edm:ReturnType</code> element.</p>
 <p>The return type element MUST specify exactly one type. The type may be specified by providing a [<code><anyTypeIdentifier></code>][csdl19] value to the <code>edm:Type</code> attribute. Alternatively the type may be specified by providing at most one <a href="#csdl9.1.1"><code>edm:CollectionType</code></a>, <a href="#csdl9.3.1"><code>edm:ReferenceType</code></a>, or <a href="#csdl9.4.1"><code>edm:RowType</code></a> element as a child of the return type element.</p>
 <p>If a value is provided for the return type element, the <code>edm:Function</code> element MUST NOT specify a value for the <code>edm:ReturnType</code> attribute.</p>
-<h1 id="csdl12">12 Entity Container Constructs</h1>
+<h2 id="csdl12">12 Entity Container Constructs</h2>
 <p>An entity model can also describe how entities are logically grouped and even model the store or stores from which the entities can be retrieved. This is achieved through the declaration of entity containers, entity sets and association sets.</p>
 <p>An entity set is a nominal type that allows access to entity instances. Simple entity models frequently have one entity set per entity type, for example:</p>
 {% highlight xml %}<EntitySet Name="Products" EntityType="Self.Product"/>
@@ -640,23 +640,23 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </FunctionImport>
 </EntityContainer>
 {% endhighlight %}
-<h2 id="csdl12.1">12.1 The <code>edm:EntityContainer</code> Element</h2>
+<h3 id="csdl12.1">12.1 The <code>edm:EntityContainer</code> Element</h3>
 <p>The <code>edm:EntityContainer</code> element represents an entity container in an entity model. It corresponds to a logical data store and contains zero or more <code>edm:EntitySet</code>, <code>edm:AssociationSet</code> or <code>edm:FunctionImport</code> elements.</p>
 <p>The entity container MUST provide a unique [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute.</p>
 <p>An entity container MAY provide a [<code><qualifiedIdentifier</code>][csdl19] value for the <code>edm:Extends</code> attribute. The value provided to the extends attribute MUST resolve to an entity container in the entity model. All of the children in the extending entity container are added to the children of the extended entity container.</p>
-<h2 id="csdl12.2">12.2 The <code>edm:EntitySet</code> Element</h2>
+<h3 id="csdl12.2">12.2 The <code>edm:EntitySet</code> Element</h3>
 <p>The <code>edm:EntitySet</code> element is a nominal type that represents an entity set in an entity model.</p>
 <p>An entity set MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute. An entity set also has an <code>edm:EntityType</code> attribute that MUST be provided with a [<code><singleEntityTypeReference></code>][csdl19] that resolves to an entity type in the model. Each entity type in the model may have zero or more entity sets that reference the entity type.</p>
 <p>An entity set MUST contain only the entity type specified by the <code>edm:EntityType</code> attribute or its subtypes. The entity type named by the entity type attribute MAY be abstract.</p>
-<h2 id="csdl12.3">12.3 The <code>edm:AssociationSet</code> Element</h2>
+<h3 id="csdl12.3">12.3 The <code>edm:AssociationSet</code> Element</h3>
 <p>The <code>edm:AssociationSet</code> element is a nominal type that represents an association set in an entity model.</p>
 <p>An association set MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute. An association set also has an <code>edm:Association</code> attribute that MUST be provided with a [<code><qualifiedIdentifier></code>][csdl19] that resolves to an association in the entity model.</p>
 <p>An association set can contain zero, one or two <code>edm:End</code> elements.</p>
-<h3 id="csdl12.3.1">12.3.1 The <code>edm:End</code> Element</h3>
+<h4 id="csdl12.3.1">12.3.1 The <code>edm:End</code> Element</h4>
 <p>An <code>edm:End</code> element MUST be specified if the corresponding end of the association refers to an entity type that is exposed in more than one entity set.</p>
 <p>An association set end MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Role</code> attribute that is the same as the value of one of the association endsâ€™ <code>edm:Role</code> attribute.</p>
 <p>The <code>edm:End</code> element MUST also provide a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value for the <code>edm:EntitySet</code> attribute. The entity set that is named MUST expose the entity type bound by the corresponding end of the association.</p>
-<h2 id="csdl12.4">12.4 The <code>edm:FunctionImport</code> Element</h2>
+<h3 id="csdl12.4">12.4 The <code>edm:FunctionImport</code> Element</h3>
 <p>The <code>edm:FunctionImport</code> element is a nominal type that represents a Function or Action in an entity model.</p>
 <p>Functions MUST NOT have observable side-effects and MUST return a single or collection of primitive types or nominal structured types. Functions MAY be composable.</p>
 <p>Actions MAY have side-effects and MAY return a single or collection of primitive types or nominal structured types. Actions are not composable.</p>
@@ -664,41 +664,41 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <p>The function import MAY specify a return type using the <a href="#csdl12.5"><code>edm:ReturnType</code></a> element. The return type must be a scalar, entity or complex type, or a collection of scalar, entity or complex types.</p>
 <p>If the function import specifies a return type that is an entity or a collection of entities, it MUST include either an <a href="#csdl12.4.2"><code>edm:EntitySet</code></a> Attribute or an <a href="#csdl12.4.3"><code>edm:EntitySetPath</code></a> Attribute to specify the entityset of the returned entity or collection of entities.</p>
 <p>The function import may also define zero or more <a href="#csdl12.6"><code>edm:Parameter</code></a> elements to be used during the execution of the function.</p>
-<h3 id="csdl12.4.1">12.4.1 The <code>edm:ReturnType</code> Attribute</h3>
+<h4 id="csdl12.4.1">12.4.1 The <code>edm:ReturnType</code> Attribute</h4>
 <p>If the return type is written with attribute notation, an [<code><anyTypeIdentifier></code>][csdl19] value MUST be provided for the <code>edm:ReturnType</code> attribute.</p>
 <p>If a value is provided for the return type attribute, the <code>edm:FunctionImport</code> element MUST NOT contain a <code>edm:ReturnType</code> element.</p>
-<h3 id="csdl12.4.2">12.4.2 The <code>edm:EntitySet</code> Attribute</h3>
+<h4 id="csdl12.4.2">12.4.2 The <code>edm:EntitySet</code> Attribute</h4>
 <p>If the return type is an entity or a collection of entities, a [<code><simpleIdentifier></code>][csdl19] value MAY be defined for the <code>edm:EntitySet</code> attribute that names the entity set to which the returned entities belong.</p>
 <p>If the return type is not an entity or a collection of entities, a value MUST NOT be defined for the <code>edm:EntitySet</code> attribute.</p>
 <p>If the <code>edm:EntitySet</code> attribute is assigned a value, the <code>edm:EntitySetPath</code> MUST NOT be assigned a value.</p>
-<h3 id="csdl12.4.3">12.4.3 The <code>edm:EntitySetPath</code> Attribute</h3>
+<h4 id="csdl12.4.3">12.4.3 The <code>edm:EntitySetPath</code> Attribute</h4>
 <p>The function import MAY specify a value for the <code>edm:EntitySetPath</code> attribute if determination of the entity set for the return type is contingent on a parameter.</p>
 <p>The value for the <code>edm:EntitySetPath</code> attribute consists of a series of segments joined together with forward slashes.</p>
 <p>The first segment of the entity set path MUST have the same name as one of the function importâ€™s parameters. The remaining segments of the entity set path MUST represent navigation or type casts.</p>
 <p>A navigation segment simply names the [<code><simpleIdentifier></code>][csdl19] of the <a href="#csdl6.4">navigation property</a> to be traversed. A type cast segment names the [<code><qualifiedIdentifier></code>][csdl19] of the entity type that should be returned from the type cast.</p>
-<h3 id="csdl12.4.4">12.4.4 The <code>edm:IsSideEffecting</code> Attribute</h3>
+<h4 id="csdl12.4.4">12.4.4 The <code>edm:IsSideEffecting</code> Attribute</h4>
 <p>A function import that may have side effects represents an <em>Action</em>. A function import that does not have side effects represents a <em>Function</em>.</p>
 <p>The function import MAY specify a [<code><boolean></code>][csdl19] value for the <code>edm:IsSideEffecting</code> attribute. If no value is specified for the is side effecting attribute, the value defaults to <code>true</code>, indicating that the function import represents an Action.</p>
 <p>If the value of the <code>edm:IsSideEffecting</code> attribute is <code>true</code>, the value of the <a href="#csdl12.4.6"><code>edm:IsComposable</code></a> attribute MUST be <code>false</code>.</p>
-<h3 id="csdl12.4.5">12.4.5 The <code>edm:IsBindable</code> Attribute</h3>
+<h4 id="csdl12.4.5">12.4.5 The <code>edm:IsBindable</code> Attribute</h4>
 <p>A function import can specify a [<code><boolean></code>][csdl19] value for the <code>edm:IsBindable</code> attribute. If no value is specified for the <code>edm:IsBindable</code> attribute, the value defaults to <code>false</code>.</p>
 <p>If the is bindable attribute is set to <code>true</code>, the function import MUST contain at least one <a href="#csdl12.6"><code>edm:Parameter</code></a> element, and the first such parameter must represent an entity or collection of entities.</p>
-<h3 id="csdl12.4.6">12.4.6 The <code>edm:IsComposable</code> Attribute</h3>
+<h4 id="csdl12.4.6">12.4.6 The <code>edm:IsComposable</code> Attribute</h4>
 <p>A function import can specify a [<code><boolean></code>][csdl19] value for the <code>edm:IsComposable</code> attribute. If no value is specified for the is composable attribute, the value defaults to <code>false</code>.</p>
 <p>If the value of the <code>edm:IsComposable</code> attribute is <code>true</code>, the value of the <a href="#csdl12.4.4"><code>edm:IsSideEffecting</code></a> attribute MUST be <code>false</code>.</p>
-<h2 id="csdl12.5">12.5 The <code>edm:ReturnType</code> Element</h2>
+<h3 id="csdl12.5">12.5 The <code>edm:ReturnType</code> Element</h3>
 <p>If the return type is written with element notation, the function import MUST contain a <code>edm:ReturnType</code> element.</p>
 <p>If element notation is used, a similar set of attributes can be used to specify the return type of the function. The <code>edm:Type</code> attribute corresponds to the <a href="#csdl12.4.1"><code>edm:ReturnType</code></a> attribute on <code>edm:FunctionImport</code>, and the names and functionality of the <a href="#csdl12.4.2"><code>edm:EntitySet</code></a> and <a href="#csdl12.4.3"><code>edm:EntitySetPath</code></a> attributes remain the same.</p>
-<h2 id="csdl12.6">12.6 The <code>edm:Parameter</code> Element</h2>
+<h3 id="csdl12.6">12.6 The <code>edm:Parameter</code> Element</h3>
 <p>The <code>edm:Parameter</code> element allows one or more parameters to be passed to the function. This enables the function to return a dynamic set of instances â€“ for example, the top-selling products by year. In this case the year must be specified as a parameter to the function with the <code>edm:Parameter</code> element.</p>
 <p>The <code>edm:Name</code> attribute MUST be used to assign a unique [<code><simpleIdentifier></code>][csdl19] value to the parameter.</p>
-<h3 id="csdl12.6.1">12.6.1 The <code>edm:Type</code> Attribute</h3>
+<h4 id="csdl12.6.1">12.6.1 The <code>edm:Type</code> Attribute</h4>
 <p>The parameter MUST indicate which set of types can be passed to the parameter by providing a [<code><anyTypeReference></code>][csdl19] value for the <code>edm:Type</code> attribute.</p>
-<h3 id="csdl12.6.2">12.6.2 The <code>edm:Mode</code> Attribute</h3>
+<h4 id="csdl12.6.2">12.6.2 The <code>edm:Mode</code> Attribute</h4>
 <p>A value of <code>In</code>, <code>Out</code>, or <code>InOut</code> MAY be provided to the <code>edm:Mode</code> attribute. These values correspond to the modality of parameters passed to stored procedures in relational databases.</p>
-<h3 id="csdl12.6.3">12.6.3 Parameter Facets</h3>
+<h4 id="csdl12.6.3">12.6.3 Parameter Facets</h4>
 <p>A parameter may specify values for the <a href="#csdl5.3.1"><code>edm:Nullable</code></a>, <a href="#csdl5.3.2"><code>edm:MaxLength</code></a>, <a href="#csdl5.3.4"><code>edm:Precision</code></a>, <a href="#csdl5.3.5"><code>edm:Scale</code></a>, or <a href="#csdl5.3.8"><code>edm:SRID</code></a> attributes. The descriptions of these facets and their implications are covered elsewhere in this specification.</p>
-<h1 id="csdl13">13 Vocabulary Concepts</h1>
+<h2 id="csdl13">13 Vocabulary Concepts</h2>
 <p>Vocabulary terms and annotations provide a means of semantically enriching an entity model and the type instances accessible through that entity model. Annotations can be used for two fundamental purposes:</p>
 <ul>
 <li>To extend type instances with additional information</li>
@@ -742,16 +742,16 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 {% endhighlight %}
 <p>Type and value annotations can be defined at a universal or instance level. Universal annotations are applied directly in the entity model as described in CSDL. Instance annotations are applied to entity instances in the response payload.</p>
 <p>Type and value annotations can be used to apply type and value terms respectively. These terms may be part of a well-known vocabulary or part of a company-specific or product-specific vocabulary.</p>
-<h1 id="csdl14">14 Vocabulary Terms</h1>
+<h2 id="csdl14">14 Vocabulary Terms</h2>
 <p>There are two types of vocabulary terms that can be applied: type terms and value terms.</p>
 <p>A type term implies that a type can be instantiated from the annotated element. Either an <code>edm:EntityType</code> or an <code>edm:ComplexType</code> can be used as a type term. There are no special requirements for an <code>edm:EntityType</code> or an <code>edm:ComplexType</code> to be used as a type term.</p>
 <p>A value term extends an existing instance with additional data. A value term is limited to a single field, however that field may be an entity type or a complex type.</p>
-<h2 id="csdl14.1">14.1 <code>edm:EntityType</code> and <code>edm:ComplexType</code> Terms</h2>
+<h3 id="csdl14.1">14.1 <code>edm:EntityType</code> and <code>edm:ComplexType</code> Terms</h3>
 <p>There are no special requirements for an <a href="#csdl6.1"><code>edm:EntityType</code></a> or an <a href="#csdl7.1"><code>edm:ComplexType</code></a> to be used as a type term. Type terms need not be in the same model as the type annotations or the annotated types.</p>
-<h2 id="csdl14.2">14.2 The <code>edm:ValueTerm</code> Element</h2>
+<h3 id="csdl14.2">14.2 The <code>edm:ValueTerm</code> Element</h3>
 <p>The <code>edm:ValueTerm</code> element represents a value term in an entity model.</p>
 <p>The value term MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute and a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value for the <code>edm:Type</code> attribute. The name attribute allows the term to be applied with a value annotation. The type attribute indicates what type of value must be returned by the expression contained in the value annotation.</p>
-<h1 id="csdl15">15 Vocabulary Annotations</h1>
+<h2 id="csdl15">15 Vocabulary Annotations</h2>
 <p>Vocabulary terms are used to annotate other parts of the model. The following model elements may be annotated with a vocabulary term:</p>
 <ul>
 <li><a href="#csdl15.1"><code>edm:Annotations</code></a></li>
@@ -769,32 +769,32 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <p>The most common usage of a type term is to annotate an entity type or complex type. In this situation, an instance of the type term may be created for each instance of the entity type or complex type the term is applied to.</p>
 <p>Type terms can also be used to annotate a variety of other parts of the model, for example: an entity set, a function import, or a navigation property.</p>
 <p>In contrast to type annotations, which allow the instantiation of new types, a value annotation extends an existing type instance with additional information.</p>
-<h2 id="csdl15.1">15.1 The <code>edm:Annotations</code> Element</h2>
+<h3 id="csdl15.1">15.1 The <code>edm:Annotations</code> Element</h3>
 <p>The <code>edm:Annotations</code> element is used to apply a group of type or value annotations to a single model element.</p>
 <p>An annotations element MUST assign a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value to the <code>edm:Target</code> attribute. The value of the target attribute SHOULD resolve to a model element in the entity model.</p>
 <p>An annotations element MAY contain zero or more <code>edm:TypeAnnotation</code> and <code>edm:ValueAnnotation</code> elements.</p>
-<h2 id="csdl15.2">15.2 The <code>edm:TypeAnnotation</code> Element</h2>
+<h3 id="csdl15.2">15.2 The <code>edm:TypeAnnotation</code> Element</h3>
 <p>The <code>edm:TypeAnnotation</code> element represents a type annotation. A type annotation binds a type term to a part of the entity model.</p>
 <p>A type annotation MUST be used as a child of the part of the model it annotates or a child of an <code>edm:Annotations</code> element that targets the appropriate part of the model.</p>
 <p>A type annotation MUST provide a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value for the <code>edm:Term</code> attribute. The value of the term attribute SHOULD resolve to an entity type or complex type.</p>
 <p>A type annotation MAY contain zero or more <code>edm:PropertyValue</code> elements.</p>
-<h2 id="csdl15.3">15.3 The <code>edm:PropertyValue</code> Element</h2>
+<h3 id="csdl15.3">15.3 The <code>edm:PropertyValue</code> Element</h3>
 <p>The <code>edm:PropertyValue</code> element supplies a value to a property on the type instantiated by a type annotation. The value is obtained by evaluating an expression.</p>
 <p>The property value element MUST assign a [<code><simpleIdentifier></code>][csdl19] value to the <code>edm:Property</code> attribute. The value of the property attribute SHOULD resolve to a property on the term referenced by the type annotation.</p>
 <p>A property value MUST contain exactly one expression. The expression MAY be provided using element notation or attribute notation.</p>
-<h2 id="csdl15.4">15.4 The <code>edm:ValueAnnotation</code> Element</h2>
+<h3 id="csdl15.4">15.4 The <code>edm:ValueAnnotation</code> Element</h3>
 <p>The <code>edm:ValueAnnotation</code> element represents a value annotation. A value annotation attaches a named value to a model element.</p>
 <p>A value annotation MUST be used as a child of the model element it annotates or a child of an <a href="#csdl15.1"><code>edm:Annotations</code></a> element that targets the appropriate model element.</p>
 <p>A value annotation MUST provide a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value for the <code>edm:Term</code> attribute. The value of the term attribute SHOULD resolve to a value term.</p>
 <p>A value annotation MUST contain at most one expression. The expression MAY be provided using element notation or attribute notation.</p>
-<h2 id="csdl15.5">15.5 The <code>edm:Qualifier</code> Attribute</h2>
+<h3 id="csdl15.5">15.5 The <code>edm:Qualifier</code> Attribute</h3>
 <p>The qualifier attribute allows service authors a means of conditionally applying a type annotation. For instance, the following value annotation hints that it should only be applied to slate devices:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.DisplayName" Path="FirstName" Qualifier="org.example.formfactor.Slate">
 {% endhighlight %}
 <p>The value of the <code>edm:Qualifier</code> attribute is an arbitrary string.</p>
 <p>An <a href="#csdl15.1"><code>edm:Annotations</code></a> element MUST provide at most one value for the qualifier attribute.</p>
 <p>Type or value annotations MUST provide at most one value for the qualifier attribute. Type or value annotations that are children of an annotations element MUST NOT provide a value for the qualifier attribute.</p>
-<h1 id="csdl16">16 Vocabulary Expressions</h1>
+<h2 id="csdl16">16 Vocabulary Expressions</h2>
 <p>Values for a value term or properties of a type term are obtained by calculating expressions. There are a variety of expressions that allow service authors to supply constant or dynamic values.</p>
 <p>All vocabulary expressions may be specified as an element, for example:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.DisplayName">
@@ -804,7 +804,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 <p>The constant expressions and the <a href="#csdl16.2.13"><code>edm:Path</code></a> expression also support attribute notation:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.DisplayName" String="Customers" />
 {% endhighlight %}
-<h2 id="csdl16.1">16.1 Constant Expressions</h2>
+<h3 id="csdl16.1">16.1 Constant Expressions</h3>
 <p>Constant expressions allow the service author to supply an unchanging value to a value term or property of a type term.</p>
 <p>The following examples show two value annotations intended as user interface hints:</p>
 {% highlight xml %}<EntitySet Name="Products" EntityType="Self.Product">
@@ -815,7 +815,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <ValueAnnotation Term="org.example.display.DisplayName" String="Supplier Directory" />
 </EntitySet>
 {% endhighlight %}
-<h3 id="csdl16.1.1">16.1.1 The <code>edm:Binary</code> Constant Expression</h3>
+<h4 id="csdl16.1.1">16.1.1 The <code>edm:Binary</code> Constant Expression</h4>
 <p>The <code>edm:Binary</code> constant expression evaluates to a primitive binary value. A binary expression MUST be assigned a value of the type [<code><xsHexBinary></code>][csdl19].</p>
 <p>A binary expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.Thumbnail" Binary="3f3c6d78206c" />
@@ -824,7 +824,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Binary>3f3c6d78206c</Binary>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.2">16.1.2 The <code>edm:Bool</code> Constant Expression</h3>
+<h4 id="csdl16.1.2">16.1.2 The <code>edm:Bool</code> Constant Expression</h4>
 <p>The <code>edm:Bool</code> constant expression evaluates to a primitive boolean value. A boolean expression MUST be assigned a value of the type [<code><xsBoolean></code>][csdl19].</p>
 <p>A boolean expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.ReadOnly" Bool="true" />
@@ -833,7 +833,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Bool>true</Bool>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.3">16.1.3 The <code>edm:DateTime</code> Constant Expression</h3>
+<h4 id="csdl16.1.3">16.1.3 The <code>edm:DateTime</code> Constant Expression</h4>
 <p>The <code>edm:DateTime</code> constant expression evaluates to a primitive date/time value. A date/time expression MUST be assigned a value of the type [<code><xsDateTime></code>][csdl19]. The UTC offset portion of this value MUST be discarded.</p>
 <p>A date/time expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.LastUpdated" DateTime="2000-01-01T16:00:00.000" />
@@ -842,7 +842,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <DateTime>2000-01-01T16:00:00.000</DateTime>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.4">16.1.4 The <code>edm:DateTimeOffset</code> Constant Expression</h3>
+<h4 id="csdl16.1.4">16.1.4 The <code>edm:DateTimeOffset</code> Constant Expression</h4>
 <p>The <code>edm:DateTimeOffset</code> constant expression evaluates to a primitive date/time value with a UTC offset. An <code>edm:DateTimeOffset</code> expression MUST be assigned a value of the type [<code><xsDateTime></code>][csdl19].</p>
 <p>An <code>edm:DateTimeOffset</code> expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.LastUpdated" DateTimeOffset="2000-01-01T16:00:00.000Z-09:00" />
@@ -851,7 +851,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <DateTime>2000-01-01T16:00:00.000Z-09:00</DateTime>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.5">16.1.5 The <code>edm:Decimal</code> Constant Expression</h3>
+<h4 id="csdl16.1.5">16.1.5 The <code>edm:Decimal</code> Constant Expression</h4>
 <p>The <code>edm:Decimal</code> constant expression evaluates to a primitive decimal value. A decimal expression MUST be assigned a value of the type [<code><xsDecimal></code>][csdl19].</p>
 <p>A decimal expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.Width" Decimal="3.14" />
@@ -860,7 +860,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Decimal>3.14</Decimal>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.6">16.1.6 The <code>edm:Float</code> Constant Expression</h3>
+<h4 id="csdl16.1.6">16.1.6 The <code>edm:Float</code> Constant Expression</h4>
 <p>The <code>edm:Float</code> constant expression evaluates to a primitive floating point (or double) value. A floating point expression MUST be assigned a value of the type [<code><xsDouble></code>][csdl19].</p>
 <p>A floating point expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.Width" Float="3.14" />
@@ -869,7 +869,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Float>3.14</Float>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.7">16.1.7 The <code>edm:Guid</code> Constant Expression</h3>
+<h4 id="csdl16.1.7">16.1.7 The <code>edm:Guid</code> Constant Expression</h4>
 <p>The <code>edm:Guid</code> constant expression evaluates to a primitive 32-character string value. A guid expression MUST be assigned a value of the type [<code><xsGuid></code>][csdl19].</p>
 <p>A guid expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.Id" Guid="21EC2020-3AEA-1069-A2DD-08002B30309D" />
@@ -878,7 +878,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Guid>21EC2020-3AEA-1069-A2DD-08002B30309D</Guid>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.8">16.1.8 The <code>edm:Int</code> Constant Expression</h3>
+<h4 id="csdl16.1.8">16.1.8 The <code>edm:Int</code> Constant Expression</h4>
 <p>The <code>edm:Int</code> constant expression evaluates to a primitive integral value. An integral expression MUST be assigned a value of the type [<code><xsInteger></code>][csdl19].</p>
 <p>An integral expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.Width" Int="42" />
@@ -887,7 +887,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Int>42</Int>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.9">16.1.9 The <code>edm:String</code> Constant Expression</h3>
+<h4 id="csdl16.1.9">16.1.9 The <code>edm:String</code> Constant Expression</h4>
 <p>The <code>edm:String</code> constant expression evaluates to a primitive string value. A string expression MUST be assigned a value of the type [<code><xsString></code>][csdl19].</p>
 <p>A string expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.DisplayName" String="Product Catalog" />
@@ -896,7 +896,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <String>Product Catalog</String>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.1.10">16.1.10 The <code>edm:Time</code> Constant Expression</h3>
+<h4 id="csdl16.1.10">16.1.10 The <code>edm:Time</code> Constant Expression</h4>
 <p>The <code>edm:Time</code> constant expression evaluates to a primitive time value. On platforms that do not support a primitive time value, the Time constant expression evaluates to a primitive date/time value. A time expression MUST be assigned a value of the type [<code><xsTime></code>][csdl19].</p>
 <p>A time expression may be written with either element notation or attribute notation, as shown in the following examples:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.EndTime" Time="21:00:00-08:00" />
@@ -905,8 +905,8 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Time>21:00:00-08:00</Time>
 </ValueAnnotation>
 {% endhighlight %}
-<h2 id="csdl16.2">16.2 Dynamic Expressions</h2>
-<h3 id="csdl16.2.1">16.2.1 The <code>edm:Apply</code> Expression</h3>
+<h3 id="csdl16.2">16.2 Dynamic Expressions</h3>
+<h4 id="csdl16.2.1">16.2.1 The <code>edm:Apply</code> Expression</h4>
 <p>The <code>edm:Apply</code> expression enables a value to be obtained by applying a client-side function. An apply expression MUST assign a string value to the <code>edm:Function</code> attribute. The value of the function attribute SHOULD be a [<code><qualifiedIdentifier></code>][csdl19]. The value of the function attribute is used to locate the client-side function that should be applied.</p>
 <p>The <code>edm:Apply</code> expression MUST contain zero or more expressions. The expressions contained within the apply expression are used as parameters to the function.</p>
 <p>The apply expression MUST be written with element notation, as shown in the following example:</p>
@@ -918,7 +918,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </Apply>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.2">16.2.2 The <code>edm:AssertType</code> Expression</h3>
+<h4 id="csdl16.2.2">16.2.2 The <code>edm:AssertType</code> Expression</h4>
 <p>The <code>edm:AssertType</code> expression asserts that a value obtained from a child expression is of a specified type. The value calculated by the assert type expression is the value obtained from the child expression casted to the specified type.</p>
 <p>The assert type expression MUST assign a value of the type [<code><anySingleTypeIdentifier></code>][csdl19] to the <code>edm:Type</code> attribute.</p>
 <p>The <code>edm:AssertType</code> expression MUST contain exactly one expression. The expression contained within the assert type expression is used as a parameter to the type assertion.</p>
@@ -929,7 +929,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </AssertType>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.3">16.2.3 The <code>edm:Collection</code> Expression</h3>
+<h4 id="csdl16.2.3">16.2.3 The <code>edm:Collection</code> Expression</h4>
 <p>The <code>edm:Collection</code> expression enables a value to be obtained from zero or more child expressions. The value calculated by the collection expression is the collection of the values calculated by each of the child expressions.</p>
 <p>A collection expression MUST contain zero or more child expressions. The values of the child expressions MUST all be type compatible. Each child expression MUST be a constant expression or a <a href="#csdl16.2.15"><code>edm:Record</code></a> expression.</p>
 <p>A collection expression MUST be written with element notation, as shown in the following example:</p>
@@ -941,7 +941,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </Collection>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.4">16.2.4 The <code>edm:EntitySetReference</code> Expression</h3>
+<h4 id="csdl16.2.4">16.2.4 The <code>edm:EntitySetReference</code> Expression</h4>
 <p>The value of an <code>edm:EntitySetReference</code> is a reference to an entity set. A reference to an entity set is a collection of entities.</p>
 <p>The <code>edm:EntitySetReference</code> expression MUST contain a value of the type [<code><qualifiedIdentifier></code>][csdl19]. The value of the entity set reference expression MUST resolve to an entity set.</p>
 <p>The <code>edm:EntitySetReference</code> expression MUST be written with element notation, as shown in the following example:</p>
@@ -949,7 +949,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <EntitySetReference>Self.SaleProducts</EntitySetReference>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.5">16.2.5 The <code>edm:EnumMemberReference</code> Expression</h3>
+<h4 id="csdl16.2.5">16.2.5 The <code>edm:EnumMemberReference</code> Expression</h4>
 <p>The value of an <code>edm:EnumMemberReference</code> is a reference to a member of an enumeration type.</p>
 <p>The <code>edm:EnumMemberReference</code> expression MUST contain a value of the type [<code><qualifiedIdentifier></code>][csdl19]. The value of the enum member reference expression MUST resolve to a member of an enumeration type.</p>
 <p>The <code>edm:EnumMemberReference</code> expression MUST be written with element notation, as shown in the following example:</p>
@@ -957,7 +957,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <EnumMemberReference>org.example.address.Type.Mailing</EnumMemberReference>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.6">16.2.6 The <code>edm:FunctionReference</code> Expression</h3>
+<h4 id="csdl16.2.6">16.2.6 The <code>edm:FunctionReference</code> Expression</h4>
 <p>The value of a <code>edm:FunctionReference</code> is a reference to the return type of a function.</p>
 <p>The <code>edm:FunctionReference</code> expression MUST contain a value of the type [<code><qualifiedName></code>][csdl19]. The value of the function reference expression MUST resolve to a valid signature of a function.</p>
 <p>The <code>edm:FunctionReference</code> expression MUST contain zero or more expressions. The expressions contained within the function reference expression are used to determine which overload of the function is being referenced.</p>
@@ -968,7 +968,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </FunctionReference>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.7">16.2.7 The <code>edm:If</code> Expression</h3>
+<h4 id="csdl16.2.7">16.2.7 The <code>edm:If</code> Expression</h4>
 <p>The <code>edm:If</code> expression enables a value to be obtained by evaluating a conditional expression.</p>
 <p>An if expression MUST contain exactly three child expressions. The first child expression is the conditional expression and MUST evaluate to a boolean result.</p>
 <p>The second and third child expressions are the expressions which are evaluated conditionally. If the conditional expression evaluates to true, the second child expression MUST be evaluated and its value MUST be returned as the result of the <code>edm:If</code> expression. If the conditional expression evaluates to false, the third child expression MUST be evaluated and its value MUST be returned as the result of the <code>edm:If</code> expression.</p>
@@ -982,7 +982,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </If>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.8">16.2.8 The <code>edm:IsType</code> Expression</h3>
+<h4 id="csdl16.2.8">16.2.8 The <code>edm:IsType</code> Expression</h4>
 <p>The <code>edm:IsType</code> expression evaluates a child expression and returns a boolean value indicating whether the child expression returns the specified type. The is type expression MUST assign a value of the type [<code><anySingleTypeIdentifier></code>][csdl19] to the <code>edm:Type</code> attribute.</p>
 <p>An <code>edm:IsType</code> expression MUST contain exactly one child expression. The is type expression MUST return true if the child expression returns a type that is compatible with the type named in the Type attribute. The is type expression MUST return false if the child expression returns a type that is not compatible with the type named in the <code>edm:Type</code> attribute.</p>
 <p>The <code>edm:IsType</code> expression MUST be written with element notation, as shown in the following example:</p>
@@ -992,7 +992,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </IsType>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.9">16.2.9 The <code>edm:LabeledElement</code> Expression</h3>
+<h4 id="csdl16.2.9">16.2.9 The <code>edm:LabeledElement</code> Expression</h4>
 <p>The <code>edm:LabeledElement</code> expression assigns a name to a child expression. The value of the child expression can then be reused elsewhere with an <code>edm:LabeledElementReference</code> expression. The labeled element expression MUST assign a value of the type [<code><simpleIdentifier></code>][csdl19] to the <code>edm:Name</code> attribute.</p>
 <p>A labeled element expression MUST contain exactly one child expression written either in attribute notation or element notation. The value of the child expression is passed through the labeled element expression. The value of the child expression can also be accessed elsewhere by a labeled element reference expression.</p>
 <p>A labeled element expression MUST be written with element notation, as shown in the following example:</p>
@@ -1002,7 +1002,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </LabeledElement>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.10">16.2.10 The <code>edm:LabeledElementReference</code> Expression</h3>
+<h4 id="csdl16.2.10">16.2.10 The <code>edm:LabeledElementReference</code> Expression</h4>
 <p>The <code>edm:LabeledElementReference</code> expression returns the value of a labeled element expression.</p>
 <p>The labeled element reference expression MUST contain a value of the type [<code><simpleIdentifier></code>][csdl19]. The value of the [<code><simpleIdentifier></code>][csdl19] MUST resolve to a labeled element expression.</p>
 <p>The <code>edm:LabeledElementReference</code> expression MUST be written with element notation, as shown in the following example:</p>
@@ -1010,14 +1010,14 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <LabeledElementReference>DisplayName</LabeledElement>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.11">16.2.11 The <code>edm:Null</code> Expression</h3>
+<h4 id="csdl16.2.11">16.2.11 The <code>edm:Null</code> Expression</h4>
 <p>The <code>edm:Null</code> expression returns an untyped null value. The <code>edm:Null</code> expression MUST NOT contain any other elements or expressions.</p>
 <p>The <code>edm:Null</code> expression MUST be written with element notation, as shown in the following example:</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.display.DisplayName">
  <Null />
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.12">16.2.12 The <code>edm:ParameterReference</code> Expression</h3>
+<h4 id="csdl16.2.12">16.2.12 The <code>edm:ParameterReference</code> Expression</h4>
 <p>The value of a <code>edm:ParameterReference</code> expression is a reference to a function parameter.</p>
 <p>The <code>edm:ParameterReference</code> expression MUST contain a value of the type [<code><qualifiedName></code>][csdl19]. The value of the parameter reference expression MUST resolve to a parameter.</p>
 <p>The <code>edm:ParameterReference</code> expression MUST be written with element notation, as shown in the following example:</p>
@@ -1025,7 +1025,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <ParameterReference>Image</ParameterReference>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.13">16.2.13 The <code>edm:Path</code> Expression</h3>
+<h4 id="csdl16.2.13">16.2.13 The <code>edm:Path</code> Expression</h4>
 <p>The <code>edm:Path</code> expression enables a value to be obtained by traversing an object graph. The <code>edm:Path</code> expression must be assigned a value of the type [<code><pathString></code>][csdl19].</p>
 <p>The value assigned to the path expression MUST be composed of zero or more segments joined together by forward slashes. Each segment MUST represent a type cast, a property or a navigation property.</p>
 <p>If the path segment represents a type cast, the segment MUST be of the type [<code><qualifiedIdentifier></code>][csdl19]. If the path segment represents a property or a navigation property, the segment MUST be of the type [<code><simpleIdentifier></code>][csdl19] and MUST resolve to a property or a navigation property of the same name.</p>
@@ -1038,14 +1038,14 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  <Path>FirstName</Path>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.14">16.2.14 The <code>edm:PropertyReference</code> Expression</h3>
+<h4 id="csdl16.2.14">16.2.14 The <code>edm:PropertyReference</code> Expression</h4>
 <p>The value of a <code>edm:PropertyReference</code> is a reference to a structural property.</p>
 <p>The <code>edm:PropertyReference</code> expression MUST contain a value of the type [<code><qualifiedName></code>][csdl19]. The value of the property reference expression MUST resolve to a valid signature of a property.</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.AlternateKey">
  <PropertyReference Property="SSN"/>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.15">16.2.15 The <code>edm:Record</code> Expression</h3>
+<h4 id="csdl16.2.15">16.2.15 The <code>edm:Record</code> Expression</h4>
 <p>The <code>edm:Record</code> expression enables a new entity type or complex type to be constructed.</p>
 <p>A record expression can specify a [<code><simpleIdentifier></code>][csdl19] or [<code><qualifiedIdentifier></code>][csdl19] value for the <code>edm:Type</code> attribute. If no value is specified for the type attribute, the type is derived from the expressionâ€™s context. If a value is specified, the value MUST resolve to an entity type or complex type in the entity model.</p>
 <p>A record expression MUST contain zero or more <a href="#csdl15.3"><code>edm:PropertyValue</code></a> elements.</p>
@@ -1057,16 +1057,16 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </Record>
 </ValueAnnotation>
 {% endhighlight %}
-<h3 id="csdl16.2.16">16.2.16 The <code>edm:ValueTermReference</code> Expression</h3>
+<h4 id="csdl16.2.16">16.2.16 The <code>edm:ValueTermReference</code> Expression</h4>
 <p>The value of a <code>edm:ValueTermReference</code> expression is a reference to a value term.</p>
 <p>The <code>edm:ValueTermReference</code> expression MUST contain a value of the type [<code><qualifiedName></code>][csdl19]. The value of the value term reference expression MUST resolve to a valid signature of a value term.</p>
 {% highlight xml %}<ValueAnnotation Term="org.example.validation.IsRequired">
     <ValueTermReference Term="org.example.display.DisplayName" Qualifier="Mobile"/>
 </ValueAnnotation>
 {% endhighlight %}
-<h1 id="csdl17">17 CSDL Examples</h1>
+<h2 id="csdl17">17 CSDL Examples</h2>
 <p>Following are two basic examples of valid EDM models as represented in CSDL. These examples demonstrate many of the topics covered above.</p>
-<h2 id="csdl17.1">17.1 Products and Categories Example</h2>
+<h3 id="csdl17.1">17.1 Products and Categories Example</h3>
 {% highlight xml %}<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
   <edmx:DataServices xmlns:metadata="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata metadata:DataServiceVersion="3.0">
     <Schema xmlns="http://schemas.microsoft.com/ado/2007/05/edm" Namespace="ODataDemo">
@@ -1137,7 +1137,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
   </edmx:DataServices>
 </edmx:Edmx>
 {% endhighlight %}
-<h2 id="csdl17.2">17.2 Annotated Customers and Orders Example</h2>
+<h3 id="csdl17.2">17.2 Annotated Customers and Orders Example</h3>
 {% highlight xml %}<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm " Namespace="Model1" Alias="Self">
   <Using Alias="Vocabulary1" Namespace="Vocabulary1" />
   <EntityContainer Name="Model1Container" >
@@ -1207,7 +1207,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
   </ComplexType>
 </Schema>
 {% endhighlight %}
-<h1 id="csdl18">18 Informative XSD for CSDL</h1>
+<h2 id="csdl18">18 Informative XSD for CSDL</h2>
 <pre tabindex="0"><?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="https://www.w3.org/2001/XMLSchema" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:edm="http://schemas.microsoft.com/ado/2009/11/edm" targetNamespace="http://schemas.microsoft.com/ado/2009/11/edm">
   <xs:annotation>

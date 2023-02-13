@@ -31,6 +31,14 @@
   max-width: 1200px;
   max-height: 600px;
 }
+.carousel-control:focus {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+a.carousel-control.left, a.carousel-control.right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .dropdown-toggle:focus {
   outline:dotted;
@@ -40,6 +48,9 @@
 }
 .st-default-search-input{
 	color: #000000 !important; 
+}
+.st-default-search-input:focus {
+        border-color: #3a98e3 !important;
 }
 @media screen and (-ms-high-contrast: black-on-white) {
   .brand
@@ -379,4 +390,32 @@ strong {
   color: #000;
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+.alert.alert-success {
+    background-color: #FFF1DA;
+}
+
+figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+p a {
+   word-wrap: break-word;
+}
+
+td {
+    word-wrap: break-word;
+}
+
+.visually-hidden {
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%); /* browsers in the future */
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
 }
