@@ -69,7 +69,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>However, the service can describe those operations in terms of composable chunks. This allows the client wide flexibility in how it composes resources to achieve its intent.</p>
 <p>See <a href="#requestingdata">Requesting Data</a> and <a href="#datamodification">Data Modification</a> for details.</p>
 <h2 id="notationalconventions">4. Notational Conventions</h2>
-<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC2119</a>, “Key words for use in RFCs to Indicate Requirement Levels”)].</p>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC2119</a>, “Key words for use in RFCs to Indicate Requirement Levels”)].</p>
 <h3 id="normativereferences">4.1. Normative References</h3>
 <p>This document references the following related documents:</p>
 <ul>
@@ -79,10 +79,10 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
     <li><a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:ATOM</a> ATOM encoding for OData payloads. OData Services MUST support the ATOM encoding.</li>
     <li><a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a> A JSON encoding for OData payloads. OData services SHOULD support a JSON encoding.</li>
     <li><a href="https://www.odata.org/documentation/odata-version-3-0/batch-processing">OData:Batch</a> Support for grouping multiple OData requests in a single batch.</li>
-    <li><a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a> HTTP 1.1 Specification</li>
-    <li><a href="http://tools.ietf.org/html/rfc5023">RFC5023</a> The Atom Publishing Protocol</li>
-    <li><a href="http://tools.ietf.org/html/rfc2119">RFC2119</a> Keywords for use in RFCs to Indicate Requirement Levels</li>
-    <li><a href="http://tools.ietf.org/html/rfc5789">RFC5789</a> Patch Method for HTTP</li>
+    <li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a> HTTP 1.1 Specification</li>
+    <li><a href="https://tools.ietf.org/html/rfc5023">RFC5023</a> The Atom Publishing Protocol</li>
+    <li><a href="https://tools.ietf.org/html/rfc2119">RFC2119</a> Keywords for use in RFCs to Indicate Requirement Levels</li>
+    <li><a href="https://tools.ietf.org/html/rfc5789">RFC5789</a> Patch Method for HTTP</li>
 </ul>
 <h3 id="examplepayloads">4.2. Example Payloads</h3>
 <p>Some sections of this specification are illustrated with non-normative example OData request and response payloads. However, the text of this specification provides the definition of conformance.</p>
@@ -128,7 +128,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h3 id="formatextensibility">6.6. Format Extensibility</h3>
 <p>An OData Service MUST support at least the <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a> format, and MAY support additional formats for both request and response bodies.</p>
 <h2 id="formats">7. Formats</h2>
-<p>The client may request a particular response format through the <code>Accept</code> header, as specified in <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, or through the <a href="#theformatsystemqueryoption"><code>$format</code> System Query Option</a>.</p>
+<p>The client may request a particular response format through the <code>Accept</code> header, as specified in <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, or through the <a href="#theformatsystemqueryoption"><code>$format</code> System Query Option</a>.</p>
 <p>In the case that both the <code>Accept</code> header and the <code>$format</code> query option are specified on a request, the value specified in the <code>$format</code> query option SHOULD be used.</p>
 <p>If the service does not support the requested format, it SHOULD reply with a <code>406 Not Acceptable</code> error response.</p>
 <p>See the format-specific specifications (<a href="https://www.odata.org/documentation/odata-version-3-0/json-verbose-format">OData:JSON</a>, <a href="https://www.odata.org/documentation/odata-version-3-0/atom-format">OData:Atom</a>) for details.</p>
@@ -158,7 +158,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>The service SHOULD respond with the maximum version supported by the service that is less than or equal to the specified <code>MaxDataServiceVersion</code>.</p>
 <p>For more details see <a href="#versioning">Versioning</a>.</p>
 <h4 id="theacceptrequestheader">8.2.3. The <code>Accept</code> Request Header</h4>
-<p>As specified in <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, the client MAY specify the set of accepted <a href="#formats">formats</a> through the use of the <code>Accept</code> Header.</p>
+<p>As specified in <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, the client MAY specify the set of accepted <a href="#formats">formats</a> through the use of the <code>Accept</code> Header.</p>
 <h4 id="theif-matchrequestheader">8.2.4. The <code>If-Match</code> Request Header</h4>
 <p>A client MAY include an <code>If-Match</code> header in a request to GET, PUT, MERGE, PATCH or DELETE an entity or entity property, or to invoke an action bound to an entity. The value of the <code>If-Match</code> request header MUST be an ETag value previously retrieved for the entity.</p>
 <p>If specified, the request MUST only be invoked if the specified value matches the current ETag value of the entity. If the value does not match the current ETag value of the entity for a <a href="#datamodification">Data Modification</a> or <a href="#actions">Action</a> request, the service MUST respond with ‘412 Precondition Failed’ and MUST ensure that no data is modified as a result of the request.</p>
@@ -205,7 +205,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <h4 id="nocontentresponsecode">9.1.4. <code>204 No Content</code> Response Code</h4>
 <p>A service may reply to a Data Modification Request with <code>204 No Content</code>. In this case, the response body MUST be empty.</p>
 <h4 id="xxredirectresponsecode">9.1.5. <code>3xx Redirect</code> Response Code</h4>
-<p>As per <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, an OData service MAY respond to any Data Modification request with a response code of <code>3xx Redirection</code>. In this case, the response SHOULD include a <a href="#thelocationheader"><code>Location</code> header</a> with the URL from which the result can be obtained.</p>
+<p>As per <a href="https://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC2616</a>, an OData service MAY respond to any Data Modification request with a response code of <code>3xx Redirection</code>. In this case, the response SHOULD include a <a href="#thelocationheader"><code>Location</code> header</a> with the URL from which the result can be obtained.</p>
 <p>The service MUST ensure that no observable change has occurred to the state of the service as a result of any request that returns a <code>3xx</code>.</p>
 <h3 id="xxclienterrorresponses">9.2. <code>4xx Client Error</code> Responses</h3>
 <p>Services SHOULD return <code>4xx Client Error</code> in response to client errors such as malformed requests, in addition to requests for non-existent resources such as entity collections, entities, or properties.</p>
@@ -222,7 +222,7 @@ permalink: /documentation/odata-version-3-0/odata-version-3-0-core-protocol/
 <p>An OData service is a self-describing service that exposes metadata defining the entity sets, relationships, entity types, and operations.</p>
 <h4 id="servicedocumentrequest">10.1.1. Service Document Request</h4>
 <p>To request a <code>Service Document</code> describing the set of entity collections (i.e., entity sets) that can be queried from a service, the client issues a GET request to the root URL of the service (the <em>Service Root</em>).</p>
-<p>The format of the Service Document is dependent upon the format selected. For example, in Atom the Service Document is an AtomPub Service Document (as specified in <a href="http://tools.ietf.org/html/rfc5023">RFC5023</a>).</p>
+<p>The format of the Service Document is dependent upon the format selected. For example, in Atom the Service Document is an AtomPub Service Document (as specified in <a href="https://tools.ietf.org/html/rfc5023">RFC5023</a>).</p>
 <h4 id="metadatadocumentrequest">10.1.2. Metadata Document Request</h4>
 <p>An OData <em>Metadata Document</em> is a representation of the <a href="#DataModel">data model</a> that describes the data and operations exposed by an OData service.</p>
 <p><a href="https://www.odata.org/documentation/odata-version-3-0/common-schema-definition-language-csdl">OData:CSDL</a> describes an XML representation for OData Metadata Documents and provides an XSD to validate their contents. The media type of the XML representation of an OData Metadata Document is ‘application/xml’.</p>

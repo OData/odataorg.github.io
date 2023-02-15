@@ -35,4 +35,4 @@ About the Author
 
 Sumit Sarkar is the Chief Data Evangelist at Progress Software new to developing on the Salesforce platform.  He has presented five Dreamforce sessions on data connectivity including the most recent session from DF16 on [External Objects for External Big Data Platforms](https://www.youtube.com/watch?v=Hqg0FUInSnM). Contact Sumit Sarkar:
 
-[www.linkedin.com/in/meetsumit](http://www.linkedin.com/in/meetsumit)
+[www.linkedin.com/in/meetsumit](https://www.linkedin.com/in/meetsumit)

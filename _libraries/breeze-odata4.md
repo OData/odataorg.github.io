@@ -9,4 +9,4 @@ downloads:
   - source: GitHub
     link: https://github.com/tschettler/breeze-odata4
 ---
-breeze-odata4 is a fully compatible breeze client adapter TypeScript library that enables integrating [breeze.js](http://www.getbreezenow.com/breezejs) with the latest OData V4 services.
+breeze-odata4 is a fully compatible breeze client adapter TypeScript library that enables integrating [breeze.js](https://www.getbreezenow.com/breezejs) with the latest OData V4 services.

@@ -6,6 +6,6 @@ version: V1-V3
 object: Both
 downloads:
   - source: nugetgallery
-    link: http://www.nuget.org/packages/System.Spatial/
+    link: https://www.nuget.org/packages/System.Spatial/
 ---
 Contains classes and methods that facilitate geography and geometry spatial operations.

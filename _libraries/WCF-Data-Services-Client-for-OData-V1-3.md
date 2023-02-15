@@ -6,6 +6,6 @@ version: V1-V3
 object: Client
 downloads:
   - source: nugetgallery
-    link: http://www.nuget.org/packages/Microsoft.Data.Services.Client/
+    link: https://www.nuget.org/packages/Microsoft.Data.Services.Client/
 ---
 LINQ-enabled client API for issuing OData queries and consuming OData payloads.

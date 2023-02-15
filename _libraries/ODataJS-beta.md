@@ -6,7 +6,7 @@ version: V4 (4.0.0-beta-01)
 object: Client
 downloads:
   - source: Apache Olingo Site
-    link: http://olingo.apache.org/doc/javascript/download.html
+    link: https://olingo.apache.org/doc/javascript/download.html
   - source: nuget gallery
     link: https://www.nuget.org/packages/odatajs/
 ---

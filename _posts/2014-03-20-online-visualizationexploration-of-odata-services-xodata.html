@@ -14,20 +14,20 @@ type: post
 published: true
 author: Ram Manohar Tiwari
 ---
-<p>Hi..I am Ram. After working for 15 years in Enterprise IT, <a href="http://sapblog.rmtiwari.com/2013/12/it-is-best-of-times.html" target="_blank">one fine day</a>, I end up being a founder of a tiny software company – <a href="http://www.pragmatiqa.com" target="_blank">PragmatiQa Ltd, UK</a>. In this post, I will write about a tool that I was working on for past few weeks.</p>
-<p>So I was just trying to solve <a href="http://sapblog.rmtiwari.com/2014/01/wip-prototyping-abap-odata-entity-data.html" target="_blank">my own problem</a> – related to OData Service Development and consumption. In the process, I end up in making an online tool -<a href="http://pragmatiqa.com/EDMXGraph/" target="_blank">‘XOData : Visualize and Explore OData Services’</a> - that might be useful for others too.</p>
+<p>Hi..I am Ram. After working for 15 years in Enterprise IT, <a href="http://sapblog.rmtiwari.com/2013/12/it-is-best-of-times.html" target="_blank">one fine day</a>, I end up being a founder of a tiny software company – <a href="https://www.pragmatiqa.com" target="_blank">PragmatiQa Ltd, UK</a>. In this post, I will write about a tool that I was working on for past few weeks.</p>
+<p>So I was just trying to solve <a href="http://sapblog.rmtiwari.com/2014/01/wip-prototyping-abap-odata-entity-data.html" target="_blank">my own problem</a> – related to OData Service Development and consumption. In the process, I end up in making an online tool -<a href="https://pragmatiqa.com/EDMXGraph/" target="_blank">‘XOData : Visualize and Explore OData Services’</a> - that might be useful for others too.</p>
 <blockquote><p>In short, after trying out a few desktop based *developer* tools for OData Service development and consumption, I felt the need for a light-weight, practical and easily accessible ( online and to-an-extent device-agnostic ) OData metadata visualizer and exploration utility - that can be useful not just for *developers* but also for others like business-process-experts, entrepreneurs etc. – someone who is just trying to understand an OData API and see if it is relevant to them.</p></blockquote>
 <p>I’m an Enterprise IT consultant and I normally work with SAP systems/tools but there are some brilliant open source JavaScript libraries available and all I needed was to put these together to fulfill my requirements – basically my own JavaScript code is not worth looking at – not yet - but it does seem to solve a problem by combining all these great libraries.</p>
 <blockquote><p>Apart from Bootstrap &amp; jQuery, some of the JavaScript libraries used are:</p>
 <ul>
-<li><strong>For OData parsing and Diagram :</strong> Main JavaScript libraries used are, <a href="http://datajs.codeplex.com/">datajs</a> for OData-metadata-xml parsing, a layout library <a href="https://github.com/cpettitt/dagre">dagre</a> to get the position of the nodes and <a href="http://jsplumbtoolkit.com/demo/home/jquery.html">jsPlumb / JQueryUI</a> for Graph/UI rendering (connected draggable boxes to show the entity/properties and relationships).</li>
+<li><strong>For OData parsing and Diagram :</strong> Main JavaScript libraries used are, <a href="http://datajs.codeplex.com/">datajs</a> for OData-metadata-xml parsing, a layout library <a href="https://github.com/cpettitt/dagre">dagre</a> to get the position of the nodes and <a href="https://jsplumbtoolkit.com/demo/home/jquery.html">jsPlumb / JQueryUI</a> for Graph/UI rendering (connected draggable boxes to show the entity/properties and relationships).</li>
 <li><strong>For exploring OData Services / Query Builder :</strong> An excellent library from OData <a href="https://odatasamples.codeplex.com/releases/view/115752">open-source publication</a> .</li>
 <li><strong>XML Tree :</strong> <a href="https://github.com/koppor/xmltree">XMLTree for Tree Display of XML</a></li>
 </ul>
 </blockquote>
 <p>I’ll share some details of this tool here and hope it will solve some of the challenges related to OData design/prototyping and documentation/API awareness.</p>
 <h3>What is XOData?</h3>
-<p>XOData is a generic web-based OData Service visualization &amp; exploration tool that will assist in rapid design, prototype, verification, testing and documentation of OData Services. Online version of the tool is free and accessible on Internet at <a href="http://pragmatiqa.com/EDMXGraph">http://pragmatiqa.com/EDMXGraph</a> and it provides following options to explore OData metadata/services.</p>
+<p>XOData is a generic web-based OData Service visualization &amp; exploration tool that will assist in rapid design, prototype, verification, testing and documentation of OData Services. Online version of the tool is free and accessible on Internet at <a href="https://pragmatiqa.com/EDMXGraph">https://pragmatiqa.com/EDMXGraph</a> and it provides following options to explore OData metadata/services.</p>
 <ul>
 <li>Direct Service or Metadata URL access option for visualization and exploration of publicly accessible OData services</li>
 <li>Metadata XML File upload option for offline visualization of metadata (Entity Relationship).</li>
@@ -35,7 +35,7 @@ author: Ram Manohar Tiwari
 <p><img class="aligncenter" alt="XOData Online Version" src="/assets/XODataOnline.jpg" /></p>
 <h3>What do you need to use this tool?</h3>
 <ul>
-<li>Online XOData is ..well..available on internet :) at <a href="http://pragmatiqa.com/EDMXGraph">http://pragmatiqa.com/EDMXGraph</a> and accessible through any new generation Browser ( IE10+, Chrome, Firefox, Safari etc.)</li>
+<li>Online XOData is ..well..available on internet :) at <a href="https://pragmatiqa.com/EDMXGraph">https://pragmatiqa.com/EDMXGraph</a> and accessible through any new generation Browser ( IE10+, Chrome, Firefox, Safari etc.)</li>
 <li>You will need at least OData Service metadata XML file *or* metadata URL of publicly accessible Service.There is an option to upload the service metadata XML file – so you can visualize and check metadata details even if OData service is not accessible on internet. Another option is to use metadata URL in case the OData service is publicly accessible over internet. With this option Services can be visualized as well as explored ( query data-exploration through Query Builder )...This tool should work for Services upto OData version 3.0</li>
 </ul>
 <p><img class="aligncenter" alt="Online XOData Options " src="/assets/XODataOnlinePreview.jpg" /><br />
@@ -53,7 +53,7 @@ Apart from Online version of XOData, there is also a backend integrated version 
 </li>
 <li><strong>Can I have a direct URL link for a publicly accessible OData service- e.g. I want to embed in a tweet?</strong> If you want a direct link for a OData service with metadata URL as : <a href="http://api.internetvideoarchive.com/1.0/DataService/$metadata">http://api.internetvideoarchive.com/1.0/DataService/$metadata</a> then you can use the metadata url as a parameter to XOData tool’s URL :
 <ul>
-<li>For example as : <a href="http://pragmatiqa.com/EDMXGraph/?url=http://api.internetvideoarchive.com/1.0/DataService/$metadata">http://pragmatiqa.com/EDMXGraph/?url=http://api.internetvideoarchive.com/1.0/DataService/$metadata</a> . Also just to add that "Filter" feature is quite useful, if you want to focus on a few entities out of a huge entity/relation diagram - as in case of internetvideoarchive service.</li>
+<li>For example as : <a href="https://pragmatiqa.com/EDMXGraph/?url=http://api.internetvideoarchive.com/1.0/DataService/$metadata">https://pragmatiqa.com/EDMXGraph/?url=http://api.internetvideoarchive.com/1.0/DataService/$metadata</a> . Also just to add that "Filter" feature is quite useful, if you want to focus on a few entities out of a huge entity/relation diagram - as in case of internetvideoarchive service.</li>
 </ul>
 </li>
 </ul>
