@@ -126,7 +126,7 @@ GET https://services.odata.org/TripPinRESTierService/People('russellwhyte')?$exp
 ### Data Modification
 
 **Notice:** During the following sections, you are going to modify the data of Trippin service. To prevent other users' actions affect your results, you need to request a key firstly to identify yourself to the server.
-Otherwise, the results of your actions are unpredictable. The way to request a key is introduced [here](service-usages/request-key-tutorial/).
+Otherwise, the results of your actions are unpredictable. The way to request a key is introduced in [this tutorial](service-usages/request-key-tutorial/).
 
 #### Create an Entity
 
