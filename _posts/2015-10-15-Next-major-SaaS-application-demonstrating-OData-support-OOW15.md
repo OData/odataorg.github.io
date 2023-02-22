@@ -17,7 +17,7 @@ rite support.
 
 There is growing demand for real-time integration patterns that work instantly “out-of-box/cloud” without additional integration development effort.  Salesforce calls it “click-not-code” and Oracle Service Cloud calls it “citizen development”.  The common theme is OData, an OASIS standard REST API.  
 
-In the other direction, there are a number of SaaS applications that produce OData such as [SuccessFactors (An SAP Company)](http://www.sdn.sap.com/irj/scn/go/portal/prtroot/docs/library/uuid/e0dc0e49-8e3a-3110-4f9e-a307b1ffd8ce?QuickLink=index&overridelayout=true&58879706682777) or [Microsoft Dynamics](https://msdn.microsoft.com/en-us/library/gg334767.aspx).  I predict that all major SaaS applications are actively developing external data strategies as OData consumers following Salesforce and Oracle Service Cloud.
+In the other direction, there are a number of SaaS applications that produce OData such as [SuccessFactors (An SAP Company)](https://www.sdn.sap.com/irj/scn/go/portal/prtroot/docs/library/uuid/e0dc0e49-8e3a-3110-4f9e-a307b1ffd8ce?QuickLink=index&overridelayout=true&58879706682777) or [Microsoft Dynamics](https://msdn.microsoft.com/en-us/library/gg334767.aspx).  I predict that all major SaaS applications are actively developing external data strategies as OData consumers following Salesforce and Oracle Service Cloud.
 
 #What’s the buzz around SaaS connectivity at Oracle OpenWorld ‘15?
 

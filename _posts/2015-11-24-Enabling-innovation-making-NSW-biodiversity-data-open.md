@@ -14,7 +14,7 @@ OEH’s Science Division had a clear aim of improving both environmental decisio
 
 By adopting the OASIS OData standard for the BioNet web service, the project team saw that these barriers could be significantly reduced.   IT developers wishing to consume data via the OData API would be able to easily access a range of pre-existing libraries across a range of platforms, and in addition tap into existing online developer communities to support their development.
 
-Realisation of these benefits was borne out by [Gaia Guide](http://www.gaiaguide.info), one of the early adopters of the service who use the Apache Olingo Library.  “The API is really nice and transparent”, commented Geoff Shuetrim, Director at GaiaGuide.  “It took us 2 hours of development effort to connect to the BioNet web service compared with nearly a week for any other web service we have connected to.”
+Realisation of these benefits was borne out by [Gaia Guide](https://www.gaiaguide.info), one of the early adopters of the service who use the Apache Olingo Library.  “The API is really nice and transparent”, commented Geoff Shuetrim, Director at GaiaGuide.  “It took us 2 hours of development effort to connect to the BioNet web service compared with nearly a week for any other web service we have connected to.”
 
 ![Excel Biodiversity Powermap](/assets/biodiversitypowermap.png)
 *An extract of all sightings for Clarence Valley Local Government Area retrieved using Power Query for Excel and displayed via Power Map for Excel*
@@ -25,7 +25,7 @@ The project team continues to work on making more biodiversity data held in BioN
 
 ##Where can I find out more?##
 
-More information, including developer guides, can be found at [data.bionet.nsw.gov.au](http://data.bionet.nsw.gov.au)
+More information, including developer guides, can be found at [data.bionet.nsw.gov.au](https://data.bionet.nsw.gov.au)
 
 James Bibby
 

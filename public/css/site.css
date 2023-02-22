@@ -31,13 +31,13 @@
   max-width: 1200px;
   max-height: 600px;
 }
-.carousel-control:focus {
-    background-color: rgba(0, 0, 0, 0.25);
-}
 a.carousel-control.left, a.carousel-control.right {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+a.carousel-control.left:focus, a.carousel-control.right:focus {
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .dropdown-toggle:focus {
@@ -95,7 +95,7 @@ a.carousel-control.left, a.carousel-control.right {
     border-color: #d23714;
 }
 a {
-	color: #d23000;
+  color: #d23000;
   text-decoration: underline;
   text-decoration-color:#d23000;
 }

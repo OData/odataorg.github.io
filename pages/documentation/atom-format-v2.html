@@ -10,12 +10,12 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <h2>Introduction</h2>
 <p>OData supports two formats for representing the resources (Collections, Entries, Links, etc) it exposes: the XML-based Atom format and the JSON format. This document describes how OData resources are represented in Atom (plus additional elements defined in AtomPub) and <a href="../json-format">[OData-JSON]</a> describes the JSON representation. The <a href="../operations#RepresentationFormatAndContentTypeNegotiation"> content type negotiation</a> section of the <a href="../operations">[OData-Operations]</a> document describes how clients can use standard HTTP content type negotiation to tell an OData service which format it wants to use.</p>
 <h2>1. Background</h2>
-<p>As described in Atom <a href="http://tools.ietf.org/html/rfc4287">[RFC4287]</a>, Atom is an XML-based document format that describes Collections of related information known as "feeds". Feeds are composed of a number of items, known as Entries. AtomPub <a href="http://tools.ietf.org/html/rfc5023">[RFC5023]</a> defines additional format constructs for Entries and Feeds to enable the resources they represent to be easily categorized, grouped, edited and discovered. For the remainder of this document, the term Atom is used to represent the combination of the format/representation rules defined in Atom<a href="http://tools.ietf.org/html/rfc4287">[RFC4287]</a> and AtomPub <a href="http://tools.ietf.org/html/rfc5023">[RF5023]</a>.</p>
+<p>As described in Atom <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a>, Atom is an XML-based document format that describes Collections of related information known as "feeds". Feeds are composed of a number of items, known as Entries. AtomPub <a href="https://tools.ietf.org/html/rfc5023">[RFC5023]</a> defines additional format constructs for Entries and Feeds to enable the resources they represent to be easily categorized, grouped, edited and discovered. For the remainder of this document, the term Atom is used to represent the combination of the format/representation rules defined in Atom<a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a> and AtomPub <a href="https://tools.ietf.org/html/rfc5023">[RF5023]</a>.</p>
 <p>As noted in the OData Basics section of [OData:Core], OData services expose Collections of structured Entries, making Atom a natural fit for representing OData resources. Since Atom does not define how structured data is encoded with feeds, to enable transfers of structured content by OData services, this document defines a set of conventions for representing structured data in an Atom feed.</p>
 <p>It should be noted that feeds following the conventions defined in this document are valid AtomPub feeds and can be consumed by feed readers, tools, etc. which are only aware of the Atom standards ([RFC4287] &amp; [RFC5023]), but not the additional conventions defined in this document.</p>
 <h2>2. Atom Representations</h2>
 <p>The following sections define how resources (Collection, Entries, etc) exposed by an OData service can be represented in requests and responses payloads using the Atom format. For details regarding how to create various request types (Retrieve, Create, etc) see <a href="../operations">[OData-Operations]</a> .</p>
-<p>Through out this section the notation <atom:elementName> is used to refer to the named element in the Atom <a href="http://tools.ietf.org/html/rfc4287">[RFC4287]</a> specification.</p>
+<p>Through out this section the notation <atom:elementName> is used to refer to the named element in the Atom <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a> specification.</p>
 <h3>2.1. Primitive Types</h3>
 <p>Values of OData primitive types are represented as values of XML elements/attributes as per the table below. Note: The type system used by OData services is described in full in the <a href="../overview#AbstractTypeSystem">primitive types</a> section of the <a href="../overview">[OData-Core]</a> document. In addition to the rules stated in the table, if the value of a primitive type is null, then it is represented as an empty XML element with an <strong>m:null="true"</strong> attribute ("m" identifies the OData metadata namespace).</p>
 <div>
@@ -27,7 +27,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </tr>
 <tr>
 <td>Edm.Binary</td>
-<td>Base64 encoded value of an EDM.Binary value. See <a href="http://go.microsoft.com/fwlink/?LinkId=90432"> [RFC3548]</a> .</td>
+<td>Base64 encoded value of an EDM.Binary value. See <a href="https://go.microsoft.com/fwlink/?LinkId=90432"> [RFC3548]</a> .</td>
 </tr>
 <tr>
 <td>Edm.Boolean</td>
@@ -89,13 +89,13 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </table>
 </div>
 <h3>2.2. Service Documents</h3>
-<p>As described in <a href="../overview">[OData-Core]</a>, if a service exposes several Collections, then to aid discovery of those Collections by clients it is useful for the service to expose a Service Document which lists the available Collections. Service Documents are described in AtomPub <a href="http://tools.ietf.org/html/rfc5023#page-15"> [RFC5023], section 15</a>.</p>
+<p>As described in <a href="../overview">[OData-Core]</a>, if a service exposes several Collections, then to aid discovery of those Collections by clients it is useful for the service to expose a Service Document which lists the available Collections. Service Documents are described in AtomPub <a href="https://tools.ietf.org/html/rfc5023#page-15"> [RFC5023], section 15</a>.</p>
 <p>For example, the URI <a href="https://services.odata.org/OData/OData.svc">https://services.odata.org/OData/OData.svc</a> identifies the Service Document of a sample OData service which exposes a Categories, Products and Suppliers Collection. For convenience, a sample Service Document is shown in the listing below.</p>
 {% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
 <service xml:base="https://services.odata.org/OData/OData.svc/" 
-         xmlns:atom="http://www.w3.org/2005/Atom" 
-         xmlns:app="http://www.w3.org/2007/app" 
-         xmlns="http://www.w3.org/2007/app">
+         xmlns:atom="https://www.w3.org/2005/Atom" 
+         xmlns:app="https://www.w3.org/2007/app" 
+         xmlns="https://www.w3.org/2007/app">
   <workspace>
     <atom:title>Default</atom:title> 
     <collection href="Products">
@@ -120,7 +120,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <feed xml:base=https://services.odata.org/OData/OData.svc/
      xmlns:d=http://schemas.microsoft.com/ado/2007/08/dataservices
      xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
-     xmlns="http://www.w3.org/2005/Atom">
+     xmlns="https://www.w3.org/2005/Atom">
   <title type="text">Categories</title>
   <id>https://services.odata.org/OData/OData.svc/Categories</id>
   <updated>2010-03-10T08:38:14Z</updated>
@@ -150,14 +150,14 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </feed>{% endhighlight %}
 <p>In response payloads only, OData v2 supports two pieces of collection-level metadata: an Entry count (the total count of the number of entities in the Collection) and "next links" in the case when a partial listing of the Collection of Entries is being represented.</p>
 <p>The Entry count, is only included in the feed returned by an OData service when the request URI includes the $inlinecount System Query Option. In this case, the count information is represented as a <m:count> element with the value of the element being the total number of Entries in the Collection. See the <a href="../uri-conventions#InlinecountSystemQueryOption"> $inlinecount section</a> of the <a href="../uri-conventions">[OData-URI]</a> document for a description of how the count value is calculated.</p>
-<p>In response payloads only, if the server does not include an <entry> element for every Entry in the Collection identified by the request URI (typically for resource conservation reasons), then the returned feed represents a partial listing as defined in AtomPub <a href="http://tools.ietf.org/html/rfc5023#section-10.1">[RFC5023] section 10.1</a>. In this case, the response includes a <link rel="next" href="â€¦"> element to indicate the feed is a partial listing and to provide the URI of the next partial list feed so a client can easily continue obtaining additional entries. Version Note: Partial lists of Entries are supported in OData V2.0 only. For more information on interacting with partial listings, see <a href="../operations#RetrievingFeedsEntriesAndServiceDocuments"> Retrieving feeds, entries and service documents</a> in the <a href="../operations">[OData-Operations]</a> document.</p>
+<p>In response payloads only, if the server does not include an <entry> element for every Entry in the Collection identified by the request URI (typically for resource conservation reasons), then the returned feed represents a partial listing as defined in AtomPub <a href="https://tools.ietf.org/html/rfc5023#section-10.1">[RFC5023] section 10.1</a>. In this case, the response includes a <link rel="next" href="â€¦"> element to indicate the feed is a partial listing and to provide the URI of the next partial list feed so a client can easily continue obtaining additional entries. Version Note: Partial lists of Entries are supported in OData V2.0 only. For more information on interacting with partial listings, see <a href="../operations#RetrievingFeedsEntriesAndServiceDocuments"> Retrieving feeds, entries and service documents</a> in the <a href="../operations">[OData-Operations]</a> document.</p>
 <strong>OData V2:</strong> 
 {% highlight xml %}
 
 <feed xml:base="https://services.odata.org/Northwind/Northwind.svc/"
         xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
         xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
-        xmlns="http://www.w3.org/2005/Atom">
+        xmlns="https://www.w3.org/2005/Atom">
   <title type="text">Customers</title> 
   <id>https://services.odata.org/Northwind/Northwind.svc/Customers</id> 
   <updated>2010-03-10T09:34:11Z</updated> 
@@ -208,7 +208,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <p>Metadata describing the Entry being represented can be specified using additional Atom-defined and OData-defined elements/attributes as defined by the following list.</p>
 <p><strong><atom:id></strong></p>
 <ul>
-<li>As per <a href="http://tools.ietf.org/html/rfc4287">[RFC4287]</a>, contains a URI which uniquely identifies the Entry</li>
+<li>As per <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a>, contains a URI which uniquely identifies the Entry</li>
 </ul>
 <p><strong><atom:category scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme"></strong></p>
 <ul>
@@ -219,11 +219,11 @@ permalink: /documentation/odata-version-2-0/atom-format/
 </ul>
 <p><strong><atom:link rel="self" href=".." ></strong></p>
 <ul>
-<li>As per <a href="http://tools.ietf.org/html/rfc4287">[RFC4287]</a>, this element is optional. If included it contains the URI a client should use to retrieve the Entry as described in <a href="../operations">[OData-Operations]</a> .</li>
+<li>As per <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a>, this element is optional. If included it contains the URI a client should use to retrieve the Entry as described in <a href="../operations">[OData-Operations]</a> .</li>
 </ul>
 <p><strong><atom:link rel="edit" href=" .. " ></strong></p>
 <ul>
-<li>As per <a href="http://tools.ietf.org/html/rfc5023">[RFC5023]</a>, this element should be included. If included it contains the URI a client should use to update or delete the Entry as defined in <a href="../operations">[OData-Operations]</a> .</li>
+<li>As per <a href="https://tools.ietf.org/html/rfc5023">[RFC5023]</a>, this element should be included. If included it contains the URI a client should use to update or delete the Entry as defined in <a href="../operations">[OData-Operations]</a> .</li>
 </ul>
 <p><strong>m:etag attribute</strong></p>
 <ul>
@@ -235,7 +235,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <entry xml:base="https://services.odata.org/OData/OData.svc/" 
        xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
        xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
-       xmlns="http://www.w3.org/2005/Atom">
+       xmlns="https://www.w3.org/2005/Atom">
   <id>https://services.odata.org/OData/OData.svc/Categories(0)</id> 
   <title type="text">Food</title> 
   <updated>2010-03-10T10:43:51Z</updated> 
@@ -266,7 +266,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <entry xml:base=https://services.odata.org/OData/OData.svc/"
    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-   xmlns="http://www.w3.org/2005/Atom">
+   xmlns="https://www.w3.org/2005/Atom">
   <id>https://services.odata.org/OData/OData.svc/Categories(0)</id>
   <title type="text">Food</title>
   <updated>2010-03-11T06:40:04Z</updated>
@@ -331,7 +331,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <ul>
 <li><strong><link rel="edit-media" href="{MediaResourceUri}"></strong>
 <ul>
-<li>As per <a href="http://tools.ietf.org/html/rfc5023#section-9.6">[RFC5023] section 9.6</a>, this element indicates the URI a client should use to update or delete the Media Resource, as described in <a href="../operations">[OData-Operations]</a> .</li>
+<li>As per <a href="https://tools.ietf.org/html/rfc5023#section-9.6">[RFC5023] section 9.6</a>, this element indicates the URI a client should use to update or delete the Media Resource, as described in <a href="../operations">[OData-Operations]</a> .</li>
 <li>If the ETag of the Media Resource (MR) is independent from that of the Media Link Entry (MLE), then this element should include an m:etag attribute with value equal to the concurrency token of the MR.</li>
 </ul>
 </li>
@@ -431,7 +431,7 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <entry xml:base="https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="http://www.w3.org/2005/Atom">
+    xmlns="https://www.w3.org/2005/Atom">
   <id>https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Categories(0)</id>
   <strong><title type="text">Food</title></strong>
   <updated>2010-03-11T22:28:51Z</updated>
@@ -497,7 +497,7 @@ Supplier representation in Atom
 <entry xml:base="https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/"
     xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
     xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    m:etag="W/"0"" xmlns="http://www.w3.org/2005/Atom" Xmlns:c="http://customUri">
+    m:etag="W/"0"" xmlns="https://www.w3.org/2005/Atom" Xmlns:c="http://customUri">
   <id>https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Suppliers(0)</id>
   <title type="text">Exotic Liquids</title>
   <updated>2010-03-11T22:47:21Z</updated>

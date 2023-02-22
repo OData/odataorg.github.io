@@ -2,6 +2,6 @@
 layout: default
 category: producers
 title: "SharePoint"
-link: "http://office.microsoft.com/en-us/sharepoint/collaboration-software-sharepoint-FX103479517.aspx"
+link: "https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration/"
 ---
 Any data you’ve got on SharePoint as of version 2010 can be manipulated via the OData protocol, which makes the SharePoint developer API considerably simpler.

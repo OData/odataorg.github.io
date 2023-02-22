@@ -13,7 +13,7 @@ permalink: /getting-started/advanced-tutorial/
 <ul>
 <li>This is the advanced section. For topics like requesting data, query options, basic data modification, operations and etc, please refer to <a href="https://www.odata.org/getting-started/basic-tutorial/">Basic Section</a>.</li>
 <li>All these are based on OData V4 sample service <a href="https://services.odata.org/V4/TripPinServiceRW">TripPin</a>, please just replace the <code>serviceRoot</code> below with the URL <code>https://services.odata.org/V4/TripPinServiceRW</code>. TripPin now supports ETag, so for data modification topics, you should first using GET on TripPin (eg. GET serviceRoot/People) to get the section information in the payload then use the URL with section for data modification examples. (something looks like https://services.odata.org/V4/(S(flat4rgegiueineatspfdku1))/TripPinServiceRW)</li>
-<li>You may use <a href="http://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
+<li>You may use <a href="https://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
 <li>In TripPin service, ETag is currently enabled on entity <em>Person</em>. We omit the ETag related headers in request headers for short, please go to the <a href="https://www.odata.org/getting-started/basic-tutorial/#etag">ETag Section</a> for detailed information.</li>
 <li>We will keep improving this by adding contents and fixing bugs. You can provide your feedbacks and ask questions using <a href="https://www.odata.org/join-the-odata-discussion/">OData Mailling List</a>.</li>
 </ul>

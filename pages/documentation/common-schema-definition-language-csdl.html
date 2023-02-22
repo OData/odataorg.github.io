@@ -6,9 +6,9 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 ---
 <p class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 3.0. 
 <br><br>
-<a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></p>
+<a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></h5>
 <h2 id="introduction">Introduction</h2>
-<p>OData services are described by an Entity Data Model (EDM). Common Schema Definition Language (CSDL) defines an XML-based representation of the entity model exposed by an OData service. CSDL is based on standards defined in [<code><a href="https://www.w3.org/TR/2006/REC-xml11-20060816/">XML 1.1</a></code>] and [<code><a href="http://www.w3.org/standards/techs/xmlschema#w3c_all">XML Schema</a></code>].</p>
+<p>OData services are described by an Entity Data Model (EDM). Common Schema Definition Language (CSDL) defines an XML-based representation of the entity model exposed by an OData service. CSDL is based on standards defined in [<code><a href="https://www.w3.org/TR/2006/REC-xml11-20060816/">XML 1.1</a></code>] and [<code><a href="https://www.w3.org/standards/techs/xmlschema#w3c_all">XML Schema</a></code>].</p>
 <p>An OData service SHOULD provide a CSDL description of its entity model when a client requests a description of the entity model by sending a <code>GET</code> request to <code><serviceRoot>/$metadata</code>. <code>$metadata</code> MUST wrap the CSDL document in an EDMX wrapper.</p>
 <h2 id="csdl1">1 Common Schema Definition Language (CSDL) Namespaces</h2>
 <p>In addition to the default XML namespace, the elements and attributes used to describe the entity model of an OData service are defined in one of the following namespaces.</p>
@@ -577,7 +577,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
  </DefiningExpression>
 </Function>
 {% endhighlight %}
-<p>In the preceding example the function defines a function body using [Entity SQL][http://msdn.microsoft.com/en-us/library/bb387145.aspx]. This example is informative only; it is up to a given runtime to determine the validity of the defining expression.</p>
+<p>In the preceding example the function defines a function body using [Entity SQL][https://msdn.microsoft.com/en-us/library/bb387145.aspx]. This example is informative only; it is up to a given runtime to determine the validity of the defining expression.</p>
 <h3 id="csdl11.1">11.1 The <code>edm:Function</code> Element</h3>
 <p>The <code>edm:Function</code> element is a nominal type that represents a user function in an entity model. The function may return a single or collection of primitive types, row types or nominal structured types.</p>
 <p>A function MUST provide a [<code><simpleIdentifier></code>][csdl19] value for the <code>edm:Name</code> attribute.</p>
@@ -1209,7 +1209,7 @@ permalink: /documentation/odata-version-3-0/common-schema-definition-language-cs
 {% endhighlight %}
 <h2 id="csdl18">18 Informative XSD for CSDL</h2>
 <pre tabindex="0"><?xml version="1.0" encoding="utf-8"?>
-<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:edm="http://schemas.microsoft.com/ado/2009/11/edm" targetNamespace="http://schemas.microsoft.com/ado/2009/11/edm">
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="https://www.w3.org/2001/XMLSchema" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:edm="http://schemas.microsoft.com/ado/2009/11/edm" targetNamespace="http://schemas.microsoft.com/ado/2009/11/edm">
   <xs:annotation>
     <xs:documentation xml:lang="en">
       Common Data Model Schema Definition Language.

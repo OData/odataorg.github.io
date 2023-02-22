@@ -7,7 +7,7 @@ author: Jan Hommes
 
 o.js is a small (minified 14.4 KB) client-side library for requesting data from an OData service. It is designed to run in a browser environment, however it also runs in node.js. In a browser environment it has no dependencies on other libraries and can be used standalone. The main goal of the library is, to provide a simple solution to query OData services from any browser. If you like to use it you can install it via `npm install odata` or just download the o.min.js file from this [GitHub repository](https://github.com/janhommes/o.js) and add it to your webpage in a `<script>`-tag.
 
-In this tutorial I will show you how easy you can use it in your web application and explain to you [the example app](http://www.janhommes.de/o.js/example/). This application using some extended *routing* functionalities of o.js in combination with *knockout.js* to display detailed information about the OData TripPinService, a example service provided by odata.org.
+In this tutorial I will show you how easy you can use it in your web application and explain to you [the example app](https://www.janhommes.de/o.js/example/). This application using some extended *routing* functionalities of o.js in combination with *knockout.js* to display detailed information about the OData TripPinService, a example service provided by odata.org.
 
 # Getting started with o.js
 The installation of o.js is simple. You just need to include the `o.js` file into your page and you are ready to query OData services:
@@ -85,7 +85,7 @@ function loadNextPage(skip) {
 {% endhighlight %}
 
 # Complex pages with routing
-o.js has a build in hash-routing functionality. This allows you to map a oHandler to a route. It allows an easy way to display data from a OData service on a Single Page Application. [The o.js example](http://www.janhommes.de/o.js/example/#People) uses the TripPinService, knockout.js and only 70 lines of code to display some useful information from the page.
+o.js has a build in hash-routing functionality. This allows you to map a oHandler to a route. It allows an easy way to display data from a OData service on a Single Page Application. [The o.js example](https://www.janhommes.de/o.js/example/#People) uses the TripPinService, knockout.js and only 70 lines of code to display some useful information from the page.
 
 For the example we will use the `route()` function of o.js and bind the data to the DOM with knockout.js. I will not go in detail of knockout.js. If you want to learn more about knockout, you should try the excellent tutorials on knockoutjs.com.
 
@@ -183,6 +183,6 @@ Links:
 
 * [o.js on Github](https://github.com/janhommes/o.js)
 * [The example souce code](https://github.com/janhommes/o.js/tree/master/example)
-* [The example to try it out](http://www.janhommes.de/o.js/example/)
+* [The example to try it out](https://www.janhommes.de/o.js/example/)
 * [The example TripPinService](https://services.odata.org/V4/%28S%28temce5hlnkmezxe0zghrzv4p%29%29/TripPinServiceRW/)
-* [Knockout.js](http://www.knockoutjs.com)
+* [Knockout.js](https://www.knockoutjs.com)
