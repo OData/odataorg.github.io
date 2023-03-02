@@ -3,14 +3,19 @@
         <p role="presentation">Skip to main content</p>
     </a>
     <nav class="navbar navbar-default" role="navigation" aria-label="Main Navigation">
-        <div class="container container-fluid">
+        <div class="container container-fluid" style="display: flex; align-items: center">
             <div class="navbar-header">
                 <ul class="nav navbar-nav">
-                    <li>
+                    <li style="font-size: 2rem">
                         <a class="brand" href="/">
-                            <img class="img-responsive"
-                                 alt="OData logo"
-                                 src="{{'/assets/OData-logo-e1393393068350.png' | prepend: site.baseurl | prepend: site.url}}">
+                            <div style="display: flex; align-items: center">
+                                <img class="img-responsive"
+                                    alt="OData logo"
+                                    width="30"
+                                    style="padding-right: 1rem"
+                                    src="{{'/assets/ODataLogo-96.png' | prepend: site.baseurl | prepend: site.url}}">
+                                OData
+                            </div>
                         </a>
                     </li>
                 </ul>
@@ -24,9 +29,6 @@
 
             <div class="collapse navbar-collapse" id="odata-navbar-collapse" role="navigation">
                 <ul class="nav navbar-nav" role="menubar">
-                    <li role="none">
-                        <a role="menuitem" href="/blog">Blog</a>
-                    </li>
                     <li class="dropdown" role="none">
                         <a role="menuitem"
                            aria-haspopup="true"
@@ -79,7 +81,10 @@
                         </ul>
                     </li>
                     <li role="none">
-                        <a role="menuitem"  href="/ecosystem">Ecosystem</a>
+                        <a role="menuitem" href="/blog">Blog</a>
+                    </li>
+                    <li role="none">
+                        <a role="menuitem" href="/ecosystem">Ecosystem</a>
                     </li>
                     <li role="none">
                         <a role="menuitem" href="/contribution">Getting Involved</a>

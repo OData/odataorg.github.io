@@ -2,7 +2,7 @@
   color: #dd4814;
 }
 .navbar-default {
-	background-color: #d24714;
+    background-color: #E36306;
 }
 .jumbotron {
   background-color: transparent;
@@ -421,3 +421,126 @@ td {
     white-space: nowrap;
     width: 1px;
 }
+
+
+
+
+
+
+
+
+
+/*****************/
+
+.items-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.items-container.centered {
+    justify-content: space-between;
+}
+
+.card {
+    padding: 1rem;
+    box-shadow: 0 .25rem 1rem rgba(0,0,0,.17);
+    background-color: white;
+}
+
+.card img {
+    max-width: 100%;
+    max-height: 16rem;
+    padding: 1rem;
+}
+
+button.big-action {
+    background-color: var(--orange-medium);
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 7px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+:root {
+    --orange-pale: #FFF1DA;
+    --orange-icon: #FF8C00;
+    --orange-medium: #E36306;
+    --orange-dark: #C24904;
+    --footer-height: 14rem;
+}
+
+div.banner {
+    background-color: var(--orange-pale);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.recent-post-title a {
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+}
+
+.recent-post-title a:hover, .recent-post-title a:focus, .recent-post-title a:active {
+    text-decoration: underline;
+}
+
+h1, h2, h3 {
+    font-weight: 500;
+}
+
+.banner h3 {
+    color: var(--orange-medium);
+}
+
+div.container-fluid, div.navbar-collapse {
+    padding: 0 !important;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: calc(var(--footer-height) + 4rem);
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: var(--footer-height);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    background-color: var(--orange-medium);
+}
+
+.footer p, .footer p a, .footer p strong {
+    color: white !important;
+    text-decoration: none;
+}
+
+.footer p a:hover, .footer p a:focus, .footer p a:active {
+    text-decoration: underline !important;
+}
+
+.card h4 a {
+    color: black;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: .9em;
+}
+
+/*nav {
+    position: fixed;
+    top: 0;
+}*/
