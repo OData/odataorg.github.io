@@ -480,6 +480,11 @@ div.banner {
     margin-bottom: 2rem;
 }
 
+div.banner.upgrade {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
 .recent-post-title a {
     font-weight: 600;
     color: black;
