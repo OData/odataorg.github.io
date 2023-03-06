@@ -4,22 +4,13 @@ title: Blog
 permalink: /blog/
 ---
 
+<div class="card-column">
 {% for post in site.posts %}
-  {% if forloop.index < 5 %}
-  <div class='post'>   
-    <h3><a href='{{post.url}}'>{{post.title}}</a></h3>
-    <span class='date'><em>{{post.date | date_to_string}} &nbsp;&nbsp; {{ post.author }}</em></span>
+  <div class="card">   
+    <h2><a href='{{post.url}}'>{{post.title}}</a></h2>
+    <span class='date'>{{post.date | date_to_string}} &nbsp;&#8226;&nbsp; {{ post.author }}</span>
     <br><br>
     <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
   </div>
-
-  {% else %}
-    {% if forloop.index == 5 %}
-    <h2>Older Posts</h2>
-    <table>
-    {% endif %}
-    <h3><a href='{{post.url}}'>{{post.title}}</a></h3>
-    <span class='date'><em>{{post.date | date_to_string}} &nbsp;&nbsp; {{ post.author }}</em></span>
-  {% endif %}
 {% endfor %}
-</table>
+</div>
