@@ -1,3 +1,6 @@
+h2 {
+    color: var(--orange-medium);
+}
 .theme-font{
   color: #dd4814;
 }
@@ -97,9 +100,9 @@ a.carousel-control.left:focus, a.carousel-control.right:focus {
     border-color: #d23714;
 }
 a {
-  color: #d23000;
-  text-decoration: underline;
-  text-decoration-color:#d23000;
+    color: var(--orange-dark);
+    text-decoration: underline;
+    text-decoration-color: var(--orange-dark);
 }
 a[role=menuitem]{
   text-decoration: none;
@@ -545,7 +548,7 @@ body {
     font-size: .9em;
 }
 
-#tagline h1, h2 {
+#tagline h1, #tagline h2 {
     color: var(--orange-icon);
     margin-top: 0;
 }
@@ -574,7 +577,6 @@ body {
     display: flex;
     justify-content: center;
 }
-
 
 /*nav {
     position: fixed;
