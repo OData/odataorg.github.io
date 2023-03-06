@@ -2,11 +2,20 @@
 layout: default
 ---
 <div class="container">
-    <div class="row">
-        <h1>OData</h1>
-        <h2>The best way to REST</h2>
-        <p>An <b>open protocol</b> to allow the creation and consumption of <b>queryable</b> and <b>interoperable RESTful APIs</b> in a <b>simple</b> and <b>standard</b> way.</p>
-        <button class="big-action" onclick="window.location.href = '/getting-started/'">Get Started</button>
+    <div id="tagline-container">
+        <div class="row" id="tagline">
+            <div>
+                <img class="img-responsive"
+                     alt="OData logo"
+                     src="{{'/assets/ODataLogo-250.png' | prepend: site.baseurl | prepend: site.url}}">
+            </div>
+            <div>
+                <h1>OData</h1>
+                <h2>The best way to REST</h2>
+                <p>An <b>open protocol</b> to allow the creation and consumption of <b>queryable</b> and <b>interoperable RESTful APIs</b> in a <b>simple</b> and <b>standard</b> way.</p>
+                <button class="big-action" onclick="window.location.href = '/getting-started/'">Get Started</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -17,7 +26,7 @@ layout: default
             <div class="items-container centered">
                 {% for post in site.posts %}
                 {% if forloop.index < 5 %}
-                <div onclick="location.href='{%post.url%}'">
+                <div onclick="location.href='{{post.url}}'">
                     <p class="recent-post-title"><a href='{{post.url}}'>{{post.title}}</a></p>
                     <p><em>by {{ post.author }}</em></p>
                 </div>
@@ -30,14 +39,14 @@ layout: default
 
 <div class="container">
     <div class="row">
-        <h3>Tools</h3>
+        <h3>Top Tools</h3>
         <div class="items-container centered">
-            <div class="card">
+            <div class="card" onclick="location.href=''"">
                 <h4><a href="https://marketplace.visualstudio.com/items?itemName=stansw.vscode-odata ">Visual Studio Code for OData</a></h4>
                 <img src="{{'/assets/vs_code_for_odata.gif' | prepend: site.baseurl | prepend: site.url}}" alt="Visual Studio Code for OData" />
                 <p>OData for Visual Studio Code is a Visual Studio Code extension that adds rich support for the OData query language</p>
             </div>
-            <div class="card">
+            <div class="card" onclick="location.href=''">
                 <h4><a href="https://pragmatiqa.com/xodata/">XOData</a></h4>
                 <img src="{{'/assets/xodata_tool.jpg' | prepend: site.baseurl | prepend: site.url}}" alt="xodata" />
                 <p>XOData is a generic online OData API/Service visualizer and explorer. It assists in rapid prototyping, verification, testing, and documentation of OData APIs. With XOData Chrome App it's also possible to explore OData Services deployed locally or on private networks.</p>
@@ -46,18 +55,24 @@ layout: default
     </div>
     <div class="row">
         <h3>Featured Libraries</h3>
+        <!--{% assign libraries = site.libraries %}
+        {% for library in libraries %}
+        {% if library.featured == "TEST" %}
+        <h4>{{library.name}}</h4>
+        {% endif %}
+        {% endfor %}-->
         <div class="items-container">
-            <div class="card">
-                <h4><a href="">RESTier for .NET</a></h4>
+            <div class="card" onclick="location.href='https://odata.github.io/RESTier/'">
+                <h4>RESTier for .NET</h4>
             </div>
-            <div class="card">
-                <h4><a href="">Apache Olingo for Java</a></h4>
+            <div class="card" onclick="location.href='https://olingo.incubator.apache.org/'">
+                <h4>Apache Olingo for Java</h4>
             </div>
-            <div class="card">
-                <h4><a href="">ODataJS for JS</a></h4>
+            <div class="card" onclick="location.href='https://olingo.apache.org/doc/javascript/download.html'">
+                <h4>ODataJS for JS</h4>
             </div>
-            <div class="card">
-                <h4><a href="">ODataCpp for C++</a></h4>
+            <div class="card"onclick="location.href='https://github.com/OData/odatacpp-server'">
+                <h4>ODataCpp for C++</h4>
             </div>
         </div>
     </div>

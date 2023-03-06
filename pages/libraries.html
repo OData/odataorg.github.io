@@ -23,75 +23,79 @@ permalink: /libraries/
     </li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane active" id="net1" role="tabpanel" tabindex="0">
-      <table class="table table-striped table-condensed table-hover reflows" aria-label=".NET Libraries">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Support OData version(s)</th>
-          <th>For server/client</th>
-          <th>Download from</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% assign nets = site.libraries | where: "category", "net" | sort: "rownumber", 'first' | reverse %}
-        {% for net in nets %}
-        <tr>
-          <td>
-            {% if net.link %}
-            <a href={{net.link}}>{{net.name}}</a>
-            {% else %}
-            {{net.name}}
-            {% endif %}
-          </td>
-          <td>{{net.content | markdownify}}</td>
-          <td>{{net.version}}</td>
-          <td>{{net.object}}</td>
-          <td>{% for download in net.downloads %}
-            {% if download.source != net.downloads[0].source %},&nbsp{% endif %}
-            <a href={{download.link}} target="_blank">{{download.source}}</a>
-          {% endfor %}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      </table>
-    </div>
-    
-    {% assign libraries = site.libraries | group_by: "category" %}
-    {% for library in libraries %}
-    {% if library.name != "net" %}
+      <div class="tab-pane active" id="net1" role="tabpanel" tabindex="0">
+          <table class="table table-striped table-condensed table-hover reflows" aria-label=".NET Libraries">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Support OData version(s)</th>
+                      <th>For server/client</th>
+                      <th>Download from</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% assign nets = site.libraries | where: "category", "net" | sort: "rownumber", 'first' | reverse %}
+                  {% for net in nets %}
+                  <tr>
+                      <td>
+                          {% if net.link %}
+                          <a href={{net.link}}>{{net.name}}</a>
+                          {% else %}
+                          {{net.name}}
+                          {% endif %}
+                      </td>
+                      <td>{{net.content | markdownify}}</td>
+                      <td>{{net.version}}</td>
+                      <td>{{net.object}}</td>
+                      <td>
+                          {% for download in net.downloads %}
+                          {% if download.source != net.downloads[0].source %},&nbsp{% endif %}
+                          <a href={{download.link}} target="_blank">{{download.source}}</a>
+                          {% endfor %}
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
 
-    <div class="tab-pane" id="{{library.name}}" role="tabpanel" hidden>
-      <table class="table table-striped table-condensed table-hover reflows" aria-label="{{library.name}} Libraries">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Support OData version(s)</th>
-          <th>For server/client</th>
-          <th>Download from</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
-        {% for item in items %}
-        <tr>
-          <td>{{item.name}}</td>
-          <td>{{item.content | markdownify}}</td>
-          <td>{{item.version}}</td>
-          <td>{{item.object}}</td>
-          <td>{% for download in item.downloads %}
-            {% if download.source != item.downloads[0].source %},&nbsp{% endif %}
-            <a href={{download.link}} target="_blank">{{download.source}}</a>
-          {% endfor %}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      </table>
-    </div>
-    {% endif %}
-    {% endfor %}
+      {% assign libraries = site.libraries | group_by: "category" %}
+      {% for library in libraries %}
+      {% if library.name != "net" %}
+
+      <div class="tab-pane" id="{{library.name}}" role="tabpanel" hidden>
+          <table class="table table-striped table-condensed table-hover reflows" aria-label="{{library.name}} Libraries">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Support OData version(s)</th>
+                      <th>For server/client</th>
+                      <th>Download from</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
+                  {% for item in items %}
+                  <tr>
+                      <td>{{item.name}}</td>
+                      <td>{{item.content | markdownify}}</td>
+                      <td>{{item.version}}</td>
+                      <td>{{item.object}}</td>
+                      <td>
+                          {% for download in item.downloads %}
+                          {% if download.source != item.downloads[0].source %},&nbsp{% endif %}
+                          <a href={{download.link}} target="_blank">{{download.source}}</a>
+                          {% endfor %}
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+      {% endif %}
+      {% endfor %}
   </div>
 <div>
 </div>

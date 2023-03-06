@@ -540,6 +540,37 @@ body {
     font-size: .9em;
 }
 
+#tagline h1, h2 {
+    color: var(--orange-icon);
+    margin-top: 0;
+}
+
+#tagline h1 {
+    font-weight: bold;
+    font-size: 5rem;
+}
+
+#tagline {
+    display: flex;
+    margin: 4rem;
+}
+
+#tagline img {
+    max-width: 17.5rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+}
+
+#tagline div {
+    max-width: 30rem;
+}
+
+#tagline-container {
+    display: flex;
+    justify-content: center;
+}
+
+
 /*nav {
     position: fixed;
     top: 0;
