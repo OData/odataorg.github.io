@@ -25,7 +25,7 @@ layout: default
             <h3>Recent Posts</h3>
             <div class="items-container centered">
                 {% for post in site.posts %}
-                {% if forloop.index < 5 %}
+                {% if forloop.index < 4 %}
                 <div onclick="location.href='{{post.url}}'">
                     <p class="recent-post-title"><a href='{{post.url}}'>{{post.title}}</a></p>
                     <p><em>by {{ post.author }}</em></p>
