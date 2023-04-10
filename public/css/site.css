@@ -452,6 +452,11 @@ td {
     background-color: white;
 }
 
+.items-container .card:hover {
+    box-shadow: 0 .25rem 2rem rgba(0,0,0,.27);
+    cursor: pointer;
+}
+
 .card img {
     object-fit: cover;
     width: 100%;
