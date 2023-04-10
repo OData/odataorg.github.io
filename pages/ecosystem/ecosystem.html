@@ -37,6 +37,20 @@ permalink: /ecosystem/
 			<td>{{producer.content}}</td>
 			</tr>
 		{% endfor %}
+		{% for submission in site.data.ecosys-submissions %}
+			{% if submission.product_category == "Producer" %}
+				<tr>
+				<td width="200">
+					{% if submission.product_link == NULL %}
+						{{submission.product_name}}
+					{% else %}
+					<a href={{submission.product_link}}>{{submission.product_name}}</a>
+					{% endif %}
+					</td>
+				<td>{{submission.brief_description}}</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
 	</tbody>
 	</table>
 	</div>
@@ -59,6 +73,20 @@ permalink: /ecosystem/
 				<td>{{consumer.content}}</td>
 				</tr>
 		{% endfor %}
+		{% for submission in site.data.ecosys-submissions %}
+			{% if submission.product_category == "Consumer" %}
+				<tr>
+				<td width="200">
+					{% if submission.product_link == NULL %}
+						{{submission.product_name}}
+					{% else %}
+					<a href={{submission.product_link}}>{{submission.product_name}}</a>
+					{% endif %}
+					</td>
+				<td>{{submission.brief_description}}</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
 </tbody>
 </table>
 </div>
@@ -80,6 +108,20 @@ permalink: /ecosystem/
 		<td>{{liveservice.content}}</td>
 		</tr>
 	{% endfor %}
+	{% for submission in site.data.ecosys-submissions %}
+			{% if submission.product_category == "Live Service" %}
+				<tr>
+				<td width="200">
+					{% if submission.product_link == NULL %}
+						{{submission.product_name}}
+					{% else %}
+					<a href={{submission.product_link}}>{{submission.product_name}}</a>
+					{% endif %}
+					</td>
+				<td>{{submission.brief_description}}</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
 </tbody>
 </table>
 </div>
@@ -107,6 +149,20 @@ The OData SDK includes some sample code to show you how to do everything from cr
 			{% endif %}
 		</tr>
 	{% endfor %}
+	{% for submission in site.data.ecosys-submissions %}
+			{% if submission.product_category == "Sample Code" %}
+				<tr>
+				<td width="200">
+					{% if submission.product_link == NULL %}
+						{{submission.product_name}}
+					{% else %}
+					<a href={{submission.product_link}}>{{submission.product_name}}</a>
+					{% endif %}
+					</td>
+				<td>{{submission.brief_description}}</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
 </tbody>
 </table>
 </div>
@@ -128,6 +184,20 @@ The OData SDK includes some sample code to show you how to do everything from cr
 		<td>{{tutorial.content}}</td>
 		</tr>
 	{% endfor %}
+	{% for submission in site.data.ecosys-submissions %}
+			{% if submission.product_category == "Tutorial" %}
+				<tr>
+				<td width="200">
+					{% if submission.product_link == NULL %}
+						{{submission.product_name}}
+					{% else %}
+					<a href={{submission.product_link}}>{{submission.product_name}}</a>
+					{% endif %}
+					</td>
+				<td>{{submission.brief_description}}</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
 </tbody>
 </table>
 </div>
