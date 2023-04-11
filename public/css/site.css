@@ -544,6 +544,7 @@ body {
     flex-wrap: wrap;
     align-content: center;
     background-color: var(--orange-medium);
+    padding: 4rem 0 4rem 0;
 }
 
 .footer p, .footer p a, .footer p strong {
