@@ -7,11 +7,11 @@ permalink: /tools/
     <div class="row">
         <div class="items-container centered" style="flex-wrap:wrap; align-content:space-between">
             {% for tool in site.tools %}
-                <div class="card" onclick="location.href='{{tool.link}}'" style="flex-basis:47%">
-                    <h4>{{tool.title}}</h4>
-                    <img src="{{tool.image-path | prepend: site.baseurl | prepend: site.url}}" alt={{tool.image-alt}} />
-                    <p>{{tool.content}}</p>
-                </div>
+            <div class="card" tabindex="0" onclick="location.href='{{tool.link}}'" style="flex-basis:47%">
+                <h4>{{tool.title}}</h4>
+                <img src="{{tool.image-path | prepend: site.baseurl | prepend: site.url}}" alt={{tool.image-alt}} />
+                <p>{{tool.content}}</p>
+            </div>
             {% endfor %}
         </div>
     </div>

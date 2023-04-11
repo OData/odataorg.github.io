@@ -43,7 +43,7 @@ layout: default
         <div class="items-container centered" style="flex-wrap:wrap; align-content:space-between">
             {% assign featuredTools = site.tools | where: "featured", "true" %}
             {% for tool in featuredTools %}
-            <div class="card" onclick="location.href='{{tool.link}}'" style="flex-basis:47%">
+            <div class="card" tabindex="0" onclick="location.href='{{tool.link}}'" style="flex-basis:47%">
                 <h4>{{tool.title}}</h4>
                 <img src="{{tool.image-path | prepend: site.baseurl | prepend: site.url}}" alt={{tool.image-alt}} />
                 <p>{{tool.content}}</p>
@@ -54,16 +54,16 @@ layout: default
     <div class="row">
         <h3>Featured Libraries</h3>
         <div class="items-container">
-            <div class="card" onclick="location.href='https://odata.github.io/RESTier/'">
+            <div class="card" tabindex="0" onclick="location.href='https://odata.github.io/RESTier/'">
                 <h4>RESTier for .NET</h4>
             </div>
-            <div class="card" onclick="location.href='https://olingo.incubator.apache.org/'">
+            <div class="card" tabindex="0" onclick="location.href='https://olingo.incubator.apache.org/'">
                 <h4>Apache Olingo for Java</h4>
             </div>
-            <div class="card" onclick="location.href='https://olingo.apache.org/doc/javascript/download.html'">
+            <div class="card" tabindex="0" onclick="location.href='https://olingo.apache.org/doc/javascript/download.html'">
                 <h4>ODataJS for JS</h4>
             </div>
-            <div class="card"onclick="location.href='https://github.com/OData/odatacpp-server'">
+            <div class="card" tabindex="0" onclick="location.href='https://github.com/OData/odatacpp-server'">
                 <h4>ODataCpp for C++</h4>
             </div>
         </div>
