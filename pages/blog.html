@@ -6,11 +6,11 @@ permalink: /blog/
 
 <div class="card-column">
 {% for post in site.posts %}
-  <div class="card">   
-    <h2><a href='{{post.url}}'>{{post.title}}</a></h2>
-    <span class='date'>{{post.date | date_to_string}} &nbsp;&#8226;&nbsp; {{ post.author }}</span>
-    <br><br>
-    <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
-  </div>
+    <div class="card" onclick="location.href='{{post.url}}'">
+        <h2>{{post.title}}</h2>
+        <span class='date'>{{post.date | date_to_string}} &nbsp;&#8226;&nbsp; {{ post.author }}</span>
+        <br><br>
+        <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+    </div>
 {% endfor %}
 </div>

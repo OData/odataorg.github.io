@@ -452,9 +452,16 @@ td {
     background-color: white;
 }
 
+.card:hover {
+    cursor: pointer;
+}
+
 .items-container .card:hover {
     box-shadow: 0 .25rem 2rem rgba(0,0,0,.27);
-    cursor: pointer;
+}
+
+.card-column .card:hover {
+    box-shadow: 0 .25rem 1rem rgba(0,0,0,.30);
 }
 
 .card img {
