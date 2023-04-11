@@ -1,5 +1,6 @@
 ---
 title: RAPID API Designer
+featured: true
 link: https://rapid.rocks/api-designer/index.html
 image-path: /assets/api-designer.png
 image-alt: API Designer web interface, showing the RSDL Editor, Swagger UI, and request text box
