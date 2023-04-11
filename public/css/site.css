@@ -598,6 +598,12 @@ div.card-column {
     gap: 3rem;
 }
 
+.card-column.main-content .card h2 {
+    font-size: 1.17em;
+    margin: .83em 0;
+    color: black;
+}
+
 /*nav {
     position: fixed;
     top: 0;
