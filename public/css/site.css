@@ -604,6 +604,10 @@ div.card-column {
     color: black;
 }
 
+.nav-pills > li > a {
+    text-decoration: none;
+}
+
 /*nav {
     position: fixed;
     top: 0;
