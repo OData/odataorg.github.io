@@ -5,7 +5,7 @@ h2 {
   color: #dd4814;
 }
 .navbar-default {
-    background-color: #E36306;
+    background-color: var(--orange-medium);
 }
 .jumbotron {
   background-color: transparent;
@@ -90,9 +90,9 @@ a.carousel-control.left:focus, a.carousel-control.right:focus {
     border-bottom-color: transparent;
     cursor: default;
 }
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     color: #ffffff;
-    background-color: #d23714;
+    background-color: var(--orange-medium);
 }
 .btn-primary {
     color: #ffffff;
