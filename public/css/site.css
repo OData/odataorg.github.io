@@ -391,6 +391,31 @@ pre {
   }
 }
 
+/* Search Bar*/
+
+.search-bar-input::placeholder {
+    color: #767676;
+}
+
+.search-bar-input {
+    box-shadow: none;
+    border: none;
+    height: 3rem;
+    border-radius: 20px;
+    width: 4rem;
+}
+
+.search-bar.navbar-form {
+    border: none;
+    padding-right: 15px;
+}
+
+.search-bar-input:focus {
+    border-radius: 4px;
+}
+
+/* Misc */
+
 strong {
   color: #000;
   font-weight: bold;
@@ -424,16 +449,6 @@ td {
     white-space: nowrap;
     width: 1px;
 }
-
-
-
-
-
-
-
-
-
-/*****************/
 
 .items-container {
     display: flex;
