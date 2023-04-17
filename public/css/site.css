@@ -499,7 +499,9 @@ button.big-action {
 }
 
 :root {
-    --orange-pale: #FCEFE5;
+    --orange-paler: #FEF8F3;
+    --orange-pale: #FFF4EB;
+    --orange-light: #FCEFE5;
     --orange-icon: #FF8C00;
     --orange-medium: #E36306;
     --orange-dark: #C24904;
@@ -507,7 +509,7 @@ button.big-action {
 }
 
 div.banner {
-    background-color: var(--orange-pale);
+    background-color: var(--orange-light);
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
@@ -626,6 +628,14 @@ div.card-column {
 
 .navbar {
     border-radius: 0;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd).featured, .table-striped > tbody > tr:nth-of-type(even).featured {
+    background-color: var(--orange-paler);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd).featured:hover, .table-striped > tbody > tr:nth-of-type(even).featured:hover {
+    background-color: var(--orange-pale);
 }
 
 /*nav {

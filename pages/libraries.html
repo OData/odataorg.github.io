@@ -77,7 +77,23 @@ permalink: /libraries/
               </thead>
               <tbody>
                   {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
-                  {% for item in items %}
+                  {% assign featuredItems = items | where: "featured", "true" %}
+                  {% for item in featuredItems %}
+                  <tr class="featured">
+                      <td>{{item.name}}</td>
+                      <td>{{item.content | markdownify}}</td>
+                      <td>{{item.version}}</td>
+                      <td>{{item.object}}</td>
+                      <td>
+                          {% for download in item.downloads %}
+                          {% if download.source != item.downloads[0].source %},&nbsp{% endif %}
+                          <a href={{download.link}} target="_blank">{{download.source}}</a>
+                          {% endfor %}
+                      </td>
+                  </tr>
+                  {% endfor %}
+                  {% assign regularItems = items | where: "featured", not "true" %}
+                  {% for item in regularItems %}
                   <tr>
                       <td>{{item.name}}</td>
                       <td>{{item.content | markdownify}}</td>
