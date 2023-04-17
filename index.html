@@ -57,19 +57,17 @@ layout: default
     </div>
     <div class="row" style="margin: 4rem 0 6rem 0">
         <h3 style="text-align:center; padding:2rem;">Featured Libraries</h3>
-        <div class="items-container" style="justify-content:center">
-            <div class="card" tabindex="0" onclick="location.href='https://odata.github.io/RESTier/'">
-                <h4>RESTier for .NET</h4>
+        <div class="items-container" style="justify-content:center; flex-wrap:wrap">
+            {% assign libraries = site.libraries | group_by: "category" %}
+            {% for library in libraries %}
+            {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
+            {% assign featuredItems = items | where: "featured", "true" %}
+            {% for item in featuredItems %}
+            <div class="card" tabindex="0" onclick="location.href='{{item.downloads[0].link}}'">
+                <h4>{{item.name}}</h4>
             </div>
-            <div class="card" tabindex="0" onclick="location.href='https://olingo.incubator.apache.org/'">
-                <h4>Apache Olingo for Java</h4>
-            </div>
-            <div class="card" tabindex="0" onclick="location.href='https://olingo.apache.org/doc/javascript/download.html'">
-                <h4>ODataJS for JS</h4>
-            </div>
-            <div class="card" tabindex="0" onclick="location.href='https://github.com/OData/odatacpp-server'">
-                <h4>ODataCpp for C++</h4>
-            </div>
+            {% endfor %}
+            {% endfor %}
         </div>
     </div>
 
