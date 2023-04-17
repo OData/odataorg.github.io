@@ -624,6 +624,10 @@ div.card-column {
     text-decoration: none;
 }
 
+.navbar {
+    border-radius: 0;
+}
+
 /*nav {
     position: fixed;
     top: 0;
