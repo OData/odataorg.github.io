@@ -76,8 +76,7 @@ permalink: /libraries/
                   </tr>
               </thead>
               <tbody>
-                  {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
-                  {% assign featuredItems = items | where: "featured", "true" %}
+                  {% assign featuredItems = library.items | where: "featured", "true" | sort: "rownumber", 'first' | reverse %}
                   {% for item in featuredItems %}
                   <tr class="featured">
                       <td>{{item.name}}</td>
@@ -92,7 +91,7 @@ permalink: /libraries/
                       </td>
                   </tr>
                   {% endfor %}
-                  {% assign regularItems = items | where: "featured", not "true" %}
+                  {% assign regularItems = library.items | where: "featured", not "true" | sort: "rownumber", 'first' | reverse %}
                   {% for item in regularItems %}
                   <tr>
                       <td>{{item.name}}</td>

@@ -60,8 +60,7 @@ layout: default
         <div class="items-container" style="justify-content:center; flex-wrap:wrap">
             {% assign libraries = site.libraries | group_by: "category" %}
             {% for library in libraries %}
-            {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
-            {% assign featuredItems = items | where: "featured", "true" %}
+            {% assign featuredItems = library.items | where: "featured", "true" | sort: "rownumber", 'first' | reverse %}
             {% for item in featuredItems %}
             <div class="card" tabindex="0" onclick="location.href='{{item.downloads[0].link}}'">
                 <h4>{{item.name}}</h4>
