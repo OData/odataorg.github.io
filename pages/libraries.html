@@ -35,8 +35,29 @@ permalink: /libraries/
                   </tr>
               </thead>
               <tbody>
-                  {% assign nets = site.libraries | where: "category", "net" | sort: "rownumber", 'first' | reverse %}
-                  {% for net in nets %}
+                  {% assign featuredNets = site.libraries | where: "category", "net" | where: "featured", "true" | sort: "rownumber", 'first' | reverse %}
+                  {% for net in featuredNets %}
+                  <tr class="featured">
+                      <td>
+                          {% if net.link %}
+                          <a href={{net.link}}>{{net.name}}</a>
+                          {% else %}
+                          {{net.name}}
+                          {% endif %}
+                      </td>
+                      <td>{{net.content | markdownify}}</td>
+                      <td>{{net.version}}</td>
+                      <td>{{net.object}}</td>
+                      <td>
+                          {% for download in net.downloads %}
+                          {% if download.source != net.downloads[0].source %},&nbsp{% endif %}
+                          <a href={{download.link}} target="_blank">{{download.source}}</a>
+                          {% endfor %}
+                      </td>
+                  </tr>
+                  {% endfor %}
+                  {% assign regularNets = site.libraries | where: "category", "net" | where: "featured", not "true" | sort: "rownumber", 'first' | reverse %}
+                  {% for net in regularNets %}
                   <tr>
                       <td>
                           {% if net.link %}
