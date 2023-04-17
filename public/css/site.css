@@ -414,6 +414,33 @@ pre {
     border-radius: 4px;
 }
 
+/* Typing Animation */
+
+.typewrite {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .1em solid var(--orange-icon); /* The typwriter cursor */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--orange-icon);
+    }
+}
+
+.typing-animation span {
+    font-family: monospace;
+    letter-spacing: .15em;
+    font-size: 2.2rem;
+    font-weight: 300;
+    background-color: var(--orange-paler);
+}
+
 /* Misc */
 
 strong {

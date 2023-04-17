@@ -3,7 +3,7 @@ layout: default
 ---
 <div class="container">
     <div id="tagline-container">
-        <div class="row" id="tagline" style="margin: 8rem 0 8rem 0">
+        <div class="row" id="tagline" style="margin: 8rem 0 6rem 0">
             <div>
                 <img class="img-responsive"
                      alt="OData logo"
@@ -13,13 +13,16 @@ layout: default
                 <h1>OData</h1>
                 <h2>The best way to REST</h2>
                 <p>An <b>open protocol</b> to allow the creation and consumption of <b>queryable</b> and <b>interoperable RESTful APIs</b> in a <b>simple</b> and <b>standard</b> way.</p>
-                <button class="big-action" 
+                <button class="big-action"
                         onclick="window.location.href = '/get-started/'"
                         style="margin-top: 1rem">
                     Get Started
                 </button>
             </div>
         </div>
+    </div>
+    <div style="text-align:center; margin: 0 0 8rem 0">
+        {% include typing-animation.html %}
     </div>
 </div>
 
