@@ -4,9 +4,18 @@ title: Blog
 permalink: /blog/
 ---
 
+<script type="text/javascript">
+    function enterLink(event, url) {
+        if (event.key == "Enter") {
+            document.location.href = url;
+        }
+    }
+
+</script>
+
 <div class="card-column main-content">
 {% for post in site.posts %}
-    <div class="card" tabindex="0" onclick="location.href='{{post.url}}'">
+    <div class="card" tabindex="0" onkeypress="enterLink(event, '{{post.url}}')" onclick="location.href='{{post.url}}'">
         <h2>{{post.title}}</h2>
         <span class='date'>{{post.date | date_to_string}} &nbsp;&#8226;&nbsp; {{ post.author }}</span>
         <br><br>
