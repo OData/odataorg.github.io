@@ -3,23 +3,15 @@ layout: page
 title: Blog
 permalink: /blog/
 ---
-
-<script type="text/javascript">
-    function enterLink(event, url) {
-        if (event.key == "Enter") {
-            document.location.href = url;
-        }
-    }
-
-</script>
+<script type="text/javascript" src="/assets/scripts/enterLink.js"></script>
 
 <div class="card-column main-content">
-{% for post in site.posts %}
+    {% for post in site.posts %}
     <div class="card" tabindex="0" onkeypress="enterLink(event, '{{post.url}}')" onclick="location.href='{{post.url}}'">
         <h2>{{post.title}}</h2>
         <span class='date'>{{post.date | date_to_string}} &nbsp;&#8226;&nbsp; {{ post.author }}</span>
         <br><br>
         <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
     </div>
-{% endfor %}
+    {% endfor %}
 </div>

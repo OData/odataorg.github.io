@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+<script type="text/javascript" src="/assets/scripts/enterLink.js"></script>
+
 <div class="container">
     <div id="tagline-container">
         <div class="row" id="tagline" style="margin: 8rem 0 6rem 0">
@@ -50,7 +52,7 @@ layout: default
         <div class="items-container centered" style="flex-wrap:wrap; align-content:space-between">
             {% assign featuredTools = site.tools | where: "featured", "true" %}
             {% for tool in featuredTools %}
-            <div class="card" tabindex="0" onclick="location.href='{{tool.link}}'" style="flex-basis:47%">
+            <div class="card" tabindex="0" onkeypress="enterLink(event, '{{tool.link}}')" onclick="location.href='{{tool.link}}'" style="flex-basis:47%">
                 <h4>{{tool.title}}</h4>
                 <img src="{{tool.image-path | prepend: site.baseurl | prepend: site.url}}" alt={{tool.image-alt}} />
                 <p>{{tool.content}}</p>
@@ -65,7 +67,7 @@ layout: default
             {% for library in libraries %}
             {% assign featuredItems = library.items | where: "featured", "true" | sort: "rownumber", 'first' | reverse %}
             {% for item in featuredItems %}
-            <div class="card" tabindex="0" onclick="location.href='{{item.downloads[0].link}}'">
+            <div class="card" tabindex="0" onkeypress="enterLink(event, '{{item.downloads[0].link}}')" onclick="location.href='{{item.downloads[0].link}}'">
                 <h4>{{item.name}}</h4>
             </div>
             {% endfor %}
