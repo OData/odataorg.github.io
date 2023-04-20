@@ -1,7 +1,6 @@
 <div>
      <p class="typing-animation">
-        <span>company</span>
-        <span class="typewrite" data-period="2000" data-type='[ "/employees/$count", "/employees?$select=firstName,lastName", "?$expand=employees"]'>
+        <span class="typewrite" data-period="2000" data-type='[ "company/divisions/$count", "company/employees?$select=firstName,lastName", "company?$expand=employees"]'>
             <span class="wrap"></span>
         </span>
     </p>
@@ -22,7 +21,7 @@
             var fullTxt = this.toRotate[i];
 
             if (this.isDeleting) {
-                this.txt = fullTxt.substring(0, this.txt.length - 1);
+                this.txt = '';
             } else {
                 this.txt = fullTxt.substring(0, this.txt.length + 1);
             }
