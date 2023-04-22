@@ -5,20 +5,16 @@
     <nav class="navbar navbar-default" role="navigation" aria-label="Main Navigation">
         <div class="container container-fluid" style="display: flex; align-items: center">
             <div class="navbar-header">
-                <ul class="nav navbar-nav">
-                    <li style="font-size: 2rem">
-                        <a class="brand" href="/">
-                            <div style="display: flex; align-items: center">
-                                <img class="img-responsive"
-                                     alt="OData logo"
-                                     width="30"
-                                     style="padding-right: 1rem"
-                                     src="{{'/assets/ODataLogo-96.png' | prepend: site.baseurl | prepend: site.url}}">
-                                OData
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+                <a class="navbar-brand" href="/" style="font-size: 2rem">
+                    <div style="display: flex; align-items: center">
+                        <img class="img-responsive"
+                                alt="OData logo"
+                                width="30"
+                                style="padding-right: 1rem"
+                                src="{{'/assets/ODataLogo-96.png' | prepend: site.baseurl | prepend: site.url}}">
+                        OData
+                    </div>
+                </a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#odata-navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>

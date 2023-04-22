@@ -669,3 +669,15 @@ div.card-column {
     position: fixed;
     top: 0;
 }*/
+
+
+a.navbar-brand {
+    text-decoration: none;
+}
+
+a.navbar-brand:hover, a.navbar-brand:focus,
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus,
+.dropdown-menu li a:hover, .dropdown-menu li a:focus {
+    background-color: var(--orange-dark);
+}
