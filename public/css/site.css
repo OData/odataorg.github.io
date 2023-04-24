@@ -528,10 +528,13 @@ button.big-action {
 :root {
     --orange-paler: #FEF8F3;
     --orange-pale: #FFF4EB;
-    --orange-light: #FCEFE5;
+    --orange-light1: #FCEFE5;
+    --orange-light: #FFF2E7;
     --orange-icon: #FF8C00;
-    --orange-medium: #E36306;
-    --orange-dark: #C24904;
+    --orange-bright: rgba(245, 83, 0, 0.96); /**/
+    --orange-medium: #D44300;
+    --orange-medium-focused: #BE3C00;
+    --orange-dark: #BB3B00;
     --footer-height: 14rem;
 }
 
@@ -608,7 +611,7 @@ body {
 }
 
 #tagline h1, #tagline h2 {
-    color: var(--orange-icon);
+    color: var(--orange-bright);
     margin-top: 0;
 }
 
@@ -679,5 +682,5 @@ a.navbar-brand:hover, a.navbar-brand:focus,
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus,
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus,
 .dropdown-menu li a:hover, .dropdown-menu li a:focus {
-    background-color: var(--orange-dark);
+    background-color: var(--orange-medium-focused);
 }
