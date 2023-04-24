@@ -433,6 +433,10 @@ pre {
     }
 }
 
+.typing-animation {
+    height: 4rem;
+}
+
 .typing-animation span {
     font-family: monospace;
     letter-spacing: .15em;
