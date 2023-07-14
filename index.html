@@ -189,3 +189,37 @@ layout: default
   </div>
   </div>
 </div>
+
+<script>
+  $(function(){
+    var myCarousel = $("#myCarousel");
+
+    $('#myCarousel.slide').carousel({
+        interval: 5000,
+        pause: "hover"
+    });
+    
+    $('input').focus(function(){
+       myCarousel.carousel('pause');
+    }).blur(function() {
+      myCarousel.carousel('cycle');
+    });
+
+    var carousel = document.getElementById('myCarousel');
+
+    var liveRegion = document.createElement('span');
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+    liveRegion.setAttribute('class', 'live-region sr-only');
+    carousel.appendChild(liveRegion);
+
+    var headers = $(myCarousel).find('div.carousel-inner > div > div > h1');
+
+    myCarousel.on('slid.bs.carousel', function () {
+      var activeSlide = $('#myCarousel > div.carousel-inner > div.active > div > h1');
+      var captionText = activeSlide.text();
+      var position =  headers.index(activeSlide) + 1
+      liveRegion.textContent = 'Slide ' + position + ' of ' + headers.length + ' - ' + captionText;
+    });
+});
+</script>

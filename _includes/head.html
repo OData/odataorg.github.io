@@ -30,19 +30,6 @@
   </script>
   
   -->
-  <script>
-  $(function(){
-    $('#myCarousel.slide').carousel({
-        interval: 5000,
-        pause: "hover"
-    });
-    $('input').focus(function(){
-       $("#myCarousel").carousel('pause');
-    }).blur(function() {
-       $("#myCarousel").carousel('cycle');
-    });
-});
-</script>
 
   <link rel="stylesheet" href="https://www.odata.org/public/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="{{'/public/css/site.css' | prepend: site.baseurl | prepend: site.url}}">
