@@ -688,3 +688,12 @@ a.navbar-brand:hover, a.navbar-brand:focus,
 .dropdown-menu li a:hover, .dropdown-menu li a:focus {
     background-color: var(--orange-medium-focused);
 }
+
+div.icon-link {
+    display: flex;
+}
+
+div.icon-link  svg {
+    margin-right: 0.8rem;
+    margin-top: 0.3rem;
+}
