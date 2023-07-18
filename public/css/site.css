@@ -697,3 +697,7 @@ div.icon-link  svg {
     margin-right: 0.8rem;
     margin-top: 0.3rem;
 }
+
+.modal-open .modal-backdrop.fade.in {
+    display: none;
+}
