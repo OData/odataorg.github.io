@@ -56,7 +56,7 @@ permalink: /libraries/
                       </td>
                   </tr>
                   {% endfor %}
-                  {% assign regularNets = site.libraries | where: "category", "net" | where: "featured", not "true" | sort: "rownumber", 'first' | reverse %}
+                  {% assign regularNets = site.libraries | where: "category", "net" | except: "featured", "true" | sort: "rownumber", 'first' | reverse %}
                   {% for net in regularNets %}
                   <tr>
                       <td>
@@ -112,7 +112,7 @@ permalink: /libraries/
                       </td>
                   </tr>
                   {% endfor %}
-                  {% assign regularItems = library.items | where: "featured", not "true" | sort: "rownumber", 'first' | reverse %}
+                  {% assign regularItems = library.items | except: "featured", "true" | sort: "rownumber", 'first' | reverse %}
                   {% for item in regularItems %}
                   <tr>
                       <td>{{item.name}}</td>
