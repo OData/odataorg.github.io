@@ -27,38 +27,22 @@ permalink: /libraries/
           <table class="table table-striped table-condensed table-hover reflows" aria-label=".NET Libraries">
               <thead>
                   <tr>
+                      <th>Featured</th>
                       <th>Name</th>
                       <th>Description</th>
                       <th>Support OData version(s)</th>
                       <th>For server/client</th>
-                      <th>Download from</th>
                   </tr>
               </thead>
               <tbody>
-                  {% assign featuredNets = site.libraries | where: "category", "net" | where: "featured", "true" | sort: "rownumber", 'first' | reverse %}
+                  {% assign featuredNets = site.libraries | where: "category", "net" | sort: "rownumber", "last" | sort: "featured" | reverse %}
                   {% for net in featuredNets %}
+                  {% assign featuredBool = net.featured | boolean %}
+                  {% if featuredBool == true %} <!-- Explicit comparison appears to be required for appropriate value evaluation -->
                   <tr class="featured">
-                      <td>
-                          {% if net.link %}
-                          <a href={{net.link}}>{{net.name}}</a>
-                          {% else %}
-                          {{net.name}}
-                          {% endif %}
-                      </td>
-                      <td>{{net.content | markdownify}}</td>
-                      <td>{{net.version}}</td>
-                      <td>{{net.object}}</td>
-                      <td>
-                          {% for download in net.downloads %}
-                          {% if download.source != net.downloads[0].source %},&nbsp{% endif %}
-                          <a href={{download.link}} target="_blank">{{download.source}}</a>
-                          {% endfor %}
-                      </td>
-                  </tr>
-                  {% endfor %}
-                  {% assign regularNets = site.libraries | where: "category", "net" | except: "featured", "true" | sort: "rownumber", 'first' | reverse %}
-                  {% for net in regularNets %}
+                  {% else %}
                   <tr>
+                  {% endif %}
                       <td>
                           {% if net.link %}
                           <a href={{net.link}}>{{net.name}}</a>
@@ -75,7 +59,7 @@ permalink: /libraries/
                           <a href={{download.link}} target="_blank">{{download.source}}</a>
                           {% endfor %}
                       </td>
-                  </tr>
+                  </>
                   {% endfor %}
               </tbody>
           </table>
