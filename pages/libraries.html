@@ -35,8 +35,8 @@ permalink: /libraries/
                   </tr>
               </thead>
               <tbody>
-                  {% assign featuredNets = site.libraries | where: "category", "net" | sort: "rownumber", "last" | sort: "featured" | reverse %}
-                  {% for net in featuredNets %}
+                  {% assign nets = site.libraries | where: "category", "net" | sort: "rownumber", "last" | sort: "featured" | reverse %}
+                  {% for net in nets %}
                   {% assign featuredBool = net.featured | boolean %}
                   {% if featuredBool == true %} <!-- Explicit comparison appears to be required for appropriate value evaluation -->
                   <tr class="featured">
@@ -81,24 +81,14 @@ permalink: /libraries/
                   </tr>
               </thead>
               <tbody>
-                  {% assign featuredItems = library.items | where: "featured", "true" | sort: "rownumber", 'first' | reverse %}
-                  {% for item in featuredItems %}
+                  {% assign items = library.items | sort: "rownumber", "last" | sort: "featured" | reverse %}
+                  {% for item in items %}
+                  {% assign featuredItemBool = item.featured | boolean %}
+                  {% if featuredItemBool == true %} <!-- Explicit comparison appears to be required for appropriate value evaluation -->
                   <tr class="featured">
-                      <td>{{item.name}}</td>
-                      <td>{{item.content | markdownify}}</td>
-                      <td>{{item.version}}</td>
-                      <td>{{item.object}}</td>
-                      <td>
-                          {% for download in item.downloads %}
-                          {% if download.source != item.downloads[0].source %},&nbsp{% endif %}
-                          <a href={{download.link}} target="_blank">{{download.source}}</a>
-                          {% endfor %}
-                      </td>
-                  </tr>
-                  {% endfor %}
-                  {% assign regularItems = library.items | except: "featured", "true" | sort: "rownumber", 'first' | reverse %}
-                  {% for item in regularItems %}
+                      {% else %}
                   <tr>
+                      {% endif %}
                       <td>{{item.name}}</td>
                       <td>{{item.content | markdownify}}</td>
                       <td>{{item.version}}</td>
