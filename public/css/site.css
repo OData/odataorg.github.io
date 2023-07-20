@@ -518,15 +518,21 @@ td {
     padding-bottom: 1rem;
 }
 
-button.big-action {
+.big-action {
     background-color: var(--orange-medium);
     color: white;
+    text-decoration: none;
     border: none;
     font-weight: bold;
     padding: 0.5rem;
     border-radius: 7px;
     padding-left: 4rem;
     padding-right: 4rem;
+}
+
+a.big-action:hover, a.big-action:focus {
+    color: white;
+    text-decoration: none;
 }
 
 :root {
