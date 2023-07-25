@@ -5,133 +5,141 @@ date: 2014-08-01 03:53:28.000000000 +08:00
 permalink: /getting-started/advanced-tutorial/
 ---
 <div class="row">
-<div class="col-md-8">
-<p>
-            The Open Data Protocol (OData) is a data access protocol built on core protocols like HTTP and commonly accepted methodologies like REST for the web. There are various kinds of <a href="https://www.odata.org/libraries/">libraries</a> and <a href="https://www.odata.org/ecosystem/">tools</a>  can be used to consume OData services. But for beginners and those who want to write their own libraries, the pure HTTP requests and responses are also very important. This documentation will not cover every feature details for OData V4 services but will try to cover various typical scenarios.  If you want to have a more detailed understanding, please refer to <a href="https://www.odata.org/documentation/">OData Documentation</a>.
-        </p>
-<h4>Please note</h4>
-<ul>
-<li>This is the advanced section. For topics like requesting data, query options, basic data modification, operations and etc, please refer to <a href="https://www.odata.org/getting-started/basic-tutorial/">Basic Section</a>.</li>
-<li>All these are based on OData V4 sample service <a href="https://services.odata.org/V4/TripPinServiceRW">TripPin</a>, please just replace the <code>serviceRoot</code> below with the URL <code>https://services.odata.org/V4/TripPinServiceRW</code>. TripPin now supports ETag, so for data modification topics, you should first using GET on TripPin (eg. GET serviceRoot/People) to get the section information in the payload then use the URL with section for data modification examples. (something looks like https://services.odata.org/V4/(S(flat4rgegiueineatspfdku1))/TripPinServiceRW)</li>
-<li>You may use <a href="https://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
-<li>In TripPin service, ETag is currently enabled on entity <em>Person</em>. We omit the ETag related headers in request headers for short, please go to the <a href="https://www.odata.org/getting-started/basic-tutorial/#etag">ETag Section</a> for detailed information.</li>
-<li>We will keep improving this by adding contents and fixing bugs. You can provide your feedbacks and ask questions using <a href="https://www.odata.org/join-the-odata-discussion/">OData Mailling List</a>.</li>
-</ul>
-<div id="singleton">
-<h2 class="page-header">Singleton</h2>
-<p>                Singletons are single entities which are accessed as children of the entity container.</p>
-<div id="querySingleton">
-<h3>Requesting singleton</h3>
-<p>                    The request below returns the singleton <em>Me</em><br />
-                    <code>GET serviceRoot/Me </code><br />
-<br />
-                    Response Payload</p>
-{% highlight javascript%}
-{
-    "@odata.context": "serviceRoot/$metadata#Me",
-    "@odata.id": "serviceRoot/Me",
-  "@odata.etag": "W/"08D1694EFF498B20"",
-    "@odata.editLink": "serviceRoot/Me",
-    "UserName": "aprilcline",
-    "FirstName": "April",
-    "LastName": "Cline",
-    "EmailAddress": [
-        "April@example.com",
-        "April@contoso.com"
-    ],
-    "AddressInfo": [
-        {
-            "Address": "P.O. Box 555",
-            "City": {
-                "CountryRegion": "United States",
-                "Name": "Lander",
-                "Region": "WY"
+   <div class="col-2-3">
+      <p>
+         The Open Data Protocol (OData) is a data access protocol built on core protocols like HTTP and commonly accepted methodologies like REST for the web. There are various kinds of <a href="https://www.odata.org/libraries/">libraries</a> and <a href="https://www.odata.org/ecosystem/">tools</a> that can be used to consume OData services. But for beginners and those who want to write their own libraries, the pure HTTP requests and responses are also very important. This documentation will not cover every feature details for OData V4 services but will try to cover various typical scenarios. If you want to have a more detailed understanding, please refer to <a href="https://www.odata.org/documentation/">OData Documentation</a>.
+      </p>
+      <h4>Please note</h4>
+      <ul>
+         <li>This is the advanced section. For topics like requesting data, query options, basic data modification, operations and etc, please refer to <a href="https://www.odata.org/getting-started/basic-tutorial/">Basic Section</a>.</li>
+         <li>All these are based on OData V4 sample service <a href="https://services.odata.org/V4/TripPinServiceRW">TripPin</a>, please just replace the <code>serviceRoot</code> below with the URL <code>https://services.odata.org/V4/TripPinServiceRW</code>. TripPin now supports ETag, so for data modification topics, you should first using GET on TripPin (eg. GET serviceRoot/People) to get the section information in the payload then use the URL with section for data modification examples. (something looks like https://services.odata.org/V4/(S(flat4rgegiueineatspfdku1))/TripPinServiceRW)</li>
+         <li>You may use <a href="https://www.telerik.com/fiddler">Fiddler</a> to run the request (especially the complex ones of data modification) and get the JSON response.</li>
+         <li>In TripPin service, ETag is currently enabled on entity <em>Person</em>. We omit the ETag related headers in request headers for short, please go to the <a href="https://www.odata.org/getting-started/basic-tutorial/#etag">ETag Section</a> for detailed information.</li>
+         <li>We will keep improving this by adding contents and fixing bugs. You can provide your feedbacks and ask questions using <a href="https://www.odata.org/join-the-odata-discussion/">OData Mailling List</a>.</li>
+      </ul>
+      <div id="singleton">
+         <h2 class="page-header">Singleton</h2>
+         <p> Singletons are single entities which are accessed as children of the entity container.</p>
+         <div id="querySingleton">
+            <h3>Requesting singleton</h3>
+            <p> The request below returns the singleton <em>Me</em><br />
+               <code>GET serviceRoot/Me </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            {
+            "@odata.context": "serviceRoot/$metadata#Me",
+            "@odata.id": "serviceRoot/Me",
+            "@odata.etag": "W/"08D1694EFF498B20"",
+            "@odata.editLink": "serviceRoot/Me",
+            "UserName": "aprilcline",
+            "FirstName": "April",
+            "LastName": "Cline",
+            "EmailAddress": [
+              "April@example.com",
+              "April@contoso.com"
+            ],
+            "AddressInfo": [
+                {
+                "Address": "P.O. Box 555",
+                "City": 
+                    {
+                        "CountryRegion": "United States",
+                        "Name": "Lander",
+                        "Region": "WY"
+                    }
+                }
+            ],
+            "Gender": "Female",
+            "Concurrency": 635404810447326000
             }
-        }
-    ],
-    "Gender": "Female",
-  "Concurrency": 635404810447326000
-}
-{% endhighlight %}
-</p></div>
-<div id="querySingletonProperty">
-<h3>Requesting property of Singleton </h3>
-<p>                    The request below returns the property <em>AddressInfo</em> of singleton <em>Me</em>.<br />
-  <code>GET serviceRoot/Me/AddressInfo </code><br />
-
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-{
-    "@odata.context": "serviceRoot/$metadata#Me/AddressInfo",
-    "value": [
-        {
-            "Address": "P.O. Box 555",
-            "City": {
-                "CountryRegion": "United States",
-                "Name": "Lander",
-                "Region": "WY"
+            {% endhighlight %}
+         </div>
+         <div id="querySingletonProperty">
+            <h3>Requesting property of Singleton </h3>
+            <p> The request below returns the property <em>AddressInfo</em> of singleton <em>Me</em>.<br />
+               <code>GET serviceRoot/Me/AddressInfo </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            {
+                "@odata.context": "serviceRoot/$metadata#Me/AddressInfo",
+                "value":
+                [
+                    {
+                        "Address": "P.O. Box 555",
+                        "City":
+                        {
+                            "CountryRegion": "United States",
+                            "Name": "Lander",
+                            "Region": "WY"
+                        }
+                    }
+                ]
             }
-        }
-    ]
-}
-{% endhighlight %}
-<p>                    }
-                </p></div>
-<div id="updateSingleton">
-<h3>Update Singleton</h3>
-<p>                    The request below updates the <em>UserName</em> of Single <em>Me</em>.<br />
-                    <code><br />
-                        PATCH serviceRoot/Me<br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
-                        Accept: application/json<br />
-                        {<br />
-                        "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Person",<br />
-                        "UserName": "AprilTripPin"<br />
-                        }<br />
-                    </code><br />
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 204 No Content
-OData-Version: 4.0
-{% endhighlight %}
-</p></div>
-</p></div>
-<div id="derived">
-<h2 class="page-header">Derived Entity Type</h2>
-<p>                OData now supports derived entity type. Entity types may derived by single inheritance from other entity types. In the sample TripPin service, the entity type <em>Event</em> and <em>Flight</em> both derive from entity type <em>PlanItem</em>.</p>
-<div id="requestDerived">
-<h3>Requesting a Derived Entity</h3>
-<p>                    The request below returns the flight of with <em>PlanItemId</em> 21.</p>
-<p>                    <code>GET serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(21)/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
- <br /> <br />
-Response Payload</p>
-{% highlight javascript%}
-{
-    "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1003)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight/$entity",
-    "PlanItemId": 21,
-    "ConfirmationCode": "JH58494",
-    "StartsAt": "2014-02-01T08:00:00+08:00",
-    "EndsAt": "2014-02-01T09:20:00+08:00",
-    "Duration": "PT0S",
-    "SeatNumber": "B11",
-    "FlightNumber": "FM1930"
-}
-{% endhighlight %}
-</p></div>
-<div id="requestDerivedEntitySet">
-<h3>Requesting a Derived Entity Collection</h3>
-<p>                    The request below shows how to get the derived enity set <em>Flights</em>.<br />
-                    <code>GET serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-{
-    "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight",
-    "value": [
-        {
+            {% endhighlight %}
+            <p>
+            </p>
+         </div>
+         <div id="updateSingleton">
+            <h3>Update Singleton</h3>
+            <p> The request below updates the <em>UserName</em> of Single <em>Me</em>.<br />
+               <code><br />
+               PATCH serviceRoot/Me<br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json;odata.metadata=minimal<br />
+               Accept: application/json<br />
+               {<br />
+                 "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Person",<br />
+                 "UserName": "AprilTripPin"<br />
+               }<br />
+               </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            HTTP/1.1 204 No Content
+            OData-Version: 4.0
+            {% endhighlight %}
+         </div>
+      </div>
+      <div id="derived">
+         <h2 class="page-header">Derived Entity Type</h2>
+         <p> OData now supports derived entity type. Entity types may derived by single inheritance from other entity types. In the sample TripPin service, the entity type <em>Event</em> and <em>Flight</em> both derive from entity type <em>PlanItem</em>.</p>
+         <div id="requestDerived">
+            <h3>Requesting a Derived Entity</h3>
+            <p> The request below returns the flight of with <em>PlanItemId</em> 21.</p>
+            <p> <code>GET serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(21)/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
+               <br /> <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            {
+            "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1003)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight/$entity",
+            "PlanItemId": 21,
+            "ConfirmationCode": "JH58494",
+            "StartsAt": "2014-02-01T08:00:00+08:00",
+            "EndsAt": "2014-02-01T09:20:00+08:00",
+            "Duration": "PT0S",
+            "SeatNumber": "B11",
+            "FlightNumber": "FM1930"
+            }
+            {% endhighlight %}
+         </div>
+         <div id="requestDerivedEntitySet">
+            <h3>Requesting a Derived Entity Collection</h3>
+            <p> The request below shows how to get the derived enity set <em>Flights</em>.<br />
+               <code>GET serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            {
+            "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight",
+            "value": [
+            {
             "PlanItemId": 11,
             "ConfirmationCode": "JH58493",
             "StartsAt": "2014-01-01T08:00:00+08:00",
@@ -139,8 +147,8 @@ Response Payload</p>
             "Duration": "PT0S",
             "SeatNumber": null,
             "FlightNumber": "VA1930"
-        },
-        {
+            },
+            {
             "PlanItemId": 13,
             "ConfirmationCode": "JH58493",
             "StartsAt": "2014-01-04T13:00:00+08:00",
@@ -148,23 +156,24 @@ Response Payload</p>
             "Duration": "PT0S",
             "SeatNumber": null,
             "FlightNumber": "VA1930"
-        }
-    ]
-}
-{% endhighlight %}
-</p></div>
-<div id="filterDerived">
-<h3>Filter on Derived Type</h3>
-<p>                    The two request below shows how to filter on derived entities. These requests return all <em>Flight</em> deriving from <em>PlanItem</em> which has <em>FlightNumber</em> as 'VA1930'.</p>
-<p>                    <code>serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems?$filter=Microsoft.OData.SampleService.Models.TripPin.Flight/FlightNumber eq 'VA1930'</code><br />
-                    <code>serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight?$filter=FlightNumber eq 'VA1930'</code><br />
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-{
-    "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight",
-    "value": [
-        {
+            }
+            ]
+            }
+            {% endhighlight %}
+         </div>
+         <div id="filterDerived">
+            <h3>Filter on Derived Type</h3>
+            <p> The two request below shows how to filter on derived entities. These requests return all <em>Flight</em> deriving from <em>PlanItem</em> which has <em>FlightNumber</em> as 'VA1930'.</p>
+            <p> <code>serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems?$filter=Microsoft.OData.SampleService.Models.TripPin.Flight/FlightNumber eq 'VA1930'</code><br />
+               <code>serviceRoot/People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight?$filter=FlightNumber eq 'VA1930'</code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            {
+            "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1001)/PlanItems/Microsoft.OData.SampleService.Models.TripPin.Flight",
+            "value": [
+            {
             "PlanItemId": 11,
             "ConfirmationCode": "JH58493",
             "StartsAt": "2014-01-01T08:00:00+08:00",
@@ -172,8 +181,8 @@ Response Payload</p>
             "Duration": "PT0S",
             "SeatNumber": null,
             "FlightNumber": "VA1930"
-        },
-        {
+            },
+            {
             "PlanItemId": 13,
             "ConfirmationCode": "JH58493",
             "StartsAt": "2014-01-04T13:00:00+08:00",
@@ -181,111 +190,115 @@ Response Payload</p>
             "Duration": "PT0S",
             "SeatNumber": null,
             "FlightNumber": "VA1930"
-        }
-    ]
-}
-{% endhighlight %}
-</p></div>
-<div id="createDerived">
-<h3>Create a Derived Entity</h3>
-<p>                    The request below creates an event entity in trips. <em>Event</em> derives from <em>PlanItem</em>.<br />
-                    <code><br />
-                        POST serviceRoot/People("russellwhyte")/Trips(1003)/PlanItems<br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json
-                        ;
-                        odata.metadata=minimal<br />
-                        Accept: application/json</p>
-<p>                        {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",<br />
-                        "ConfirmationCode": "4372899DD",<br />
-                        "Description": "Client Meeting",<br />
-                        "Duration": "PT3H",<br />
-                        "EndsAt": "2014-06-01T23:11:17.5479185-07:00",<br />
-                        "OccursAt": {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.EventLocation",<br />
-                        "Address": "100 Church Street, 8th Floor, Manhattan, 10007",<br />
-                        "BuildingInfo": "Regus Business Center",<br />
-                        "City": {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.City",<br />
-                        "CountryRegion": "United States",<br />
-                        "Name": "New York City",<br />
-                        "Region": "New York"<br />
-                        }<br />
-                        },<br />
-                        "PlanItemId": 33,<br />
-                        "StartsAt": "2014-05-25T23:11:17.5459178-07:00"<br />
-                        }<br />
-                    </code><br />
-<br />
-                    Response Payload</p>
-{% highlight javascript%}
- Response HTTP/1.1 201 Created
-{
-"@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1003)/PlanItems/$entity",
-"@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",
-"PlanItemId": 33,
-"ConfirmationCode": "4372899DD",
-"StartsAt": "2014-05-25T23:11:17.5459178-07:00",
-"EndsAt": "2014-06-01T23:11:17.5479185-07:00",
-"Duration": "PT3H",
-"Description": "Client Meeting",
-"OccursAt": {
-  "Address": "100 Church Street, 8th Floor, Manhattan, 10007",
-  "City": {
-    "CountryRegion": "United States",
-    "Name": "New York City",
-    "Region": "New York"
-    },
-"BuildingInfo": "Regus Business Center"
-  }
-}
-{% endhighlight %}
-</p></div>
-<div id="updateDerived">
-<h3>Update a Derived Entity</h3>
-<p>                    The request below updates an event. <em>Event</em> derives from <em>PlanItem</em>.<br />
-                    <code><br />
-                        PATCH serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(5)/Microsoft.OData.SampleService.Models.TripPin.Event<br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
-                        Accept: application/json</p>
-<p>                        {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",<br />
-                        "Description": "This is a new description"<br />
-                        }<br />
-                    </code><br />
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 204 No Content
-{% endhighlight %}
-</p></div>
-<div id="deleteDerived">
-<h3>Delete a Derived Entity</h3>
-<p>                    The request below deletes the flight plan item with Id '21' from a trip of person. <em>Flight</em> derives from <em>PlanItem</em>.</p>
-<p>                    <code>DELETE serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(21)/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
-<br />
-                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 204 No Content
-{% endhighlight %}
-</p></div>
-</p></div>
-<div id="containment">
-<h2 class="page-header">Containment Navigation Property</h2>
-<p>                Containment navigation properties define an implicit entity set for each instance of its declaring entity type. This implicit entity set if identified by the read URL of the navigation property for that entity. The request below returns the contained navigation property <em>Trips</em> of entity set <em>People</em>.</p>
-<div id="queryContianed">
-<h3>Requesting a Contained Entity Set</h3>
-<p>                    The request below returns <em>Trips</em> for a person where <em>Trips</em> is a containment navigation property for <em>Person</em>.<br />
-                    <code>GET serviceRoot/People('russellwhyte')/Trips </code><br />
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-{
-    "@odata.context": "https://services.odata.org/V4/(S(mmobft3g4aut3krzqrxxip4w))/TripPinServiceRW/$metadata#People('russellwhyte')/Trips",
-    "value": [
-        {
+            }
+            ]
+            }
+            {% endhighlight %}
+         </div>
+         <div id="createDerived">
+            <h3>Create a Derived Entity</h3>
+            <p> The request below creates an event entity in trips. <em>Event</em> derives from <em>PlanItem</em>.<br />
+               <code><br />
+               POST serviceRoot/People("russellwhyte")/Trips(1003)/PlanItems<br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json
+               ;
+               odata.metadata=minimal<br />
+               Accept: application/json
+               {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",<br />
+               "ConfirmationCode": "4372899DD",<br />
+               "Description": "Client Meeting",<br />
+               "Duration": "PT3H",<br />
+               "EndsAt": "2014-06-01T23:11:17.5479185-07:00",<br />
+               "OccursAt": {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.EventLocation",<br />
+               "Address": "100 Church Street, 8th Floor, Manhattan, 10007",<br />
+               "BuildingInfo": "Regus Business Center",<br />
+               "City": {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.City",<br />
+               "CountryRegion": "United States",<br />
+               "Name": "New York City",<br />
+               "Region": "New York"<br />
+               }<br />
+               },<br />
+               "PlanItemId": 33,<br />
+               "StartsAt": "2014-05-25T23:11:17.5459178-07:00"<br />
+               }<br />
+               </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            Response HTTP/1.1 201 Created
+            {
+            "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips(1003)/PlanItems/$entity",
+            "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",
+            "PlanItemId": 33,
+            "ConfirmationCode": "4372899DD",
+            "StartsAt": "2014-05-25T23:11:17.5459178-07:00",
+            "EndsAt": "2014-06-01T23:11:17.5479185-07:00",
+            "Duration": "PT3H",
+            "Description": "Client Meeting",
+            "OccursAt": {
+            "Address": "100 Church Street, 8th Floor, Manhattan, 10007",
+            "City": {
+            "CountryRegion": "United States",
+            "Name": "New York City",
+            "Region": "New York"
+            },
+            "BuildingInfo": "Regus Business Center"
+            }
+            }
+            {% endhighlight %}
+         </div>
+         <div id="updateDerived">
+            <h3>Update a Derived Entity</h3>
+            <p> The request below updates an event. <em>Event</em> derives from <em>PlanItem</em>.<br />
+               <code><br />
+               PATCH serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(5)/Microsoft.OData.SampleService.Models.TripPin.Event<br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json;odata.metadata=minimal<br />
+               Accept: application/json
+               {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",<br />
+               "Description": "This is a new description"<br />
+               }<br />
+               </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            HTTP/1.1 204 No Content
+            {% endhighlight %}
+         </div>
+         <div id="deleteDerived">
+            <h3>Delete a Derived Entity</h3>
+            <p> The request below deletes the flight plan item with Id '21' from a trip of person. <em>Flight</em> derives from <em>PlanItem</em>.</p>
+            <p> <code>DELETE serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(21)/Microsoft.OData.SampleService.Models.TripPin.Flight</code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            HTTP/1.1 204 No Content
+            {% endhighlight %}
+         </div>
+      </div>
+      <div id="containment">
+         <h2 class="page-header">Containment Navigation Property</h2>
+         <p> Containment navigation properties define an implicit entity set for each instance of its declaring entity type. This implicit entity set if identified by the read URL of the navigation property for that entity. The request below returns the contained navigation property <em>Trips</em> of entity set <em>People</em>.</p>
+         <div id="queryContianed">
+            <h3>Requesting a Contained Entity Set</h3>
+            <p> The request below returns <em>Trips</em> for a person where <em>Trips</em> is a containment navigation property for <em>Person</em>.<br />
+               <code>GET serviceRoot/People('russellwhyte')/Trips </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            {
+            "@odata.context": "https://services.odata.org/V4/(S(mmobft3g4aut3krzqrxxip4w))/TripPinServiceRW/$metadata#People('russellwhyte')/Trips",
+            "value": [
+            {
             "TripId": 1001,
             "ShareId": "9d9b2fa0-efbf-490e-a5e3-bac8f7d47354",
             "Description": "Trip from San Francisco to New York City",
@@ -294,13 +307,13 @@ HTTP/1.1 204 No Content
             "StartsAt": "2014-01-01T00:00:00Z",
             "EndsAt": "2014-01-04T00:00:00Z",
             "Tags": [
-                "business",
-                "New York meeting"
+            "business",
+            "New York meeting"
             ]
-        },
-        ......
-        ,
-        {
+            },
+            ......
+            ,
+            {
             "TripId": 1007,
             "ShareId": "9ce142c3-5fd6-4a71-848e-5220ebf1e9f3",
             "Description": "Happy honeymoon trip",
@@ -309,69 +322,71 @@ HTTP/1.1 204 No Content
             "StartsAt": "2014-02-01T00:00:00Z",
             "EndsAt": "2014-02-04T00:00:00Z",
             "Tags": [
-                "Travel",
-                "honeymoon"
+            "Travel",
+            "honeymoon"
             ]
-        }
-    ]
-}
-{% endhighlight %}
-</p></div>
-<div id="createContain">
-<h3>Create a Contained Entity</h3>
-<p>                    The request below creates a <em>Trip</em> for <em>Person</em> with <em>UserName</em> 'russellwhyte'. <em>Trips</em> is a contained navigation property for <em>Person</em>.<br />
-                    <code><br />
-                        POST serviceRoot/People('russellwhyte')/Trips<br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
-                        Accept: application/json<br />
-                        {<br />
-                        "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Trip",<br />
-                        "TripId" : 3,<br />
-                        "ShareId" : null,<br />
-                        "Description" : "Create Containment",<br />
-                        "Name" : "Test Trip",<br />
-                        "StartsAt" : "2014-01-01T00:00:00+08:00",<br />
-                        "EndsAt" : "2014-02-01T00:00:00+08:00",<br />
-                        "Budget" : 1000,<br />
-                        "Tags" : [<br />
-                        "Test Tag 1",<br />
-                        "Test Tag 2"<br />
-                        ]<br />
-                        }<br />
-                    </code><br />
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 201 Created
-Content-Length: 344
-Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
-Location: serviceRoot/People('russellwhyte')/Trips(3)
-OData-Version: 4.0
-{
-    "@odata.context":"serviceRoot/$metadata#People('russellwhyte')/Trips/$entity",
-    "TripId":3,
-    "ShareId":"00000000-0000-0000-0000-000000000000",
-    "Description":"Create Containment",
-    "Name":"Test Trip",
-    "Budget":1000,
-    "StartsAt":"2014-01-01T00:00:00+08:00",
-    "EndsAt":"2014-02-01T00:00:00+08:00",
-    "Tags":["Test Tag 1","Test Tag 2"]
-}
-{% endhighlight %}
-</p></div>
-<div id="filterContain">
-<h3>Filter on a Contained Entity Set</h3>
-<p>                    The request below returns <em>Trips</em> that contains 'New York' in its description of <em>Person</em> with <em>UserName</em> 'russellwhyte'.<br />
-                    <code>GET serviceRoot/People('russellwhyte')/Trips?$filter=contains(Description, 'New York')</code><br />
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-{
-    "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips",
-    "value": [
-        {
+            }
+            ]
+            }
+            {% endhighlight %}
+         </div>
+         <div id="createContain">
+            <h3>Create a Contained Entity</h3>
+            <p> The request below creates a <em>Trip</em> for <em>Person</em> with <em>UserName</em> 'russellwhyte'. <em>Trips</em> is a contained navigation property for <em>Person</em>.<br />
+               <code><br />
+               POST serviceRoot/People('russellwhyte')/Trips<br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json;odata.metadata=minimal<br />
+               Accept: application/json<br />
+               {<br />
+               "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Trip",<br />
+               "TripId" : 3,<br />
+               "ShareId" : null,<br />
+               "Description" : "Create Containment",<br />
+               "Name" : "Test Trip",<br />
+               "StartsAt" : "2014-01-01T00:00:00+08:00",<br />
+               "EndsAt" : "2014-02-01T00:00:00+08:00",<br />
+               "Budget" : 1000,<br />
+               "Tags" : [<br />
+               "Test Tag 1",<br />
+               "Test Tag 2"<br />
+               ]<br />
+               }<br />
+               </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            HTTP/1.1 201 Created
+            Content-Length: 344
+            Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
+            Location: serviceRoot/People('russellwhyte')/Trips(3)
+            OData-Version: 4.0
+            {
+            "@odata.context":"serviceRoot/$metadata#People('russellwhyte')/Trips/$entity",
+            "TripId":3,
+            "ShareId":"00000000-0000-0000-0000-000000000000",
+            "Description":"Create Containment",
+            "Name":"Test Trip",
+            "Budget":1000,
+            "StartsAt":"2014-01-01T00:00:00+08:00",
+            "EndsAt":"2014-02-01T00:00:00+08:00",
+            "Tags":["Test Tag 1","Test Tag 2"]
+            }
+            {% endhighlight %}
+         </div>
+         <div id="filterContain">
+            <h3>Filter on a Contained Entity Set</h3>
+            <p> The request below returns <em>Trips</em> that contains 'New York' in its description of <em>Person</em> with <em>UserName</em> 'russellwhyte'.<br />
+               <code>GET serviceRoot/People('russellwhyte')/Trips?$filter=contains(Description, 'New York')</code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            {
+            "@odata.context": "serviceRoot/$metadata#People('russellwhyte')/Trips",
+            "value": [
+            {
             "TripId": 1001,
             "ShareId": "9d9b2fa0-efbf-490e-a5e3-bac8f7d47354",
             "Description": "Trip from San Francisco to New York City",
@@ -380,347 +395,357 @@ OData-Version: 4.0
             "StartsAt": "2014-01-01T00:00:00+08:00",
             "EndsAt": "2014-01-04T00:00:00+08:00",
             "Tags": [
-                "business",
-                "New York meeting"
+            "business",
+            "New York meeting"
             ]
-        }
-    ]
-}
-{% endhighlight %}
-</p></div>
-<div id="updateContainment">
-<h3>Update Contained Entity</h3>
-<p>                    The request below updates the contained Entity <em>Trip</em>.<br />
-                    <code><br />
-                        PATCH serviceRoot/People('russellwhyte')/Trips(1001)<br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
-                        Accept: application/json</p>
-<p>                        {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Trip",<br />
-                        "Description": "This is a new description"<br />
-                        }<br />
-                    </code> </p>
-<p>                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 204 No Content
-{% endhighlight %}
-</p></div>
-<div id="deleteContaiment">
-<h3>Delete Contained Entity</h3>
-<p>                    The request below deletes a contained Entity <em>Trip</em>. </p>
-<p>                    <code>DELETE serviceRoot/People('russellwhyte')/Trips(1001)</code><br />
-                    <br />
-                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 204 No Content
-{% endhighlight %}
-</p></div>
-</p></div>
-<div id="openType">
-<h2 class="page-header">Open Type</h2>
-<p>                OData V4 supports entity or complex types which allow clients to persist additional undeclared properties. Such entities and complex types are called open types.</p>
-<div id="openEntity">
-<h3>Open Entity Type</h3>
-<p>                    When create or update an open entity, undeclared properties can be added.<br />
-                    The request below shows how to add an undeclared property <em>Description</em> when create the open entity <em>Person</em>.<br />
-                    <code><br />
-                        POST serviceRoot/People<br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
-                        Accept: application/json<br />
-                        ETag: W/"08D15F3DD9126D84"</p>
-<p>                        {<br />
-                        "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Person",<br />
-                        "UserName": "teresa",<br />
-                        "FirstName" : "Teresa",<br />
-                        "LastName" : "Gilbert",<br />
-                        "Gender" : "Female",<br />
-                        "Description": "Big fan for travelling",<br />
-                        "Emails" : ["teresa@example.com", "teresa@contoso.com"],<br />
-                        "AddressInfo" : [<br />
-                        {<br />
-                        "Address" : "1 Suffolk Ln.",<br />
-                        "City" :<br />
-                        {<br />
-                        "CountryRegion" : "United States",<br />
-                        "Name" : "Boise",<br />
-                        "Region" : "ID"<br />
-                        }<br />
-                        }]<br />
-                        }<br />
-                    </code><br />
-<br />
-                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 201 Created
-{
-   "@odata.context":"serviceRoot/$metadata#People/$entity",
-   "@odata.id":"serviceRoot/People('teresa')",
-   "@odata.editLink":"serviceRoot/People('teresa')",
-   "UserName":"teresa",
-   "FirstName":"Teresa",
-   "LastName":"Gilbert",
-   "Description": "Big fan for travelling",
-   "Emails":["teresa@example.com","teresa@contoso.com"],
-   "AddressInfo":[{"Address":"1 Suffolk Ln.","City":{"CountryRegion":"United States","Name":"Boise","Region":"ID"}}],
-   "Gender":"Female"
-}
-{% endhighlight %}
-<p>
-                    The request below shows how to add an undeclared property <em>Description</em> when update the open entity <em>Person</em>.<br />
-                    <code><br />
-                        PATCH serviceRoot/People('keithpinckney')<br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
-                        Accept: application/json</p>
-<p>                        {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Person",<br />
-                        "Description": "Big fan for travelling"<br />
-                        }<br />
-<br />
-                        Response Payload<br />
-</code>
-{% highlight javascript%}
-HTTP/1.1 204 No Content
-{% endhighlight %}
-</p></div>
-<div id="openComplex">
-<h3>Open Complex Type</h3>
-<p>                    OData V4 also supports open type for complex types.<br />
-                    The request below show how to add undeclared property <em>Description</em> when create new instance with  <em>AddressInfo</em> of open complex type <em>Location</em>. </p>
-<p>                    <code><br />
-                        PATCH serviceRoot/People('russellwhyte')<br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
-                        Accept: application/json</p>
-<p>                        {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Person",<br />
-                        "AddressInfo@odata.type": "#Collection(Microsoft.OData.SampleService.Models.TripPin.Location)",<br />
-                        "AddressInfo": [<br />
-                        {<br />
-                        "Address": "187 Suffolk Ln.",<br />
-                        "City": {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.City",<br />
-                        "CountryRegion": "United States",<br />
-                        "Name": "Boise",<br />
-                        "Region": "ID"<br />
-                        },<br />
-                        "Description": null<br />
-                        },<br />
-                        {<br />
-                        "Address": "XuanWu Load 555",<br />
-                        "City": {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.City",<br />
-                        "CountryRegion": "China",<br />
-                        "Name": "NanJing",<br />
-                        "Region": "JiangSu"<br />
-                        },<br />
-                        "Description": "Nice Location"<br />
-                        }<br />
-                        ],<br />
-                        "Concurrency": 635393824693486800,<br />
-                        "Description": null,<br />
-                        "Emails@odata.type": "#Collection(String)",<br />
-                        "Emails": [<br />
-                        "Russell@example.com",<br />
-                        "Russell@contoso.com"<br />
-                        ],<br />
-                        "FirstName": "Russell",<br />
-                        "Gender@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.PersonGender",<br />
-                        "Gender": "Male",<br />
-                        "LastName": "Whyte",<br />
-                        "UserName": "russellwhyte"<br />
-                        }<br />
-                    </code><br />
-<br />
-                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 204 No Content
-{% endhighlight %}
-<p>
-                    The request below show how to add undeclared property <em>Description</em> when update an instance with  <em>OccursAt</em> of open complex type <em>EventLocation</em>. </p>
-<p>                    <code>PATCH serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(5)/Microsoft.OData.SampleService.Models.TripPin.Event</code><br />
-                    <code><br />
-                        OData-Version: 4.0<br />
-                        Content-Type: application/json;odata.metadata=minimal<br />
-                        Accept: application/json</p>
-<p>                        {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",<br />
-                        "OccursAt": {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.EventLocation",<br />
-                        "Address": "10 Beijing Street, 100000",<br />
-                        "BuildingInfo": "Beijing Restaurant",<br />
-                        "City": {<br />
-                        "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.City",<br />
-                        "CountryRegion": "China",<br />
-                        "Name": "Beijing",<br />
-                        "Region": "Beijing"<br />
-                        },<br />
-                        "Description": "Beautiful City."<br />
-                        }<br />
-                        }<br />
-                    </code><br />
-<br />
-                    Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 204 No Content
-{% endhighlight %}
-</p></div>
-</p></div>
-<div id="batch">
-<h2 class="page-header">Batch</h2>
-<p>                Batch requests allow grouping multiple operations into a single HTTP request payload. The Batch request below contains the following operations in order listed:<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;1. A query request, returns all <em>Airlines</em>.<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;2. Create an entity, a new <em>Airline</em>.<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;3. A second query request <em>Airlines</em>.</p>
-<p>                <code><br />
-                    POST serviceRoot/$batch<br />
-                    OData-Version: 4.0<br />
-                    Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b<br />
-                </code></p>
-<p>                <code><br />
-                    --batch_36522ad7-fc75-4b56-8c71-56071383e77b<br />
-                    Content-Type: application/http<br />
-                    Content-Transfer-Encoding:binary</p>
-<p>                    GET serviceRoot/Airlines HTTP/1.1<br />
-                    Accept: application/json;odata.metadata=minimal</p>
-<p>                    --batch_36522ad7-fc75-4b56-8c71-56071383e77b<br />
-                    Content-Type: application/http<br />
-                    Content-Transfer-Encoding:binary<br />
-                    Content-ID: 1</p>
-<p>                    POST serviceRoot/Airlines HTTP/1.1<br />
-                    OData-Version: 4.0<br />
-                    Content-Type: application/json;odata.metadata=minimal<br />
-                    Accept: application/json;odata.metadata=minimal</p>
-<p>                    {<br />
-                    "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Airline",<br />
-                    "AirlineCode" : "EK",<br />
-                    "Name" : "Emirates Airline"<br />
-                    }</p>
-<p>                    --batch_36522ad7-fc75-4b56-8c71-56071383e77b<br />
-                    Content-Type: application/http<br />
-                    Content-Transfer-Encoding:binary</p>
-<p>                    GET serviceRoot/Airlines HTTP/1.1<br />
-                    Accept: application/json;odata.metadata=minimal</p>
-<p>                    --batch_36522ad7-fc75-4b56-8c71-56071383e77b--</p>
-<p>                </code><br />
-                <br />
-                Response Payload</p>
-{% highlight javascript%}
-HTTP/1.1 200 OK
-Cache-Control: no-cache
-Content-Length: 3100
-Content-Type: multipart/mixed; boundary=batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35
-OData-Version: 4.0
---batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35
-Content-Type: application/http
-Content-Transfer-Encoding: binary
-HTTP/1.1 200 OK
-OData-Version: 4.0
-Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
-{
-"@odata.context":"serviceRoot/$metadata#Airlines",
-"value":
-[{
-"AirlineCode":"AA",
-"Name":"American Airlines"
-},
-{
-"AirlineCode":"FM",
-"Name":"Shanghai Airline"
-},
-{
-"AirlineCode":"MU",
-"Name":"China Eastern Airlines"
-}
-]}
---batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35
-Content-Type: application/http
-Content-Transfer-Encoding: binary
-HTTP/1.1 201 Created
-Location: serviceRoot/Airlines('EK')
-OData-Version: 4.0
-Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
-{
-"@odata.context":"serviceRoot/$metadata#Airlines/$entity",
-"@odata.id":"serviceRoot/Airlines('EK')",
-"@odata.editLink":"serviceRoot/Airlines('EK')",
-"AirlineCode":"EK","Name":"Emirates Airline"
-}
---batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35
-Content-Type: application/http
-Content-Transfer-Encoding: binary
-HTTP/1.1 200 OK
-OData-Version: 4.0
-Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
-{
-"@odata.context":"serviceRoot/$metadata#Airlines",
-"value":
-[{
-"AirlineCode":"AA",
-"Name":"American Airlines"},
-{
-"AirlineCode":"FM",
-"Name":"Shanghai Airline"
-},
-{
-"AirlineCode":"MU",
-"Name":"China Eastern Airlines"
-},
-{
-"AirlineCode":"EK",
-"Name":"Emirates Airline"
-}]
-}
---batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35--
-{% endhighlight %}
-</p></div>
-</div>
-<div class="col-md-3" style="float:right">
-    <nav class="tutorial-sidebar" aria-label="Page Contents">
-        <ul class="nav tutorial-sidenav" data-spy="affix">
+            }
+            ]
+            }
+            {% endhighlight %}
+         </div>
+         <div id="updateContainment">
+            <h3>Update Contained Entity</h3>
+            <p> The request below updates the contained Entity <em>Trip</em>.<br />
+               <code><br />
+               PATCH serviceRoot/People('russellwhyte')/Trips(1001)<br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json;odata.metadata=minimal<br />
+               Accept: application/json
+               {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Trip",<br />
+               "Description": "This is a new description"<br />
+               }<br />
+               </code>
+            </p>
+            <p> Response Payload</p>
+            {% highlight javascript%}
+            HTTP/1.1 204 No Content
+            {% endhighlight %}
+         </div>
+         <div id="deleteContaiment">
+            <h3>Delete Contained Entity</h3>
+            <p> The request below deletes a contained Entity <em>Trip</em>. </p>
+            <p> <code>DELETE serviceRoot/People('russellwhyte')/Trips(1001)</code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            HTTP/1.1 204 No Content
+            {% endhighlight %}
+         </div>
+      </div>
+      <div id="openType">
+         <h2 class="page-header">Open Type</h2>
+         <p> OData V4 supports entity or complex types which allow clients to persist additional undeclared properties. Such entities and complex types are called open types.</p>
+         <div id="openEntity">
+            <h3>Open Entity Type</h3>
+            <p> When create or update an open entity, undeclared properties can be added.<br />
+               The request below shows how to add an undeclared property <em>Description</em> when create the open entity <em>Person</em>.<br />
+               <code><br />
+               POST serviceRoot/People<br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json;odata.metadata=minimal<br />
+               Accept: application/json<br />
+               ETag: W/"08D15F3DD9126D84"
+               {<br />
+               "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Person",<br />
+               "UserName": "teresa",<br />
+               "FirstName" : "Teresa",<br />
+               "LastName" : "Gilbert",<br />
+               "Gender" : "Female",<br />
+               "Description": "Big fan for travelling",<br />
+               "Emails" : ["teresa@example.com", "teresa@contoso.com"],<br />
+               "AddressInfo" : [<br />
+               {<br />
+               "Address" : "1 Suffolk Ln.",<br />
+               "City" :<br />
+               {<br />
+               "CountryRegion" : "United States",<br />
+               "Name" : "Boise",<br />
+               "Region" : "ID"<br />
+               }<br />
+               }]<br />
+               }<br />
+               </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            HTTP/1.1 201 Created
+            {
+            "@odata.context":"serviceRoot/$metadata#People/$entity",
+            "@odata.id":"serviceRoot/People('teresa')",
+            "@odata.editLink":"serviceRoot/People('teresa')",
+            "UserName":"teresa",
+            "FirstName":"Teresa",
+            "LastName":"Gilbert",
+            "Description": "Big fan for travelling",
+            "Emails":["teresa@example.com","teresa@contoso.com"],
+            "AddressInfo":[{"Address":"1 Suffolk Ln.","City":{"CountryRegion":"United States","Name":"Boise","Region":"ID"}}],
+            "Gender":"Female"
+            }
+            {% endhighlight %}
+            <p>
+               The request below shows how to add an undeclared property <em>Description</em> when update the open entity <em>Person</em>.<br />
+               <code><br />
+               PATCH serviceRoot/People('keithpinckney')<br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json;odata.metadata=minimal<br />
+               Accept: application/json
+               {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Person",<br />
+               "Description": "Big fan for travelling"<br />
+               }<br />
+               <br />
+               Response Payload<br />
+               </code>
+               {% highlight javascript%}
+               HTTP/1.1 204 No Content
+               {% endhighlight %}
+            </p>
+         </div>
+         <div id="openComplex">
+            <h3>Open Complex Type</h3>
+            <p> OData V4 also supports open type for complex types.<br />
+               The request below show how to add undeclared property <em>Description</em> when create new instance with <em>AddressInfo</em> of open complex type <em>Location</em>. 
+            </p>
+            <p> <code><br />
+               PATCH serviceRoot/People('russellwhyte')<br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json;odata.metadata=minimal<br />
+               Accept: application/json
+               {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Person",<br />
+               "AddressInfo@odata.type": "#Collection(Microsoft.OData.SampleService.Models.TripPin.Location)",<br />
+               "AddressInfo": [<br />
+               {<br />
+               "Address": "187 Suffolk Ln.",<br />
+               "City": {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.City",<br />
+               "CountryRegion": "United States",<br />
+               "Name": "Boise",<br />
+               "Region": "ID"<br />
+               },<br />
+               "Description": null<br />
+               },<br />
+               {<br />
+               "Address": "XuanWu Load 555",<br />
+               "City": {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.City",<br />
+               "CountryRegion": "China",<br />
+               "Name": "NanJing",<br />
+               "Region": "JiangSu"<br />
+               },<br />
+               "Description": "Nice Location"<br />
+               }<br />
+               ],<br />
+               "Concurrency": 635393824693486800,<br />
+               "Description": null,<br />
+               "Emails@odata.type": "#Collection(String)",<br />
+               "Emails": [<br />
+               "Russell@example.com",<br />
+               "Russell@contoso.com"<br />
+               ],<br />
+               "FirstName": "Russell",<br />
+               "Gender@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.PersonGender",<br />
+               "Gender": "Male",<br />
+               "LastName": "Whyte",<br />
+               "UserName": "russellwhyte"<br />
+               }<br />
+               </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            HTTP/1.1 204 No Content
+            {% endhighlight %}
+            <p>
+               The request below show how to add undeclared property <em>Description</em> when update an instance with <em>OccursAt</em> of open complex type <em>EventLocation</em>. 
+            </p>
+            <p> <code>PATCH serviceRoot/People('russellwhyte')/Trips(1003)/PlanItems(5)/Microsoft.OData.SampleService.Models.TripPin.Event</code><br />
+               <code><br />
+               OData-Version: 4.0<br />
+               Content-Type: application/json;odata.metadata=minimal<br />
+               Accept: application/json
+               {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.Event",<br />
+               "OccursAt": {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.EventLocation",<br />
+               "Address": "10 Beijing Street, 100000",<br />
+               "BuildingInfo": "Beijing Restaurant",<br />
+               "City": {<br />
+               "@odata.type": "#Microsoft.OData.SampleService.Models.TripPin.City",<br />
+               "CountryRegion": "China",<br />
+               "Name": "Beijing",<br />
+               "Region": "Beijing"<br />
+               },<br />
+               "Description": "Beautiful City."<br />
+               }<br />
+               }<br />
+               </code><br />
+               <br />
+               Response Payload
+            </p>
+            {% highlight javascript%}
+            HTTP/1.1 204 No Content
+            {% endhighlight %}
+         </div>
+      </div>
+      <div id="batch">
+         <h2 class="page-header">Batch</h2>
+         <p> Batch requests allow grouping multiple operations into a single HTTP request payload. The Batch request below contains the following operations in order listed:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;1. A query request, returns all <em>Airlines</em>.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;2. Create an entity, a new <em>Airline</em>.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;3. A second query request <em>Airlines</em>.
+         </p>
+         <p> <code><br />
+            POST serviceRoot/$batch<br />
+            OData-Version: 4.0<br />
+            Content-Type: multipart/mixed;boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b<br />
+            </code>
+         </p>
+         <p> <code><br />
+            --batch_36522ad7-fc75-4b56-8c71-56071383e77b<br />
+            Content-Type: application/http<br />
+            Content-Transfer-Encoding:binary
+            GET serviceRoot/Airlines HTTP/1.1<br />
+            Accept: application/json;odata.metadata=minimal
+            --batch_36522ad7-fc75-4b56-8c71-56071383e77b<br />
+            Content-Type: application/http<br />
+            Content-Transfer-Encoding:binary<br />
+            Content-ID: 1
+            POST serviceRoot/Airlines HTTP/1.1<br />
+            OData-Version: 4.0<br />
+            Content-Type: application/json;odata.metadata=minimal<br />
+            Accept: application/json;odata.metadata=minimal
+            {<br />
+            "@odata.type" : "Microsoft.OData.SampleService.Models.TripPin.Airline",<br />
+            "AirlineCode" : "EK",<br />
+            "Name" : "Emirates Airline"<br />
+            }
+            --batch_36522ad7-fc75-4b56-8c71-56071383e77b<br />
+            Content-Type: application/http<br />
+            Content-Transfer-Encoding:binary
+            GET serviceRoot/Airlines HTTP/1.1<br />
+            Accept: application/json;odata.metadata=minimal
+            --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
+            </code><br />
+            <br />
+            Response Payload
+            {% highlight javascript%}
+            HTTP/1.1 200 OK
+            Cache-Control: no-cache
+            Content-Length: 3100
+            Content-Type: multipart/mixed; boundary=batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35
+            OData-Version: 4.0
+            --batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35
+            Content-Type: application/http
+            Content-Transfer-Encoding: binary
+            HTTP/1.1 200 OK
+            OData-Version: 4.0
+            Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
+            {
+            "@odata.context":"serviceRoot/$metadata#Airlines",
+            "value":
+            [{
+            "AirlineCode":"AA",
+            "Name":"American Airlines"
+            },
+            {
+            "AirlineCode":"FM",
+            "Name":"Shanghai Airline"
+            },
+            {
+            "AirlineCode":"MU",
+            "Name":"China Eastern Airlines"
+            }
+            ]}
+            --batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35
+            Content-Type: application/http
+            Content-Transfer-Encoding: binary
+            HTTP/1.1 201 Created
+            Location: serviceRoot/Airlines('EK')
+            OData-Version: 4.0
+            Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
+            {
+            "@odata.context":"serviceRoot/$metadata#Airlines/$entity",
+            "@odata.id":"serviceRoot/Airlines('EK')",
+            "@odata.editLink":"serviceRoot/Airlines('EK')",
+            "AirlineCode":"EK","Name":"Emirates Airline"
+            }
+            --batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35
+            Content-Type: application/http
+            Content-Transfer-Encoding: binary
+            HTTP/1.1 200 OK
+            OData-Version: 4.0
+            Content-Type: application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;charset=utf-8
+            {
+            "@odata.context":"serviceRoot/$metadata#Airlines",
+            "value":
+            [{
+            "AirlineCode":"AA",
+            "Name":"American Airlines"},
+            {
+            "AirlineCode":"FM",
+            "Name":"Shanghai Airline"
+            },
+            {
+            "AirlineCode":"MU",
+            "Name":"China Eastern Airlines"
+            },
+            {
+            "AirlineCode":"EK",
+            "Name":"Emirates Airline"
+            }]
+            }
+            --batchresponse_3e4cf86f-ab02-46e1-9631-b08a787abc35--
+            {% endhighlight %}
+      </div>
+   </div>
+   <div class="col-1-4" style="float:right">
+      <nav class="tutorial-sidebar" aria-label="Page Contents">
+         <ul class="nav tutorial-sidenav" data-spy="affix">
             <li class="active">
-                <a href="#singleton">Singleton</a></p>
-                <ul class="nav">
-                    <li><a href="#querySingleton">Requesting Singleton</a></li>
-                    <li><a href="#querySingletonProperty">Requesting Property of Singleton Property</a></li>
-                    <li><a href="#updateSingleton">Update Singleton</a></li>
-                </ul>
+               <a href="#singleton">Singleton</a>
+               <ul class="nav">
+                  <li><a href="#querySingleton">Requesting Singleton</a></li>
+                  <li><a href="#querySingletonProperty">Requesting Property of Singleton Property</a></li>
+                  <li><a href="#updateSingleton">Update Singleton</a></li>
+               </ul>
             </li>
             <li>
-                <a href="#derived">Derived Entity Type</a></p>
-                <ul class="nav">
-                    <li><a href="#requestDerivedEntitySet">Requesting a Derived Entity Collection</a></li>
-                    <li><a href="#requestDerived">Requesting a Derived Entity</a></li>
-                    <li><a href="#filterDerived">Querying on Derived Entities</a></li>
-                    <li><a href="#createDerived">Create a Derived Entity</a></li>
-                    <li><a href="#updateDerived">Update a Derived Entity</a></li>
-                    <li><a href="#deleteDerived">Delete a Derived Entity</a></li>
-                </ul>
+               <a href="#derived">Derived Entity Type</a>
+               <ul class="nav">
+                  <li><a href="#requestDerivedEntitySet">Requesting a Derived Entity Collection</a></li>
+                  <li><a href="#requestDerived">Requesting a Derived Entity</a></li>
+                  <li><a href="#filterDerived">Querying on Derived Entities</a></li>
+                  <li><a href="#createDerived">Create a Derived Entity</a></li>
+                  <li><a href="#updateDerived">Update a Derived Entity</a></li>
+                  <li><a href="#deleteDerived">Delete a Derived Entity</a></li>
+               </ul>
             </li>
             <li>
-                <a href="#containment">Containment Navigation Property</a></p>
-                <ul class="nav">
-                    <li><a href="#queryContained">Requesting a Contained Entity Set</a></li>
-                    <li><a href="#createContain">Create a Contained Entity</a></li>
-                    <li><a href="#filterContain">Filter on a Contained Entity Set</a></li>
-                    <li><a href="#updateContainment">Update a Contained Entity</a></li>
-                    <li><a href="#deleteContainment">Delete a Contained Entity</a></li>
-                </ul>
+               <a href="#containment">Containment Navigation Property</a>
+               <ul class="nav">
+                  <li><a href="#queryContained">Requesting a Contained Entity Set</a></li>
+                  <li><a href="#createContain">Create a Contained Entity</a></li>
+                  <li><a href="#filterContain">Filter on a Contained Entity Set</a></li>
+                  <li><a href="#updateContainment">Update a Contained Entity</a></li>
+                  <li><a href="#deleteContainment">Delete a Contained Entity</a></li>
+               </ul>
             </li>
             <li>
-                <a href="#openType">Open Type</a></p>
-                <ul class="nav">
-                    <li><a href="#openEntity">Open Entity Type</a></li>
-                    <li><a href="#openComplex">Open Complex Type</a></li>
-                </ul>
+               <a href="#openType">Open Type</a>
+               <ul class="nav">
+                  <li><a href="#openEntity">Open Entity Type</a></li>
+                  <li><a href="#openComplex">Open Complex Type</a></li>
+               </ul>
             </li>
             <li>
-                <a href="#batch">Batch</a>
+               <a href="#batch">Batch</a>
             </li>
-        </ul>
-    </nav>
-</div>
-<div class="col-md-1"></div>
+         </ul>
+      </nav>
+   </div>
+   <div class="col-1-12"></div>
 </div>
