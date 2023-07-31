@@ -164,20 +164,22 @@ permalink: /ecosystem/
 			{% endif %}
 		</tr>
 	{% endfor %}
-	{% for submission in site.data.ecosys-submissions %}
-			{% if submission.product_category == "Sample Code" %}
-				<tr>
-				<td width="200">
-					{% if submission.product_link == NULL %}
-						{{submission.product_name}}
-					{% else %}
-					<a href={{submission.product_link}}>{{submission.product_name}}</a>
-					{% endif %}
-					</td>
-				<td>{{submission.brief_description}}</td>
-				</tr>
-			{% endif %}
-		{% endfor %}
+	<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+	<!--{% for submission in site.data.ecosys-submissions %}
+		{% if submission.product_category == "Sample Code" %}
+			<tr>
+			<td width="200">
+				{% if submission.product_link == NULL %}
+					{{submission.product_name}}
+				{% else %}
+				<a href={{submission.product_link}}>{{submission.product_name}}</a>
+				{% endif %}
+				</td>
+			<td>{{submission.brief_description}}</td>
+			</tr>
+		{% endif %}
+	{% endfor %}-->
 </tbody>
 </table>
 </div>
@@ -189,31 +191,33 @@ permalink: /ecosystem/
 <tbody>
 	{% assign tutorials = site.ecosys | where: "category", "tutorials" %}
 	{% for tutorial in tutorials %}
-		<tr>
+	<tr>
 		<td width="200">
 			{% if tutorial.link == NULL %}
-				{{tutorial.title}}
+			{{tutorial.title}}
 			{% else %}
 			<a href={{tutorial.link}}>{{tutorial.title}}</a>
 			{% endif %}
 		</td>
 		<td>{{tutorial.content}}</td>
-		</tr>
+	</tr>
 	{% endfor %}
-	{% for submission in site.data.ecosys-submissions %}
-			{% if submission.product_category == "Tutorial" %}
-				<tr>
-				<td width="200">
-					{% if submission.product_link == NULL %}
-						{{submission.product_name}}
-					{% else %}
-					<a href={{submission.product_link}}>{{submission.product_name}}</a>
-					{% endif %}
-					</td>
-				<td>{{submission.brief_description}}</td>
-				</tr>
-			{% endif %}
-		{% endfor %}
+	<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+	<!--{% for submission in site.data.ecosys-submissions %}
+		{% if submission.product_category == "Tutorial" %}
+			<tr>
+			<td width="200">
+				{% if submission.product_link == NULL %}
+					{{submission.product_name}}
+				{% else %}
+				<a href={{submission.product_link}}>{{submission.product_name}}</a>
+				{% endif %}
+				</td>
+			<td>{{submission.brief_description}}</td>
+			</tr>
+		{% endif %}
+	{% endfor %}-->
 </tbody>
 </table>
 </div>
