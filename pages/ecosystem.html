@@ -40,7 +40,7 @@ permalink: /ecosystem/
 	<tbody>
 		{% assign producers = site.ecosys | where: "category", "producers" %}
 		{% for producer in producers %}
-			<tr>
+		<tr>
 			<td width="200">
 				{% if producer.link == NULL %}
 					{{producer.title}}
@@ -49,9 +49,11 @@ permalink: /ecosystem/
 				{% endif %}
 				</td>
 			<td>{{producer.content}}</td>
-			</tr>
+		</tr>
 		{% endfor %}
-		{% for submission in site.data.ecosys-submissions %}
+		<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+		<!--{% for submission in site.data.ecosys-submissions %}
 			{% if submission.product_category == "Producer" %}
 				<tr>
 				<td width="200">
@@ -64,7 +66,7 @@ permalink: /ecosystem/
 				<td>{{submission.brief_description}}</td>
 				</tr>
 			{% endif %}
-		{% endfor %}
+		{% endfor %}-->
 	</tbody>
 	</table>
 	</div>
@@ -85,9 +87,11 @@ permalink: /ecosystem/
 					{% endif %}
 				</td>
 				<td>{{consumer.content}}</td>
-				</tr>
+			</tr>
 		{% endfor %}
-		{% for submission in site.data.ecosys-submissions %}
+		<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+		<!--{% for submission in site.data.ecosys-submissions %}
 			{% if submission.product_category == "Consumer" %}
 				<tr>
 				<td width="200">
@@ -100,7 +104,7 @@ permalink: /ecosystem/
 				<td>{{submission.brief_description}}</td>
 				</tr>
 			{% endif %}
-		{% endfor %}
+		{% endfor %}-->
 </tbody>
 </table>
 </div>
@@ -112,7 +116,7 @@ permalink: /ecosystem/
 <tbody>
 	{% assign liveservices = site.ecosys | where: "category", "liveservices" %}
 	{% for liveservice in liveservices %}
-		<tr>
+	<tr>
 		<td width="200">
 			{% if liveservice.link == NULL %}
 				{{liveservice.title}}
@@ -121,22 +125,24 @@ permalink: /ecosystem/
 			{% endif %}
 		</td>
 		<td>{{liveservice.content}}</td>
-		</tr>
+	</tr>
 	{% endfor %}
+	<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
 	{% for submission in site.data.ecosys-submissions %}
-			{% if submission.product_category == "Live Service" %}
-				<tr>
-				<td width="200">
-					{% if submission.product_link == NULL %}
-						{{submission.product_name}}
-					{% else %}
-					<a href={{submission.product_link}}>{{submission.product_name}}</a>
-					{% endif %}
-					</td>
-				<td>{{submission.brief_description}}</td>
-				</tr>
-			{% endif %}
-		{% endfor %}
+		<!--{% if submission.product_category == "Live Service" %}
+			<tr>
+			<td width="200">
+				{% if submission.product_link == NULL %}
+					{{submission.product_name}}
+				{% else %}
+				<a href={{submission.product_link}}>{{submission.product_name}}</a>
+				{% endif %}
+				</td>
+			<td>{{submission.brief_description}}</td>
+			</tr>
+		{% endif %}
+	{% endfor %}-->
 </tbody>
 </table>
 </div>
