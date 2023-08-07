@@ -1,0 +1,46 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More on GitHub Actions for Azure: https://github.com/Azure/actions
+# More on OpenID Connect: https://github.com/azure/login#github-action-for-azure-login
+
+name: Publish OData org website to Azure Web App staging slot
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch: # Makes it possible to trigger workflow manually
+
+jobs:
+  build_and_deploy_job:
+    permissions: # Required when using OpenID Connect based federated identity credentials
+      id-token: write
+      contents: read
+    
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: true # Forces LFS files (images in our case) to be checked out
+          submodules: 'recursive' # Check out submodules if applicable
+        
+      - name: Build the site in a jekyll/builder container
+        run: |
+          docker run \
+            -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+            jekyll/builder:stable /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+
+      - name: Log in with Azure # Using OpenID Connect
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'odata-prod'
+          slot-name: 'odata-prod-stage' # Specify the staging slot
+          package: ${{ github.workspace }}/_site
