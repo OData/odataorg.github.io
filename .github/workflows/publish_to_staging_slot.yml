@@ -36,5 +36,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'odata-prod'
-          slot-name: 'odata-prod-stage' # Specify the staging slot
+          slot-name: 'stage' # Specify the staging slot
           package: ${{ github.workspace }}/_site
