@@ -1,42 +1,42 @@
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>
-    {% if page.title %}
-      {{ page.title }} &middot; {{ site.title }}
-    {% else %}
-      {{ site.title }}
-    {% endif %}
-  </title>
+    <title>
+        {% if page.title %}
+            {{ page.title }} &middot; {{ site.title }}
+        {% else %}
+            {{ site.title }}
+        {% endif %}
+    </title>
 
-  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="keywords" content="odata, open data, open data protocol, rest, restful, rest api, rest apis, restful api, restful apis, rest service, rest services, restful service, restful services, http, oasis, oasis tc">
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="keywords" content="odata, open data, open data protocol, rest, restful, rest api, rest apis, restful api, restful apis, rest service, rest services, restful service, restful services, http, oasis, oasis tc">
 
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.min.js"></script>
-  <script>
-  // Fallback to loading jQuery from a local path if the CDN is unavailable
-  (window.jQuery || document.write('<script src="/public/jquery-3.0.0.min.js"><\/script>'));
-  </script>
-  <!--
-  <script>
-  $(document).ready(function(){
-    $.getJSON("http://ipinfo.io/?callback=?", function(data) {
-      if (data.country=="CN") {
-        $("#GeoResults").html('<embed src="https://player.youku.com/player.php/sid/XMTU5MzU2MDU0NA==/v.swf" allowFullScreen="true" quality="high" width=100% height="230" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>');
-      } else $("#GeoResults").html('<iframe width=100% height=230px src="https://www.youtube.com/embed/wH5TUwzlaWI"></iframe>');
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.min.js"></script>
+    <script>
+        // Fallback to loading jQuery from a local path if the CDN is unavailable
+        (window.jQuery || document.write('<script src="/public/jquery-3.0.0.min.js"><\/script>'));
+    </script>
+    <!--
+    <script>
+    $(document).ready(function(){
+      $.getJSON("http://ipinfo.io/?callback=?", function(data) {
+        if (data.country=="CN") {
+          $("#GeoResults").html('<embed src="https://player.youku.com/player.php/sid/XMTU5MzU2MDU0NA==/v.swf" allowFullScreen="true" quality="high" width=100% height="230" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>');
+        } else $("#GeoResults").html('<iframe width=100% height=230px src="https://www.youtube.com/embed/wH5TUwzlaWI"></iframe>');
+      });
     });
-  });
-  </script>
-  
-  -->
+    </script>
 
-  <link rel="stylesheet" href="https://www.odata.org/public/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="{{'/public/css/site.css' | prepend: site.baseurl | prepend: site.url}}">
-  <link rel="stylesheet" href="{{'/public/css/syntax.css' | prepend: site.baseurl | prepend: site.url}}">
-  <link rel="stylesheet" href="{{'/public/css/autocomplete.css' | prepend: site.baseurl | prepend: site.url}}">
-  <!--Below is for the adopters page-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.7/css/swiper.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css">
-  <!-- end -->
+    -->
+
+    <link rel="stylesheet" href="https://www.odata.org/public/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{'/public/css/site.css' | prepend: site.baseurl | prepend: site.url}}">
+    <link rel="stylesheet" href="{{'/public/css/syntax.css' | prepend: site.baseurl | prepend: site.url}}">
+    <link rel="stylesheet" href="{{'/public/css/autocomplete.css' | prepend: site.baseurl | prepend: site.url}}">
+    <!--Below is for the adopters page-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.7/css/swiper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/magnific-popup.min.css">
+    <!-- end -->
 </head>

@@ -3,4 +3,4 @@ _site
 _config.yml
 .jekyll-cache
 .vs/
-.vscode/
+.vscode/.jekyll-metadata 

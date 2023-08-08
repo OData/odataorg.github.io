@@ -1,12 +1,9 @@
 ---
-layout: page
+layout: documentation-archived
 title: Operations (OData Version 2.0)
 date: 2014-02-28 03:32:08.000000000 +08:00
 permalink: /documentation/odata-version-2-0/operations/
 ---
-<p class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 2.0. 
-<br><br>
-<a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></p>
 <h2>Introduction</h2>
 <p>The OData protocol exposes a uniform service interface to operate on collections of structured and unstructured data. Most of the semantics of operations in OData come from the AtomPub protocol [RFC5023], which in turn builds on top of HTTP <a href="https://www.ietf.org/rfc/rfc2616.txt">[RFC2616]</a>.</p>
 <p>This document describes the operation model for the protocol, specifying the interactions between clients and servers for retrieving and manipulating data in an OData service. It builds on the <a href="../overview">[OData-Core]</a> document for core concepts, <a href="../uri-conventions">[OData-URI]</a> for URI conventions and on the formats specifications for Atom <a href="https://www.odata.org/developers/protocols/atom-format"> [OData-Atom]</a> and JSON <a href="../json-format">[OData-JSON]</a> for the description of data representations.</p>
@@ -445,19 +442,21 @@ https://services.odata.org/(S(dwaygaylwritgwuiyvfad5ln))/odata/odata.svc/GetProd
 <h3> 3.1 Concurrency control and ETags</h3>
 <p>OData uses HTTP ETags for optimistic concurrency control. A few special considerations apply for ETags:</p>
 <ul>
-<li>When retrieving an Entry the server returns an opaque ETag value
-<ul>
-<li>When getting several Entries in a feed, the ETag value is included as metadata in the Entry itself. See <a href="../atom-format">[OData-Atom]</a> and <a href="../json-format">[OData-JSON]</a> for actual format details.</li>
-<li>When retrieving a single Entry, the ETag is returned as a response header called ETag as defined by HTTP. The Server can choose to also include it in the body as they would do for feeds for consistency.</li>
-<li>During processing of POST, PUT and MERGE the server should compute a new ETag and return it in a response header, regardless of whether the response has a body with the actual Entry information.</li>
-</ul>
-</li>
-<li>When issuing a PUT, MERGE or DELETE request, clients need to indicate an ETag in the <em>If-Match</em> HTTP request header.
-<ul>
-<li>If for a given client it is acceptable to overwrite any version of the Entry in the server, then the value "*" may be used instead.</li>
-<li>If a given Entry has an ETag and a client attempts to modify or delete the Entry without an If-Match header servers should fail the request with a 412 response code.</li>
-</ul>
-</li>
+    <li>
+        When retrieving an Entry the server returns an opaque ETag value
+        <ul>
+            <li>When getting several Entries in a feed, the ETag value is included as metadata in the Entry itself. See <a href="../atom-format">[OData-Atom]</a> and <a href="../json-format">[OData-JSON]</a> for actual format details.</li>
+            <li>When retrieving a single Entry, the ETag is returned as a response header called ETag as defined by HTTP. The Server can choose to also include it in the body as they would do for feeds for consistency.</li>
+            <li>During processing of POST, PUT and MERGE the server should compute a new ETag and return it in a response header, regardless of whether the response has a body with the actual Entry information.</li>
+        </ul>
+    </li>
+    <li>
+        When issuing a PUT, MERGE or DELETE request, clients need to indicate an ETag in the <em>If-Match</em> HTTP request header.
+        <ul>
+            <li>If for a given client it is acceptable to overwrite any version of the Entry in the server, then the value "*" may be used instead.</li>
+            <li>If a given Entry has an ETag and a client attempts to modify or delete the Entry without an If-Match header servers should fail the request with a 412 response code.</li>
+        </ul>
+    </li>
 </ul>
 <p>OData servers will use weak ETags often as a way of indicating that two resources may be semantically equivalent but a particular request may see a different representation of it. Clients should be prepared to handle weak and strong ETags.</p>
 <h3> 3.2 Method Tunneling through POST</h3>
