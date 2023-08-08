@@ -11,8 +11,8 @@ on:
   workflow_dispatch: # Makes it possible to trigger workflow manually
 
 jobs:
-  build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+  publish:
+    if: github.repository_owner == 'OData' && (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
 
     steps:
