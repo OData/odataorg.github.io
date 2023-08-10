@@ -2,7 +2,7 @@
 # More on GitHub Actions for Azure: https://github.com/Azure/actions
 # More on GitHub Action for Azure Login: https://github.com/azure/login#github-action-for-azure-login
 
-name: Publish OData org website to Azure Web App staging slot
+name: Publish OData org website to Azure Web App production slot
 
 on:
   push:
@@ -36,5 +36,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'odata-prod'
-          slot-name: 'stage' # Specify the staging slot
           package: ${{ github.workspace }}/_site
