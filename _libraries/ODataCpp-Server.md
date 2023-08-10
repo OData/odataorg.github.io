@@ -1,7 +1,6 @@
 ---
 category: cpp
-name: ODataCpp-Server
-featured: true
+name: ODataCpp-Server <span class="label label-success">featured</span>
 version: V4
 object: Server
 downloads:

@@ -3,18 +3,17 @@
         <p role="presentation">Skip to main content</p>
     </a>
     <nav class="navbar navbar-default" role="navigation" aria-label="Main Navigation">
-        <div class="container container-fluid" style="display: flex; align-items: center">
+        <div class="container container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/" style="font-size: 2rem">
-                    <div style="display: flex; align-items: center">
-                        <img class="img-responsive"
-                                alt="OData logo"
-                                width="30"
-                                style="padding-right: 1rem"
-                                src="{{'/assets/ODataLogo-96.png' | prepend: site.baseurl | prepend: site.url}}">
-                        OData
-                    </div>
-                </a>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="brand" href="/">
+                            <img class="img-responsive"
+                                 alt="OData logo"
+                                 src="{{'/assets/OData-logo-e1393393068350.png' | prepend: site.baseurl | prepend: site.url}}">
+                        </a>
+                    </li>
+                </ul>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#odata-navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -23,7 +22,11 @@
                 </button>
             </div>
 
+            <div class="collapse navbar-collapse" id="odata-navbar-collapse" role="navigation">
                 <ul class="nav navbar-nav" role="menubar">
+                    <li role="none">
+                        <a role="menuitem" href="/blog">Blog</a>
+                    </li>
                     <li class="dropdown" role="none">
                         <a role="menuitem"
                            aria-haspopup="true"
@@ -36,7 +39,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-label="Developers dropdown.">
                             <li role="none">
-                                <a role="menuitem" href="/get-started">Get Started</a>
+                                <a role="menuitem" href="/getting-started">Getting Started</a>
                             </li>
                             <li role="none">
                                 <a role="menuitem" href="/documentation">Documentation</a>
@@ -53,22 +56,42 @@
                         </ul>
                     </li>
                     <li class="dropdown" role="none">
-                        <a role="menuitem" href="/tools">Tools</a>
+                        <a role="menuitem"
+                           aria-haspopup="true"
+                           aria-expanded="false"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           data-target="#"
+                           href="#">
+                            Tools <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-label="Tools dropdown.">
+                            <li role="none">
+                                <a role="menuitem"
+                                   href="https://marketplace.visualstudio.com/items?itemName=stansw.vscode-odata"
+                                   target="_blank">
+                                    OData for Visual Studio Code
+                                </a>
+                            </li>
+                            <li role="none">
+                                <a role="menuitem" href="https://pragmatiqa.com/xodata/" target="_blank">XOData</a>
+                            </li>
+                        </ul>
                     </li>
                     <li role="none">
-                        <a role="menuitem" href="/blog">Blog</a>
+                        <a role="menuitem"  href="/ecosystem">Ecosystem</a>
                     </li>
                     <li role="none">
-                        <a role="menuitem" href="/ecosystem">Ecosystem</a>
+                        <a role="menuitem" href="/contribution">Getting Involved</a>
                     </li>
                 </ul>
 
-                <form class="navbar-form navbar-right search-bar" role="search" style="margin-left: auto">
-                    <div class="search-bar form-group combobox combobox-list">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group combobox combobox-list">
                         <input id="main-search-input"
                                type="text"
                                aria-label="Search"
-                               class="search-bar-input form-control"
+                               class="form-control st-default-search-input"
                                placeholder="Search"
                                role="combobox"
                                aria-autocomplete="list"
@@ -84,5 +107,6 @@
                     </div>
                 </form>
             </div>
+        </div>
     </nav>
 </div>
