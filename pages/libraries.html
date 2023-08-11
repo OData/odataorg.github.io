@@ -4,127 +4,97 @@ title: Libraries
 date: 2014-02-20 06:57:09.000000000 +08:00
 permalink: /libraries/
 ---
-<div class="row">
-    <div class="col-md-10" style="padding-bottom:9px; margin:0 0 20px;">
-        <p>Below we have collected a list of OData libraries in a variety of languages, which will continue to grow along with the OData ecosystem. If you'd like to add/update information on an OData library, please do!</p>
-        <div style="display:flex; justify-content: center; border-bottom:1px solid #eeeeee">
-            <a class="big-action"
-                href="https://github.com/ODataOrg/odataorg.github.io"
-			    style="margin-top:2rem; margin-bottom: 2rem;">
-			    Contribute
-		    </a>
-            <!-- TODO: link to contributions form page after completion. -->
-            <!--<a class="big-action"
-                    href="/contribute/"
-                    style="margin-top:2rem; margin-bottom: 2rem;">
-                Contribute
-            </a>-->
-        </div>
-</div>
-<div class="col-md-10">
-    <ul class="nav nav-pills">
-        <li class="active">
-            <a class="tab-link" href="#net1" data-toggle="pill" aria-controls="net1">.NET</a>
-        </li>
-        <li>
-            <a class="tab-link" href="#java" data-toggle="pill" aria-controls="java">Java</a>
-        </li>
-        <li>
-            <a class="tab-link" href="#javascript" data-toggle="pill" aria-controls="javascript">JavaScript</a>
-        </li>
-        <li>
-            <a class="tab-link" href="#cpp" data-toggle="pill" aria-controls="cpp">C++</a>
-        </li>
-        <li>
-            <a class="tab-link" href="#other" data-toggle="pill" aria-controls="other">Other Platforms</a>
-        </li>
-    </ul>
-</div>
-<div class="col-md-10">
-    <div class="tab-content">
-        <div class="tab-pane active" id="net1" role="tabpanel" tabindex="0">
-            <table class="table table-striped table-condensed table-hover reflows" aria-label=".NET Libraries">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>OData Version(s) Supported</th>
-                        <th>For Server/Client</th>
-                        <th>Download From</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% assign nets = site.libraries | where: "category", "net" | sort: "rownumber", "last" | sort: "featured" | reverse %}
-                    {% for net in nets %}
-                    {% assign featuredBool = net.featured | boolean %}
-                    {% if featuredBool == true %} <!-- Explicit comparison appears to be required for appropriate value evaluation -->
-                    <tr class="featured">
-                        {% else %}
-                    <tr>
-                        {% endif %}
-                        <td>
-                            {% if net.link %}
-                            <a href={{net.link}}>{{net.name}}</a>
-                            {% else %}
-                            {{net.name}}
-                            {% endif %}
-                        </td>
-                        <td>{{net.content | markdownify}}</td>
-                        <td>{{net.version}}</td>
-                        <td>{{net.object}}</td>
-                        <td>
-                            {% for download in net.downloads %}
-                            {% if download.source != net.downloads[0].source %},&nbsp{% endif %}
-                            <a href={{download.link}} target="_blank">{{download.source}}</a>
-                            {% endfor %}
-                        </td>
-                        </>
-                        {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        {% assign libraries = site.libraries | group_by: "category" %}
-        {% for library in libraries %}
-        {% if library.name != "net" %}
-
-        <div class="tab-pane" id="{{library.name}}" role="tabpanel" hidden>
-            <table class="table table-striped table-condensed table-hover reflows" aria-label="{{library.name}} Libraries">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Support OData version(s)</th>
-                        <th>For server/client</th>
-                        <th>Download from</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% assign items = library.items | sort: "rownumber", "last" | sort: "featured" | reverse %}
-                    {% for item in items %}
-                    {% assign featuredItemBool = item.featured | boolean %}
-                    {% if featuredItemBool == true %} <!-- Explicit comparison appears to be required for appropriate value evaluation -->
-                    <tr class="featured">
-                        {% else %}
-                    <tr>
-                        {% endif %}
-                        <td>{{item.name}}</td>
-                        <td>{{item.content | markdownify}}</td>
-                        <td>{{item.version}}</td>
-                        <td>{{item.object}}</td>
-                        <td>
-                            {% for download in item.downloads %}
-                            {% if download.source != item.downloads[0].source %},&nbsp{% endif %}
-                            <a href={{download.link}} target="_blank">{{download.source}}</a>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        {% endif %}
+<div aria-label="Languages" id="tabs">
+  <ul role="tablist" class="nav nav-tabs" id="tablinks">
+    <li role="presentation" class="active">
+      <a class="tab-link" href="#net1" aria-label=".net" role="tab" data-toggle="tab" aria-controls="net1">.NET</a>
+    </li>
+    <li role="presentation">
+      <a class="tab-link" href="#java" aria-label="Java" role="tab" data-toggle="tab" aria-controls="java" tabindex="-1">Java</a>
+    </li>
+    <li role="presentation">
+      <a class="tab-link" href="#javascript" aria-label="JavaScript" role="tab" data-toggle="tab" aria-controls="javascript" tabindex="-1">JavaScript</a>
+    </li>
+    <li role="presentation">
+      <a class="tab-link" href="#cpp" aria-label="C++" role="tab" data-toggle="tab" aria-controls="cpp" tabindex="-1">C++</a>
+    </li>
+    <li role="presentation">
+      <a class="tab-link" href="#other" aria-label="Other Platforms" role="tab" data-toggle="tab" aria-controls="other" tabindex="-1">Other Platforms</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="net1" role="tabpanel" tabindex="0">
+      <table class="table table-striped table-condensed table-hover reflows" aria-label=".NET Libraries">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Support OData version(s)</th>
+          <th>For server/client</th>
+          <th>Download from</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% assign nets = site.libraries | where: "category", "net" | sort: "rownumber", 'first' | reverse %}
+        {% for net in nets %}
+        <tr>
+          <td>
+            {% if net.link %}
+            <a href={{net.link}}>{{net.name}}</a>
+            {% else %}
+            {{net.name}}
+            {% endif %}
+          </td>
+          <td>{{net.content | markdownify}}</td>
+          <td>{{net.version}}</td>
+          <td>{{net.object}}</td>
+          <td>{% for download in net.downloads %}
+            {% if download.source != net.downloads[0].source %},&nbsp{% endif %}
+            <a href={{download.link}} target="_blank">{{download.source}}</a>
+          {% endfor %}</td>
+        </tr>
         {% endfor %}
+      </tbody>
+      </table>
     </div>
+    
+    {% assign libraries = site.libraries | group_by: "category" %}
+    {% for library in libraries %}
+    {% if library.name != "net" %}
+
+    <div class="tab-pane" id="{{library.name}}" role="tabpanel" hidden>
+      <table class="table table-striped table-condensed table-hover reflows" aria-label="{{library.name}} Libraries">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Support OData version(s)</th>
+          <th>For server/client</th>
+          <th>Download from</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% assign items = library.items | sort: "rownumber", 'first' | reverse %}
+        {% for item in items %}
+        <tr>
+          <td>{{item.name}}</td>
+          <td>{{item.content | markdownify}}</td>
+          <td>{{item.version}}</td>
+          <td>{{item.object}}</td>
+          <td>{% for download in item.downloads %}
+            {% if download.source != item.downloads[0].source %},&nbsp{% endif %}
+            <a href={{download.link}} target="_blank">{{download.source}}</a>
+          {% endfor %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+<div>
 </div>
+  <h4>Contribute to OData Libraries</h4>
+  <p>Want to add/update information of an OData library? You can edit and submit changes to this page on its <a href="https://github.com/ODataOrg/odataorg.github.io" target="_blank">Github repository</a>.</p>
 </div>

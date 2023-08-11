@@ -1,7 +1,6 @@
 ---
 category: net
 name: ASP.NET Web API OData
-featured: true
 rownumber: 40
 link: https://learn.microsoft.com/en-us/odata/webapi/getting-started
 version: V4

@@ -1,7 +1,6 @@
 ---
 category: javascript
-name: ODataJS
-featured: true
+name: ODataJS <span class="label label-success">featured</span> 
 rownumber: 25
 version: V4
 object: Client

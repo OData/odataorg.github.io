@@ -1,5 +1,5 @@
 # Site settings
-title: OData - The Best Way to REST
+title: OData - the Best Way to REST
 email: odata-discussion@googlegroups.com
 description: > # this means to ignore newlines until "baseurl:"
   OData, short for Open Data Protocol, is an open protocol
@@ -19,8 +19,6 @@ collections:
   tutorials:
     output: true
     permalink: /tutorials/:title/
-  tools:
-    output: true
 
 permalink: /blog/:title/
 
