@@ -5,8 +5,24 @@ date: 2014-02-27 05:16:30.000000000 +08:00
 permalink: /ecosystem/
 ---
 <div class="row">
-<div class="col-md-2">
-<ul class="nav nav-pills nav-stacked">
+<div class="col-md-10" style="padding-bottom:9px; margin:0 0 20px;">
+	<p>Below we have collected a list of key uses of OData, which will continue to grow along with the OData ecosystem. If you create or know of an OData use case not listed, be sure to let us know!</p>
+	<div style="display:flex; justify-content: center; border-bottom:1px solid #eeeeee">
+		<a class="big-action"
+			href="https://github.com/ODataOrg/odataorg.github.io"
+			style="margin-top:2rem; margin-bottom: 2rem;">
+			Contribute
+		</a>
+		<!-- TODO: link to contributions form page after completion. -->
+		<!--<a class="big-action" 
+				href="/contribute/"
+				style="margin-top:2rem; margin-bottom: 2rem;">
+			Contribute
+		</a>-->
+	</div>
+</div>
+<div class="col-md-10">
+<ul class="nav nav-pills">
 	<li class="active"><a href="#producers" data-toggle="pill">Producers</a></li>
 	<li><a href="#consumers" data-toggle="pill">Consumers</a></li>
 	<li><a href="#liveservices" data-toggle="pill">Live Services</a></li>
@@ -18,15 +34,13 @@ permalink: /ecosystem/
 <div class="tab-content">
 	<div id="producers" class="tab-pane active">
 	<h2 id="producers_header">Producers</h2>
-	OData producers are services that expose their data using the OData protocol. Below we have collected a list of key OData producers, which will continue to grow along with the OData ecosystem. You can use <a href="/libraries">OData SDK</a> to build your own OData producers. If you create or know of an OData producer not listed be sure to let us know via our new <a href="/contribution">contribution page</a>.
-
-	<a href="https://www.telerik.com/products/orm.aspx">Telerik OpenAccess ORM</a>In mid-2010 Telerik released a LINQ implementation that is simple to use and produces domain models very fast. Built on top of the enterprise-grade Telerik OpenAccess ORM the LINQ implementation allows you to easily build an OData feed via a few easy steps by using the OpenAccess Visual Designer and the Data Services Wizard. For more info, visit <a href="https://www.telerik.com/odata">www.telerik.com/odata</a>
+	<p>OData producers are services that expose their data using the OData protocol. You can use the <a href="/libraries">OData SDK</a> to build your own OData producers.</p></p>
 	<table class="table table-striped table-hover" aria-describedby="producers_header">
 	<caption class="sr-only">Producers</caption>
 	<tbody>
 		{% assign producers = site.ecosys | where: "category", "producers" %}
 		{% for producer in producers %}
-			<tr>
+		<tr>
 			<td width="200">
 				{% if producer.link == NULL %}
 					{{producer.title}}
@@ -35,14 +49,30 @@ permalink: /ecosystem/
 				{% endif %}
 				</td>
 			<td>{{producer.content}}</td>
-			</tr>
+		</tr>
 		{% endfor %}
+		<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+		<!--{% for submission in site.data.ecosys-submissions %}
+			{% if submission.product_category == "Producer" %}
+				<tr>
+				<td width="200">
+					{% if submission.product_link == NULL %}
+						{{submission.product_name}}
+					{% else %}
+					<a href={{submission.product_link}}>{{submission.product_name}}</a>
+					{% endif %}
+					</td>
+				<td>{{submission.brief_description}}</td>
+				</tr>
+			{% endif %}
+		{% endfor %}-->
 	</tbody>
 	</table>
 	</div>
 	<div id="consumers" class="tab-pane">
 	<h2 id="consumers_header">Consumers</h2>
-	OData consumers are simply applications that consume data exposed using the OData protocol. OData consumers can vary greatly in sophistication, from something as simple as your web browser all the way through to a custom application that takes advantage of all the features of the OData Protocol. Below we have collected a list of key OData consumers, which will continue to grow along with the OData ecosystem. Simply pick a consumer from the list below and point it at one of the live services. If you create or know of an OData consumer not listed be sure to let us know via our new <a href="/contribution">contribution page</a>.
+	<p>OData consumers are simply applications that consume data exposed using the OData protocol. OData consumers can vary greatly in sophistication, from something as simple as your web browser all the way through to a custom application that takes advantage of all the features of the OData Protocol. Simply pick a consumer from the list below and point it at one of the live services.</p>
 	<table class="table table-striped table-condensed table-hover" aria-describedby="consumers_header">
 	<caption class="sr-only">Consumers</caption>
 	<tbody>
@@ -57,19 +87,36 @@ permalink: /ecosystem/
 					{% endif %}
 				</td>
 				<td>{{consumer.content}}</td>
-				</tr>
+			</tr>
 		{% endfor %}
+		<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+		<!--{% for submission in site.data.ecosys-submissions %}
+			{% if submission.product_category == "Consumer" %}
+				<tr>
+				<td width="200">
+					{% if submission.product_link == NULL %}
+						{{submission.product_name}}
+					{% else %}
+					<a href={{submission.product_link}}>{{submission.product_name}}</a>
+					{% endif %}
+					</td>
+				<td>{{submission.brief_description}}</td>
+				</tr>
+			{% endif %}
+		{% endfor %}-->
 </tbody>
 </table>
 </div>
 <div id="liveservices" class="tab-pane">
-	<h2 id="liveservices_header">Live Services</h2>
+<h2 id="liveservices_header">Live Services</h2>
+<p>OData live services expose data to be consumed.</p>
 <table class="table table-striped table-condensed table-hover" aria-describedby="liveservices_header">
 <caption class="sr-only">Live Services</caption>
 <tbody>
 	{% assign liveservices = site.ecosys | where: "category", "liveservices" %}
 	{% for liveservice in liveservices %}
-		<tr>
+	<tr>
 		<td width="200">
 			{% if liveservice.link == NULL %}
 				{{liveservice.title}}
@@ -78,14 +125,30 @@ permalink: /ecosystem/
 			{% endif %}
 		</td>
 		<td>{{liveservice.content}}</td>
-		</tr>
+	</tr>
 	{% endfor %}
+	<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+	{% for submission in site.data.ecosys-submissions %}
+		<!--{% if submission.product_category == "Live Service" %}
+			<tr>
+			<td width="200">
+				{% if submission.product_link == NULL %}
+					{{submission.product_name}}
+				{% else %}
+				<a href={{submission.product_link}}>{{submission.product_name}}</a>
+				{% endif %}
+				</td>
+			<td>{{submission.brief_description}}</td>
+			</tr>
+		{% endif %}
+	{% endfor %}-->
 </tbody>
 </table>
 </div>
 <div id="sdk" class="tab-pane">
 <h2 id="sdk_header">OData SDK - Sample Code</h2>
-The OData SDK includes some sample code to show you how to do everything from create a general purpose OData Explorer to creating OData services and tests that verify that service is producing valid OData.
+<p>The OData SDK includes some sample code to show you how to do everything from create a general purpose OData Explorer to creating OData services and tests that verify that service is producing valid OData.</p>
 <table class="table table-striped table-condensed table-hover" aria-describedby="sdk_header">
 <caption class="sr-only">OData SDK Sample Code</caption>
 <tbody>
@@ -107,35 +170,63 @@ The OData SDK includes some sample code to show you how to do everything from cr
 			{% endif %}
 		</tr>
 	{% endfor %}
+	<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+	<!--{% for submission in site.data.ecosys-submissions %}
+		{% if submission.product_category == "Sample Code" %}
+			<tr>
+			<td width="200">
+				{% if submission.product_link == NULL %}
+					{{submission.product_name}}
+				{% else %}
+				<a href={{submission.product_link}}>{{submission.product_name}}</a>
+				{% endif %}
+				</td>
+			<td>{{submission.brief_description}}</td>
+			</tr>
+		{% endif %}
+	{% endfor %}-->
 </tbody>
 </table>
 </div>
 <div id="tutorials" class="tab-pane">
 <h2 id="tutorials_header">Tutorials</h2>
+<p>Find tutorials for guidance on building various applications of OData below.</p>
 <table class="table table-striped table-condensed table-hover" aria-describedby="tutorials_header">
 <caption class="sr-only">Tutorials</caption>
 <tbody>
 	{% assign tutorials = site.ecosys | where: "category", "tutorials" %}
 	{% for tutorial in tutorials %}
-		<tr>
+	<tr>
 		<td width="200">
 			{% if tutorial.link == NULL %}
-				{{tutorial.title}}
+			{{tutorial.title}}
 			{% else %}
 			<a href={{tutorial.link}}>{{tutorial.title}}</a>
 			{% endif %}
 		</td>
 		<td>{{tutorial.content}}</td>
-		</tr>
+	</tr>
 	{% endfor %}
+	<!-- TODO: After determining the data storage and retrieval mechanism for contributions via form,
+		 use the below code as a sample for pulling data from a CSV file, or remove. -->
+	<!--{% for submission in site.data.ecosys-submissions %}
+		{% if submission.product_category == "Tutorial" %}
+			<tr>
+			<td width="200">
+				{% if submission.product_link == NULL %}
+					{{submission.product_name}}
+				{% else %}
+				<a href={{submission.product_link}}>{{submission.product_name}}</a>
+				{% endif %}
+				</td>
+			<td>{{submission.brief_description}}</td>
+			</tr>
+		{% endif %}
+	{% endfor %}-->
 </tbody>
 </table>
 </div>
 </div>
 </div>
-</div>
-<div>
-<h4>Contribute to OData Ecosystem</h4>
-Want to add/update information of the OData ecosystem? You can edit and submit changes to this page on its <a href="https://github.com/ODataOrg/odataorg.github.io" target="_blank">Github repository</a>.
-
 </div>
