@@ -1,0 +1,31 @@
+# Site settings
+title: OData - the Best Way to REST
+email: odata-discussion@googlegroups.com
+description: > # this means to ignore newlines until "baseurl:"
+  OData, short for Open Data Protocol, is an open protocol
+  to allow the creation and consumption of queryable and interoperable RESTful APIs
+  in a simple and standard way.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "https://odata-prod-stage.azurewebsites.net" # the base hostname & protocol for your site
+twitter_username: odataorg
+github_username:  odataorg
+
+collections:
+  ecosys:
+    output: true
+    permalink: /ecosystem/:categories/:title/
+  libraries:
+    output: true
+  tutorials:
+    output: true
+    permalink: /tutorials/:title/
+
+permalink: /blog/:title/
+
+# highlighter: pygments
+
+# Build settings
+markdown: kramdown
+
+gems:
+  - jekyll-sitemap
