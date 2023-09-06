@@ -25,7 +25,7 @@ jobs:
         run: |
           docker run \
             -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-            jekyll/builder:stable /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+            jekyll/builder:stable /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --config _config.yml --future"
 
       - name: Log in with Azure # Using Azure Service Principal
         uses: azure/login@v1

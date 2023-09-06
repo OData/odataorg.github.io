@@ -12,7 +12,7 @@ published: true
 author: OData.org Archive
 ---
 <div>
-<p>About a week ago <a href="https://www.odata.org/blog/enhancing-odata-support-for-querying-derived-types"> we outlined some options</a> for enhancing OData support for querying derived types.</p>
+<p>About a week ago <a href="/blog/enhancing-odata-support-for-querying-derived-types"> we outlined some options</a> for enhancing OData support for querying derived types.</p>
 <p>From there the discussion moved to the <a href="http://odata.org/mailing-list">OData Mailing list</a>, where the community gave us very valuable feedback:</p>
 <ul>
 <li>Everyone seemed to like the idea in general - evidenced by the fact that all debate focused on syntax.</li>
@@ -96,7 +96,7 @@ author: OData.org Archive
 <h4>$expand</h4>
 <p>$expand will expand related results where possible. So this:</p>
 <p><strong>~/People/?$expand=HR.Employee/Manager</strong></p>
-<p>Would include managers for each employee using the standard OData <a href="https://www.odata.org/documentation/odata-version-2-0/atom-format"> &lt;link&gt;&lt;m:Inline&gt;</a> approach, and non employees would have no Manager &lt;link&gt;.</p>
+<p>Would include managers for each employee using the standard OData <a href="/documentation/odata-version-2-0/atom-format"> &lt;link&gt;&lt;m:Inline&gt;</a> approach, and non employees would have no Manager &lt;link&gt;.</p>
 <p>&nbsp;</p>
 <h4>$orderby</h4>
 <p>This query:</p>
@@ -110,7 +110,7 @@ author: OData.org Archive
 <p>You might expect people to have a NULL Manager/Firstname, but there is a real difference between having a NULL property value and having no property!</p>
 <p>&nbsp;</p>
 <h4>Inserts - POST</h4>
-<p>Today when inserting into a Collection that allows derived types you must specify the type using the <a href="https://www.odata.org/documentation/odata-version-2-0/operations/#CreatingnewEntries"> entry's category's term</a>.</p>
+<p>Today when inserting into a Collection that allows derived types you must specify the type using the <a href="/documentation/odata-version-2-0/operations/#CreatingnewEntries"> entry's category's term</a>.</p>
 <p>However if you post to a type specialized uri like this:</p>
 <p><strong>~/People/HR.Employee</strong></p>
 <p>The server may be able to infer the exact type being created.</p>
@@ -138,7 +138,7 @@ author: OData.org Archive
 <h3>Summary</h3>
 <p>Clearly adding better support for derived types to OData is valuable. And it seems like the proposal is starting to take shape - thanks in large part to your feedback!</p>
 <p>What do you think?</p>
-<p>The best place to tell us is on the <a href="https://www.odata.org/join-the-odata-discussion/">OData Mailing List</a>.</p>
+<p>The best place to tell us is on the <a href="/join-the-odata-discussion/">OData Mailing List</a>.</p>
 <p><strong><a href="https://twitter.com/adjames">Alex James</a><br />
 </strong>Program Manager<br />
 Microsoft</p>
