@@ -1,0 +1,30 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for item in site.ecosys -%}
+<url>
+<loc>{{ item.url | prepend: site.baseurl | prepend: site.url }}</loc>
+<lastmod>{{ item.date | date_to_xmlschema }}</lastmod>
+</url>
+{% endfor -%}
+{% for library in site.libraries -%}
+<url>
+<loc>{{ library.url | prepend: site.baseurl | prepend: site.url }}</loc>
+</url>
+{% endfor -%}
+{% for post in site.posts -%}
+<url>
+<loc>{{ post.url | prepend: site.baseurl | prepend: site.url }}</loc>
+<lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+</url>
+{% endfor -%}
+{% for page in site.pages -%}
+{% unless page.layout == nil -%}
+<url>
+<loc>{{ page.url | prepend: site.baseurl | prepend: site.url }}</loc>
+</url>
+{% endunless -%}
+{% endfor -%}
+</urlset>
