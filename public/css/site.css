@@ -337,7 +337,7 @@ pre {
   border: 1px solid #424242;
 }
 
-.modal {
+.image-modal {
   display: none;
   z-index: 1;
   padding-top: 100px;
