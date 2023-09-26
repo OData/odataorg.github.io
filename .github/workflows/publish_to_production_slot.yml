@@ -5,14 +5,11 @@
 name: Publish OData org website to Azure Web App production slot
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch: # Makes it possible to trigger workflow manually
 
 jobs:
   publish:
-    if: github.repository_owner == 'OData' && github.event_name == 'workflow_dispatch'
+    if: github.repository_owner == 'OData' && github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
