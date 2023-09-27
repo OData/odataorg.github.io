@@ -1,6 +1,7 @@
 ---
 category: java
-name: SDL OData Frameworks <span class="label label-success">featured</span>
+name: SDL OData Frameworks
+featured: true
 rownumber: 10
 version: V4
 object: Both

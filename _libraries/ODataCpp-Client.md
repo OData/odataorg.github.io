@@ -1,6 +1,7 @@
 ---
 category: cpp
-name: ODataCpp-Client <span class="label label-success">featured</span>
+name: ODataCpp-Client
+featured: true
 version: V4
 object: Client
 downloads:

@@ -1,12 +1,9 @@
 ---
-layout: page
+layout: documentation-archived
 title: Atom Format (OData Version 2.0)
 date: 2014-02-28 03:35:17.000000000 +08:00
 permalink: /documentation/odata-version-2-0/atom-format/
 ---
-<p class="alert alert-success">OData Version 4.0 is the current recommended version of OData. OData V4 has been standardized by OASIS and has many features not included in OData Version 2.0. 
-<br><br>
-<a href="/documentation/" class="alert-link" title=""><span class="glyphicon glyphicon-arrow-right"></span> Go to OData Version 4.0</a></p>
 <h2>Introduction</h2>
 <p>OData supports two formats for representing the resources (Collections, Entries, Links, etc) it exposes: the XML-based Atom format and the JSON format. This document describes how OData resources are represented in Atom (plus additional elements defined in AtomPub) and <a href="../json-format">[OData-JSON]</a> describes the JSON representation. The <a href="../operations#RepresentationFormatAndContentTypeNegotiation"> content type negotiation</a> section of the <a href="../operations">[OData-Operations]</a> document describes how clients can use standard HTTP content type negotiation to tell an OData service which format it wants to use.</p>
 <h2>1. Background</h2>
@@ -15,444 +12,454 @@ permalink: /documentation/odata-version-2-0/atom-format/
 <p>It should be noted that feeds following the conventions defined in this document are valid AtomPub feeds and can be consumed by feed readers, tools, etc. which are only aware of the Atom standards ([RFC4287] &amp; [RFC5023]), but not the additional conventions defined in this document.</p>
 <h2>2. Atom Representations</h2>
 <p>The following sections define how resources (Collection, Entries, etc) exposed by an OData service can be represented in requests and responses payloads using the Atom format. For details regarding how to create various request types (Retrieve, Create, etc) see <a href="../operations">[OData-Operations]</a> .</p>
-<p>Through out this section the notation <atom:elementName> is used to refer to the named element in the Atom <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a> specification.</p>
+<p>Through out this section the notation <atom:elementName> is used to refer to the named element in the Atom <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a> specification.</atom:elementName></p>
 <h3>2.1. Primitive Types</h3>
 <p>Values of OData primitive types are represented as values of XML elements/attributes as per the table below. Note: The type system used by OData services is described in full in the <a href="../overview#AbstractTypeSystem">primitive types</a> section of the <a href="../overview">[OData-Core]</a> document. In addition to the rules stated in the table, if the value of a primitive type is null, then it is represented as an empty XML element with an <strong>m:null="true"</strong> attribute ("m" identifies the OData metadata namespace).</p>
 <div>
-<table border="0">
-<tbody>
-<tr>
-<th>Primitive Type</th>
-<th>Serialization Format in XML Documents</th>
-</tr>
-<tr>
-<td>Edm.Binary</td>
-<td>Base64 encoded value of an EDM.Binary value. See <a href="https://go.microsoft.com/fwlink/?LinkId=90432"> [RFC3548]</a> .</td>
-</tr>
-<tr>
-<td>Edm.Boolean</td>
-<td>true | false</td>
-</tr>
-<tr>
-<td>Edm.Byte</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding</td>
-</tr>
-<tr>
-<td>Edm.DateTime</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding datetime'' syntax</td>
-</tr>
-<tr>
-<td>Edm.Decimal</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the trailing "m"</td>
-</tr>
-<tr>
-<td>Edm.Double</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
-</tr>
-<tr>
-<td>Edm.Guid</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding guid'' syntax</td>
-</tr>
-<tr>
-<td>Edm.Int16</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
-</tr>
-<tr>
-<td>Edm.Int32</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
-</tr>
-<tr>
-<td>Edm.Int64</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
-</tr>
-<tr>
-<td>Edm.SByte</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
-</tr>
-<tr>
-<td>Edm.Single</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the trailing "f"</td>
-</tr>
-<tr>
-<td>Edm.String</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without surrounding double quotes</td>
-</tr>
-<tr>
-<td>Edm.Time</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding time'' syntax</td>
-</tr>
-<tr>
-<td>Edm.DateTimeOffset</td>
-<td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding datetimeoffset'' syntax</td>
-</tr>
-</tbody>
-</table>
+    <table border="0">
+        <tbody>
+            <tr>
+                <th>Primitive Type</th>
+                <th>Serialization Format in XML Documents</th>
+            </tr>
+            <tr>
+                <td>Edm.Binary</td>
+                <td>Base64 encoded value of an EDM.Binary value. See <a href="https://go.microsoft.com/fwlink/?LinkId=90432"> [RFC3548]</a> .</td>
+            </tr>
+            <tr>
+                <td>Edm.Boolean</td>
+                <td>true | false</td>
+            </tr>
+            <tr>
+                <td>Edm.Byte</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding</td>
+            </tr>
+            <tr>
+                <td>Edm.DateTime</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding datetime'' syntax</td>
+            </tr>
+            <tr>
+                <td>Edm.Decimal</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the trailing "m"</td>
+            </tr>
+            <tr>
+                <td>Edm.Double</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
+            </tr>
+            <tr>
+                <td>Edm.Guid</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding guid'' syntax</td>
+            </tr>
+            <tr>
+                <td>Edm.Int16</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
+            </tr>
+            <tr>
+                <td>Edm.Int32</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
+            </tr>
+            <tr>
+                <td>Edm.Int64</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
+            </tr>
+            <tr>
+                <td>Edm.SByte</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a></td>
+            </tr>
+            <tr>
+                <td>Edm.Single</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the trailing "f"</td>
+            </tr>
+            <tr>
+                <td>Edm.String</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without surrounding double quotes</td>
+            </tr>
+            <tr>
+                <td>Edm.Time</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding time'' syntax</td>
+            </tr>
+            <tr>
+                <td>Edm.DateTimeOffset</td>
+                <td>Same as the <a href="../overview#AbstractTypeSystem">literal form in [OData:Core]</a>, except without the surrounding datetimeoffset'' syntax</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <h3>2.2. Service Documents</h3>
 <p>As described in <a href="../overview">[OData-Core]</a>, if a service exposes several Collections, then to aid discovery of those Collections by clients it is useful for the service to expose a Service Document which lists the available Collections. Service Documents are described in AtomPub <a href="https://tools.ietf.org/html/rfc5023#page-15"> [RFC5023], section 15</a>.</p>
 <p>For example, the URI <a href="https://services.odata.org/OData/OData.svc">https://services.odata.org/OData/OData.svc</a> identifies the Service Document of a sample OData service which exposes a Categories, Products and Suppliers Collection. For convenience, a sample Service Document is shown in the listing below.</p>
-{% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
-<service xml:base="https://services.odata.org/OData/OData.svc/" 
-         xmlns:atom="https://www.w3.org/2005/Atom" 
-         xmlns:app="https://www.w3.org/2007/app" 
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<service xml:base="https://services.odata.org/OData/OData.svc/"
+         xmlns:atom="https://www.w3.org/2005/Atom"
+         xmlns:app="https://www.w3.org/2007/app"
          xmlns="https://www.w3.org/2007/app">
-  <workspace>
-    <atom:title>Default</atom:title> 
-    <collection href="Products">
-      <atom:title>Products</atom:title> 
-    </collection>
-    <collection href="Categories">
-      <atom:title>Categories</atom:title> 
-    </collection>
-    <collection href="Suppliers">
-      <atom:title>Suppliers</atom:title> 
-    </collection>
-  </workspace>
+    <workspace>
+        <atom:title>Default</atom:title>
+        <collection href="Products">
+            <atom:title>Products</atom:title>
+        </collection>
+        <collection href="Categories">
+            <atom:title>Categories</atom:title>
+        </collection>
+        <collection href="Suppliers">
+            <atom:title>Suppliers</atom:title>
+        </collection>
+    </workspace>
 </service>{% endhighlight %}
 <h3>2.3. Representing Collections of Entries</h3>
-<p><a href="../terminology#Collection">Collections</a> represent a set of <a href="../terminology#Entry">Entries</a>. In OData, Collections are represented as Atom feeds ([RFC5023] ), with one Atom entry for each Entry within the Collection. For example, a Collection of product category Entries (that could be part of a product catalog) exposed by an OData service, as identified by the URI <a href="https://services.odata.org/OData/OData.svc/Categories">https://services.odata.org/OData/OData.svc/Categories</a>, is represented as shown below. The format of <atom:entry> elements within a feed is described in the <a href="../atom-format#RepresentingEntries">Representing Entries</a> section.</p>
+<p><a href="../terminology#Collection">Collections</a> represent a set of <a href="../terminology#Entry">Entries</a>. In OData, Collections are represented as Atom feeds ([RFC5023] ), with one Atom entry for each Entry within the Collection. For example, a Collection of product category Entries (that could be part of a product catalog) exposed by an OData service, as identified by the URI <a href="https://services.odata.org/OData/OData.svc/Categories">https://services.odata.org/OData/OData.svc/Categories</a>, is represented as shown below. The format of <atom:entry> elements within a feed is described in the <a href="../atom-format#RepresentingEntries">Representing Entries</a> section.</atom:entry></p>
 <p><strong>Note</strong>: The "m" and "d" prefixes represent the OData metadata and data namespaces. It is likely the next version of OData will generalize the namespace URI to use an odata.org based URI.</p>
 
 <strong>OData V1:</strong>
 {% highlight xml %}
 
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <feed xml:base=https://services.odata.org/OData/OData.svc/
-     xmlns:d=http://schemas.microsoft.com/ado/2007/08/dataservices
-     xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
-     xmlns="https://www.w3.org/2005/Atom">
-  <title type="text">Categories</title>
-  <id>https://services.odata.org/OData/OData.svc/Categories</id>
-  <updated>2010-03-10T08:38:14Z</updated>
-  <link rel="self" title="Categories" href="Categories" />
-  <entry>
-    <id>https://services.odata.org/OData/OData.svc/Categories(0)</id>
-    <title type="text">Food</title>
+      xmlns:d=http://schemas.microsoft.com/ado/2007/08/dataservices
+      xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
+      xmlns="https://www.w3.org/2005/Atom">
+    <title type="text">Categories</title>
+    <id>https://services.odata.org/OData/OData.svc/Categories</id>
     <updated>2010-03-10T08:38:14Z</updated>
-    <author>
-      <name />
-    </author>
-    <link rel="edit" title="Category" href="Categories(0)" />
-    <link 
-        rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
-        type="application/atom+xml;type=feed"
-        title="Products" href="Categories(0)/Products" />
-    <category term="ODataDemo.Category"
-        scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-    <content type="application/xml">
-      <m:properties>
-        <d:ID m:type="Edm.Int32">0</d:ID>
-        <d:Name>Food</d:Name>
-      </m:properties>
-    </content>
-  </entry>
-  <!-- <entry> elements representing additional Categories go here -->
+    <link rel="self" title="Categories" href="Categories" />
+    <entry>
+        <id>https://services.odata.org/OData/OData.svc/Categories(0)</id>
+        <title type="text">Food</title>
+        <updated>2010-03-10T08:38:14Z</updated>
+        <author>
+            <name />
+        </author>
+        <link rel="edit" title="Category" href="Categories(0)" />
+        <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
+              type="application/atom+xml;type=feed"
+              title="Products" href="Categories(0)/Products" />
+        <category term="ODataDemo.Category"
+                  scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+        <content type="application/xml">
+            <m:properties>
+                <d:ID m:type="Edm.Int32">0</d:ID>
+                <d:Name>Food</d:Name>
+            </m:properties>
+        </content>
+    </entry>
+    <!-- <entry> elements representing additional Categories go here -->
 </feed>{% endhighlight %}
 <p>In response payloads only, OData v2 supports two pieces of collection-level metadata: an Entry count (the total count of the number of entities in the Collection) and "next links" in the case when a partial listing of the Collection of Entries is being represented.</p>
-<p>The Entry count, is only included in the feed returned by an OData service when the request URI includes the $inlinecount System Query Option. In this case, the count information is represented as a <m:count> element with the value of the element being the total number of Entries in the Collection. See the <a href="../uri-conventions#InlinecountSystemQueryOption"> $inlinecount section</a> of the <a href="../uri-conventions">[OData-URI]</a> document for a description of how the count value is calculated.</p>
-<p>In response payloads only, if the server does not include an <entry> element for every Entry in the Collection identified by the request URI (typically for resource conservation reasons), then the returned feed represents a partial listing as defined in AtomPub <a href="https://tools.ietf.org/html/rfc5023#section-10.1">[RFC5023] section 10.1</a>. In this case, the response includes a <link rel="next" href="â€¦"> element to indicate the feed is a partial listing and to provide the URI of the next partial list feed so a client can easily continue obtaining additional entries. Version Note: Partial lists of Entries are supported in OData V2.0 only. For more information on interacting with partial listings, see <a href="../operations#RetrievingFeedsEntriesAndServiceDocuments"> Retrieving feeds, entries and service documents</a> in the <a href="../operations">[OData-Operations]</a> document.</p>
-<strong>OData V2:</strong> 
+<p>The Entry count, is only included in the feed returned by an OData service when the request URI includes the $inlinecount System Query Option. In this case, the count information is represented as a <m:count> element with the value of the element being the total number of Entries in the Collection. See the <a href="../uri-conventions#InlinecountSystemQueryOption"> $inlinecount section</a> of the <a href="../uri-conventions">[OData-URI]</a> document for a description of how the count value is calculated.</m:count></p>
+<p>In response payloads only, if the server does not include an <entry> element for every Entry in the Collection identified by the request URI (typically for resource conservation reasons), then the returned feed represents a partial listing as defined in AtomPub <a href="https://tools.ietf.org/html/rfc5023#section-10.1">[RFC5023] section 10.1</a>. In this case, the response includes a <link rel="next" href="â€¦" /> element to indicate the feed is a partial listing and to provide the URI of the next partial list feed so a client can easily continue obtaining additional entries. Version Note: Partial lists of Entries are supported in OData V2.0 only. For more information on interacting with partial listings, see <a href="../operations#RetrievingFeedsEntriesAndServiceDocuments"> Retrieving feeds, entries and service documents</a> in the <a href="../operations">[OData-Operations]</a> document.</entry></p>
+<strong>OData V2:</strong>
 {% highlight xml %}
 
 <feed xml:base="https://services.odata.org/Northwind/Northwind.svc/"
-        xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
-        xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
-        xmlns="https://www.w3.org/2005/Atom">
-  <title type="text">Customers</title> 
-  <id>https://services.odata.org/Northwind/Northwind.svc/Customers</id> 
-  <updated>2010-03-10T09:34:11Z</updated> 
-  <link rel="self" title="Customers" href="Customers" /> 
-  <strong><m:count>91</m:count></strong> 
-  <entry>
-    <id>https://services.odata.org/Northwind/Northwind.svc/Customers('ALFKI')</id> 
-    <title type="text" /> 
-    <updated>2010-03-10T09:34:11Z</updated> 
-    <author>
-      <name /> 
-    </author>
-    <link rel="edit" title="Customer" href="Customers('ALFKI')" /> 
-    <link 
-        rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Orders"
-        type="application/atom+xml;type=feed"
-        title="Orders" href="Customers('ALFKI')/Orders" />
-    <link 
-  rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/CustomerDemographics"
-  type="application/atom+xml;type=feed"
-  title="CustomerDemographics" href="Customers('ALFKI')/CustomerDemographics" /> 
-    <category term="NorthwindModel.Customer"
-        scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /> 
-    <content type="application/xml">
-      <m:properties>
-        <d:CustomerID>ALFKI</d:CustomerID> 
-        <d:CompanyName>Alfreds Futterkiste</d:CompanyName> 
-        <d:ContactName>Maria Anders</d:ContactName> 
-        <d:ContactTitle>Sales Representative</d:ContactTitle> 
-        <d:Address>Obere Str. 57</d:Address> 
-        <d:City>Berlin</d:City> 
-        <d:Region m:null="true" /> 
-        <d:PostalCode>12209</d:PostalCode> 
-        <d:Country>Germany</d:Country> 
-        <d:Phone>030-0074321</d:Phone> 
-        <d:Fax>030-0076545</d:Fax> 
-      </m:properties>
-    </content>
-  </entry>
-  <!-- <entry> elements representing additional customers goes here -->
-  <strong><link rel="next" 
-      href="https://services.odata.org/Northwind/Northwind.svc/Customers?
-    $inlinecount=allpages&amp;$skiptoken='ERNSH'" /> </strong>
+      xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+      xmlns:m=http://schemas.microsoft.com/ado/2007/08/dataservices/metadata
+      xmlns="https://www.w3.org/2005/Atom">
+    <title type="text">Customers</title>
+    <id>https://services.odata.org/Northwind/Northwind.svc/Customers</id>
+    <updated>2010-03-10T09:34:11Z</updated>
+    <link rel="self" title="Customers" href="Customers" />
+    <strong><m:count>91</m:count></strong>
+    <entry>
+        <id>https://services.odata.org/Northwind/Northwind.svc/Customers('ALFKI')</id>
+        <title type="text" />
+        <updated>2010-03-10T09:34:11Z</updated>
+        <author>
+            <name />
+        </author>
+        <link rel="edit" title="Customer" href="Customers('ALFKI')" />
+        <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Orders"
+              type="application/atom+xml;type=feed"
+              title="Orders" href="Customers('ALFKI')/Orders" />
+        <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/CustomerDemographics"
+              type="application/atom+xml;type=feed"
+              title="CustomerDemographics" href="Customers('ALFKI')/CustomerDemographics" />
+        <category term="NorthwindModel.Customer"
+                  scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+        <content type="application/xml">
+            <m:properties>
+                <d:CustomerID>ALFKI</d:CustomerID>
+                <d:CompanyName>Alfreds Futterkiste</d:CompanyName>
+                <d:ContactName>Maria Anders</d:ContactName>
+                <d:ContactTitle>Sales Representative</d:ContactTitle>
+                <d:Address>Obere Str. 57</d:Address>
+                <d:City>Berlin</d:City>
+                <d:Region m:null="true" />
+                <d:PostalCode>12209</d:PostalCode>
+                <d:Country>Germany</d:Country>
+                <d:Phone>030-0074321</d:Phone>
+                <d:Fax>030-0076545</d:Fax>
+            </m:properties>
+        </content>
+    </entry>
+    <!-- <entry> elements representing additional customers goes here -->
+    <strong>
+        <link rel="next"
+              href="https://services.odata.org/Northwind/Northwind.svc/Customers?
+    $inlinecount=allpages&amp;$skiptoken='ERNSH'" />
+    </strong>
 </feed>{% endhighlight %}
 <h3>2.4. Representing Entries</h3>
-<p>In OData, Entries are represented as Atom <atom:entry> elements with all the <a href="../terminology#Property">Properties</a> of the Entry represented as elements within the <m:properties> element which is a direct child of the <atom:content> element. When using an OData v2 server, clients may indicate that they want a subset of the properties by using the Select System Query Option in the request.</p>
-<p>If the Entry being represented links to other Entries via <a href="../terminology#NavigationProperty"> Navigation Properties</a> (e.g. a Product is related to a Category), then the Links are represented as <atom:link rel= <a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/%5bNavigationPropertyName%5d"> http://schemas.microsoft.com/ado/2007/08/dataservices/related/[NavigationPropertyName]</a> href=â€â€¦"/> elements â€" one for each Navigation Property of the Entry.</p>
+<p>In OData, Entries are represented as Atom <atom:entry> elements with all the <a href="../terminology#Property">Properties</a> of the Entry represented as elements within the <m:properties> element which is a direct child of the <atom:content> element. When using an OData v2 server, clients may indicate that they want a subset of the properties by using the Select System Query Option in the request.</atom:content></m:properties></atom:entry></p>
+<p>If the Entry being represented links to other Entries via <a href="../terminology#NavigationProperty"> Navigation Properties</a> (e.g. a Product is related to a Category), then the Links are represented as <atom:link rel=rel <a href="http://schemas.microsoft.com/ado/2007/08/dataservices/related/%5bNavigationPropertyName%5d"> http://schemas.microsoft.com/ado/2007/08/dataservices/related/[NavigationPropertyName]</a> href=â€â€¦"/> elements â€" one for each Navigation Property of the Entry.</p>
 <p>Metadata describing the Entry being represented can be specified using additional Atom-defined and OData-defined elements/attributes as defined by the following list.</p>
-<p><strong><atom:id></strong></p>
+<p><strong><atom:id></atom:id></strong></p>
 <ul>
-<li>As per <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a>, contains a URI which uniquely identifies the Entry</li>
+    <li>As per <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a>, contains a URI which uniquely identifies the Entry</li>
 </ul>
-<p><strong><atom:category scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme"></strong></p>
+<p><strong><atom:category scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme"></atom:category></strong></p>
 <ul>
-<li>This element may be present with a term attribute whose value indicates the Entity Type in the <a href="../overview#AbstractDataModel">data model</a> of the OData service that describes the Entry represented by the parent <atom:entry> element. An <atom:Entry> must contain at most one such category element with the specified scheme.</li>
-<li>To ensure type fidelity across of Entries sent from server to client (and vice versa), this element must be included if the Entry is part of a type hierarchy and is not the base type in the hierarchy.</li>
-<li>The value of the element is the namespace qualified name of the <a href="../overview#AbstractDataModel"> Entity Type</a> in the <a href="../terminology#ServiceMetadataDocument"> Service Metadata Document</a> that describes the Entry.</li>
-<li>When this element is not present clients and servers should assume that the entry is of the base type of the containing collection, if that information is known. When a collection can contain a number of types within a inheritance hierarchy servers will typically reject requests that contain Entries without type information.</li>
+    <li>This element may be present with a term attribute whose value indicates the Entity Type in the <a href="../overview#AbstractDataModel">data model</a> of the OData service that describes the Entry represented by the parent <atom:entry> element. An <atom:Entry> must contain at most one such category element with the specified scheme.</atom:Entry></atom:entry></li>
+    <li>To ensure type fidelity across of Entries sent from server to client (and vice versa), this element must be included if the Entry is part of a type hierarchy and is not the base type in the hierarchy.</li>
+    <li>The value of the element is the namespace qualified name of the <a href="../overview#AbstractDataModel"> Entity Type</a> in the <a href="../terminology#ServiceMetadataDocument"> Service Metadata Document</a> that describes the Entry.</li>
+    <li>When this element is not present clients and servers should assume that the entry is of the base type of the containing collection, if that information is known. When a collection can contain a number of types within a inheritance hierarchy servers will typically reject requests that contain Entries without type information.</li>
 </ul>
-<p><strong><atom:link rel="self" href=".." ></strong></p>
+<p><strong><atom:link rel="self" href=".."></atom:link></strong></p>
 <ul>
-<li>As per <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a>, this element is optional. If included it contains the URI a client should use to retrieve the Entry as described in <a href="../operations">[OData-Operations]</a> .</li>
+    <li>As per <a href="https://tools.ietf.org/html/rfc4287">[RFC4287]</a>, this element is optional. If included it contains the URI a client should use to retrieve the Entry as described in <a href="../operations">[OData-Operations]</a> .</li>
 </ul>
-<p><strong><atom:link rel="edit" href=" .. " ></strong></p>
+<p><strong><atom:link rel="edit" href=" .. "></atom:link></strong></p>
 <ul>
-<li>As per <a href="https://tools.ietf.org/html/rfc5023">[RFC5023]</a>, this element should be included. If included it contains the URI a client should use to update or delete the Entry as defined in <a href="../operations">[OData-Operations]</a> .</li>
+    <li>As per <a href="https://tools.ietf.org/html/rfc5023">[RFC5023]</a>, this element should be included. If included it contains the URI a client should use to update or delete the Entry as defined in <a href="../operations">[OData-Operations]</a> .</li>
 </ul>
 <p><strong>m:etag attribute</strong></p>
 <ul>
-<li>An attribute in the OData Metadata Namespace whose value is the <a href="../operations#ConcurrencyControlAndETags"> concurrency token</a> associated with the Entry. The value is formatted as required by the ETag header in [RFC2616].</li>
-<li>This attribute should be present in a response from an OData service when returning a feed (i.e. multiple Entries in a single HTTP response), otherwise the HTTP ETag response header should be used to communicate the concurrency token of the resource returned to a client.</li>
+    <li>An attribute in the OData Metadata Namespace whose value is the <a href="../operations#ConcurrencyControlAndETags"> concurrency token</a> associated with the Entry. The value is formatted as required by the ETag header in [RFC2616].</li>
+    <li>This attribute should be present in a response from an OData service when returning a feed (i.e. multiple Entries in a single HTTP response), otherwise the HTTP ETag response header should be used to communicate the concurrency token of the resource returned to a client.</li>
 </ul>
 <p>For example, as shown in the following listing, the Category Entry identified by the URI <a href="https://services.odata.org/OData/OData.svc/Categories%280%29">https://services.odata.org/OData/OData.svc/Categories(0)</a>, has two primitive properties (ID &amp; Name) and one Navigation Property named â€œProductsâ€, which identifies a feed of Product Entries related to the Category.</p>
-{% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
-<entry xml:base="https://services.odata.org/OData/OData.svc/" 
-       xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
-       xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<entry xml:base="https://services.odata.org/OData/OData.svc/"
+       xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+       xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
        xmlns="https://www.w3.org/2005/Atom">
-  <id>https://services.odata.org/OData/OData.svc/Categories(0)</id> 
-  <title type="text">Food</title> 
-  <updated>2010-03-10T10:43:51Z</updated> 
-  <author>
-    <name /> 
-  </author>
-  <link rel="edit" title="Category" href="Categories(0)" /> 
-  <strong><link 
-      rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
-      type="application/atom+xml;type=feed" title="Products" 
-      href="Categories(0)/Products" /></strong> 
-  <category term="ODataDemo.Category" 
-      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /> 
-  <strong><content type="application/xml"> 
-    <m:properties> 
-      <d:ID m:type="Edm.Int32">0</d:ID>
-      <d:Name>Food</d:Name> 
-    </m:properties> 
-  </content></strong>
+    <id>https://services.odata.org/OData/OData.svc/Categories(0)</id>
+    <title type="text">Food</title>
+    <updated>2010-03-10T10:43:51Z</updated>
+    <author>
+        <name />
+    </author>
+    <link rel="edit" title="Category" href="Categories(0)" />
+    <strong>
+        <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
+              type="application/atom+xml;type=feed" title="Products"
+              href="Categories(0)/Products" />
+    </strong>
+    <category term="ODataDemo.Category"
+              scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <strong>
+        <content type="application/xml">
+            <m:properties>
+                <d:ID m:type="Edm.Int32">0</d:ID>
+                <d:Name>Food</d:Name>
+            </m:properties>
+        </content>
+    </strong>
 </entry>{% endhighlight %}
 <h4>2.4.1. Deferred Content</h4>
 <p>To conserve resources (bandwidth, CPU, and so on), it is generally not a good idea for an OData service to return the full graph of Entries related to the Entry (or Collection of entries) identified in a request URI. For example, an OData service should defer sending related Entries unless the client explicitly asked for them using the <a href="../uri-conventions#ExpandSystemQueryOption">$expand System Query Option</a> which provides a way for a client to state related entities should be <a href="../atom-format#InlineRepresentationofAssociatedEntries">represented inline</a>.</p>
 <p>As shown in the example in the prior section, by default properties which represent <a href="../terminology#Link">Links</a> (the "Products" property in the example) are represented as a <link rel=" <strong> </strong> http://schemas.microsoft.com/ado/2007/08/dataservices/related/[NavigationPropertyName]" href="..." /> element to indicate the service deferred representing the related Entries. If needed, a client can then use the URI in the href attribute in a subsequent retrieve request to obtain the related Entries.</p>
 <h4>2.4.2. Inline Representation of Associated Entries</h4>
 <p>As described in the <a href="../uri-conventions#ExpandSystemQueryOption"> $expand System Query Option section</a> of the <a href="../uri-conventions">[OData-URI]</a> document, a request URI may include the $expand query option to explicitly request that a linked to Entry or collection of Entries be serialized inline, rather than deferred.</p>
-<p>In this case the related Entry or collection of Entries is represented as the child element of an <m:inline> element as an <atom:feed> or <atom:entry> respectively. For example, a single Category Entry with its related Product Entries serialized inline is represented as shown in the example below.</p>
-{% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<p>In this case the related Entry or collection of Entries is represented as the child element of an <m:inline> element as an <atom:feed> or <atom:entry> respectively. For example, a single Category Entry with its related Product Entries serialized inline is represented as shown in the example below.</atom:entry></atom:feed></m:inline></p>
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <entry xml:base=https://services.odata.org/OData/OData.svc/"
-   xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
-   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-   xmlns="https://www.w3.org/2005/Atom">
-  <id>https://services.odata.org/OData/OData.svc/Categories(0)</id>
-  <title type="text">Food</title>
-  <updated>2010-03-11T06:40:04Z</updated>
-  <author>
-    <name />
-  </author>
-  <link rel="edit" title="Category" href="Categories(0)" />
-  <link 
-      rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products" 
-      type="application/atom+xml;type=feed" 
-       title="Products" href="Categories(0)/Products">
-    <strong><m:inline></strong>
-      <feed>
+       xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+       xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+       xmlns="https://www.w3.org/2005/Atom">
+    <id>https://services.odata.org/OData/OData.svc/Categories(0)</id>
+    <title type="text">Food</title>
+    <updated>2010-03-11T06:40:04Z</updated>
+    <author>
+        <name />
+    </author>
+    <link rel="edit" title="Category" href="Categories(0)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
+          type="application/atom+xml;type=feed"
+          title="Products" href="Categories(0)/Products" />
+    <strong><m:inline></m:inline></strong>
+    <feed>
         <title type="text">Products</title>
         <id>https://services.odata.org/OData/OData.svc/Categories(0)/Products</id>
         <updated>2010-03-11T06:40:04Z</updated>
         <link rel="self" title="Products" href="Categories(0)/Products" />
         <entry>
-          <id>https://services.odata.org/OData/OData.svc/Products(0)</id>
-          <title type="text">Bread</title>
-          <summary type="text">Whole grain bread</summary>
-          <updated>2010-03-11T06:40:04Z</updated>
-          <author>
-            <name />
-          </author>
-          <link rel="edit" title="Product" href="Products(0)" />
-          <link 
-              rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category" 
-              type="application/atom+xml;type=entry" 
-              title="Category" href="Products(0)/Category" />
-          <link 
-              rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Supplier" 
-              type="application/atom+xml;type=entry" 
-              title="Supplier" href="Products(0)/Supplier" />
-          <category term="ODataDemo.Product" 
-              scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-          <content type="application/xml">
-            <m:properties>
-              <d:ID m:type="Edm.Int32">0</d:ID>
-              <d:ReleaseDate m:type="Edm.DateTime">1992-01-01T00:00:00</d:ReleaseDate>
-              <d:DiscontinuedDate m:type="Edm.DateTime" m:null="true" />
-              <d:Rating m:type="Edm.Int32">4</d:Rating>
-              <d:Price m:type="Edm.Decimal">2.5</d:Price>
-            </m:properties>
-          </content>
+            <id>https://services.odata.org/OData/OData.svc/Products(0)</id>
+            <title type="text">Bread</title>
+            <summary type="text">Whole grain bread</summary>
+            <updated>2010-03-11T06:40:04Z</updated>
+            <author>
+                <name />
+            </author>
+            <link rel="edit" title="Product" href="Products(0)" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Category"
+                  type="application/atom+xml;type=entry"
+                  title="Category" href="Products(0)/Category" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Supplier"
+                  type="application/atom+xml;type=entry"
+                  title="Supplier" href="Products(0)/Supplier" />
+            <category term="ODataDemo.Product"
+                      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+            <content type="application/xml">
+                <m:properties>
+                    <d:ID m:type="Edm.Int32">0</d:ID>
+                    <d:ReleaseDate m:type="Edm.DateTime">1992-01-01T00:00:00</d:ReleaseDate>
+                    <d:DiscontinuedDate m:type="Edm.DateTime" m:null="true" />
+                    <d:Rating m:type="Edm.Int32">4</d:Rating>
+                    <d:Price m:type="Edm.Decimal">2.5</d:Price>
+                </m:properties>
+            </content>
         </entry>
-      </feed>
+    </feed>
     <strong></m:inline></strong>
-  </link>
-  <category term="ODataDemo.Category"
-     scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-  <content type="application/xml">
-    <m:properties>
-      <d:ID m:type="Edm.Int32">0</d:ID>
-      <d:Name>Food</d:Name>
-    </m:properties>
-  </content>
+    </link>
+    <category term="ODataDemo.Category"
+              scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+        <m:properties>
+            <d:ID m:type="Edm.Int32">0</d:ID>
+            <d:Name>Food</d:Name>
+        </m:properties>
+    </content>
 </entry>{% endhighlight %}
 <h4> 2.4.3. Representing Media Link Entries</h4>
-<p><a href="../terminology#MediaLinkEntry">Media Link Entries (MLE)</a> are represented in the same way as regular Entries as described in <a href="../atom-format#RepresentingEntries"> Representing Entries</a>; however, they also contain additional metadata per Entry that describes the Media Resource (MR) associated with the Entry and the <m:properties> element becomes a child of the <atom:entry> element. The <m:properties> element is moved out from under the <atom:content> element because in the case of an MLE, the content describes the MR.</p>
-<p>This additional MR-specific metadata is represented by the following constructs in the <atom:entry>:</p>
+<p><a href="../terminology#MediaLinkEntry">Media Link Entries (MLE)</a> are represented in the same way as regular Entries as described in <a href="../atom-format#RepresentingEntries"> Representing Entries</a>; however, they also contain additional metadata per Entry that describes the Media Resource (MR) associated with the Entry and the <m:properties> element becomes a child of the <atom:entry> element. The <m:properties> element is moved out from under the <atom:content> element because in the case of an MLE, the content describes the MR.</atom:content></m:properties></atom:entry></m:properties></p>
+<p>This additional MR-specific metadata is represented by the following constructs in the <atom:entry>:</atom:entry></p>
 <ul>
-<li><strong><link rel="edit-media" href="{MediaResourceUri}"></strong>
-<ul>
-<li>As per <a href="https://tools.ietf.org/html/rfc5023#section-9.6">[RFC5023] section 9.6</a>, this element indicates the URI a client should use to update or delete the Media Resource, as described in <a href="../operations">[OData-Operations]</a> .</li>
-<li>If the ETag of the Media Resource (MR) is independent from that of the Media Link Entry (MLE), then this element should include an m:etag attribute with value equal to the concurrency token of the MR.</li>
-</ul>
-</li>
-<li><strong><atom:content src="{MediaResourceUri}" type="{MimeType}"></strong>
-<ul>
-<li>For MLE's, this element describes the associated MR. The value of the src attribute is the URI a client should use to retrieve the Media Resource, as described in <a href="../operations">[OData-Operations]</a>. Note: this allows a Media Resource to have independent links for editing and retrieval.</li>
-<li>The value of the type attribute is the mime type of the MR.</li>
-</ul>
-</li>
+    <li>
+        <strong><link rel="edit-media" href="{MediaResourceUri}" /></strong>
+        <ul>
+            <li>As per <a href="https://tools.ietf.org/html/rfc5023#section-9.6">[RFC5023] section 9.6</a>, this element indicates the URI a client should use to update or delete the Media Resource, as described in <a href="../operations">[OData-Operations]</a> .</li>
+            <li>If the ETag of the Media Resource (MR) is independent from that of the Media Link Entry (MLE), then this element should include an m:etag attribute with value equal to the concurrency token of the MR.</li>
+        </ul>
+    </li>
+    <li>
+        <strong><atom:content src="{MediaResourceUri}" type="{MimeType}"></atom:content></strong>
+        <ul>
+            <li>For MLE's, this element describes the associated MR. The value of the src attribute is the URI a client should use to retrieve the Media Resource, as described in <a href="../operations">[OData-Operations]</a>. Note: this allows a Media Resource to have independent links for editing and retrieval.</li>
+            <li>The value of the type attribute is the mime type of the MR.</li>
+        </ul>
+    </li>
 </ul>
 <h4>2.4.4. Customizing the Representation of an Entry</h4>
-<p>Services may wish to have more flexibility over how Entries are represented within an <atom:entry> element. For example, a service may want to enable the value of a property of an Entry be represented as the value of one of the standard Atom elements (Title, Summary, etc) or as the value of a custom element within an Entry. OData supports services that need this kind of control over the Atom representations of an Entry.</p>
-<p>In general a service may choose to deviate from the conventions defined in Representing Entries section above and represent the value of a Property of an Entry as the value of a standard Atom element (Title, Summary, etc) or as the value of an element in a custom namespace. When a service does this form of customization it breaks the shared assumption between client and server regarding how Entries are encoded within an <atom:entry> element. OData services that deviate from the prescribed encoding should expose a <a href="../terminology#ServiceMetadataDocument"> Service Metadata Document</a> that include Feed Customization annotations which allow a client to discover how the server chose to encode a given Entry within the <atom:entry> element. The remainder of this section describes the set of Feed Customization annotations that may be used.</p>
+<p>Services may wish to have more flexibility over how Entries are represented within an <atom:entry> element. For example, a service may want to enable the value of a property of an Entry be represented as the value of one of the standard Atom elements (Title, Summary, etc) or as the value of a custom element within an Entry. OData supports services that need this kind of control over the Atom representations of an Entry.</atom:entry></p>
+<p>In general a service may choose to deviate from the conventions defined in Representing Entries section above and represent the value of a Property of an Entry as the value of a standard Atom element (Title, Summary, etc) or as the value of an element in a custom namespace. When a service does this form of customization it breaks the shared assumption between client and server regarding how Entries are encoded within an <atom:entry> element. OData services that deviate from the prescribed encoding should expose a <a href="../terminology#ServiceMetadataDocument"> Service Metadata Document</a> that include Feed Customization annotations which allow a client to discover how the server chose to encode a given Entry within the <atom:entry> element. The remainder of this section describes the set of Feed Customization annotations that may be used.</atom:entry></atom:entry></p>
 <p>The following table lists all the Feed Customization annotations defined in OData.</p>
 <div>
-<table border="0">
-<tbody>
-<tr>
-<th>Feed Customization Annotation</th>
-<th>Description</th>
-</tr>
-<tr>
-<td valign="top">FC_SourcePath</td>
-<td>The name of the Property on an Entry which this feed mapping rule applies to.The format of this parameter is a path expression where property names are separated by a <strong>/</strong> character. For example for a Person Entry with an integer Property <strong>Age</strong> and an <strong>Address</strong> Complex Type Property, the following are legal values for this property:</p>
-<p>- Age</p>
-<p>- Address/Street</p>
-<p>The following are invalid values for this property:</p>
-<p>- Foo (not a defined property)</p>
-<p>- Address (doesn't identify a primitive property)</p>
-<p>- Address/Street/ (cannot end with a /)</p>
-<p>- Empty string or null</p>
-<p>- /Address/Street (cannot start with a /)</td>
-</tr>
-<tr>
-<td valign="top">FC_TargetPath</td>
-<td>The name of the element to map the property identified by the FC_SourcePath annotation to. If no FC_SourcePath annotation is specified, then this annotation must be on a <Property> element in the Service Metadata Document which itself identifies the source Property.The format of this annotation is a path expression where nested elements are separated by a / and attributes are specified by a @ symbol.</p>
-<p>For example, to map to a property value to a custom XML element or attribute:</p>
-<p>To map the source Property to a custom <Category> element which is a direct child of the <atom:entry> element use:</p>
-<p>- FC_TargetPath="Category"</p>
-<p>To map the source Property to an attribute named Term on a custom <Category> element which is a direct child of the <atom:entry> element:</p>
-<p>- FC_TargetPath="Category/@Term"</p>
-<p>To map the source Property to a child element of the custom <Category> element named <Foo>, where <Category> is a direct child of the <atom:entry> element:</p>
-<p>- FC_TargetPath="Category/Foo"</p>
-<p>This annotation also supports mapping to Atom-defined elements. This following list describes the values used to map to Atom-defined elements:</p>
-<p>Format: value : mapped to atom element</p>
-<ul>
-<li>"SyndicationAuthorEmail" : <author><email></li>
-<li>"SyndicationAuthorName" : <author><name></li>
-<li>"SyndicationAuthorUri" : <author><uri></li>
-<li>"SyndicationPublished" : <published></li>
-<li>"SyndicationRights" : <rights></li>
-<li>"SyndicationSummary" : <summary></li>
-<li>"SyndicationTitle" : <title></li>
-</ul>
-<p><a id="_GoBack" name="_GoBack"></a></p>
-<p>Note: This annotation does not support mapping to multiple instances of an element, so two overlapping path definitions imply the same element instances. For example: the target path values <strong>a/b/c</strong> and <strong>a/d/f</strong> imply the following XML structure: <a><b> <c/></b><d><f/></d></td>
-</tr>
-<tr>
-<td valign="top">FC_ContentKind</td>
-<td>The mime type of the source Property</td>
-</tr>
-<tr>
-<td valign="top">FC_NsPrefix</td>
-<td>When the source Property is being mapped to an element that is not in the Atom namespace, the value of this annotation specifies the namespace prefix to use the Atom document for target element.</td>
-</tr>
-<tr>
-<td valign="top">FC_NsUri</td>
-<td>When a property is being mapped to an element that is not in the Atom namespace, this annotation is used to specify the namespace for the target element. The FC_NSPrefix annotation specifies the namespace prefix for the namespace specified by this annotation.</td>
-</tr>
-<tr>
-<td valign="top">FC_KeepInContent</td>
-<td>The value of this property is true if the property being mapped should appear both in its â€œmapped toâ€ location as well as within the content section of the <entry>.If the value of this property is false, then the property being mapped should only appear in its new â€œmapped toâ€ location in the <entry> and NOT also in the content section. This value (false) is only supported in OData v2.0 and requires that any response formatted in this way return a DataServiceVersion:2.0 response header.</td>
-</tr>
-</tbody>
-</table>
+    <table border="0">
+        <tbody>
+            <tr>
+                <th>Feed Customization Annotation</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td valign="top">FC_SourcePath</td>
+                <td>
+                    The name of the Property on an Entry which this feed mapping rule applies to.The format of this parameter is a path expression where property names are separated by a <strong>/</strong> character. For example for a Person Entry with an integer Property <strong>Age</strong> and an <strong>Address</strong> Complex Type Property, the following are legal values for this property:</p>
+                    <p>- Age</p>
+                    <p>- Address/Street</p>
+                    <p>The following are invalid values for this property:</p>
+                    <p>- Foo (not a defined property)</p>
+                    <p>- Address (doesn't identify a primitive property)</p>
+                    <p>- Address/Street/ (cannot end with a /)</p>
+                    <p>- Empty string or null</p>
+                    <p>- /Address/Street (cannot start with a /)</p>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">FC_TargetPath</td>
+                <td>
+                    The name of the element to map the property identified by the FC_SourcePath annotation to. If no FC_SourcePath annotation is specified, then this annotation must be on a <Property>
+                        element in the Service Metadata Document which itself identifies the source Property.The format of this annotation is a path expression where nested elements are separated by a / and attributes are specified by a @ symbol.</p>
+                        <p>For example, to map to a property value to a custom XML element or attribute:</p>
+                        <p>To map the source Property to a custom <Category> element which is a direct child of the <atom:entry> element use:</atom:entry></Category></p>
+                        <p>- FC_TargetPath="Category"</p>
+                        <p>To map the source Property to an attribute named Term on a custom <Category> element which is a direct child of the <atom:entry> element:</atom:entry></Category></p>
+                        <p>- FC_TargetPath="Category/@Term"</p>
+                        <p>To map the source Property to a child element of the custom <Category> element named <Foo>, where <Category> is a direct child of the <atom:entry> element:</atom:entry></Category></Foo></Category></p>
+                        <p>- FC_TargetPath="Category/Foo"</p>
+                        <p>This annotation also supports mapping to Atom-defined elements. This following list describes the values used to map to Atom-defined elements:</p>
+                        <p>Format: value : mapped to atom element</p>
+                        <ul>
+                            <li>"SyndicationAuthorEmail" : <author><email></email></author></li>
+                            <li>"SyndicationAuthorName" : <author><name></name></author></li>
+                            <li>"SyndicationAuthorUri" : <author><uri></uri></author></li>
+                            <li>"SyndicationPublished" : <published></published></li>
+                            <li>"SyndicationRights" : <rights></rights></li>
+                            <li>"SyndicationSummary" : <summary></summary></li>
+                            <li>"SyndicationTitle" : <title></title></li>
+                        </ul>
+                        <p><a id="_GoBack" name="_GoBack"></a></p>
+                        <p>Note: This annotation does not support mapping to multiple instances of an element, so two overlapping path definitions imply the same element instances. For example: the target path values <strong>a/b/c</strong> and <strong>a/d/f</strong> imply the following XML structure: <a><b> <c /></b><d><f /></d></a></p>
+                    </Property>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">FC_ContentKind</td>
+                <td>The mime type of the source Property</td>
+            </tr>
+            <tr>
+                <td valign="top">FC_NsPrefix</td>
+                <td>When the source Property is being mapped to an element that is not in the Atom namespace, the value of this annotation specifies the namespace prefix to use the Atom document for target element.</td>
+            </tr>
+            <tr>
+                <td valign="top">FC_NsUri</td>
+                <td>When a property is being mapped to an element that is not in the Atom namespace, this annotation is used to specify the namespace for the target element. The FC_NSPrefix annotation specifies the namespace prefix for the namespace specified by this annotation.</td>
+            </tr>
+            <tr>
+                <td valign="top">FC_KeepInContent</td>
+                <td>The value of this property is true if the property being mapped should appear both in its â€œmapped toâ€ location as well as within the content section of the <entry>.If the value of this property is false, then the property being mapped should only appear in its new â€œmapped toâ€ location in the <entry> and NOT also in the content section. This value (false) is only supported in OData v2.0 and requires that any response formatted in this way return a DataServiceVersion:2.0 response header.</entry></entry></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-<p>For example, the sample Service Metadata Document at https://services.odata.org/OData/OData.svc/$metadata states the Name Property of the Category Entry is represented as the value of the <atom:title> element. Since FC_KeepInContent is equals true for this mapping the value is duplicated within the <m:properties> element.</p>
-{% highlight xml %}<strong>Snippet from Service Metadata Document</strong> 
+<p>For example, the sample Service Metadata Document at https://services.odata.org/OData/OData.svc/$metadata states the Name Property of the Category Entry is represented as the value of the <atom:title> element. Since FC_KeepInContent is equals true for this mapping the value is duplicated within the <m:properties> element.</m:properties></atom:title></p>
+{% highlight xml %}<strong>Snippet from Service Metadata Document</strong>
 <EntityType Name="Category">
-  <Key>
-    <PropertyRef Name="ID" />
-  </Key>
-  <Property Name="ID" Type="Edm.Int32" Nullable="false" />
-  <Property Name="Name" Type="Edm.String" 
-            Nullable="true" 
-            <strong>m:FC_TargetPath="SyndicationTitle" m:FC_ContentKind="text" 
+    <Key>
+        <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+    <Property Name="Name" Type="Edm.String"
+              Nullable="true"
+            <strong>m:FC_TargetPath="SyndicationTitle" m:FC_ContentKind="text"
             m:FC_KeepInContent="true"</strong> />
-  <NavigationProperty Name="Products" 
-                      Relationship="ODataDemo.Product_Category_Category_Products" 
+  <NavigationProperty Name="Products"
+                      Relationship="ODataDemo.Product_Category_Category_Products"
                       FromRole="Category_Products" ToRole="Product_Category" />
 </EntityType>
 
-<strong>Category representation in Atom</strong> 
+<strong>Category representation in Atom</strong>
 (see https://services.odata.org/OData/OData.svc/Categories(0) )
 
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <entry xml:base="https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/"
-    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
-    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns="https://www.w3.org/2005/Atom">
-  <id>https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Categories(0)</id>
-  <strong><title type="text">Food</title></strong>
-  <updated>2010-03-11T22:28:51Z</updated>
-  <author>
-    <name />
-  </author>
-  <link rel="edit" title="Category" href="Categories(0)" />
-  <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products" 
-      type="application/atom+xml;type=feed" 
-      title="Products" 
-      href="Categories(0)/Products" />
-  <category term="ODataDemo.Category" 
-      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-  <content type="application/xml">
-    <m:properties>
-      <d:ID m:type="Edm.Int32">0</d:ID>
-      <strong><d:Name>Food</d:Name></strong>
-    </m:properties>
-  </content>
+       xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+       xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+       xmlns="https://www.w3.org/2005/Atom">
+    <id>https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Categories(0)</id>
+    <strong><title type="text">Food</title></strong>
+    <updated>2010-03-11T22:28:51Z</updated>
+    <author>
+        <name />
+    </author>
+    <link rel="edit" title="Category" href="Categories(0)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
+          type="application/atom+xml;type=feed"
+          title="Products"
+          href="Categories(0)/Products" />
+    <category term="ODataDemo.Category"
+              scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+        <m:properties>
+            <d:ID m:type="Edm.Int32">0</d:ID>
+            <strong><d:Name>Food</d:Name></strong>
+        </m:properties>
+    </content>
 </entry>{% endhighlight %}
-<p>If the Category Entry in the example above was part of a type hierarchy and the Name property was defined on the type Category derives from, then the mapping from Name to <atom:title> is still possible, however the placement of the annotation changes to be on the <EntityType> element in the Service Metadata Document as shown in the following listing.</p>
+<p>If the Category Entry in the example above was part of a type hierarchy and the Name property was defined on the type Category derives from, then the mapping from Name to <atom:title> is still possible, however the placement of the annotation changes to be on the <EntityType> element in the Service Metadata Document as shown in the following listing.</EntityType></atom:title></p>
 {% highlight xml %}<EntityType Name="Category" <strong>m:FC_TargetPath="SyndicationTitle" m:FC_SourcePath="Name"
   m:FC_ContentKind="text" m:FC_KeepInContent="true"</strong>
                             BaseType:"Sample.BaseCategory">
@@ -460,75 +467,74 @@ permalink: /documentation/odata-version-2-0/atom-format/
     <PropertyRef Name="ID" />
   </Key>
   <Property Name="ID" Type="Edm.Int32" Nullable="false" />
-  <NavigationProperty Name="Products" 
-                      Relationship="ODataDemo.Product_Category_Category_Products" 
+  <NavigationProperty Name="Products"
+                      Relationship="ODataDemo.Product_Category_Category_Products"
                       FromRole="Category_Products" ToRole="Product_Category" />
 </EntityType>{% endhighlight %}
-<p>Instead of mapping the Name property to an Atom-defined element, a Property may be mapped to a custom element in any namespace. For example, the following listing maps the Street Property of the Address Complex Type on a Supplier entry to a custom <c:Road> element.</p>
-{% highlight xml %}Snippet from Service Metadata Document 
+<p>Instead of mapping the Name property to an Atom-defined element, a Property may be mapped to a custom element in any namespace. For example, the following listing maps the Street Property of the Address Complex Type on a Supplier entry to a custom <c:Road> element.</c:Road></p>
+{% highlight xml %}Snippet from Service Metadata Document
 <EntityType Name="Supplier">
-  <Key>
-    <PropertyRef Name="ID" />
+    <Key>
+        <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Edm.Int32" Nullable="false" />
-    <Property Name="Name" Type="Edm.String" Nullable="true"/> 
+    <Property Name="Name" Type="Edm.String" Nullable="true" />
 
-    <Property Name="Address" Type="ODataDemo.Address" Nullable="false" 
+    <Property Name="Address" Type="ODataDemo.Address" Nullable="false"
               <strong>m:FC_TargetPath="Road" m:FC_SourcePath="Street" m:FC_KeepInContent="true"
-                m:FC_NsUri="http://customUri" m:FC_NsPrefix="c"/></strong> 
+                m:FC_NsUri="http://customUri" m:FC_NsPrefix="c"/></strong>
 
     <Property Name="Concurrency" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
-    <NavigationProperty Name="Products" 
-                        Relationship="ODataDemo.Product_Supplier_Supplier_Products" 
-                        FromRole="Supplier_Products" 
+    <NavigationProperty Name="Products"
+                        Relationship="ODataDemo.Product_Supplier_Supplier_Products"
+                        FromRole="Supplier_Products"
                         ToRole="Product_Supplier" />
 </EntityType>
 
 <ComplexType Name="Address">
-  <Property Name="Street" Type="Edm.String" Nullable="true" />
-  <Property Name="City" Type="Edm.String" Nullable="true" />
-  <Property Name="State" Type="Edm.String" Nullable="true" />
-  <Property Name="ZipCode" Type="Edm.String" Nullable="true" />
-  <Property Name="Country" Type="Edm.String" Nullable="true" />
+    <Property Name="Street" Type="Edm.String" Nullable="true" />
+    <Property Name="City" Type="Edm.String" Nullable="true" />
+    <Property Name="State" Type="Edm.String" Nullable="true" />
+    <Property Name="ZipCode" Type="Edm.String" Nullable="true" />
+    <Property Name="Country" Type="Edm.String" Nullable="true" />
 </ComplexType>
 
 Supplier representation in Atom
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <entry xml:base="https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/"
-    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
-    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    m:etag="W/"0"" xmlns="https://www.w3.org/2005/Atom" Xmlns:c="http://customUri">
-  <id>https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Suppliers(0)</id>
-  <title type="text">Exotic Liquids</title>
-  <updated>2010-03-11T22:47:21Z</updated>
-  <author>
-    <name />
-  </author>
-  <link rel="edit" title="Supplier" href="Suppliers(0)" />
-  <link 
-      rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
-      type="application/atom+xml;type=feed" title="Products"
-      href="Suppliers(0)/Products" />
-  <category term="ODataDemo.Supplier"
-      scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-  <strong><c:Road>NE 228th</c:Road></strong>
-  <content type="application/xml">
-    <m:properties>
-      <d:ID m:type="Edm.Int32">0</d:ID>
-      <d:Name>Exotic Liquids</d:Name>
-      <d:Concurrency m:type="Edm.Int32">0</d:Concurrency>
-      <d:Address m:type="ODataDemo.Address">
-        <d:Street>NE 228th</d:Street>
-        <d:City>Sammamish</d:City>
-        <d:State>WA</d:State>
-        <d:ZipCode>98074</d:ZipCode>
-        <d:Country>USA</d:Country>
-      </d:Address>
-    </m:properties>
-  </content>
+       xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+       xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+       m:etag="W/" 0""=0"" xmlns="https://www.w3.org/2005/Atom" Xmlns:c="http://customUri">
+    <id>https://services.odata.org/(S(S_ODATA_RO))/OData/OData.svc/Suppliers(0)</id>
+    <title type="text">Exotic Liquids</title>
+    <updated>2010-03-11T22:47:21Z</updated>
+    <author>
+        <name />
+    </author>
+    <link rel="edit" title="Supplier" href="Suppliers(0)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Products"
+          type="application/atom+xml;type=feed" title="Products"
+          href="Suppliers(0)/Products" />
+    <category term="ODataDemo.Supplier"
+              scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <strong><c:Road>NE 228th</c:Road></strong>
+    <content type="application/xml">
+        <m:properties>
+            <d:ID m:type="Edm.Int32">0</d:ID>
+            <d:Name>Exotic Liquids</d:Name>
+            <d:Concurrency m:type="Edm.Int32">0</d:Concurrency>
+            <d:Address m:type="ODataDemo.Address">
+                <d:Street>NE 228th</d:Street>
+                <d:City>Sammamish</d:City>
+                <d:State>WA</d:State>
+                <d:ZipCode>98074</d:ZipCode>
+                <d:Country>USA</d:Country>
+            </d:Address>
+        </m:properties>
+    </content>
 </entry>{% endhighlight %}
 <h3>2.5. Representing Primitive Properties</h3>
-<p>When represented in a request/response payload as part of an Entry, Complex Type or a standalone construct in a request payload, primitive properties are represented in Atom as child elements of an <m:properties> element (see Representing Entities) with the name equal to the element equal to the property and value of the element set to the primitive type value formatted as described by the table in the <a href="../atom-format#PrimitiveTypes"> Primitive Types</a> section above.</p>
+<p>When represented in a request/response payload as part of an Entry, Complex Type or a standalone construct in a request payload, primitive properties are represented in Atom as child elements of an <m:properties> element (see Representing Entities) with the name equal to the element equal to the property and value of the element set to the primitive type value formatted as described by the table in the <a href="../atom-format#PrimitiveTypes"> Primitive Types</a> section above.</m:properties></p>
 <p>See <a href="../atom-format#RepresentingPropertyValues">section 3.1</a> for the format of Properties when they are represented independently from their defining Entry (i.e. outside the context of the defining Entry).</p>
 <h3>2.6. Representing Complex Type Properties</h3>
 <p>When represented as a property of an Entry or Complex Type (also within an Entry) in a request/response payload, a property whose type is a <a href="../overview#AbstractDataModel"> complex type</a> is represented as an XML element with each property of the complex type represented as a direct child element (as described in the prior section for primitive properties). For example, the Address Complex Type of a Supplier Entry is shown in the example below.</p>
@@ -540,19 +546,21 @@ Supplier representation in Atom
 <p>As described in the <a href="../uri-conventions#ResourcePath">Resource Path</a> section in the <a href="../uri-conventions">[OData-URI]</a> document, OData supports directly addressing a Property of an Entry. The following subsections describe how each type of Property is represented in XML.</p>
 <h4> 3.1.1. Representing Primitive Properties</h4>
 <p>When a primitive Property is represented as a standalone construct in a response from an OData service (such as when a retrieve request is made to a URI that identifies a single Property) it is represented as a single XML element where the element name equals the name of the Property and the value of the element is the value Property value. For example, the response payload to a retrieve request that identifies the Name property of a Category Entry is represented as shown below.</p>
-{% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <Name xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices">Bread</Name>{% endhighlight %}
 <h4>3.1.2. Representing Complex Types Properties</h4>
 <p>When a Property whose type is a <a href="../overview#AbstractDataModel"> complex type</a> is represented as a standalone construct, such as when a retrieve request is made to a URI that identifies a single Property, it uses a single XML element with the name of the Property and child elements for each Property defined on the complex type (formatted as per this section of the prior â€œRepresenting Primitive Propertiesâ€ section). For example, the response payload to a retrieve request that identifies the Name property of a Category Entry is represented as shown below.</p>
-{% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<Address p1:type="ODataDemo.Address" 
-         xmlns:p1="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"  
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<Address p1:type="ODataDemo.Address"
+         xmlns:p1="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
          xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices">
-  <Street>NE 228th</Street>
-  <City>Sammamish</City>
-  <State>WA</State>
-  <ZipCode>98074</ZipCode>
-  <Country>USA</Country>
+    <Street>NE 228th</Street>
+    <City>Sammamish</City>
+    <State>WA</State>
+    <ZipCode>98074</ZipCode>
+    <Country>USA</Country>
 </Address>{% endhighlight %}
 <h4>3.1.3. Representing the Raw value of a Property</h4>
 <p>OData services may support <a href="../uri-conventions#AddressingEntries"> addressing the entry value of a primitive Property</a> (see the description of the $value URI segment). In this case, the value is returned using the format (aka mime type) the OData service deems to be the entry format for the Property. For example, the HTTP response from the sample OData service when retrieving the Name string Property of a Category Entry is shown in the example below.</p>
@@ -562,43 +570,47 @@ Content-Type: text/plain;charset=utf-8
 
 Food{% endhighlight %}
 <h3>3.2. Representing Links</h3>
-<p>A Link (or collection of Links) represents an associated Entry (or collection of associated Entries). As described in <a href="../operations">[OData-Operations]</a> Links can be retrieved and modified to change the associations between Entries. A single link is represented as a <d:uri> element with the value of the element set to the URI that identifies the Link. A collection of links is represented as a <d:links> element with zero or more child <d:uri> elements, where each <d:uri> element represents a Link.</p>
+<p>A Link (or collection of Links) represents an associated Entry (or collection of associated Entries). As described in <a href="../operations">[OData-Operations]</a> Links can be retrieved and modified to change the associations between Entries. A single link is represented as a <d:uri> element with the value of the element set to the URI that identifies the Link. A collection of links is represented as a <d:links> element with zero or more child <d:uri> elements, where each <d:uri> element represents a Link.</d:uri></d:uri></d:links></d:uri></p>
 <p>Note: in the paragraph above, "d" represents the <a href="../terminology#ODataDataNamespace"> OData Data Namespace</a>.</p>
 <p>For example, a link with multiplicity 1 (ex. Product is related to a <em>single</em> Supplier) would be represented in XML in a response as:</p>
-{% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <uri xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices">
-  https://services.odata.org/OData/OData.svc/Suppliers(1)
+    https://services.odata.org/OData/OData.svc/Suppliers(1)
 </uri>{% endhighlight %}
 <p>For example, a link with multiplicity greater than 1 (e.g. Supplier is related to <em>many</em> products) would be represented in a response as:</p>
-{% highlight xml %}<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <links xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices">
-  <uri>https://services.odata.org/OData/OData.svc/Products(1)</uri>
-  <uri>https://services.odata.org/OData/OData.svc/Products(2)</uri>
-  <uri>https://services.odata.org/OData/OData.svc/Products(3)</uri>
-  <uri>https://services.odata.org/OData/OData.svc/Products(4)</uri>
-  <uri>https://services.odata.org/OData/OData.svc/Products(5)</uri>
-  <uri>https://services.odata.org/OData/OData.svc/Products(6)</uri>
+    <uri>https://services.odata.org/OData/OData.svc/Products(1)</uri>
+    <uri>https://services.odata.org/OData/OData.svc/Products(2)</uri>
+    <uri>https://services.odata.org/OData/OData.svc/Products(3)</uri>
+    <uri>https://services.odata.org/OData/OData.svc/Products(4)</uri>
+    <uri>https://services.odata.org/OData/OData.svc/Products(5)</uri>
+    <uri>https://services.odata.org/OData/OData.svc/Products(6)</uri>
 </links>{% endhighlight %}
 <h3>3.3. Representing Results from Service Operations</h3>
 <p>As described in <a href="../operations">[OData-Operations]</a> OData services may expose custom behaviors via Service Operations, which may accept input parameters identified by the request URI (as described in <a href="../uri-conventions">[OData-URI]</a>). This section specifies how the results of a Service Operation are formatted using Atom or XML. Service operations support returning:</p>
 <ul>
-<li>A single primitive value or collection of primitive values</li>
-<li>A single complex type or collection of complex types</li>
-<li>A single Entry or collection of Entries</li>
+    <li>A single primitive value or collection of primitive values</li>
+    <li>A single complex type or collection of complex types</li>
+    <li>A single Entry or collection of Entries</li>
 </ul>
 <p>If a Service Operation returns a collection of Entries or a single Entry, then the Entries (or Entry) are formatted in Atom as described in the <a href="../atom-format#RepresentingCollectionsofEntries"> Representing Collections of Entries</a> or <a href="../atom-format#RepresentingEntries">Representing an Entry</a> section.</p>
 <p>If a Service Operation returns a single primitive value, then it is formatted in XML as per the <a href="../atom-format#xml_RepresentingPrimitiveProperties">Representing Primitive Properties</a> section. Likewise, if a Service Operation returns a single Complex Type value, then it is represented in XML as per the <a href="../atom-format#xml_RepresentingComplexTypesProperties"> Representing Complex Type Properties</a> section.</p>
-<p>If a Service Operation returns a collection of primitive values, then the primitives are returned as the value of <m:element> elements which are children of the root element. The name of the root element should be equal to the name of the Service Operation that was invoked. For example a response payload from a "GetInts" Service Operation that returns a collection of integer values would be formatted as shown in the following listing.</p>
+<p>If a Service Operation returns a collection of primitive values, then the primitives are returned as the value of <m:element> elements which are children of the root element. The name of the root element should be equal to the name of the Service Operation that was invoked. For example a response payload from a "GetInts" Service Operation that returns a collection of integer values would be formatted as shown in the following listing.</m:element></p>
 {% highlight xml %}<GetInts xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
-  <element>0</element>
-  <element>1</element>
-  <element>2</element>
+    <element>0</element>
+    <element>1</element>
+    <element>2</element>
 </GetInts>{% endhighlight %}
-<p>If a Service Operation returns a collection of complex types, then the collection is represented in XML by a root element whose name is equal to the name of the Service Operation and includes one child <m:element> element for each Complex Type value in the collection returned from the Service Operation. The Properties of each Complex Type are represented as per the <a href="../atom-format#xml_RepresentingComplexTypesProperties"> Representing Complex Type Properties</a> section. Finally, each <m:element> element should include an m:type attribute that lists the namespace qualified name of the Complex Type. For example, response payload from a "GetAddresses" Service Operation that returns a collection of Address Complex Type values would be represented as show in the following listing.</p>
+<p>If a Service Operation returns a collection of complex types, then the collection is represented in XML by a root element whose name is equal to the name of the Service Operation and includes one child <m:element> element for each Complex Type value in the collection returned from the Service Operation. The Properties of each Complex Type are represented as per the <a href="../atom-format#xml_RepresentingComplexTypesProperties"> Representing Complex Type Properties</a> section. Finally, each <m:element> element should include an m:type attribute that lists the namespace qualified name of the Complex Type. For example, response payload from a "GetAddresses" Service Operation that returns a collection of Address Complex Type values would be represented as show in the following listing.</m:element></m:element></p>
 {% highlight xml %}<GetAddressses xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
-  <element type="SampleNamespace.Address">
-    <street>123 Contoso Ave</street>
-    <city>London</street>
-  </element>
-  <!-- additional Addresses returned go here -->
-</GetAddresses>{% endhighlight %}
+    <element type="SampleNamespace.Address">
+        <street>123 Contoso Ave</street>
+        <city>London</street>
+        </city>
+    </element>
+    <!-- additional Addresses returned go here -->
+    </GetAddresses>{% endhighlight %}
+</GetAddressses>
