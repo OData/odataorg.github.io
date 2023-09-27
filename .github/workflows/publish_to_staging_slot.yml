@@ -5,9 +5,6 @@
 name: Publish OData org website to Azure Web App staging slot
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch: # Makes it possible to trigger workflow manually
 
 jobs:
