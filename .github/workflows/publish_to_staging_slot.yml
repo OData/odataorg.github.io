@@ -5,12 +5,19 @@
 name: Publish OData org website to Azure Web App staging slot
 
 on:
+  push:
+    branches: [ staging ]
   workflow_dispatch: # Makes it possible to trigger workflow manually
 
 jobs:
   publish:
-    if: github.repository_owner == 'OData' && github.event_name == 'workflow_dispatch'
+    if: github.repository_owner == 'OData'
+    #  && github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - uses: actions/checkout@v3
@@ -24,10 +31,12 @@ jobs:
             -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
             jekyll/builder:stable /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --config _config_staging.yml --future"
 
-      - name: Log in with Azure # Using Azure Service Principal
+      - name: Log in with Azure # Using OpenID Connect (OIDC)
         uses: azure/login@v1
         with:
-          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
