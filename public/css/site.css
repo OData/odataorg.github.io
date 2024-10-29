@@ -423,14 +423,14 @@ td {
 }
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
-  border-color: #737373eb;
+  border-color: #737373;
   border-bottom-color: transparent;
 }
 
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td,  .page-header, .nav-tabs {
-  border-bottom-color: #737373eb;
+  border-bottom-color: #737373;
 }
 
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
-  border-top-color: #737373eb;
+  border-top-color: #737373;
 }
