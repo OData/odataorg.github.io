@@ -751,37 +751,37 @@ permalink: /getting-started/advanced-tutorial/
 </div>
 
 <script type="text/javascript">
-   $(".page-header").css({"width":"66.66%"});
-   const storeScroll = () => {
-       document.documentElement.dataset.scroll = window.scrollY;
-       var heightScrolled = window.scrollY;
-       var defaultHeight = 100;
-       if (heightScrolled < defaultHeight) {
-           $('#affix-navbar').removeClass("affix-top-30");
-         $('#affix-navbar').addClass("affix-top-50");
-           }
-       else{
-         $('#affix-navbar').removeClass("affix-top-50");
-         $('#affix-navbar').addClass("affix-top-30"); 
-           }
-   };
+   $(".page-header").css({ "width": "66.66%" });
+      const storeScroll = () => {
+         document.documentElement.dataset.scroll = window.scrollY;
+         var heightScrolled = window.scrollY;
+         var defaultHeight = 100;
+         if (heightScrolled < defaultHeight) {
+            $('#affix-navbar').removeClass("affix-top-30");
+            $('#affix-navbar').addClass("affix-top-50");
+         }
+         else {
+            $('#affix-navbar').removeClass("affix-top-50");
+            $('#affix-navbar').addClass("affix-top-30");
+         }
+      };
 
-   // Listen for new scroll events
-   document.addEventListener("scroll", storeScroll);
+      // Listen for new scroll events
+      document.addEventListener("scroll", storeScroll);
 
-   // Update scroll position for first time
-   storeScroll();
+      // Update scroll position for first time
+      storeScroll();
 
-   $(document).ready(function() {
-       $('.tutorial-sidebar').affix('checkPosition');
+      $(document).ready(function () {
+         $('.tutorial-sidebar').affix('checkPosition');
 
-       // Add click event listener to the sidebar links
-       $('.sidenav-link').on('click', function(e) {
-           // Remove 'active' class from all sidebar nav items
-           $(".sidebar-nav-item").removeClass('active');
-           // Add 'active' class to the parent of the clicked link's parent
-           $(this).parent().parent().addClass('active');
-       });
-   });
+         // Add click event listener to the sidebar links
+         $('.sidenav-link').on('click', function (e) {
+            // Remove 'active' class from all sidebar nav items
+            $(".sidebar-nav-item").removeClass('active');
+            // Add 'active' class to the parent of the clicked link's parent
+            $(this).parent().parent().addClass('active');
+         });
+      });
    
 </script>
