@@ -211,6 +211,10 @@ code {
 	top: 50px;
 }
 
+.tutorial-sidebar .nav > .active > ul {
+  display: block;
+}
+
 @media (max-width: 767px) {
   .affix {
     position: static;
@@ -218,12 +222,6 @@ code {
   	float:right;
     top: 50%;
   }
-}
-
-@media (min-width:768px) {
-    .tutorial-sidebar .nav>.active>ul {
-    display: block;
-	}
 }
 
 /* URL styling */

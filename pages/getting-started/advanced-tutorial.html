@@ -705,7 +705,7 @@ permalink: /getting-started/advanced-tutorial/
    <div class="col-1-4" style="float:right">
       <nav class="tutorial-sidebar" aria-label="Page Contents">
          <ul class="nav tutorial-sidenav" data-spy="affix">
-            <li class="active">
+            <li class="sidebar-nav-item active">
                <a href="#singleton">Singleton</a>
                <ul class="nav">
                   <li><a href="#querySingleton">Requesting Singleton</a></li>
@@ -713,7 +713,7 @@ permalink: /getting-started/advanced-tutorial/
                   <li><a href="#updateSingleton">Update Singleton</a></li>
                </ul>
             </li>
-            <li>
+            <li class="sidebar-nav-item">
                <a href="#derived">Derived Entity Type</a>
                <ul class="nav">
                   <li><a href="#requestDerivedEntitySet">Requesting a Derived Entity Collection</a></li>
@@ -724,7 +724,7 @@ permalink: /getting-started/advanced-tutorial/
                   <li><a href="#deleteDerived">Delete a Derived Entity</a></li>
                </ul>
             </li>
-            <li>
+            <li class="sidebar-nav-item">
                <a href="#containment">Containment Navigation Property</a>
                <ul class="nav">
                   <li><a href="#queryContained">Requesting a Contained Entity Set</a></li>
@@ -734,7 +734,7 @@ permalink: /getting-started/advanced-tutorial/
                   <li><a href="#deleteContainment">Delete a Contained Entity</a></li>
                </ul>
             </li>
-            <li>
+            <li class="sidebar-nav-item">
                <a href="#openType">Open Type</a>
                <ul class="nav">
                   <li><a href="#openEntity">Open Entity Type</a></li>
@@ -749,3 +749,39 @@ permalink: /getting-started/advanced-tutorial/
    </div>
    <div class="col-1-12"></div>
 </div>
+
+<script type="text/javascript">
+   $(".page-header").css({ "width": "66.66%" });
+      const storeScroll = () => {
+         document.documentElement.dataset.scroll = window.scrollY;
+         var heightScrolled = window.scrollY;
+         var defaultHeight = 100;
+         if (heightScrolled < defaultHeight) {
+            $('#affix-navbar').removeClass("affix-top-30");
+            $('#affix-navbar').addClass("affix-top-50");
+         }
+         else {
+            $('#affix-navbar').removeClass("affix-top-50");
+            $('#affix-navbar').addClass("affix-top-30");
+         }
+      };
+
+      // Listen for new scroll events
+      document.addEventListener("scroll", storeScroll);
+
+      // Update scroll position for first time
+      storeScroll();
+
+      $(document).ready(function () {
+         $('.tutorial-sidebar').affix('checkPosition');
+
+         // Add click event listener to the sidebar links
+         $('.sidenav-link').on('click', function (e) {
+            // Remove 'active' class from all sidebar nav items
+            $(".sidebar-nav-item").removeClass('active');
+            // Add 'active' class to the parent of the clicked link's parent
+            $(this).parent().parent().addClass('active');
+         });
+      });
+   
+</script>

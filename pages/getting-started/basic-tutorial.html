@@ -983,8 +983,8 @@ HTTP/1.1 204 No Content
 <div class="col-1-12"></div>
 <div class="col-1-4" id="tutorial-contents">
     <nav class="tutorial-sidebar affix" aria-label="Page Contents" id="affix-navbar">
-        <ul class="nav tutorial-sidenav">
-            <li class="active">
+        <ul class="nav tutorial-sidenav" data-spy="affix">
+            <li class="sidebar-nav-item active">
                 <p><a href="#requestData" class="sidenav-link">Requesting Data</a></p>
                 <ul class="nav">
                     <li><a href="#entitySet">Requesting Entity Collections</a></li>
@@ -993,7 +993,7 @@ HTTP/1.1 204 No Content
                     <li><a href="#propertyVal">Requesting an Individual Property Raw Value</a></li>
                 </ul>
             </li>
-            <li>
+            <li class="sidebar-nav-item">
                 <p><a href="#queryData" class="sidenav-link">Querying Data</a></p>
                 <ul class="nav">
                     <li><a href="#filter">System Query Option $filter</a></li>
@@ -1006,7 +1006,7 @@ HTTP/1.1 204 No Content
                     <li><a href="#lambda">Lambda Operators</a></li>
                 </ul>
             </li>
-            <li>
+            <li class="sidebar-nav-item">
                 <p><a href="#modifyData" class="sidenav-link">Data Modification</a></p>
                 <ul class="nav">
                     <li><a href="#create">Create an Entity</a></li>
@@ -1024,25 +1024,37 @@ HTTP/1.1 204 No Content
 
 <!--/body-->
 <script type="text/javascript">
-    $(".page-header").css({"width":"66.66%"});
-    const storeScroll = () => {
-        document.documentElement.dataset.scroll = window.scrollY;
-        var heightScrolled = window.scrollY;
-        var defaultHeight = 100;
-        if (heightScrolled < defaultHeight) {
-            $('#affix-navbar').removeClass("affix-top-30");
-          $('#affix-navbar').addClass("affix-top-50");
+    $(".page-header").css({ "width": "66.66%" });
+        const storeScroll = () => {
+            document.documentElement.dataset.scroll = window.scrollY;
+            var heightScrolled = window.scrollY;
+            var defaultHeight = 100;
+            if (heightScrolled < defaultHeight) {
+                $('#affix-navbar').removeClass("affix-top-30");
+                $('#affix-navbar').addClass("affix-top-50");
             }
-        else{
-          $('#affix-navbar').removeClass("affix-top-50");
-          $('#affix-navbar').addClass("affix-top-30"); 
+            else {
+                $('#affix-navbar').removeClass("affix-top-50");
+                $('#affix-navbar').addClass("affix-top-30");
             }
-    };
+        };
 
-    // Listen for new scroll events
-    document.addEventListener("scroll", storeScroll);
+        // Listen for new scroll events
+        document.addEventListener("scroll", storeScroll);
 
-    // Update scroll position for first time
-    storeScroll();
+        // Update scroll position for first time
+        storeScroll();
+
+        $(document).ready(function () {
+            $('.tutorial-sidebar').affix('checkPosition');
+
+            // Add click event listener to the sidebar links
+            $('.sidenav-link').on('click', function (e) {
+                // Remove 'active' class from all sidebar nav items
+                $(".sidebar-nav-item").removeClass('active');
+                // Add 'active' class to the parent of the clicked link's parent
+                $(this).parent().parent().addClass('active');
+            });
+        });
     
 </script>
