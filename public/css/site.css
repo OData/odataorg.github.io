@@ -65,6 +65,16 @@ a.carousel-control.left:focus, a.carousel-control.right:focus {
     background-color: #d23714;
     border-color: #d23714;
 }
+.btn-secondary {
+  padding: 10px 20px;
+  color: #ffffff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background-color: #272b2e;
+}
 .label-success{
 	background-color: #277a33;
 }
@@ -432,4 +442,10 @@ td {
 
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
   border-top-color: #737373;
+}
+
+#feedback {
+  margin: 10px;
+  font-weight: bold;
+  color: green;
 }
