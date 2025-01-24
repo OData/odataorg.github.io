@@ -1436,27 +1436,24 @@ Download and install the Node.js platform from <a href="https://nodejs.org">node
 
     // Select all text in a modal when Ctrl+A is pressed
     $(document).keydown(function(e) {
-        e.preventDefault();
-        
-        // This script listens for a keydown event and checks if the 'Ctrl' key and the 'a' key are pressed simultaneously.
+        // If the 'Ctrl + a' or 'Ctrl + Shift + a' for Narrator key are pressed simultaneously.
         // If the condition is met, it prevents the default action and selects the contents of any visible modal's body.
         // Check if the modal is open
-        if (e.ctrlKey && (e.key === 'a' || e.key === 'A') && $('.modal:visible .modal-body').length) {
-            $('.modal:visible .modal-body').each(function() {
-                var modalBody = $('.modal:visible .modal-body');
-                modalBody.focus();
+        if ($('.modal:visible .modal-body').length && e.ctrlKey && (e.key === 'a' || e.key === 'A')) {
+            e.preventDefault();
+            var modalBody = $('.modal:visible .modal-body');
+            modalBody.focus();
 
-                // Create a range to select the content within the modal body
-                var range = document.createRange();
-                range.selectNodeContents(modalBody[0]);
+            // Create a range to select the content within the modal body
+            var range = document.createRange();
+            range.selectNodeContents(modalBody[0]);
 
-                // Get the current selection and remove any existing ranges
-                var selection = window.getSelection();
-                selection.removeAllRanges();
+            // Get the current selection and remove any existing ranges
+            var selection = window.getSelection();
+            selection.removeAllRanges();
 
-                // Add the new range to the selection
-                selection.addRange(range);
-            });
+            // Add the new range to the selection
+            selection.addRange(range);
         }
     });
 
