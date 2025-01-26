@@ -80,18 +80,33 @@ form input.st-search-input {
     border-radius: 0 0 3px 3px;
 }
 
-.swiftype-widget .autocomplete li.active {
-    border-top: 1px solid #E9EDF2;
-    border-bottom: 1px solid #E9EDF2;
+.swiftype-widget .autocomplete li.active,
+.swiftype-widget .autocomplete li:hover:focus {
+    border-top: 1px solid #4a1c00;
+    border-bottom: 1px solid #4a1c00;
     background-color: transparent;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fff), color-stop(100%, #f9f2f4));
-    background: -webkit-linear-gradient(#fff, #f9f2f4);
-    background: -moz-linear-gradient(#fff, #f9f2f4);
-    background: -o-linear-gradient(#fff, #f9f2f4);
-    background: linear-gradient(#fff, #f9f2f4);
-    -webkit-box-shadow: 0 1px 0 #f9f2f4 inset;
-    -moz-box-shadow: 0 1px 0 #f9f2f4 inset;
-    box-shadow: 0 1px 0 #f9f2f4 inset;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fff), color-stop(100%, #e64a19));
+    background: -webkit-linear-gradient(#fff, #e64a19);
+    background: -moz-linear-gradient(#fff, #e64a19);
+    background: -o-linear-gradient(#fff, #e64a19);
+    background: linear-gradient(#fff, #e64a19);
+    -webkit-box-shadow: 0 1px 0 #e64a19 inset;
+    -moz-box-shadow: 0 1px 0 #e64a19 inset;
+    box-shadow: 0 1px 0 #e64a19 inset;
+}
+
+.swiftype-widget .autocomplete li.active .autocomplete-result__title,
+.swiftype-widget .autocomplete li:hover:focus .autocomplete-result__title {
+    color: #b35900;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.swiftype-widget .autocomplete li.active .autocomplete-result__description,
+.swiftype-widget .autocomplete li:hover:focus .autocomplete-result__description {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .swiftype-widget .autocomplete li p {
