@@ -433,3 +433,19 @@ td {
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
   border-top-color: #737373;
 }
+
+img {
+  max-width: 100%; /* Ensures images scale with the container */
+  height: auto; /* Maintains aspect ratio */
+  display: block; /* Prevents inline spacing issues */
+  margin: 0 auto; /* Centers images */
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+@media (max-width: 768px) {
+  img {
+    width: 100%; /* Ensures images fit smaller screens */
+    height: auto;
+  }
+}
