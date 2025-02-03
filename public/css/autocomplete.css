@@ -84,14 +84,14 @@ form input.st-search-input {
 .swiftype-widget .autocomplete li:hover:focus {
     border: 2px solid #c34113;
     background-color: transparent;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f9f2f4), color-stop(100%, #fcedf1));
-    background: -webkit-linear-gradient(#f9f2f4, #fcedf1);
-    background: -moz-linear-gradient(#f9f2f4, #fcedf1);
-    background: -o-linear-gradient(#f9f2f4, #fcedf1);
-    background: linear-gradient(#f9f2f4, #fcedf1);
-    -webkit-box-shadow: 0 1px 0 #fcedf1 inset;
-    -moz-box-shadow: 0 1px 0 #fcedf1 inset;
-    box-shadow: 0 1px 0 #fcedf1 inset;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fff), color-stop(100%, #f9f2f4));
+    background: -webkit-linear-gradient(#fff, #f9f2f4);
+    background: -moz-linear-gradient(#fff, #f9f2f4);
+    background: -o-linear-gradient(#fff, #f9f2f4);
+    background: linear-gradient(#fff, #f9f2f4);
+    -webkit-box-shadow: 0 1px 0 #f9f2f4 inset;
+    -moz-box-shadow: 0 1px 0 #f9f2f4 inset;
+    box-shadow: 0 1px 0 #f9f2f4 inset;
 }
 
 .swiftype-widget .autocomplete li.active .autocomplete-result__title,
