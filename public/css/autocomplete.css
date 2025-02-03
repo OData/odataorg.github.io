@@ -96,14 +96,12 @@ form input.st-search-input {
 
 .swiftype-widget .autocomplete li.active .autocomplete-result__title,
 .swiftype-widget .autocomplete li:hover:focus .autocomplete-result__title {
-    /* color: #b35900; */
     font-weight: bold;
     text-decoration: underline;
 }
 
 .swiftype-widget .autocomplete li.active .autocomplete-result__description,
 .swiftype-widget .autocomplete li:hover:focus .autocomplete-result__description {
-    /* color: #ffffff; */
     font-weight: bold;
     text-decoration: underline;
 }
