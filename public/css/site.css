@@ -382,9 +382,9 @@ pre {
   }
 
 @media screen and (-ms-high-contrast: active) {
-     .tab-link { 
-      -ms-high-contrast-adjust:none;
-      color: white;
+  .tab-link {
+    -ms-high-contrast-adjust:none;
+    color: LinkText;
   }
 }
 
