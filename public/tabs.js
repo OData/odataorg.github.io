@@ -4,7 +4,7 @@
 */
 (function () {
   // need to group them into smaller tab list items
-  
+
   var tablists = document.querySelectorAll('[role="tablist"]');
   // For easy reference
   var keys = {
@@ -14,7 +14,7 @@
     up: 38,
     right: 39,
     down: 40,
-    delete: 46
+    delete: 46,
   };
 
   // Add or substract depending on key pressed
@@ -22,7 +22,7 @@
     37: -1,
     38: -1,
     39: 1,
-    40: 1
+    40: 1,
   };
 
   tablists.forEach(tablist => {
@@ -42,9 +42,16 @@
         addListeners(i);
       };
 
+      deactivateTabs();
+      activateTab(tabs[0]);
+
       function addListeners (index) {
         tabs[index].addEventListener('keydown', keydownEventListener);
+
         tabs[index].addEventListener('keyup', keyupEventListener);
+        tabs[index].addEventListener('click', function(e) {
+            clickEventListener(e);
+        });
 
         // Build an array with all tabs (<button>s) in it
         tabs[index].index = index;
@@ -53,7 +60,7 @@
       // When a tab is clicked, activateTab is fired to activate it
       function clickEventListener (event) {
         var tab = event.target;
-        activateTab(tab, false);
+        activateTab(tab, true);
       };
 
       // Handle keydown on tabs
@@ -84,6 +91,12 @@
       // Handle keyup on tabs
       function keyupEventListener (event) {
         var key = event.keyCode;
+
+        if (key == " " || event.code == "Space" || key == 32  || event.code == "Enter" || key == 13	) {
+          event.preventDefault();
+          clickEventListener(event);
+          return;
+        }
 
         switch (key) {
           case keys.left:
@@ -148,6 +161,7 @@
 
       // Activates any given tab panel
       function activateTab (tab, setFocus) {
+
         setFocus = setFocus || true;
         // Deactivate all other tabs
         deactivateTabs();
@@ -165,6 +179,11 @@
 
         // Remove hidden attribute from tab panel to make it visible
         var tabContent = document.getElementById(controls);
+        if(tabContent === undefined || tabContent === null)
+        {
+          debugger;
+        }
+
         tabContent.removeAttribute('hidden');
         tabContent.setAttribute('tabindex', '0');
         tabContent.setAttribute('aria-hidden', 'false');
