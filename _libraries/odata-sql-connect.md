@@ -10,4 +10,4 @@ downloads:
     link: https://github.com/udaysingh236/odata-sql-connect
 ---
 
-Create your own odata V4.01 Node.js backend services.A highly versatile, fast and secured OData Version 4.01 SQL Connector which provides functionality to convert different types of OData segments into SQL query statements.
+Create your own OData V4.01 Node.js backend services. A highly versatile, fast and secured OData Version 4.01 SQL Connector which provides functionality to convert different types of OData segments into SQL query statements.
