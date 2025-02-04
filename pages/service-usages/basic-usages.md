@@ -66,7 +66,7 @@ GET https://services.odata.org/TripPinRESTierService/Airports?$filter=contains(L
 ##### Filter on Enum Properties
 
 ```
-GET https://services.odata.org/TripPinRESTierService/People?$filter=Gender eq Microsoft.OData.Service.Sample.TrippinInMemory.Models.PersonGender'Female' 
+GET https://services.odata.org/TripPinRESTierService/People?$filter=Gender eq Trippin.PersonGender'Female' 
 ```
 
 ##### Filter on Collection
@@ -189,7 +189,7 @@ GET https://services.odata.org/TripPinRESTierService/GetNearestAirport(lat = 33,
 #### Invoking bound Functions
 
 ```
-Get https://services.odata.org/TripPinRESTierService/People('russellwhyte')/Trips(0)/Microsoft.OData.Service.Sample.TrippinInMemory.Models.GetInvolvedPeople
+Get https://services.odata.org/TripPinRESTierService/People('russellwhyte')/Trips(0)/Trippin.GetInvolvedPeople
 ```
 
 #### Invoking Unbound Actions
@@ -201,7 +201,7 @@ POST https://services.odata.org/TripPinRESTierService/ResetDataSource
 #### Invoking Bound Actions
 
 ```
-POST https://services.odata.org/TripPinRESTierService/People('russellwhyte')/Microsoft.OData.Service.Sample.TrippinInMemory.Models.ShareTrip
+POST https://services.odata.org/TripPinRESTierService/People('russellwhyte')/Trippin.ShareTrip
 header:
 {
 	Content-Type: application/json
