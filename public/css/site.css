@@ -119,6 +119,11 @@ code {
   width: 100%;
   font-size-adjust: auto;
 }
+
+.uri-conventions-table > tbody > tr > td {
+  word-break: break-all;
+}
+
 #index-guide{
   padding-left: 60px;
   padding-right: 60px;
@@ -380,9 +385,9 @@ pre {
   }
 
 @media screen and (-ms-high-contrast: active) {
-     .tab-link { 
-      -ms-high-contrast-adjust:none;
-      color: white;
+  .tab-link {
+    -ms-high-contrast-adjust:none;
+    color: LinkText;
   }
 }
 
@@ -448,4 +453,29 @@ td {
         width: 100%; /* Ensures images fit smaller screens */
         height: auto;
     }
+}
+
+.other-protocols-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.other-protocols-table {
+  width: 60%;
+  border-collapse: collapse;
+  margin-bottom: 5px;
+}
+
+.other-protocols-table th, .other-protocols-table td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.other-protocols-table th {
+  text-align: center;
+}
+
+.other-protocols-item {
+  background-color: #f2f2f2;
 }

@@ -26,7 +26,7 @@ permalink: /documentation/odata-version-2-0/uri-conventions/
 <h2>2. Service Root URI</h2>
 <p>The service root URI identifies the root of an OData service. The resource identified by this URI MUST be an AtomPub Service Document (as specified in [RFC5023]) and follow the OData conventions for AtomPub Service Documents (or an alternate representation of an Atom Service Document if a different format is requested). OData: JSON Format specifies such an alternate JSON-based representation of a service document. The service document is required to be returned from the root of an OData service to provide clients with a simple mechanism to enumerate all of the collections of resources available for the data service.</p>
 <div>
-    <table border="1" cellspacing="0" cellpadding="0" aria-label="Service Root URIs Examples">
+    <table class="uri-conventions-table" border="1" cellspacing="0" cellpadding="0" aria-label="Service Root URIs Examples">
         <tbody>
             <tr>
                 <th>Example Request URI</th>
@@ -320,7 +320,7 @@ permalink: /documentation/odata-version-2-0/uri-conventions/
 </div>
 <p>In addition to operators, a set of functions are also defined for use with the filter query string operator. The following table lists the available functions. Note: ISNULL or COALESCE operators are not defined. Instead, there is a null literal which can be used in comparisons.</p>
 <div>
-    <table border="1" cellspacing="0" cellpadding="0" aria-label="Functions for use with Filter Query Option">
+    <table border="1" class="uri-conventions-table" cellspacing="0" cellpadding="0" aria-label="Functions for use with Filter Query Option">
         <tbody>
             <tr>
                 <th valign="top">Function</th>
