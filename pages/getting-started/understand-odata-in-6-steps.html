@@ -693,14 +693,14 @@ OData-MaxVersion: 4.0
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-query-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane " id="csharpCodeGen3" aria-labelledby="csharpCodeGen3-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen3" aria-labelledby="csharpCodeGen3-tab">
 {% highlight csharp %}
 var context = new DefaultContainer(new Uri("https://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/"));
 var people = context.People.Where(c => c.Trips.Any(d => d.Budget > 3000)).Take(2).Select(c => new {c.FirstName, c.LastName});
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane " id="csharpSimpleOData3" aria-labelledby="csharpSimpleOData3-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData3" aria-labelledby="csharpSimpleOData3-tab">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
@@ -827,7 +827,7 @@ Region: 'ID'
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-post-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane " id="csharpCodeGen4" aria-labelledby="csharpCodeGen4-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen4" aria-labelledby="csharpCodeGen4-tab">
 {% highlight csharp %}
 var context = new DefaultContainer(new Uri("https://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/"));
 var lewis = new Person()
@@ -853,7 +853,7 @@ context.SaveChanges();
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane " id="csharpSimpleOData4" aria-labelledby="csharpSimpleOData4-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData4" aria-labelledby="csharpSimpleOData4-tab">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
@@ -1227,7 +1227,7 @@ OData-MaxVersion: 4.0
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-function-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane " id="csharpCodeGen6" aria-labelledby="csharpCodeGen6-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen6" aria-labelledby="csharpCodeGen6-tab">
 {% highlight csharp %}
 var context = new DefaultContainer(new
 Uri("https://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/"));
@@ -1236,7 +1236,7 @@ var people = trip.GetInvolvedPeople().Execute();
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane " id="csharpSimpleOData6" aria-labelledby="csharpSimpleOData6-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData6" aria-labelledby="csharpSimpleOData6-tab">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
