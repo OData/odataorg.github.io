@@ -25,7 +25,6 @@
     40: 1,
   };
 
-  var firstTab = null;
   tablists.forEach(tablist => {
       let tabs = [];
       let panels = [];
