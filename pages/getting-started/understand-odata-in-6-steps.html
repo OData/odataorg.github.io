@@ -247,7 +247,9 @@ OData-Version: 4.0
 {% endhighlight %}
             </p></div>
 <div class="modal-footer">
+<button type="button" class="btn btn-secondary btn-copy-code" onclick="copyCode()">Copy</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div id="feedback" aria-live="assertive" role="alert"></div>
             </div>
 </p></div>
 </p></div>
@@ -296,7 +298,9 @@ OData-Version: 4.0
 {% endhighlight %}
             </p></div>
 <div class="modal-footer">
+<button type="button" class="btn btn-secondary btn-copy-code" aria-live="assertive" onclick="copyCode()">Copy</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div id="feedback" aria-live="assertive" role="alert"></div>
             </div>
 </p></div>
 </p></div>
@@ -336,7 +340,9 @@ OData-Version: 4.0
 {% endhighlight %}
             </p></div>
 <div class="modal-footer">
+<button type="button" class="btn btn-secondary btn-copy-code" aria-live="assertive" onclick="copyCode()">Copy</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div id="feedback" aria-live="assertive" role="alert"></div>
             </div>
 </p></div>
 </p></div>
@@ -359,7 +365,9 @@ OData-Version: 4.0
 {% endhighlight %}
             </p></div>
 <div class="modal-footer">
+<button type="button" class="btn btn-secondary btn-copy-code" aria-live="assertive" onclick="copyCode()">Copy</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div id="feedback" aria-live="assertive" role="alert"></div>
             </div>
 </p></div>
 </p></div>
@@ -378,7 +386,9 @@ OData-Version: 4.0
 {% endhighlight %}
             </p></div>
 <div class="modal-footer">
+<button type="button" class="btn btn-secondary btn-copy-code" aria-live="assertive" onclick="copyCode()">Copy</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div id="feedback" aria-live="assertive" role="alert"></div>
             </div>
 </p></div>
 </p></div>
@@ -453,7 +463,9 @@ OData-Version: 4.0
 {% endhighlight %}
             </p></div>
 <div class="modal-footer">
+<button type="button" class="btn btn-secondary btn-copy-code" aria-live="assertive" onclick="copyCode()">Copy</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div id="feedback" aria-live="assertive" role="alert"></div>
             </div>
 </p></div>
 </p></div>
@@ -1360,7 +1372,7 @@ Download and install the Node.js platform from <a href="https://nodejs.org">node
 </p></div>
 <script>
     $(document).ready(function() {
-       $('.modal').on('shown.bs.modal', function () {
+        $('.modal').on('shown.bs.modal', function () {
             $('.close').focus();
             trapFocus(this)
             $(this).find(".modal-body").attr("tabindex", -1);
@@ -1419,6 +1431,62 @@ Download and install the Node.js platform from <a href="https://nodejs.org">node
                 }
             }
 
+        });
+    }
+
+    // Select all text in a modal when Ctrl+A is pressed
+    $(document).keydown(function(e) {
+        // If the 'Ctrl + a' or 'Ctrl + Shift + a' for Narrator key are pressed simultaneously.
+        // If the condition is met, it prevents the default action and selects the contents of any visible modal's body.
+        // Check if the modal is open
+        if ($('.modal:visible .modal-body').length && e.ctrlKey && (e.key === 'a' || e.key === 'A')) {
+            e.preventDefault();
+            var modalBody = $('.modal:visible .modal-body');
+            modalBody.focus();
+
+            // Create a range to select the content within the modal body
+            var range = document.createRange();
+            range.selectNodeContents(modalBody[0]);
+
+            // Get the current selection and remove any existing ranges
+            var selection = window.getSelection();
+            selection.removeAllRanges();
+
+            // Add the new range to the selection
+            selection.addRange(range);
+        }
+    });
+
+    // Copy code to clipboard
+    function copyCode() {
+        // Loop through each modal
+        document.querySelectorAll('.modal').forEach(function(modal) {
+            // Check if the modal is currently open
+            if (modal.style.display === 'block') {
+                var body = modal.querySelector('.modal-body');
+
+                var range = document.createRange();
+                range.selectNodeContents(body);
+                // Get the current selection and remove any existing ranges
+                var selection = window.getSelection();
+                selection.removeAllRanges();
+                // Add the new range to the selection
+                selection.addRange(range);
+
+                document.execCommand("copy");
+
+                // Provide feedback to the user
+
+                $('#feedback').text('Payload copied to the clipboard.').show();
+
+                // Hide the feedback after 3 seconds
+                setTimeout(function() {
+                    $('#feedback').fadeOut('slow');
+                }, 3000);
+
+                // focus on the modal body to show the user that the content has been copied
+                body.focus();
+            }
         });
     }
 </script>

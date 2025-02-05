@@ -65,6 +65,16 @@ a.carousel-control.left:focus, a.carousel-control.right:focus {
     background-color: #d23714;
     border-color: #d23714;
 }
+.btn-secondary {
+  padding: 10px 20px;
+  color: #ffffff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background-color: #272b2e;
+}
 .label-success{
 	background-color: #277a33;
 }
@@ -478,4 +488,10 @@ td {
 
 .other-protocols-item {
   background-color: #f2f2f2;
+}
+
+#feedback {
+  margin: 10px;
+  font-weight: bold;
+  color: green;
 }
