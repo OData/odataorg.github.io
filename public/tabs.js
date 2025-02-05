@@ -25,6 +25,7 @@
     40: 1,
   };
 
+  var firstTab = null;
   tablists.forEach(tablist => {
       let tabs = [];
       let panels = [];
@@ -42,14 +43,13 @@
         addListeners(i);
       };
 
-      deactivateTabs();
-      activateTab(tabs[0]);
-
       function addListeners (index) {
         tabs[index].addEventListener('keydown', keydownEventListener);
 
         tabs[index].addEventListener('keyup', keyupEventListener);
         tabs[index].addEventListener('click', clickEventListener);
+        tabs[index].addEventListener('focus', focusEventHandler);
+
         tabs[index].index = index;
       };
 
@@ -268,14 +268,12 @@
       //
       function focusEventHandler (event) {
         var target = event.target;
-
         setTimeout(checkTabFocus, delay, target);
       };
 
       // Only activate tab on focus if it still has focus after the delay
       function checkTabFocus (target) {
         focused = document.activeElement;
-
         if (target === focused) {
           activateTab(target, false);
         };
