@@ -438,3 +438,28 @@ td {
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
   border-top-color: #737373;
 }
+
+.other-protocols-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.other-protocols-table {
+  width: 60%;
+  border-collapse: collapse;
+  margin-bottom: 5px;
+}
+
+.other-protocols-table th, .other-protocols-table td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.other-protocols-table th {
+  text-align: center;
+}
+
+.other-protocols-item {
+  background-color: #f2f2f2;
+}
