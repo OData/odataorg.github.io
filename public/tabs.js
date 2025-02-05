@@ -100,7 +100,7 @@
             determineOrientation(event);
             break;
           case keys.delete:
-            determineDeletable(event);
+            deleteTabIfDeletable(event);
             break;
         };
       };
@@ -216,7 +216,7 @@
       };
 
       // Detect if a tab is deletable
-      function determineDeletable (event) {
+      function deleteTabIfDeletable (event) {
         target = event.target;
 
         if (target.getAttribute('data-deletable') !== null) {
