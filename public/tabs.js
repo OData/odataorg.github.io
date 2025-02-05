@@ -17,7 +17,7 @@
     delete: 46,
   };
 
-  // Add or substract depending on key pressed
+  // Add or substract depending on key pressed -1 is left or bottom to up while 1 is top to bottom and right
   var direction = {
     37: -1,
     38: -1,
@@ -49,11 +49,7 @@
         tabs[index].addEventListener('keydown', keydownEventListener);
 
         tabs[index].addEventListener('keyup', keyupEventListener);
-        tabs[index].addEventListener('click', function(e) {
-            clickEventListener(e);
-        });
-
-        // Build an array with all tabs (<button>s) in it
+        tabs[index].addEventListener('click', clickEventListener);
         tabs[index].index = index;
       };
 
@@ -135,7 +131,7 @@
       };
 
       // Either focus the next, previous, first, or last tab
-      // depening on key pressed
+      // depending on key pressed
       function switchTabOnArrowPress (event) {
         var pressed = event.keyCode;
 
@@ -179,10 +175,6 @@
 
         // Remove hidden attribute from tab panel to make it visible
         var tabContent = document.getElementById(controls);
-        if(tabContent === undefined || tabContent === null)
-        {
-          debugger;
-        }
 
         tabContent.removeAttribute('hidden');
         tabContent.setAttribute('tabindex', '0');
@@ -213,12 +205,12 @@
         }
       };
 
-      // Make a guess
+      // Focus the first child
       function focusFirstTab () {
         tabs[0].focus();
       };
 
-      // Make a guess
+      // Focus the last child
       function focusLastTab () {
         tabs[tabs.length - 1].focus();
       };
