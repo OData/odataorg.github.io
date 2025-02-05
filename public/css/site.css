@@ -119,6 +119,11 @@ code {
   width: 100%;
   font-size-adjust: auto;
 }
+
+.uri-conventions-table > tbody > tr > td {
+  word-break: break-all;
+}
+
 #index-guide{
   padding-left: 60px;
   padding-right: 60px;
