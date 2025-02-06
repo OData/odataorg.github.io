@@ -484,17 +484,11 @@ OData-Version: 4.0
 <div class="code-row bottom-margin">
 <ul class="nav nav-tabs" role="tablist">
 <li role="presentation" class="active"><a class="tab-link"  href="#http1" role="tab" aria-controls="http1"  data-toggle="tab">HTTP request</a></li>
-<li role="presentation" class="dropdown">
-<a class="tab-link dropdown-toggle"  href="#csharp1" role="tab" id="csharpDrop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="csharpDrop1-contents">C# &nbsp;<span
-            class="caret"></span></a></p>
-<ul role="presentation" class="dropdown-menu tab-link" id="csharpDrop1-contents">
-<li><a class="tab-link"  href="#csharpCodeGen1" role="tab" id="csharpCodeGen1-tab" data-toggle="tab" aria-controls="csharpCodeGen1">OData v4 Client Code Generator</a></li>
-<li><a class="tab-link"  href="#csharpSimpleOData1" role="tab" id="csharpSimpleOData1-tab" data-toggle="tab" aria-controls="csharpSimpleOData1">Simple.OData.Client</a></li>
-</ul>
-</li>
+<li role="presentation"><a class="tab-link"  href="#csharpCodeGen1" role="tab" id="csharpCodeGen1-tab" data-toggle="tab" aria-controls="csharpCodeGen1">C# OData v4 Client Code Generator</a></li>
+<li role="presentation"><a class="tab-link"  href="#csharpSimpleOData1" role="tab" id="csharpSimpleOData1-tab" data-toggle="tab" aria-controls="csharpSimpleOData1">C# Simple.OData.Client</a></li>
 <li role="presentation"><a class="tab-link"  href="#olingo-js-1" role="tab" aria-controls="olingo-js-1" data-toggle="tab">Olingo JavaScript client</a></li>
 <li role="presentation"><a class="tab-link"  href="#odatacpp-1" role="tab" aria-controls="odatacpp-1" data-toggle="tab">C++</a></li>
-<li role="presentation"><a class="tab-link"  href="#nodejs-1" role="tab" aria-controls="nodejs-1" data-toggle="tab">Node.js</a></li>
+<li role="presentation"><a class="tab-link"  href="#nodejs-1" role="tab" aria-controls="nodejs-1" data-toggle="tab" >Node.js</a></li>
 <li role="presentation"><a class="tab-link" href="#contribute-1" role="tab" aria-controls="contribute-1" data-toggle="tab">Contribute</a></li>
 </ul>
 <div class="tab-content">
@@ -506,14 +500,14 @@ OData-MaxVersion: 4.0
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-collection-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpCodeGen1" aria-labelledby="csharpCodeGen1-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen1">
 {% highlight csharp %}
 var context = new DefaultContainer(new Uri("https://services.odata.org/v4/TripPinServiceRW/"));
 var people = context.People.Execute();
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpSimpleOData1" aria-labelledby="csharpSimpleOData1-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData1">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
@@ -592,14 +586,8 @@ Download and install the Node.js platform from <a href="https://nodejs.org">node
 <div class="code-row bottom-margin">
 <ul class="nav nav-tabs" role="tablist">
 <li role="presentation" class="active"><a class="tab-link" href="#http2" role="tab" aria-controls="http2" data-toggle="tab">HTTP request</a></li>
-<li role="presentation" class="dropdown">
-<a class="tab-link dropdown-toggle" href="#csharp2" role="tab" id="csharpDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="csharpDrop2-contents">C# &nbsp;<span
-            class="caret"></span></a></p>
-<ul role="presentation" class="dropdown-menu tab-link" id="csharpDrop2-contents">
-<li><a class="tab-link" href="#csharpCodeGen2" role="tab" id="csharpCodeGen2-tab" data-toggle="tab" aria-controls="csharpCodeGen2">OData v4 Client Code Generator</a></li>
-<li><a class="tab-link" href="#csharpSimpleOData2" role="tab" id="csharpSimpleOData2-tab" data-toggle="tab" aria-controls="csharpSimpleOData2">Simple.OData.Client</a></li>
-</ul>
-</li>
+<li role="presentation" ><a class="tab-link" href="#csharpCodeGen2" role="tab" id="csharpCodeGen2-tab" data-toggle="tab" aria-controls="csharpCodeGen2">C# OData v4 Client Code Generator</a></li>
+<li role="presentation" ><a class="tab-link" href="#csharpSimpleOData2" role="tab" id="csharpSimpleOData2-tab" data-toggle="tab" aria-controls="csharpSimpleOData2">C# Simple.OData.Client</a></li>
 <li role="presentation"><a class="tab-link" href="#olingo-js-2" role="tab" aria-controls="olingo-js-2" data-toggle="tab">Olingo JavaScript client</a></li>
 <li role="presentation"><a class="tab-link" href="#odatacpp-2" role="tab" aria-controls="odatacpp-2" data-toggle="tab">C++</a></li>
 <li role="presentation"><a class="tab-link" href="#nodejs-2" role="tab" aria-controls="nodejs-2" data-toggle="tab">Node.js</a></li>
@@ -614,14 +602,14 @@ OData-MaxVersion: 4.0
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-individual-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpCodeGen2" aria-labelledby="csharpCodeGen2-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen2">
 {% highlight csharp %}
 var context = new DefaultContainer(new Uri("https://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/"));
 var person = context.People.ByKey(userName: "russellwhyte").GetValue();
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpSimpleOData2" aria-labelledby="csharpSimpleOData2-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData2" aria-labelledby="csharpSimpleOData2-tab">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
@@ -701,14 +689,8 @@ Download and install the Node.js platform from <a href="https://nodejs.org">node
 <div class="code-row bottom-margin">
 <ul class="nav nav-tabs" role="tablist">
 <li role="presentation" class="active"><a class="tab-link" href="#http3" role="tab" aria-controls="http3" data-toggle="tab">HTTP request</a></li>
-<li role="presentation" class="dropdown">
-<a class="tab-link dropdown-toggle" href="#csharp3" role="tab" id="csharpDrop3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="csharpDrop3-contents">C#
-          &nbsp;<span class="caret"></span></a></p>
-<ul role="presentation" class="dropdown-menu tab-link" id="csharpDrop3-contents">
-<li><a class="tab-link" href="#csharpCodeGen3" role="tab" id="csharpCodeGen3-tab" data-toggle="tab" aria-controls="csharpCodeGen3">OData v4 Client Code Generator</a></li>
-<li><a class="tab-link" href="#csharpSimpleOData3" role="tab" id="csharpSimpleOData3-tab" data-toggle="tab" aria-controls="csharpSimpleOData3">Simple.OData.Client</a></li>
-</ul>
-</li>
+<li role="presentation"><a class="tab-link" href="#csharpCodeGen3" role="tab" id="csharpCodeGen3-tab" data-toggle="tab" aria-controls="csharpCodeGen3">C# OData v4 Client Code Generator</a></li>
+<li role="presentation"><a class="tab-link" href="#csharpSimpleOData3" role="tab" id="csharpSimpleOData3-tab" data-toggle="tab" aria-controls="csharpSimpleOData3">C# Simple.OData.Client</a></li>
 <li role="presentation"><a class="tab-link" href="#olingo-js-3" role="tab" aria-controls="olingo-js-3" data-toggle="tab">Olingo JavaScript client</a></li>
 <li role="presentation"><a class="tab-link" href="#odatacpp-3" role="tab" aria-controls="odatacpp-3" data-toggle="tab">C++</a></li>
 <li role="presentation"><a class="tab-link" href="#nodejs-3" role="tab" aria-controls="nodejs-3" data-toggle="tab">Node.js</a></li>
@@ -723,14 +705,14 @@ OData-MaxVersion: 4.0
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-query-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpCodeGen3" aria-labelledby="csharpCodeGen3-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen3" aria-labelledby="csharpCodeGen3-tab">
 {% highlight csharp %}
 var context = new DefaultContainer(new Uri("https://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/"));
 var people = context.People.Where(c => c.Trips.Any(d => d.Budget > 3000)).Take(2).Select(c => new {c.FirstName, c.LastName});
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpSimpleOData3" aria-labelledby="csharpSimpleOData3-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData3" aria-labelledby="csharpSimpleOData3-tab">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
@@ -819,14 +801,8 @@ Download and install the Node.js platform from <a href="https://nodejs.org">node
 <div class="code-row bottom-margin">
 <ul class="nav nav-tabs" role="tablist">
 <li role="presentation" class="active"><a class="tab-link" href="#http4" role="tab" aria-controls="http4"  data-toggle="tab">HTTP request</a></li>
-<li role="presentation" class="dropdown">
-<a class="tab-link dropdown-toggle" href="#csharp4" role="tab" id="csharpDrop4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="csharpDrop4-contents">C# &nbsp;<span
-            class="caret"></span></a></p>
-<ul role="presentation" class="dropdown-menu tab-link" id="csharpDrop4-contents">
-<li><a class="tab-link" href="#csharpCodeGen4" role="tab" id="csharpCodeGen4-tab" data-toggle="tab" aria-controls="csharpCodeGen4">OData v4 Client Code Generator</a></li>
-<li><a class="tab-link" href="#csharpSimpleOData4" role="tab" id="csharpSimpleOData4-tab" data-toggle="tab" aria-controls="csharpSimpleOData4">Simple.OData.Client</a></li>
-</ul>
-</li>
+<li role="presentation"><a class="tab-link" href="#csharpCodeGen4" role="tab" id="csharpCodeGen4-tab" data-toggle="tab" aria-controls="csharpCodeGen4">C# OData v4 Client Code Generator</a></li>
+<li role="presentation"><a class="tab-link" href="#csharpSimpleOData4" role="tab" id="csharpSimpleOData4-tab" data-toggle="tab" aria-controls="csharpSimpleOData4">C# Simple.OData.Client</a></li>
 <li role="presentation"><a class="tab-link" href="#olingo-js-4" role="tab" aria-controls="olingo-js-4" data-toggle="tab">Olingo JavaScript client</a></li>
 <li role="presentation"><a class="tab-link" href="#odatacpp-4" role="tab" aria-controls="odatacpp-4" data-toggle="tab">C++</a></li>
 <li role="presentation"><a class="tab-link" href="#nodejs-4" role="tab" aria-controls="nodejs-4" data-toggle="tab">Node.js</a></li>
@@ -863,7 +839,7 @@ Region: 'ID'
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-post-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpCodeGen4" aria-labelledby="csharpCodeGen4-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen4" aria-labelledby="csharpCodeGen4-tab">
 {% highlight csharp %}
 var context = new DefaultContainer(new Uri("https://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/"));
 var lewis = new Person()
@@ -889,7 +865,7 @@ context.SaveChanges();
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpSimpleOData4" aria-labelledby="csharpSimpleOData4-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData4" aria-labelledby="csharpSimpleOData4-tab">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
@@ -1083,14 +1059,8 @@ Download and install the Node.js platform from <a href="https://nodejs.org">node
 <div class="code-row bottom-margin">
 <ul class="nav nav-tabs" role="tablist">
 <li role="presentation" class="active"><a class="tab-link" href="#http5" role="tab" aria-controls="http5"  data-toggle="tab">HTTP request</a></li>
-<li role="presentation" class="dropdown">
-<a class="tab-link dropdown-toggle" href="#csharp5" role="tab" id="csharpDrop5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="csharpDrop5-contents">C# &nbsp;<span
-            class="caret"></span></a></p>
-<ul role="presentation" class="dropdown-menu tab-link" id="csharpDrop5-contents">
-<li><a class="tab-link" href="#csharpCodeGen5" role="tab" id="csharpCodeGen5-tab" data-toggle="tab" aria-controls="csharpCodeGen5">OData v4 Client Code Generator</a></li>
-<li><a class="tab-link" href="#csharpSimpleOData5" role="tab" id="csharpSimpleOData5-tab" data-toggle="tab" aria-controls="csharpSimpleOData5">Simple.OData.Client</a></li>
-</ul>
-</li>
+<li role="presentation"><a class="tab-link" href="#csharpCodeGen5" role="tab" id="csharpCodeGen5-tab" data-toggle="tab" aria-controls="csharpCodeGen5">C# OData v4 Client Code Generator</a></li>
+<li role="presentation"><a class="tab-link" href="#csharpSimpleOData5" role="tab" id="csharpSimpleOData5-tab" data-toggle="tab" aria-controls="csharpSimpleOData5">C# Simple.OData.Client</a></li>
 <li role="presentation"><a class="tab-link" href="#olingo-js-5" role="tab" aria-controls="olingo-js-5" data-toggle="tab">Olingo JavaScript client</a></li>
 <li role="presentation"><a class="tab-link" href="#odatacpp-5" role="tab" aria-controls="odatacpp-5" data-toggle="tab">C++</a></li>
 <li role="presentation"><a class="tab-link" href="#nodejs-5" role="tab" aria-controls="nodejs-5" data-toggle="tab">Node.js</a></li>
@@ -1110,7 +1080,7 @@ Content-Type: application/json
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-relationship-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpCodeGen5" aria-labelledby="csharpCodeGen5-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen5">
 {% highlight csharp %}
 var context = new DefaultContainer(new Uri("https://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/"));
 var trip = context.People.ByKey(userName: "russellwhyte").Trips.ByKey(tripId: 0).GetValue();
@@ -1123,7 +1093,7 @@ dsc[0].Trips.Add(trip);</p>
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpSimpleOData5" aria-labelledby="csharpSimpleOData5-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData5">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
@@ -1252,14 +1222,8 @@ Download and install the Node.js platform from <a href="https://nodejs.org">node
 <div class="code-row bottom-margin">
 <ul class="nav nav-tabs" role="tablist">
 <li role="presentation" class="active"><a class="tab-link" href="#http6" role="tab" aria-controls="http6"  data-toggle="tab">HTTP request</a></li>
-<li role="presentation" class="dropdown">
-<a class="tab-link dropdown-toggle" href="#csharp6" role="tab" id="csharpDrop6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="csharpDrop1-contents">C# &nbsp;<span
-            class="caret"></span></a></p>
-<ul role="presentation" class="dropdown-menu tab-link" id="csharpDrop6-contents">
-<li><a class="tab-link" href="#csharpCodeGen6" role="tab" id="csharpCodeGen6-tab" data-toggle="tab" aria-controls="csharpCodeGen6">OData v4 Client Code Generator</a></li>
-<li><a class="tab-link" href="#csharpSimpleOData6" role="tab" id="csharpSimpleOData6-tab" data-toggle="tab" aria-controls="csharpSimpleOData6">Simple.OData.Client</a></li>
-</ul>
-</li>
+<li role="presentation"><a class="tab-link" href="#csharpCodeGen6" role="tab" id="csharpCodeGen6-tab" data-toggle="tab" aria-controls="csharpCodeGen6">OData v4 Client Code Generator</a></li>
+<li role="presentation"><a class="tab-link" href="#csharpSimpleOData6" role="tab" id="csharpSimpleOData6-tab" data-toggle="tab" aria-controls="csharpSimpleOData6">Simple.OData.Client</a></li>
 <li role="presentation"><a class="tab-link" href="#olingo-js-6" role="tab" aria-controls="olingo-js-6" data-toggle="tab">Olingo JavaScript client</a></li>
 <li role="presentation"><a class="tab-link" href="#odatacpp-6" role="tab" aria-controls="odatacpp-6" data-toggle="tab">C++</a></li>
 <li role="presentation"><a class="tab-link" href="#nodejs-6" role="tab" aria-controls="nodejs-6" data-toggle="tab">Node.js</a></li>
@@ -1275,7 +1239,7 @@ OData-MaxVersion: 4.0
 {% endhighlight %}
 <button class="btn btn-primary step-buttons" data-toggle="modal" data-target="#step-function-modal">View the response</button>
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpCodeGen6" aria-labelledby="csharpCodeGen6-tab">
+<div role="tabpanel" class="tab-pane" id="csharpCodeGen6" aria-labelledby="csharpCodeGen6-tab">
 {% highlight csharp %}
 var context = new DefaultContainer(new
 Uri("https://services.odata.org/v4/(S(34wtn2c0hkuk5ekg0pjr513b))/TripPinServiceRW/"));
@@ -1284,7 +1248,7 @@ var people = trip.GetInvolvedPeople().Execute();
 {% endhighlight %}
 The client library used is the <a href="https://visualstudiogallery.msdn.microsoft.com/9b786c0e-79d1-4a50-89a5-125e57475937">OData v4 Client Code Generator</a>.
 </div>
-<div role="tabpanel" class="tab-pane fade" id="csharpSimpleOData6" aria-labelledby="csharpSimpleOData6-tab">
+<div role="tabpanel" class="tab-pane" id="csharpSimpleOData6" aria-labelledby="csharpSimpleOData6-tab">
 <b>Typed syntax</b>
 {% highlight csharp %}
 var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
