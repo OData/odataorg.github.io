@@ -1,6 +1,6 @@
 ---
 category: java
-name: Apache Olingo <span class="label label-success">featured</span>
+name: Apache Olingo <span class="label label-success">Archived on Dec 2025</span>
 rownumber: 13
 version: V2 and V4
 object: Both
