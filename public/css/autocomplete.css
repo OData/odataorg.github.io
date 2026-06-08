@@ -9,10 +9,10 @@ form input.st-search-input {
     background: #fcfcfc url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUFJREFUeNqU0j0oRWEcx/Hj3ifvlMHL7C1lY7mDwUBKkoksBjKJxWIQu7xlOybDLVGukhhMZDFbxGBS8nIjKR3E96nf0dPjuuVfn+6tc35P//P8/yYMw8CpbgygGQlcYw8H+Ai8MvotxQImgt81hk1M4cEPF2IV43jCGo7wjk5MYhhlGMKbG+7BKO4wiGPn8DO1vIN+jGA9fpjQaUksecG4zjGPL3VQ5IZb9OAw+LtO1FkjatxwUuEoTzjSbRu9/xO+0W97nnArqvXuoxve1/9p1OUIlmNGU7EX9+KGt3GKNuyiC5WoQAe2NJFP3PpzzmoR0khpxle6h3pnkeKJPCPjbtglerVFfWhSVxfqJtK4qrChTMY4XdjVm9O21aIA92LrFcv6HHtAsclxQVnxa0WfsqgDUib4X9muStCA2W8BBgDJ0EeGeFZ8WAAAAABJRU5ErkJggg==) no-repeat 7px 7px;
 }
 .autocomplete-result__title{
-    color: #ff9900;
+    color: #955000;
 }
 .autocomplete-result__description{
-    color: #6c757d;
+    color: #595959;
 }
 
 .swiftype-widget .autocomplete {
@@ -82,7 +82,7 @@ form input.st-search-input {
 
 .swiftype-widget .autocomplete li.active,
 .swiftype-widget .autocomplete li:hover:focus {
-    border: 2px solid #c34113;
+    border: 2px solid #955000;
     background-color: transparent;
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fff), color-stop(100%, #f9f2f4));
     background: -webkit-linear-gradient(#fff, #f9f2f4);
@@ -92,6 +92,11 @@ form input.st-search-input {
     -webkit-box-shadow: 0 1px 0 #f9f2f4 inset;
     -moz-box-shadow: 0 1px 0 #f9f2f4 inset;
     box-shadow: 0 1px 0 #f9f2f4 inset;
+}
+
+.swiftype-widget .autocomplete li:focus {
+    outline: 2px solid #955000;
+    outline-offset: -2px;
 }
 
 .swiftype-widget .autocomplete li.active .autocomplete-result__title,
@@ -125,12 +130,11 @@ form input.st-search-input {
 }
 
 .swiftype-widget .autocomplete li.active p.title {
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-    color: #fff;
+    color: #955000;
 }
 
 .swiftype-widget .autocomplete li.active p.title em {
-    color: #fff;
+    color: #955000;
     font-style: normal;
 }
 
@@ -149,12 +153,11 @@ form input.st-search-input {
 }
 
 .swiftype-widget .autocomplete li.active .sections {
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-    color: #a9d7f1;
+    color: #595959;
 }
 
 .swiftype-widget .autocomplete li.active .sections em {
-    color: #a9d7f1;
+    color: #595959;
     font-style: normal;
 }
 

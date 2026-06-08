@@ -45,6 +45,10 @@ a.carousel-control.left:focus, a.carousel-control.right:focus {
 .dropdown-toggle:focus {
   outline:dotted;
 }
+.navbar-toggle:focus {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
 .st-default-search-input::-webkit-input-placeholder{
 	color: #000000 !important; 
 }
