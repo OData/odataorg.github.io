@@ -25,7 +25,7 @@
             <div class="collapse navbar-collapse" id="odata-navbar-collapse" role="navigation">
                 <ul class="nav navbar-nav" role="menubar">
                     <li role="none">
-                        <a role="menuitem" href="/blog">Blog</a>
+                        <a role="menuitem" href="/blog" {% if page.url == '/blog/' or page.url contains '/blog' %}aria-current="page"{% endif %}>Blog</a>
                     </li>
                     <li class="dropdown" role="none">
                         <a role="menuitem"
@@ -34,24 +34,25 @@
                            class="dropdown-toggle"
                            data-toggle="dropdown"
                            data-target="#"
-                           href="#">
+                           href="#"
+                           {% if page.url contains '/getting-started' or page.url contains '/documentation' or page.url contains '/libraries' or page.url contains '/odata-services' or page.url contains '/odata-icon-usage-guidelines' %}aria-current="true"{% endif %}>
                             Developers <b class="caret"></b>
                         </a>
-                        <ul class="dropdown-menu" role="menu" aria-label="Developers dropdown.">
+                        <ul class="dropdown-menu" role="menu">
                             <li role="none">
-                                <a role="menuitem" href="/getting-started">Getting Started</a>
+                                <a role="menuitem" href="/getting-started" {% if page.url == '/getting-started/' or page.url contains '/getting-started' %}aria-current="page"{% endif %}>Getting Started</a>
                             </li>
                             <li role="none">
-                                <a role="menuitem" href="/documentation">Documentation</a>
+                                <a role="menuitem" href="/documentation" {% if page.url == '/documentation/' or page.url contains '/documentation' %}aria-current="page"{% endif %}>Documentation</a>
                             </li>
                             <li role="none">
-                                <a role="menuitem" href="/libraries">Libraries</a>
+                                <a role="menuitem" href="/libraries" {% if page.url == '/libraries/' or page.url contains '/libraries' %}aria-current="page"{% endif %}>Libraries</a>
                             </li>
                             <li role="none">
-                                <a role="menuitem" href="/odata-services">Reference Services</a>
+                                <a role="menuitem" href="/odata-services" {% if page.url == '/odata-services/' or page.url contains '/odata-services' %}aria-current="page"{% endif %}>Reference Services</a>
                             </li>
                             <li role="none">
-                                <a role="menuitem" href="/odata-icon-usage-guidelines/">Icon Usage</a>
+                                <a role="menuitem" href="/odata-icon-usage-guidelines/" {% if page.url contains '/odata-icon-usage-guidelines' %}aria-current="page"{% endif %}>Icon Usage</a>
                             </li>
                         </ul>
                     </li>
@@ -65,7 +66,7 @@
                            href="#">
                             Tools <b class="caret"></b>
                         </a>
-                        <ul class="dropdown-menu" role="menu" aria-label="Tools dropdown.">
+                        <ul class="dropdown-menu" role="menu">
                             <li role="none">
                                 <a role="menuitem"
                                    href="https://marketplace.visualstudio.com/items?itemName=stansw.vscode-odata"
@@ -79,10 +80,10 @@
                         </ul>
                     </li>
                     <li role="none">
-                        <a role="menuitem"  href="/ecosystem">Ecosystem</a>
+                        <a role="menuitem"  href="/ecosystem" {% if page.url == '/ecosystem/' or page.url contains '/ecosystem' %}aria-current="page"{% endif %}>Ecosystem</a>
                     </li>
                     <li role="none">
-                        <a role="menuitem" href="/contribution">Getting Involved</a>
+                        <a role="menuitem" href="/contribution" {% if page.url == '/contribution/' or page.url contains '/contribution' %}aria-current="page"{% endif %}>Getting Involved</a>
                     </li>
                 </ul>
 

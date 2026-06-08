@@ -67,10 +67,14 @@
                     section = result.sections[1] || '';
                 }
 
+                // Ensure title is never undefined and strip HTML tags for aria-label
+                title = title || 'Search result';
+                var ariaTitle = String(title).replace(/<[^>]*>/g, '');
+
                 return $(
-                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + title + '"><a href="' + url + '">' +
+                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + ariaTitle + '"><a href="' + url + '">' +
                     '<span\n        class="autocomplete-result__title">' + section + '</span> <br>' +
-                    '<small class="autocomplete-result__description muted" aria-label="' + title + '">' + title + '</small>' +
+                    '<small class="autocomplete-result__description muted">' + title + '</small>' +
                     '</a>\n</li>'
                 );
             }
