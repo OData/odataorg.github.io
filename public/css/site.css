@@ -495,3 +495,16 @@ td {
   font-weight: bold;
   color: green;
 }
+
+/* When the "Recent Posts" columns stack (below Bootstrap's md breakpoint, i.e.
+   <=991px, which includes 400% zoom on a 1280px viewport per WCAG 1.4.10
+   Reflow), let the carousel caption flow below the image instead of being
+   clipped by the fixed-height absolute overlay, so its text is not truncated. */
+@media (max-width: 991px) {
+  .carousel-caption {
+    position: static;
+    margin: 0;
+    max-width: none;
+    max-height: none;
+  }
+}
