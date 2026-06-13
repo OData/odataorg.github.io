@@ -495,3 +495,15 @@ td {
   font-weight: bold;
   color: green;
 }
+
+/* Focusable horizontal-scroll wrapper for over-wide data tables, so they are not
+   clipped at high zoom and remain keyboard-operable (WCAG 1.4.10 / 2.1.1). */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+.table-scroll:focus {
+  outline: 2px solid #424242;
+  outline-offset: 2px;
+}
