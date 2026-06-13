@@ -31,10 +31,42 @@
       let delay = determineDelay();
 
       generateArrays();
+      labelPanels();
 
       function generateArrays () {
         tabs.push.apply(tabs, tablist.querySelectorAll('[role="tab"]'));
         panels.push.apply(panels, tablist.parentElement.querySelectorAll('[role="tabpanel"]'));
+      };
+
+      // Give each tab panel an accessible name derived from its controlling tab,
+      // so screen readers announce the panel's name (WCAG 4.1.2 Name/Role/Value)
+      function labelPanels () {
+        for (let i = 0; i < tabs.length; i++) {
+          var tab = tabs[i];
+          var controls = tab.getAttribute('aria-controls');
+
+          // Skip tabs that do not reference a panel
+          if (!controls) {
+            continue;
+          };
+
+          var panel = document.getElementById(controls);
+
+          // Skip when the referenced panel does not exist
+          if (!panel) {
+            continue;
+          };
+
+          // Ensure the controlling tab has a stable id to point the panel at
+          if (!tab.id) {
+            tab.id = controls + '-tab';
+          };
+
+          // Do not overwrite a name already provided in the markup
+          if (!panel.hasAttribute('aria-labelledby')) {
+            panel.setAttribute('aria-labelledby', tab.id);
+          };
+        };
       };
 
       // Bind listeners
