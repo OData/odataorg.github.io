@@ -495,3 +495,13 @@ td {
   font-weight: bold;
   color: green;
 }
+
+/* Reflow long, unbreakable strings (URLs, namespaces, identifiers) in body text
+   so they wrap instead of overflowing/truncating at high zoom (WCAG 1.4.10). */
+p,
+li,
+dd,
+dt {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
