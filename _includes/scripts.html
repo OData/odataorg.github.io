@@ -67,10 +67,23 @@
                     section = result.sections[1] || '';
                 }
 
+                function toText(value) {
+                    if (value === undefined || value === null) {
+                        return '';
+                    }
+                    if (Array.isArray(value)) {
+                        value = value.join(' ');
+                    }
+                    return String(value).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+                }
+                var sectionText = toText(section);
+                var titleText = toText(title);
+                var optionLabel = [sectionText, titleText].filter(Boolean).join(', ');
+
                 return $(
-                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + title + '"><a href="' + url + '">' +
+                    '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + optionLabel + '"><a href="' + url + '">' +
                     '<span\n        class="autocomplete-result__title">' + section + '</span> <br>' +
-                    '<small class="autocomplete-result__description muted" aria-label="' + title + '">' + title + '</small>' +
+                    '<small class="autocomplete-result__description muted">' + title + '</small>' +
                     '</a>\n</li>'
                 );
             }
