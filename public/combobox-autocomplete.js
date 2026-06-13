@@ -204,6 +204,12 @@ ComboboxAutocomplete.prototype.setCurrentOptionStyle = function (option) {
             else if (this.listboxNode.scrollTop > (opt.offsetTop + 2)) {
                 this.listboxNode.scrollTop = opt.offsetTop;
             }
+            // Focus stays on the input (aria-activedescendant), and the listbox is not an
+            // internal scroll container, so the browser will not auto-scroll to the active
+            // option. Scroll it into view so it is never obscured (WCAG 2.4.11).
+            if (typeof opt.scrollIntoView === 'function') {
+                opt.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            }
         }
         else {
             opt.removeAttribute('aria-selected');
