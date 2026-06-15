@@ -496,8 +496,8 @@ td {
   color: green;
 }
 
-/* Focusable horizontal-scroll wrapper for over-wide data tables, so they are not
-   clipped at high zoom and remain keyboard-operable (WCAG 1.4.10 / 2.1.1). */
+/* Horizontal-scroll wrapper for wide data tables. JS makes it focusable/labeled only
+   when the table actually overflows, so it remains keyboard-operable at high zoom. */
 .table-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
