@@ -76,14 +76,17 @@
                     }
                     return String(value).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().replace(/&/g, '&amp;').replace(/"/g, '&quot;');
                 }
+
                 var sectionText = toText(section);
                 var titleText = toText(title);
                 var optionLabel = [sectionText, titleText].filter(Boolean).join(', ');
 
+                var sectionSpan = sectionText ? '<span class="autocomplete-result__title">' + sectionText + '</span><br>' : '';
+                var titleSpan = titleText ? '<small class="autocomplete-result__description muted">' + titleText + '</small>' : '';
+
                 return $(
                     '<li role="option" id="' + result['id'] + '" class="autocomplete-result"  aria-label="' + optionLabel + '"><a href="' + url + '">' +
-                    '<span\n        class="autocomplete-result__title">' + section + '</span> <br>' +
-                    '<small class="autocomplete-result__description muted">' + title + '</small>' +
+                    sectionSpan + titleSpan +
                     '</a>\n</li>'
                 );
             }
