@@ -11,7 +11,7 @@ form input.st-search-input {
 /* WCAG 1.4.3 Contrast Minimum: darkened title and description colors
    to keep >=4.5:1 contrast against both the #fff suggestion background and the
    active-state gradient end color #f9f2f4. Title stays in the OData brand-orange family. */
-.autocomplete-result__title{
+.autocomplete-result__title {
     color: #bf3e11;
 }
 .autocomplete-result__description{
