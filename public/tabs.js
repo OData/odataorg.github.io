@@ -63,7 +63,7 @@
           };
 
           // Do not overwrite a name already provided in the markup
-          if (!panel.hasAttribute('aria-labelledby')) {
+          if (!panel.hasAttribute('aria-labelledby') && !panel.hasAttribute('aria-label')) {
             panel.setAttribute('aria-labelledby', tab.id);
           };
         };
