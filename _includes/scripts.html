@@ -139,10 +139,9 @@
         }
     }
 
-    // Wrap over-wide data tables in a focusable, labeled scroll region so they are
-    // not clipped at high zoom, while preserving the table's native semantics.
-    // Data tables are exempt from WCAG 1.4.10 reflow; this keeps them keyboard-
-    // and AT-accessible (also addresses 2.1.1).
+    // Wrap data tables in a horizontal-scroll wrapper so they are not clipped at high zoom,
+    // while preserving the table's native semantics. The wrapper becomes a focusable,
+    // labeled scroll region only when the table actually overflows (WCAG 1.4.10 / 2.1.1).
     function setupScrollableTables() {
         $('.container table').not('.reflows').not('.other-protocols-table').each(function() {
             if ($(this).parent('.table-scroll').length === 0) {
