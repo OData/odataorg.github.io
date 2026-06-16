@@ -778,6 +778,7 @@ permalink: /getting-started/advanced-tutorial/
          // Keep aria-current in sync with the Scrollspy-managed active section so
          // screen readers always announce the section the user is currently on.
          function syncAriaCurrent() {
+            $('.tutorial-sidenav > a').removeAttr('aria-current');
             $('.tutorial-sidenav > li > a').removeAttr('aria-current');
             $('.tutorial-sidenav > li.active > a').attr('aria-current', 'true');
          }
