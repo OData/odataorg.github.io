@@ -985,7 +985,7 @@ HTTP/1.1 204 No Content
     <nav class="tutorial-sidebar affix" aria-label="Page Contents" id="affix-navbar">
         <ul class="nav tutorial-sidenav" data-spy="affix">
             <li class="sidebar-nav-item active">
-                <p><a href="#requestData" class="sidenav-link">Requesting Data</a></p>
+                <p><a href="#requestData" class="sidenav-link" aria-current="true">Requesting Data</a></p>
                 <ul class="nav">
                     <li><a href="#entitySet">Requesting Entity Collections</a></li>
                     <li><a href="#entityByID">Requesting an Individual Entity by ID</a></li>
@@ -1048,13 +1048,19 @@ HTTP/1.1 204 No Content
         $(document).ready(function () {
             $('.tutorial-sidebar').affix('checkPosition');
 
-            // Add click event listener to the sidebar links
+            // Keep aria-current in sync with the Scrollspy-managed active section so
+            // screen readers always announce the section the user is currently on.
+            function syncAriaCurrent() {
+                $('.sidenav-link').removeAttr('aria-current');
+                $('.sidebar-nav-item.active .sidenav-link').attr('aria-current', 'true');
+            }
+            $('body').on('activate.bs.scrollspy', syncAriaCurrent);
             $('.sidenav-link').on('click', function (e) {
-                // Remove 'active' class from all sidebar nav items
                 $(".sidebar-nav-item").removeClass('active');
-                // Add 'active' class to the parent of the clicked link's parent
                 $(this).parent().parent().addClass('active');
+                syncAriaCurrent();
             });
+            syncAriaCurrent();
         });
     
 </script>
