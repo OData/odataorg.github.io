@@ -516,3 +516,90 @@ td {
   outline: 2px solid #fff;
   outline-offset: 2px;
 }
+/* ---------------------------------------------------------------------------
+   Accessibility: Bootstrap modal "Close (X)" button — non-text contrast + focus
+   Addresses MAS 1.4.11 (Non-text Contrast).
+   Bootstrap's default .close paints the black glyph at opacity:.2, which
+   composites to ~#ccc on the white (#fff) modal header (~1.6:1), and shows no
+   visible keyboard focus ring. Raising the opacity darkens the glyph and a
+   solid outline supplies the focus indicator (not color alone). Scoped to
+   .close so every Bootstrap close button is covered site-wide, matching the
+   .dropdown-toggle:focus outline pattern above. Additive only — no layout or
+   modal open/close behavior change.
+   --------------------------------------------------------------------------- */
+.close {
+  color: #000;        /* opacity .6 composites #000 -> ~#666 on #fff = 5.74:1 (>= 3:1) */
+  opacity: 0.6;
+}
+.close:hover {
+  color: #000;
+  opacity: 1;         /* full-strength glyph: #000 on #fff = 21:1 */
+}
+.close:focus,
+.close:focus-visible {
+  color: #000;
+  opacity: 1;
+  outline: 2px solid #424242;   /* focus ring: #424242 on #fff = ~10:1 (>= 3:1) */
+  outline-offset: 2px;
+}
+/* Horizontal-scroll wrapper for wide data tables. JS makes it focusable/labeled only
+   when the table actually overflows, so it remains keyboard-operable at high zoom. */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+.table-scroll:focus {
+  outline: 2px solid #424242;
+  outline-offset: 2px;
+}
+/* The basic/advanced tutorial pages use a custom percentage grid whose columns
+   stay floated at fixed widths at all sizes, so at high zoom / narrow viewports
+   the right-hand "Page Contents" sidebar (.col-1-4) collapses to a narrow strip
+   and its links (e.g. those under "Singleton") are truncated. Below 768px, stack
+   the custom-grid columns full-width and keep the sidebar in normal flow
+   (un-affixed, un-floated) so every link reflows and stays visible (WCAG 1.4.10).
+   Only the custom .col-* classes are targeted (used solely by these tutorial
+   pages); Bootstrap's grid is untouched. float:none !important is required to
+   override the inline float:right on the Advanced Tutorial sidebar. */
+@media (max-width: 767px) {
+  .col-2-3,
+  .col-1-3,
+  .col-1-2,
+  .col-1-4,
+  .col-1-8,
+  .col-1-12,
+  .col-3-4,
+  .col-3-8 {
+    width: 100%;
+    float: none !important;
+  }
+  .tutorial-sidebar.affix,
+  .tutorial-sidebar.affix-bottom,
+  .tutorial-sidebar .affix {
+    position: static !important;
+    top: auto !important;
+    float: none;
+  }
+}
+/* Reflow long, unbreakable strings (URLs, namespaces, identifiers) in body text
+   so they wrap instead of overflowing/truncating at high zoom (WCAG 1.4.10). */
+p,
+li,
+dd,
+dt {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+/* When the "Recent Posts" columns stack (below Bootstrap's md breakpoint, i.e.
+   <=991px, which includes 400% zoom on a 1280px viewport per WCAG 1.4.10
+   Reflow), let the carousel caption flow below the image instead of being
+   clipped by the fixed-height absolute overlay, so its text is not truncated. */
+@media (max-width: 991px) {
+  .carousel-caption {
+    position: static;
+    margin: 0;
+    max-width: none;
+    max-height: none;
+  }
+}
