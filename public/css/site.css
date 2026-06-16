@@ -496,6 +496,32 @@ td {
   color: green;
 }
 
+/* ---------------------------------------------------------------------------
+   Accessibility: Bootstrap modal "Close (X)" button — non-text contrast + focus
+   Addresses MAS 1.4.11 (Non-text Contrast).
+   Bootstrap's default .close paints the black glyph at opacity:.2, which
+   composites to ~#ccc on the white (#fff) modal header (~1.6:1), and shows no
+   visible keyboard focus ring. Raising the opacity darkens the glyph and a
+   solid outline supplies the focus indicator (not color alone). Scoped to
+   .close so every Bootstrap close button is covered site-wide, matching the
+   .dropdown-toggle:focus outline pattern above. Additive only — no layout or
+   modal open/close behavior change.
+   --------------------------------------------------------------------------- */
+.close {
+  color: #000;        /* opacity .6 composites #000 -> ~#666 on #fff = 5.74:1 (>= 3:1) */
+  opacity: 0.6;
+}
+.close:hover {
+  color: #000;
+  opacity: 1;         /* full-strength glyph: #000 on #fff = 21:1 */
+}
+.close:focus,
+.close:focus-visible {
+  color: #000;
+  opacity: 1;
+  outline: 2px solid #424242;   /* focus ring: #424242 on #fff = ~10:1 (>= 3:1) */
+  outline-offset: 2px;
+}
 /* Horizontal-scroll wrapper for wide data tables. JS makes it focusable/labeled only
    when the table actually overflows, so it remains keyboard-operable at high zoom. */
 .table-scroll {
