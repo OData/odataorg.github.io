@@ -496,6 +496,26 @@ td {
   color: green;
 }
 
+/* Accessibility fix — MAS 1.4.1 (non-text contrast of focus indicator).
+   Bootstrap 3 removes the focus ring via `.navbar-toggle:focus { outline: 0 }`, so the responsive
+   "Hamburger" toggle showed no visible keyboard focus boundary (measured ~1.389:1) at narrow
+   widths / high zoom. Add a solid 2px outline (shape-based, not color-alone) with an offset so it
+   sits just outside the button. White (#fff) over the orange navbar (#d24714) is ~4.5:1, which
+   exceeds the WCAG 3:1 non-text contrast threshold. Only the outline is added — Bootstrap's focus
+   background-color is left intact, and outline/outline-offset do not affect layout.
+   `:focus` and `:focus-visible` are kept as separate rules so the universally-supported `:focus`
+   fallback still applies on browsers that do not understand `:focus-visible` (a single selector
+   list would be dropped entirely if one selector is unrecognized). Both selectors share the
+   specificity (0,2,0) of Bootstrap's `.navbar-toggle:focus { outline: 0 }` and win the cascade
+   because site.css loads after bootstrap.min.css. */
+.navbar-toggle:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.navbar-toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
 /* ---------------------------------------------------------------------------
    Accessibility: Bootstrap modal "Close (X)" button — non-text contrast + focus
    Addresses MAS 1.4.11 (Non-text Contrast).
