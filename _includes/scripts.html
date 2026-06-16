@@ -154,6 +154,57 @@
             $("span.cell-content").contents().unwrap();
         }
     }
+
+    // Wrap data tables in a horizontal-scroll wrapper so they are not clipped at high zoom,
+    // while preserving the table's native semantics. The wrapper becomes a focusable,
+    // labeled scroll region only when the table actually overflows (WCAG 1.4.10 / 2.1.1).
+    function setupScrollableTables() {
+        $('.container table').not('.reflows').not('.other-protocols-table').each(function() {
+            if ($(this).parent('.table-scroll').length === 0) {
+                $(this).wrap('<div class="table-scroll"></div>');
+            }
+        });
+        updateScrollableTables();
+    }
+
+    function updateScrollableTables() {
+        $('.table-scroll').each(function() {
+            var wrapper = this;
+            var table = wrapper.firstElementChild;
+            if (!table) {
+                return;
+            }
+            if (table.scrollWidth > wrapper.clientWidth + 1) {
+                if (!wrapper.hasAttribute('tabindex')) {
+                    var caption = table.querySelector('caption');
+                    var ariaLabel = (table.getAttribute('aria-label') || '').trim();
+                    var labelledbyId = table.getAttribute('aria-labelledby');
+                    var labelledbyEl = labelledbyId ? document.getElementById(labelledbyId) : null;
+                    var label =
+                        (caption && caption.textContent.trim()) ? caption.textContent.trim() :
+                        ariaLabel ? ariaLabel :
+                        (labelledbyEl && labelledbyEl.textContent.trim()) ? labelledbyEl.textContent.trim() :
+                        'Table';
+                    wrapper.setAttribute('role', 'region');
+                    wrapper.setAttribute('aria-label', label + ', scrollable');
+                    wrapper.setAttribute('tabindex', '0');
+                }
+            } else {
+                wrapper.removeAttribute('tabindex');
+                wrapper.removeAttribute('role');
+                wrapper.removeAttribute('aria-label');
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        setupScrollableTables();
+    });
+    window.addEventListener("resize", updateScrollableTables);
+    window.addEventListener("load", updateScrollableTables);
+    // Tables inside inactive tab-panes measure 0 until shown; recompute on tab show.
+    $(document).on('shown.bs.tab shown.bs.pill', updateScrollableTables);
+
     $(".dropdown").on("show.bs.dropdown", function(event){
        $(this).children('a[role=menuitem]').attr('aria-expanded', true);
     });

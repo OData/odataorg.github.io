@@ -496,6 +496,17 @@ td {
   color: green;
 }
 
+/* Horizontal-scroll wrapper for wide data tables. JS makes it focusable/labeled only
+   when the table actually overflows, so it remains keyboard-operable at high zoom. */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+.table-scroll:focus {
+  outline: 2px solid #424242;
+  outline-offset: 2px;
+}
 /* The basic/advanced tutorial pages use a custom percentage grid whose columns
    stay floated at fixed widths at all sizes, so at high zoom / narrow viewports
    the right-hand "Page Contents" sidebar (.col-1-4) collapses to a narrow strip
