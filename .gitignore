@@ -4,3 +4,4 @@ _config.yml
 .jekyll-cache
 .vs/
 .vscode/
+vendor/

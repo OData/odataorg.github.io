@@ -61,10 +61,16 @@ extends:
         - checkout: self
           lfs: true
           submodules: recursive
-        # Build the site using the jekyll/builder container image.
+        # Build the site with Jekyll using the Ruby toolchain on the agent.
+        # Gems (Jekyll and plugins) are restored from the Gemfile into vendor/bundle,
+        # which Jekyll excludes from the build by default.
+        # Requires Ruby and Bundler on the build image (standard on Ubuntu CI images).
         # Output is written to $(Build.SourcesDirectory)/_site.
         - script: |
-            docker run \
-              -v $(Build.SourcesDirectory):/srv/jekyll -v $(Build.SourcesDirectory)/_site:/srv/jekyll/_site \
-              jekyll/builder:stable /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --config _config.yml --future"
+            set -euo pipefail
+            ruby --version
+            bundle --version
+            bundle config set --local path 'vendor/bundle'
+            bundle install --jobs 4 --retry 3
+            bundle exec jekyll build --config _config.yml --future
           displayName: 'Build the site'
