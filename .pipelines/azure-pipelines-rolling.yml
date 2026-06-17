@@ -62,13 +62,17 @@ extends:
           lfs: true
           submodules: recursive
         # Build the site with Jekyll using the Ruby toolchain on the agent.
-        # Gems (Jekyll and plugins) are restored from the Gemfile into vendor/bundle,
+        # The agent's system Ruby does not expose Bundler on PATH, so Bundler is installed
+        # into a workspace-local gem home (no elevated permissions needed).
+        # Jekyll and plugins are then restored from the Gemfile into vendor/bundle,
         # which Jekyll excludes from the build by default.
-        # Requires Ruby and Bundler on the build image (standard on Ubuntu CI images).
         # Output is written to $(Build.SourcesDirectory)/_site.
         - script: |
             set -euo pipefail
             ruby --version
+            export GEM_HOME="$BUILD_SOURCESDIRECTORY/.gem"
+            export PATH="$GEM_HOME/bin:$PATH"
+            gem install bundler --no-document
             bundle --version
             bundle config set --local path 'vendor/bundle'
             bundle install --jobs 4 --retry 3
