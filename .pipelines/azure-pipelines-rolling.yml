@@ -1,0 +1,70 @@
+# Rolling (CI) pipeline: builds and validates the site on changes to master and on PRs targeting master.
+
+name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+# batch: true waits for any in-progress run to finish, then starts a single run that
+# batches together all changes accumulated while it was running.
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+# autoCancel: false keeps an in-progress validation running even when new commits are pushed to the PR.
+pr:
+  autoCancel: false
+  branches:
+    include:
+    - master
+
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: refs/heads/master
+  - repository: 1ESPipelineTemplates
+    type: git
+    name: 1ESPipelineTemplates/1ESPipelineTemplates
+    ref: refs/tags/release
+
+variables:
+  # Static site produces no compiled binaries.
+  runCodesignValidationInjection: false
+
+extends:
+  template: v1/1ES.Official.PipelineTemplate.yml@1ESPipelineTemplates
+  parameters:
+    # Confirm the build pool exposes a Linux image with this exact name before enabling the pipeline.
+    pool:
+      name: MSSecurity-1ES-Build-Agents-Pool
+      image: MSSecurity-1ES-Ubuntu-2204-v2
+      os: linux
+    customBuildTags:
+    - ES365AIMigrationTooling
+    # Some source-analysis tasks require Windows, so provide a Windows pool here because
+    # the build pool above is Linux.
+    sdl:
+      sourceAnalysisPool:
+        name: MSSecurity-1ES-Build-Agents-Pool
+        image: MSSecurity-1ES-Windows-2022
+        os: windows
+    stages:
+    - stage: build
+      jobs:
+      - job: BuildSite
+        variables:
+          # No compiled components in a static site build.
+          skipComponentGovernanceDetection: true
+        steps:
+        # lfs: true checks out the LFS-tracked images under assets/.
+        # submodules: recursive is defensive (no submodules today) to mirror existing workflows.
+        - checkout: self
+          lfs: true
+          submodules: recursive
+        # Build the site using the jekyll/builder container image.
+        # Output is written to $(Build.SourcesDirectory)/_site.
+        - script: |
+            docker run \
+              -v $(Build.SourcesDirectory):/srv/jekyll -v $(Build.SourcesDirectory)/_site:/srv/jekyll/_site \
+              jekyll/builder:stable /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --config _config.yml --future"
+          displayName: 'Build the site'
