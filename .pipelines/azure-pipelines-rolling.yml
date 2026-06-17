@@ -62,11 +62,6 @@ extends:
           lfs: true
           submodules: recursive
         # Build the site with Jekyll using the Ruby toolchain on the agent.
-        # The agent's system Ruby does not expose Bundler on PATH, so Bundler is installed
-        # into a workspace-local gem home (no elevated permissions needed).
-        # Jekyll and plugins are then restored from the Gemfile into vendor/bundle,
-        # which Jekyll excludes from the build by default.
-        # Output is written to $(Build.SourcesDirectory)/_site.
         - script: |
             set -euo pipefail
             ruby --version
