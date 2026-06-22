@@ -31,7 +31,7 @@ variables:
   # Static site produces no compiled binaries.
 - name: runCodesignValidationInjection
   value: false
-- group: OData-ESRP-CodeSigning
+- group: OData-Shared
 - name: AZURE_ARTIFACTS_FEED
   value: $(ODataFeed)
 
