@@ -29,7 +29,11 @@ resources:
 
 variables:
   # Static site produces no compiled binaries.
-  runCodesignValidationInjection: false
+- name: runCodesignValidationInjection
+  value: false
+- group: OData-ESRP-CodeSigning
+- name: AZURE_ARTIFACTS_FEED
+  value: $(ODataFeed)
 
 extends:
   template: v1/1ES.Official.PipelineTemplate.yml@1ESPipelineTemplates
@@ -64,15 +68,22 @@ extends:
         - checkout: self
           lfs: true
           submodules: recursive
+
+        - task: NuGetAuthenticate@1
+          displayName: 'Authenticate to the feed'
+
         # Build the site with Jekyll using the Ruby toolchain on the agent.
-        - script: |
-            set -euo pipefail
-            ruby --version
-            export GEM_HOME="$BUILD_SOURCESDIRECTORY/.gem"
-            export PATH="$GEM_HOME/bin:$PATH"
-            gem install bundler --no-document
-            bundle --version
-            bundle config set --local path 'vendor/bundle'
-            bundle install --jobs 4 --retry 3
-            bundle exec jekyll build --config _config.yml --future
+        - task: Bash@3
           displayName: 'Build the site'
+          inputs:
+            targetType: inline
+            script: |
+              set -euo pipefail
+              ruby --version
+              export GEM_HOME="$BUILD_SOURCESDIRECTORY/.gem"
+              export PATH="$GEM_HOME/bin:$PATH"
+              gem install bundler --no-document
+              bundle --version
+              bundle config set --local path 'vendor/bundle'
+              bundle install --jobs 4 --retry 3
+              bundle exec jekyll build --config _config.yml --future
