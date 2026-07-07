@@ -198,15 +198,25 @@ ComboboxAutocomplete.prototype.setCurrentOptionStyle = function (option) {
         var opt = this.filteredOptions[i];
         if (opt === option) {
             opt.setAttribute('aria-selected', 'true');
+            // Keep the visible highlight ('active') on the same option the combobox
+            // treats as current. The legacy Swiftype key handler also toggles 'active'
+            // and drifts out of sync at the list boundaries (it clears the highlight
+            // instead of wrapping), which would leave the highlighted suggestion
+            // different from the one scrolled into view. Making the combobox the single
+            // authority keeps the focused suggestion both highlighted and visible.
+            opt.classList.add('active');
             if ((this.listboxNode.scrollTop + this.listboxNode.offsetHeight) < (opt.offsetTop + opt.offsetHeight)) {
                 this.listboxNode.scrollTop = opt.offsetTop + opt.offsetHeight - this.listboxNode.offsetHeight;
             }
             else if (this.listboxNode.scrollTop > (opt.offsetTop + 2)) {
                 this.listboxNode.scrollTop = opt.offsetTop;
             }
-            // Focus stays on the input (aria-activedescendant), and the listbox is not an
-            // internal scroll container, so the browser will not auto-scroll to the active
-            // option. Scroll it into view so it is never obscured (WCAG 2.4.11).
+            // Focus stays on the input (aria-activedescendant). The listbox is capped to the
+            // viewport height and scrolls internally (see #search-results in autocomplete.css),
+            // so the scrollTop adjustment above keeps the focused suggestion visible without
+            // scrolling the whole page (WCAG 2.4.11). scrollIntoView is a minimal fallback for
+            // any browser that has not applied the internal scroll; block:'nearest' only moves
+            // the option the least amount needed and is a no-op once it is already visible.
             if (typeof opt.scrollIntoView === 'function') {
                 try {
                     opt.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -219,6 +229,7 @@ ComboboxAutocomplete.prototype.setCurrentOptionStyle = function (option) {
         }
         else {
             opt.removeAttribute('aria-selected');
+            opt.classList.remove('active');
         }
     }
 };
