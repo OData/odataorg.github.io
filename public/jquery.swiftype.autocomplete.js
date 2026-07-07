@@ -169,15 +169,10 @@
 
             $this.registerResult = function($element, data) {
                 $element.data('swiftype-item', data);
-                // Drive the hover highlight from real pointer movement only. During keyboard
-                // navigation the suggestion list scrolls internally to keep the focused
-                // suggestion visible; that scrolling slides suggestions under a stationary cursor
-                // and makes browsers dispatch pointer events ('mouseover' in all browsers, and
-                // 'mousemove' in WebKit). Honoring those would steal the highlight away from the
-                // keyboard-focused option and leave it obscured (WCAG 2.4.11). Listen for
-                // 'mousemove' and ignore any event whose viewport coordinates have not changed
-                // since the last one, which filters out scroll-induced events while still
-                // reacting to genuine mouse motion.
+                // Highlight on real pointer movement only. Internal list scrolling slides
+                // suggestions under a stationary cursor and fires pointer events that would
+                // otherwise steal the highlight from the keyboard-focused option (WCAG 2.4.11);
+                // ignore events whose coordinates have not changed since the last one.
                 $element.click($this.selectedCallback(data)).mousemove(function (event) {
                     if (event && event.clientX === $this.lastPointerX && event.clientY === $this.lastPointerY) {
                         return;
@@ -247,15 +242,10 @@
                         break;
                     case 38:
                     case 40:
-                        // Up/Down arrows: suggestion navigation is owned exclusively by
-                        // ComboboxAutocomplete (the ARIA combobox in combobox-autocomplete.js).
-                        // It keeps the visible highlight ('active'), aria-selected and
-                        // scroll-into-view in sync so the focused suggestion is never obscured
-                        // (WCAG 2.4.11). This legacy handler used a separate, non-wrapping
-                        // 'active' pointer over a possibly stale result list; running it here
-                        // moved the highlight independently and desynchronized it from the
-                        // scrolled-to option, leaving the highlighted suggestion off-screen.
-                        // Only prevent the default caret movement and let the combobox navigate.
+                        // Up/Down navigation is owned solely by ComboboxAutocomplete
+                        // (combobox-autocomplete.js); running this legacy handler too moved a
+                        // second highlight and desynced it from the scrolled-to option
+                        // (WCAG 2.4.11). Only prevent the default caret movement.
                         event.preventDefault();
                         break;
                     case 27:

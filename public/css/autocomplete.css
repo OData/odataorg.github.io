@@ -52,14 +52,10 @@ form input.st-search-input {
     text-align: left;
 }
 
-/* WCAG 2.4.11 Focus Not Obscured (Minimum): keep the keyboard-focused suggestion visible.
-   Cap the suggestion list to the viewport height and let it scroll internally instead of
-   growing to its full content height and scrolling the whole page. 'position: relative' makes
-   each option's offsetTop relative to this list, so ComboboxAutocomplete.setCurrentOptionStyle
-   can bring the focused option into view via listboxNode.scrollTop. Page-level scrolling let the
-   focused suggestion be pushed off-screen (and, on some browsers, fought the browser's own
-   focus-scroll of the input); internal scrolling keeps the input and the focused suggestion on
-   screen together. When all suggestions fit within the viewport, no scrollbar appears. */
+/* WCAG 2.4.11 Focus Not Obscured: cap the suggestion list to the viewport and scroll it
+   internally instead of scrolling the whole page, so the keyboard-focused suggestion stays
+   visible. 'position: relative' makes each option's offsetTop relative to this list so
+   setCurrentOptionStyle's listboxNode.scrollTop can reach it. No scrollbar when all fit. */
 #search-results {
     position: relative;
     max-height: calc(100vh - 60px);
