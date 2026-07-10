@@ -169,18 +169,7 @@
 
             $this.registerResult = function($element, data) {
                 $element.data('swiftype-item', data);
-                // Highlight on real pointer movement only. Internal list scrolling slides
-                // suggestions under a stationary cursor and fires pointer events that would
-                // otherwise steal the highlight from the keyboard-focused option (WCAG 2.4.11);
-                // ignore events whose coordinates have not changed since the last one.
-                $element.click($this.selectedCallback(data)).mousemove(function (event) {
-                    if (event && event.clientX === $this.lastPointerX && event.clientY === $this.lastPointerY) {
-                        return;
-                    }
-                    if (event) {
-                        $this.lastPointerX = event.clientX;
-                        $this.lastPointerY = event.clientY;
-                    }
+                $element.click($this.selectedCallback(data)).mouseover(function () {
                     $this.listResults().removeClass(config.activeItemClass);
                     $element.addClass(config.activeItemClass);
                 });
@@ -241,12 +230,20 @@
                         suppressKey = true;
                         break;
                     case 38:
-                    case 40:
-                        // Up/Down navigation is owned solely by ComboboxAutocomplete
-                        // (combobox-autocomplete.js); running this legacy handler too moved a
-                        // second highlight and desynced it from the scrolled-to option
-                        // (WCAG 2.4.11). Only prevent the default caret movement.
                         event.preventDefault();
+                        if ($active.length === 0) {
+                            $this.listResults().last().addClass(config.activeItemClass);
+                        } else {
+                            $this.prevResult();
+                        }
+                        break;
+                    case 40:
+                        event.preventDefault();
+                        if ($active.length === 0) {
+                            $this.listResults().first().addClass(config.activeItemClass);
+                        } else if ($active != $this.listResults().last()) {
+                            $this.nextResult();
+                        }
                         break;
                     case 27:
                         $this.hideList();
