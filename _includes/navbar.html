@@ -87,7 +87,13 @@
                 </ul>
 
                 <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group combobox combobox-list">
+                    <div class="form-group combobox combobox-list navbar-search-group">
+                        <label for="main-search-input" class="navbar-search-label" id="main-search-label">
+                            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" class="navbar-search-icon">
+                                <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </label>
                         <input id="main-search-input"
                                type="text"
                                aria-label="Search"
@@ -105,7 +111,10 @@
                                 aria-expanded="false"
                                 aria-controls="search-results">
                         </button>
-                        <span id="main-search-instructions" class="sr-only">Search the OData site. Suggestions appear below as you type; use the up and down arrow keys to review suggestions and Enter to open the selected result.</span>
+                        <span id="main-search-instructions" class="navbar-search-helper">
+                            Search the OData site.
+                            <span class="sr-only">Suggestions appear below as you type; use the up and down arrow keys to review suggestions and Enter to open the selected result.</span>
+                        </span>
                     </div>
                 </form>
             </div>
