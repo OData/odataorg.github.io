@@ -1,6 +1,6 @@
 ---
 category: java
-name: odata4j
+name: odata4j <span class="label label-success">Unmaintained</span>
 rownumber: 7
 version: V1-V3
 object: Both
