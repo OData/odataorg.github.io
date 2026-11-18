@@ -6,3 +6,6 @@ _config.yml
 .vscode/
 vendor/
 .gem/
+node_modules/
+test-results/
+playwright-report/
