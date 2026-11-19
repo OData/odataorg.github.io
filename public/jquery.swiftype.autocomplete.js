@@ -318,7 +318,7 @@
             dataType: 'jsonp',
             url: endpoint,
             data: params
-        }).success(function(data) {
+        }).done(function(data) {
             var norm = normalize(term);
             if (data.record_count > 0) {
                 $this.cache.put(norm, data.records);
