@@ -76,3 +76,23 @@ extends:
             bundle install --jobs 4 --retry 3
             bundle exec jekyll build --config _config.yml --future
           displayName: 'Build the site'
+        - task: NodeTool@0
+          inputs:
+            versionSpec: '24.x'
+          displayName: 'Use Node.js'
+        - script: |
+            set -euo pipefail
+            npm ci
+            npx playwright install --with-deps chromium
+            npm test
+          displayName: 'Run browser regression tests'
+          env:
+            CI: 'true'
+        - task: PublishTestResults@2
+          condition: succeededOrFailed()
+          inputs:
+            testResultsFormat: 'JUnit'
+            testResultsFiles: 'test-results/results.xml'
+            failTaskOnFailedTests: true
+            testRunTitle: 'Website browser regression tests'
+          displayName: 'Publish browser test results'

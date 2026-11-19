@@ -2,6 +2,23 @@
 
 This repository is the source code for [www.odata.org](https://www.odata.org) built with Jekyll. Site admins regularly updates the contents to the site.
 
+## Browser regression tests
+
+Install the JavaScript test dependencies and Chromium, build the site, then run the tests:
+
+```shell
+npm ci
+npx playwright install chromium
+bundle exec jekyll build --config _config.yml --future
+npm test
+```
+
+The rolling Azure pipeline runs the same tests after building the site and publishes JUnit results. Test code and dependencies are excluded from production and staging site builds.
+
+The tests cover jQuery CDN loading and local fallback, navigation, carousel controls, search suggestions, tabs, responsive tables, and key pages. Browser requests are intercepted to serve the generated site and mock search responses; no requests reach the production website. The pinned Bootstrap script is downloaded from the site's CDN before each scenario. Set `SITE_DIRECTORY` to test a different Jekyll output directory.
+
+Two existing issues are not treated as regressions: the screenshot Escape handler assumes an element exists (reported as a test annotation), and full-page search has no results container (request submission is tested, but result rendering is not).
+
 # Contribution Guide
 
 ## Create blogs

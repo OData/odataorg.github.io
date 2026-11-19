@@ -27,5 +27,14 @@ permalink: /blog/:title/
 # Build settings
 markdown: kramdown
 
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - playwright.config.js
+  - tests
+  - test-results
+  - playwright-report
+
 gems:
   - jekyll-sitemap
